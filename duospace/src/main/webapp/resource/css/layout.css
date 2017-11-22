@@ -1,20 +1,62 @@
 @charset "UTF-8";
+/** Page headers**/
+#page-header{
+		margin: 10px 0 12px 0;
+	    font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	    min-height: 44px;
+}
+#page-header .header-brand{
+	float:left;
+    display: inline-block; 
+    padding-right:20px;
+    padding:0;
+    margin:0;
+}
+#page-header .header-brand  a{ 
+    text-decoration: none;
+}
+#page-header .logo{
+	float:left;
+}
+#page-header .header-login {
+	float:right;
+	min-height:27px;
+}
+#page-header .login {
+	float:right; position:relative;
+}
 
 
 /** Footer **/
-.footer{
+.footer-tet{
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 10px;
   margin-bottom: 15px;
   text-align: center;
+  
 }
 
-.footer-links {
-  padding-left: 0;
+.footer-tet-left{
+  padding-left: 10px;
+  padding-right: 15px;
   margin-bottom: 0px;
+  float: left;
 }
 
-.footer-links li {
-  display: inline-block;
+.footer-tet-right {
+  padding-left: 15px;
+  margin-bottom: 0px;
+  border-left: 1px solid #adadad;
+  float: left;
+}
+
+.footer-tet-right span{
+  margin-left: 5px;
+}
+
+@media (min-width: 768px) {
+	.footer-tet{
+		text-align: center;
+	}
 }

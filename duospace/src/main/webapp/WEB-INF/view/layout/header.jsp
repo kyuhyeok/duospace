@@ -8,13 +8,11 @@
 
 <div class="container">
     <div id="page-header">
-        <div class="header-brand"><a href="<%=cp%>/"><span class="logo">DUO SPACE</span></a></div>
-				
-        <div class="login header-login">
+        <div class="headder-brand"><a href="<%=cp%>/"><span class="logo"><img src="<%=cp%>/resource/images/DuoSpace.PNG"></span></a></div>
+        <div class="header-login">
         	<c:if test="${sessionScope.member.userId=='admin'}">
                 <a href="#">관리자</a> <i></i>
             </c:if>
-            
             <c:if test="${empty sessionScope.member}">
                 <a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a> <i></i>
                 <a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a>
@@ -23,7 +21,7 @@
             	<a href="#"><span class="glyphicon glyphicon-POS">POS</span></a>
                 <span style="color:blue;">${sessionScope.member.userName}</span>님 <i></i>
                 <a href="#"><span class="glyphicon glyphicon-log-out"></span> 로그아웃</a>
-	            <a href="#"><span class="glyphicon glyphicon-my-page">마이 페이지</span></a>
+	            <a href="#"><span class="glyphicon glyphicon-mypage">마이 페이지</span></a>
             </c:if>
         </div>
         <div class="clear"></div>
@@ -35,7 +33,7 @@
              <div class="container-fluid">
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="<%=cp%>/company/info">공지사항</a></li>
+                        <li><a href="#">공지사항</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">duo space<span class="duo-space"></span></a>
                             <ul class="dropdown-menu">
@@ -61,5 +59,8 @@
                 </div>
             </div>
         </nav>
+</div>
+<div>
+	
 </div>
 
