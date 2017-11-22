@@ -1,4 +1,4 @@
-package com.sp.member;
+package com.duospace.member;
 
 public interface MemberService {
 }

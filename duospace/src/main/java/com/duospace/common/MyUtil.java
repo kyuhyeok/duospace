@@ -1,4 +1,4 @@
-package com.sp.common;
+package com.duospace.common;
 
 public abstract class MyUtil {
     

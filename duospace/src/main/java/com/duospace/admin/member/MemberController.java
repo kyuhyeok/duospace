@@ -1,4 +1,4 @@
-package com.sp.admin.member;
+package com.duospace.admin.member;
 
 public class MemberController {
 }

@@ -1,4 +1,4 @@
-package com.sp.common.dao;
+package com.duospace.common.dao;
 
 
 public class MyBatisDaoImpl implements CommonDAO {

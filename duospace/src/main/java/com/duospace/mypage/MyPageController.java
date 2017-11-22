@@ -1,4 +1,4 @@
-package com.sp.mypage;
+package com.duospace.mypage;
 
 
 public class MyPageController {
