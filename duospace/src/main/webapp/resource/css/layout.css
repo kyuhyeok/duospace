@@ -33,6 +33,131 @@
 #navbar li{
 	margin-left: 20px;
 }
+/** jumbotron **/
+.jumbotron {
+  margin-bottom: 20px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.jumbotron .container {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 24px;
+    text-align: left;
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .jumbotron h1 {
+    font-size: 40px;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 992px) {
+  .jumbotron h1,
+  .jumbotron p {
+    margin-right: 100px;
+  }
+}
+
+.intro-text-container {
+  margin: 0 auto;
+  transition: 2s ease;
+  text-align: center;
+  max-width: 286px;
+    width: auto;
+}
+
+h1 {
+  font-size: 3em;
+  font-family: Helvetica;
+  letter-spacing: -0.025em;
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+
+.intro-text-1, .intro-text-2, .intro-text-3, .intro-text-4 {
+  transition: 1.5s ease;
+  display: inline-block;
+  float: left;
+}
+
+@keyframes waveHand {
+  0% {
+     transform: rotate(7deg);
+  }
+  50% {
+     transform: rotate(-7deg); 
+  }
+  100% {
+     transform: rotate(7deg);
+  }
+}
+
+.intro-text-1 {
+  animation-name: waveHand;
+  animation-iteration-count: infinite;
+  animation-duration: 1.3s;
+  animation-timing-function: ease;
+  transform-origin: 90% 80%;
+  opacity:  1;
+}
+.intro-text-1.start {
+  opacity: 0;
+}
+
+.intro-text-2 {
+  width: 150px;
+  opacity: 1;
+  transition-delay: 1.5s;
+  margin-left: 12px;
+      max-width: 60px;
+}
+
+.intro-text-2.start {
+  width: 0;
+  opacity: 0;
+    max-width: 1px;
+}
+
+.intro-text-3 {
+  opacity: 1;
+  transition-delay: 3.25s;
+}
+
+.intro-text-3.start {
+  opacity: 0;
+}
+
+.intro-text-4 {
+  max-width: 150px;
+  opacity: 1;
+  transition: ease 2s;
+  transition-delay: 3.5s;
+  white-space:nowrap;
+  transform: translateX(0px);
+  margin-left: 16px;
+}
+
+.intro-text-4.start {
+  max-width: 1px;
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.start {
+  position: absolute;
+  opacity: 0;
+}
 
 /** Footer **/
 .footer-tet{
@@ -45,10 +170,11 @@
 }
 
 .footer-tet-left{
+  float: left;
+  max-width:200px;
   padding-left: 10px;
   padding-right: 15px;
   margin-bottom: 0px;
-  float: left;
   color: #A6A6A6;
 }
 
@@ -56,7 +182,7 @@
   padding-left: 15px;
   margin-bottom: 0px;
   border-left: 1px solid #adadad;
-  float: left;
+  float: right;
 }
 
 .footer-tet-right span{

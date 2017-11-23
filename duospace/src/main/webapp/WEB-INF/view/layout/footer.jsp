@@ -9,7 +9,7 @@
 <footer class="footer-tet" role="contentinfo">
     <div class="container" style="mar">
     	<div class="footer-tet-left">
-    		<span>(주)Duo Space <img src="<%=cp%>/resource/images/DuoSpace.PNG" style="max-width: 50px; max-height: 50px;"></span>
+    		<span><img src="<%=cp%>/resource/images/DuoSpace.PNG" style="max-width: 100%; max-height: 100%;"></span>
     	</div>
 		<div class="footer-tet-right">
 			<span><a href="#"> 회사 소개 </a></span>
