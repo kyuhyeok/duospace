@@ -65,6 +65,11 @@
     margin-right: 100px;
   }
 }
+.intro-text-wrapper {
+  display: flex;
+  align-items:center;
+  min-height: 50vh;
+}
 
 .intro-text-container {
   margin: 0 auto;
@@ -90,7 +95,12 @@ h1 {
   display: inline-block;
   float: left;
 }
-
+.carousel-caption{
+	min-height: 100%;
+}
+.intro-text-container{
+	margin-top: 140px;
+}
 @keyframes waveHand {
   0% {
      transform: rotate(7deg);
@@ -194,3 +204,12 @@ h1 {
 		text-align: center;
 	}
 }
+
+.main-row{
+	margin: 20px 100px;
+}
+.col-sm-4{
+	text-align: center;
+}
+
+
