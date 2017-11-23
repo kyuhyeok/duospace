@@ -45,7 +45,7 @@ function dialogLogin() {
                     </ul>
                 </div>
         <div class="header-login">
-                <a href="#"><span class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
+                <a href="<%=cp%>/admin"><span class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
         	<c:if test="${sessionScope.member.userId=='admin'}">
             </c:if>
             <c:if test="${empty sessionScope.member}">
