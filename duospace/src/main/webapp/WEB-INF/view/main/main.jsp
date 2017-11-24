@@ -10,7 +10,65 @@ $(document).ready(function() {
     $('.start').removeClass('start');  
 });
 </script>
+<style type="text/css">
+.logo-small {
+	color: #6798FD;
+    font-size: 50px;
+}
 
+.slogo {
+	color: #6798FD;
+    font-size: 200px;
+}
+
+/** panel**/
+.panel {
+    border: 1px solid #4374D9; 
+    border-radius:0;
+    transition: box-shadow 0.5s;
+}
+
+.panel:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+
+.panel-footer .btn:hover {
+    border: 1px solid #8C8C8C;
+    background-color: #4374D9 !important;
+    color: white;
+}
+
+.panel-heading {
+    color: #4374D9 !important;
+    background-color: #8C8C8C !important;
+    padding: 25px;
+    border-bottom: 1px solid #4374D9;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.panel-footer {
+    background-color: white !important;
+}
+
+.panel-footer h3 {
+    font-size: 32px;
+}
+
+.panel-footer h4 {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.panel-footer .btn {
+    margin: 15px 0;
+    background-color: #6798FD;
+    color: #ffffff;
+}
+
+</style>
 <div class="bodyFrame">
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -30,7 +88,6 @@ $(document).ready(function() {
 				<div class="container">
 					<div class="carousel-caption">
 					<h1>
-					<span class="intro-text-1 start"> 👋 </span>
 					</h1>
 					</div>
 				</div>
@@ -57,10 +114,7 @@ $(document).ready(function() {
 					<div class="carousel-caption">
 						<div class="intro-text-container">
 			<h1>
-				<span class="intro-text-1 start"> 👋 </span> <span
-					class="intro-text-2 start"> Hi </span> <span
-					class="intro-text-3 start"> Coworking </span> <span
-					class="intro-text-4 start"> Duo Space  </span>
+
 			</h1>
 		</div>
 					</div>
@@ -78,9 +132,9 @@ $(document).ready(function() {
 </div>
 
 <div class="container">
-  <div class="main-row" style="margin: 0px ">
+  <div class="row" style="margin: 0px ">
     <div class="col-sm-4">
-      <h3>같이(duo)</h3>
+      <h3>같이(Duo)</h3>
       <p><b>협업만이 진정한 코워킹인가?</b><br></p>
       <p>
       코워킹스페이스가 기존의 working space(= office)와
@@ -104,7 +158,7 @@ $(document).ready(function() {
       </p>
     </div>
     <div class="col-sm-4">
-      <h3>일하는(working)</h3> 
+      <h3>일하는(Working)</h3> 
       <p><b>'일'을 정의하는 방식</b></p>
       <p>
       일한다의 정의 역시 사람마다 생각하는 것이 다 다르고
@@ -116,5 +170,137 @@ $(document).ready(function() {
       자유롭게 대화하는 업무환경을 추구하는 경우가 있습니다.
       </p>
     </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>듀오 스페이스(Duo Space)</h2>
+      <h4>우리 회사는...</h4>      
+      <p>회사소개</p>
+      <button class="btn btn-default btn-lg">들어 가기</button>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-signal slogo"></span>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-globe slogo"></span>
+    </div>
+    <div class="col-sm-8">
+      <h2>Duo Value</h2>
+      <h4><strong>MISSION:</strong> 2017년 한 해 프로젝트</h4>      
+      <p><strong>VISION:</strong> 2020년 우리의 목표 Global 성장기업</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid text-center">
+  <h1>서비스</h1>
+  <h4>What we offer</h4>
+  <br>
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-off logo-small"></span>
+      <h4>POWER</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-heart logo-small"></span>
+      <h4>LOVE</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-lock logo-small"></span>
+      <h4>JOB DONE</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-leaf logo-small"></span>
+      <h4>GREEN</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-certificate logo-small"></span>
+      <h4>CERTIFIED</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-wrench logo-small"></span>
+      <h4 style="color:#303030;">HARD WORK</h4>
+      <p>Lorem ipsum dolor sit amet..</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="text-center">
+    <h2>듀오 스페이스(Duo Space)</h2>
+    <h4> 다양한 시설을 즐겨 보세요!</h4>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>1층</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>1</strong> CoreCafe</p>
+          <p><strong>2</strong> Table/Chair</p>
+          <p><strong>3</strong> Door</p>
+          <p><strong>4</strong> Bread Display</p>
+          <p><strong>Endless</strong> Terrace</p>
+        </div>
+        <div class="panel-footer">
+          <h3>CoreCafe</h3>
+          <h4>1Floor/CoreCafe</h4>
+          <button class="btn btn-lg">둘러보기</button>
+        </div>
+      </div>      
+    </div>     
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>2층</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>1</strong> Project Room</p>
+          <p><strong>2</strong> Open Station</p>
+          <p><strong>3</strong> Booth Zone</p>
+          <p><strong>4</strong> Canteen</p>
+          <p><strong>Endless</strong> Elevator Hall</p>
+        </div>
+        <div class="panel-footer">
+          <h3>Project Room</h3>
+          <h4>2Floor</h4>
+          <button class="btn btn-lg">둘러보기</button>
+        </div>
+      </div>      
+    </div>       
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>Other</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>1</strong> Toilet</p>
+          <p><strong>2</strong> Information</p>
+          <p><strong>3</strong> Lounge</p>
+          <p><strong>4</strong> Lobby</p>
+          <p><strong>Endless</strong> Parking</p>
+        </div>
+        <div class="panel-footer">
+          <h3>Information</h3>
+          <h4>Toilet/Information</h4>
+          <button class="btn btn-lg">둘러보기</button>
+        </div>
+      </div>      
+    </div>    
   </div>
 </div>

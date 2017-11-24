@@ -15,8 +15,16 @@ function dialogLogin() {
 }
 </script>
 <div class="container">
+	<div class="container-fluid">
     <div id="page-header">
-        <div class="headder-brand"><a href="<%=cp%>/"><span class="logo"><img src="<%=cp%>/resource/images/DuoSpace.PNG"></span></a></div>
+        <div class="headder-brand">
+        	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+        <a href="<%=cp%>/"><span class="logo"><img src="<%=cp%>/resource/images/DuoSpace.PNG"></span></a></div>
          <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#">공지사항</a></li>
@@ -44,6 +52,7 @@ function dialogLogin() {
                         <li><a href="#">고객센터</a></li>
                     </ul>
                 </div>
+        <div class="clear">
         <div class="header-login">
                 <a href="<%=cp%>/admin"><span class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
         	<c:if test="${sessionScope.member.userId=='admin'}">
@@ -59,8 +68,10 @@ function dialogLogin() {
 	            <a href="#"><span class="glyphicon glyphicon-book">마이 페이지</span></a>
             </c:if>
         </div>
-        <div class="clear"></div>
+        </div>
     </div>
+</div>
+
 </div>
 
 <div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
