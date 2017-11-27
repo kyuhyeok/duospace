@@ -38,7 +38,7 @@
 					<h3>회원님</h3>
 					<ul class="nav side-menu">
 						<li>
-							<a>기본정보관리<span class="caret"></span></a>
+							<a href='<%=cp%>/admin/member/member'>기본정보관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">사이트정보 관리</a></li>
 								<li><a href="#">결제정보 관리</a></li>
