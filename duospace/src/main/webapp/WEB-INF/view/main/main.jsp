@@ -129,7 +129,7 @@ $(document).ready(function() {
 			class="right carousel-control" href="#myCarousel" data-slide="next"><span
 			class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
-</div>
+
 
 <div class="container">
   <div class="row" style="margin: 0px ">
@@ -172,6 +172,7 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
@@ -303,4 +304,5 @@ $(document).ready(function() {
       </div>      
     </div>    
   </div>
+</div>
 </div>

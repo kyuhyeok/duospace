@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
+
 </head>
 <body>
 
