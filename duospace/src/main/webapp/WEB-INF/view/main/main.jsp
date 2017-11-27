@@ -173,7 +173,7 @@ $(document).ready(function() {
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col-sm-8">
       <h2>듀오 스페이스(Duo Space)</h2>
@@ -187,7 +187,7 @@ $(document).ready(function() {
   </div>
 </div>
 
-<div class="container-fluid bg-grey">
+<div class="container bg-grey">
   <div class="row">
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-globe slogo"></span>
@@ -200,7 +200,7 @@ $(document).ready(function() {
   </div>
 </div>
 
-<div class="container-fluid text-center">
+<div class="container text-center">
   <h1>서비스</h1>
   <h4>What we offer</h4>
   <br>
@@ -240,7 +240,7 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container">
   <div class="text-center">
     <h2>듀오 스페이스(Duo Space)</h2>
     <h4> 다양한 시설을 즐겨 보세요!</h4>
