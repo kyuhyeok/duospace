@@ -44,7 +44,7 @@
   position: relative;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1224px) {
   .jumbotron {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -59,7 +59,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1224px) {
   .jumbotron h1,
   .jumbotron p {
     margin-right: 100px;
@@ -132,6 +132,7 @@ h1 {
   margin-left: 12px;
       max-width: 60px;
 }
+
 
 .intro-text-2.start {
   width: 0;

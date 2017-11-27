@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
+
 </head>
 <body>
 
@@ -31,7 +32,7 @@
     <tiles:insertAttribute name="header"/>
 </div>
 
-<div class="container" role="main">
+<div class="container-fluid" role="main">
     <tiles:insertAttribute name="body"/>
 </div>
 

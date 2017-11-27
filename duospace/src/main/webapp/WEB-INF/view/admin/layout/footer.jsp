@@ -6,8 +6,11 @@
    String cp = request.getContextPath();
 %>
 
-<footer class="" role="">
-    <div class="container">
-        
-    </div>        
+
+<footer>
+	<div class="pull-right">
+	Developed by <b><a href="<%=cp%>/" style="color:white;" target="_blank" >DuoSpace</a></b> | Template by <a href="https://colorlib.com">Colorlib</a>
+	</div>
+	<div class="clearfix"></div>
 </footer>
+  

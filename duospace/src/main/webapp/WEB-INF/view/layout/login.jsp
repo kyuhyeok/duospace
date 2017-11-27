@@ -20,10 +20,14 @@
 }
 
 .form-signin-heading {
+  background-color: var(--loginHeaderBackgroundColor);
+  border-top-left-radius: var(--loginBorderRadius);
+  border-top-right-radius: var(--loginBorderRadius);
+  color: #fff;
+  padding: 1.5em;
   text-align: center;
-  font-weight:bold;  
-  font-family: NanumGothic, 나눔고딕, "Malgun Gothic", "맑은 고딕", sans-serif;
-  margin-bottom: 30px;
+  text-transform: uppercase;
+}
 }
 
 .lbl {
@@ -81,13 +85,13 @@ function bgLabel(ob, id) {
         <input type="password" id="userPwd" name="userPwd" class="form-control loginTF"
                   onfocus="document.getElementById('lblUserPwd').style.display='none';"
 	              onblur="bgLabel(this, 'lblUserPwd');">
-       <!--  //<button class="btn btn-lg btn-primary btn-block" type="button" onclick="sendLogin();">로그인 <span class="glyphicon glyphicon-ok"></span></button> -->
+     <button class="btn btn-lg btn-primary btn-block" type="button" onclick="sendLogin();">로그인 <span class="glyphicon glyphicon-ok"></span></button> 
         
-        <%-- <div style="margin-top:10px; text-align: center;">
+       <div style="margin-top:10px; text-align: center;">
             <button type="button" class="btn btn-link" onclick="location.href='<%=cp%>/member/member';">회원가입</button>
             <button type="button" class="btn btn-link">아이디찾기</button>
             <button type="button" class="btn btn-link">패스워드찾기</button>
-        </div> --%>
+        </div>
         
         <div style="margin-top:10px; text-align: center;">${message}</div>
         
