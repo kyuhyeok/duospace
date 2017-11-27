@@ -10,5 +10,4 @@ public class MemberController {
 	public String list(Model model) throws Exception {
 		return ".admin4.menu1.member.member";
 	}
-	
 }
