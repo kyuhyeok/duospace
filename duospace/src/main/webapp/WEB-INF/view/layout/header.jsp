@@ -54,24 +54,28 @@ function modalSendLogin() {
 .navbar-nav a{
 	font-size: 16px;
 }
+.logo{
+	font-family: Airways;
+	font-size: 50px;
+	font-weight: normal;
+}
+
 
 </style>
 <div class="container">
 	<div class="container-fluid">
 		<div id="page-header">
 			<div class="navbar-headder">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			<div id="navbar" class="navbar-collapse collapse">
-				<div class="headder-brand">
-					<a href="<%=cp%>/"><span class="logo"><img
-							src="<%=cp%>/resource/images/DuoSpace.PNG"></span></a>
-				</div>
-			</div>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background-color: #BDBDBD; color: #FFFFFF;">
+       			<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+       			 <span class="icon-bar"></span> 
+     			 </button>
+			<div class="headder-brand">
+					<a href="<%=cp%>/"><span class="logo" style="color: #000000;">
+					Duo Space
+					</span></a>
+			<div class="navbar-collapse collapse" id="myNavbar" >
 				<ul class="nav navbar-nav">
 					<li><a href="#">공지사항</a></li>
 					<li class="dropdown"><a id="space" data-target="#"
@@ -100,7 +104,7 @@ function modalSendLogin() {
 					<li><a href="#">고객센터</a></li>
 				</ul>
 				<div class="clear">
-					<div class="header-login">
+					<div class="header-login" style="float: left;">
 						<a href="<%=cp%>/admin"><span
 							class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
 						<c:if test="${sessionScope.member.userId=='admin'}">
@@ -120,6 +124,8 @@ function modalSendLogin() {
 							<a href="#"><span class="glyphicon glyphicon-book">마이
 									페이지</span></a>
 						</c:if>
+				</div>
+			</div>
 					</div>
 				</div>
 			</div>
