@@ -5,7 +5,24 @@
 <%
    String cp = request.getContextPath();
 %>
-
+<script type="text/javascript">
+$(function(){
+		$("body").on("click",".child_menu",function(){
+			var $trReplyAnswer = $(this)
+			var isVisible = $trReplyAnswer.is(":visible"); 
+			
+			if(isVisible){
+				$trReplyAnswer.hide();
+			}else{
+				$trReplyAnswer.show();
+				
+				listAnswer();
+			}
+		});
+	});
+</script>
+	
+	
 	
 	<body class="nav-md footer_fixed">
 	<div class="container body">
@@ -15,7 +32,7 @@
 
 			<div class="navbar nav_title" style="border: 0;">
 				<a href="<%=cp%>/" class="site_title">
-					<span>Duo Space!</span>
+					<span>Duo Space</span>
 				</a>
 			</div>
 			<div class="clearfix"></div>
@@ -38,7 +55,7 @@
 					<h3>회원님</h3>
 					<ul class="nav side-menu">
 						<li>
-							<a href='<%=cp%>/admin/member/member'>기본정보관리<span class="caret"></span></a>
+							<a href='#'>기본정보관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">사이트정보 관리</a></li>
 								<li><a href="#">결제정보 관리</a></li>
@@ -66,7 +83,7 @@
 							</ul>
 						</li>
 						<li>
-							<a>회원관리<span class="caret"></span></a>
+							<a href="<%=cp%>/admin/member/member">회원관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">관리자 리스트</a></li>
 								<li><a href="#">관리자 등록</a></li>
