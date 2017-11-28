@@ -67,6 +67,10 @@ $(document).ready(function() {
     background-color: #6798FD;
     color: #ffffff;
 }
+img{
+	max-width: 100%;
+	max-height: 650px;
+}
 
 </style>
 <div class="bodyFrame">

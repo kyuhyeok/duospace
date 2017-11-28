@@ -43,6 +43,19 @@ function modalSendLogin() {
    f.submit();
 }
 </script>
+<style type="text/css">
+.header-login{
+	margin-top: 13px;
+	
+}
+.header-login a{
+	margin: 0px 5px;
+}
+.navbar-nav a{
+	font-size: 16px;
+}
+
+</style>
 <div class="container">
 	<div class="container-fluid">
 		<div id="page-header">
