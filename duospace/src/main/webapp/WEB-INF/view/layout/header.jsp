@@ -105,6 +105,8 @@ function modalSendLogin() {
 				</ul>
 				<div class="clear">
 					<div class="header-login" style="float: left;">
+						<a href="<%=cp%>/community"><span
+							class="glyphicon glyphicon-log-in"></span>커뮤니티</a>
 						<a href="<%=cp%>/admin"><span
 							class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
 						<c:if test="${sessionScope.member.userId=='admin'}">

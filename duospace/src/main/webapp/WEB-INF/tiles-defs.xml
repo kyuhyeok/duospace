@@ -67,10 +67,10 @@
 		<put-attribute name="footer" value="/WEB-INF/view/community/layout/footer.jsp" />
 	</definition>
 	<definition name=".community.*.*.*" extends=".communityLayout">
-		<put-attribute name="body" value="/WEB-INF/view/blog/{1}/{2}/{3}.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}/{2}/{3}.jsp"/>
 	</definition>
 	<definition name=".community.*.*" extends=".communityLayout">
-		<put-attribute name="body" value="/WEB-INF/view/blog/{1}/{2}.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}/{2}.jsp"/>
 	</definition>
 
    <!-- 3단 관리자 -->

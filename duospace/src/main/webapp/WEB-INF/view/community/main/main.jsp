@@ -6,6 +6,6 @@
 	String cp=request.getContextPath();
 %>
 
-<div class="communityBodyFrame">
+<div class="container">
     커뮤니티 메인화면
 </div>

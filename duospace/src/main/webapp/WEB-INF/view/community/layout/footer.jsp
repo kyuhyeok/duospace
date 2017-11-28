@@ -9,16 +9,16 @@
 
 <footer>
 	<div style="width: 100%; height: 40px;">
-		<a rel="#">공지사항</a>
-		<a rel="#">파트너</a>
-		<a rel="#">광고</a>
-		<a rel="#">이용약관</a>
-		<a rel="#">개인정보처리방침</a>
-		<a rel="#">청소년 보호정책</a>
-		<a rel="#">운영정책</a>
-		<a rel="#">권리침해 신고안내</a>
-		<a rel="#">개발자</a>
-		<a rel="#">도움말</a>
+		<a href="#">공지사항</a>
+		<a href="#">파트너</a>
+		<a href="#">광고</a>
+		<a href="#">이용약관</a>
+		<a href="#">개인정보처리방침</a>
+		<a href="#">청소년 보호정책</a>
+		<a href="#">운영정책</a>
+		<a href="#">권리침해 신고안내</a>
+		<a href="#">개발자</a>
+		<a href="#">도움말</a>
 	</div>
 </footer>
   
