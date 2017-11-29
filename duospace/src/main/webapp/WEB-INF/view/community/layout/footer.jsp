@@ -7,8 +7,8 @@
 %>
 
 
-<footer>
-	<div style="width: 100%; height: 40px;">
+<footer class="footer-tet">
+	<div style="width: 100%; height: 40px; border-top: 1px solid #eeeeee;"align="center">
 		<a href="#">공지사항</a>
 		<a href="#">파트너</a>
 		<a href="#">광고</a>

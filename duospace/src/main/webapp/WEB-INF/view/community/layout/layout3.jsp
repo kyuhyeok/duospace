@@ -14,6 +14,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuoSpace-관리자</title>
+<link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
+
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
+
 </head>
 <body>
 

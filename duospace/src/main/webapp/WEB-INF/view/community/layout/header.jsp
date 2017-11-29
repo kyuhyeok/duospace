@@ -5,10 +5,22 @@
 <%
    String cp = request.getContextPath();
 %>
-<div style="width: 100%; height: 60px;">
-	<div style="width:80;">
-		<a rel="#">
-			<img alt="" src="<%=cp%>/resource/images/community_img.png">
-		</a>
-	</div>
+<div class="container" >
+	<table style="width: 100%;height: 40px; margin: 10px auto 5px;">
+		<tr>
+			<td>
+				<a href="<%=cp%>/community">
+					<img alt="" src="<%=cp%>/resource/images/community_img.png" style="width: 50px;height: 50px;">
+				</a>
+				<input value="검색">
+			</td>
+			<td align="right">
+				<button class="btn">밴드찾기</button>
+				
+			</td>
+			<td>
+				
+			</td>
+		</tr>	
+	</table>
 </div>
