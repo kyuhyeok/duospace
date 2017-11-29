@@ -30,4 +30,19 @@ function formCheck() {
        <input type=button value="동현" onclick="formCheck();">
 </form>
 
+<ul>
+	    <li><a href="<%=cp%>resource/images/2.jpg">2클릭</a></li>
+
+        <li><a href="<%=cp%>resource/images/3.jpg">3클릭</a></li>
+
+        <li><a href="<%=cp%>resource/images/4.jpg">4클릭</a></li>
+
+        <li><a href="<%=cp%>resource/images/5.jpg">5클릭</a></li>
+
+        <li><a href="<%=cp%>resource/images/6.jpg">6클릭</a></li>
+
+
+</ul>
+<p><img src="<%=cp%>resource/images/1.jpg" alt=""/></p>
+
 </body>
