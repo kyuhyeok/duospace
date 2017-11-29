@@ -49,7 +49,7 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 	<div class="container"style="padding-bottom: 30px;">
   		<h3>내 모임/1</h3>
 		<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;">
-	  		<a href="#" style="display: block;position: relative;background-color: #ffffff;">
+	  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff;">
 	  			<div style="padding-top: 55px;text-align: center;">
 	  				<img style="width: 50px;height: 50px;"  src="<%=cp%>/resource/images/icon_plus.png">
 	  			</div>

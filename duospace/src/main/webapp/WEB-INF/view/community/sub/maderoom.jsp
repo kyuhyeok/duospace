@@ -5,8 +5,7 @@
 <%
 	String cp=request.getContextPath();
 %>
-<head>
-<h3>밴드이름</h3>
+
 <script type="text/javascript">
 function formCheck() {
 	var f=document.allForm;
@@ -21,28 +20,33 @@ function formCheck() {
 }
 
 </script>
-</head>
 
 
-<body>
+<h3>밴드이름</h3>
 <form method=post action="url" name="allForm">
        <input type=text name="test" value="" size=20 maxlength=20 placeholder="클럽 이름 입력">
        <input type=button value="동현" onclick="formCheck();">
 </form>
 
-<ul>
-	    <li><a href="<%=cp%>resource/images/2.jpg">2클릭</a></li>
+<table>
+	<tr>
+		<td>
+			<a href="#">
+				<img alt="" src="<%=cp%>/resource/images/2.JPG">
+			</a>
+			<a href="#">
+				<img alt="" src="<%=cp%>/resource/images/3.JPG">
+			</a>
+			<a href="#">
+				<img alt="" src="<%=cp%>/resource/images/4.JPG">
+			</a>
+			<a href="#">
+				<img alt="" src="<%=cp%>/resource/images/5.JPG">
+			</a>
+			<a href="#">
+				<img alt="" src="<%=cp%>/resource/images/6.JPG">
+			</a>
+		</td>
+	</tr>	
+</table>
 
-        <li><a href="<%=cp%>resource/images/3.jpg">3클릭</a></li>
-
-        <li><a href="<%=cp%>resource/images/4.jpg">4클릭</a></li>
-
-        <li><a href="<%=cp%>resource/images/5.jpg">5클릭</a></li>
-
-        <li><a href="<%=cp%>resource/images/6.jpg">6클릭</a></li>
-
-
-</ul>
-<p><img src="<%=cp%>resource/images/1.jpg" alt=""/></p>
-
-</body>
