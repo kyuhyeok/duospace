@@ -6,7 +6,7 @@
    String cp = request.getContextPath();
 %>
 <div class="container" >
-	<table style="width: 100%;height: 40px; margin: 10px auto 5px;">
+	<table style="width:100%;height: 40px; margin: 10px auto 5px;">
 		<tr>
 			<td>
 				<a href="<%=cp%>/community">
@@ -16,10 +16,11 @@
 			</td>
 			<td align="right">
 				<button class="btn">밴드찾기</button>
-				
 			</td>
 			<td>
-				
+				<a>알림</a>/
+				<a>메세지</a>/
+				<a>나의정보</a>
 			</td>
 		</tr>	
 	</table>
