@@ -33,22 +33,22 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 <!-- header -->
 <form>
-<div style="background: white; position: fixed; top:0px; margin: 0px; width: 100%; height:80px; border-bottom: 1px solid rgba(0,0,0,.0975);" align="center">
+<div style="background: #32b0e5; position: fixed; top:0px; margin: 0px; width: 100%; height:80px; border-bottom: 1px solid rgba(0,0,0,.0975);" align="center">
 	<table style="height: 80px; width: 935px; margin: 0px;">
 		<tr>
 			<td align="left" width="311px">
-      			<input type="text" style="border: 1px solid #ccc; border-radius: 3px; 
-      			height: 25px; width: 160px; background: #fafafa;"placeholder="                 검색">
+      			<input type="text" style="border: 1px solid #2c7492; border-radius: 10px; 
+      			height: 25px; width: 160px; background: #2fa6d8; color: white;"placeholder="                 검색">
 			</td>
 			
 			<td align="center"> 
-				<a href="#" class="logo" style="font-size: 46px; text-decoration:none; color: black;">Duo Gram</a>			
+				<a href="#" class="logo" style="font-size: 46px; text-decoration:none; color: white;">Duo Gram</a>			
 			</td>
 			
 			<td align="right" width="311px">
-				<a href="#"><img src="<%=cp%>/resource/images/record.PNG" style="width: 25px; height: 20px;"></a>  　 
-				<a href="#"><img src="<%=cp%>/resource/images/world.PNG" style="width: 25px; height: 20px;"></a>  　
-				<a href="#"><img src="<%=cp%>/resource/images/mypage.PNG" style="width: 25px; height: 20px;"></a>
+				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">글로벌 페이지　|</a>
+				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">　기록　|</a>
+				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">　마이페이지</a>
 			</td>
 		</tr>
 	</table>
@@ -140,11 +140,20 @@ $("textarea.autosize").on('keydown keyup', function () {
 		</div>
     </div>
     
-    <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px;">	
+    <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
 		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
 			다가오는 일정 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
-		
+    </div>
+    
+    <div style="width: 293px; padding: 10px; min-height: 250px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
+		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
+			커뮤니티 순위 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+		</div>
+    </div>
+    
+    <!-- 기업..내용? -->
+    <div style="border-top: 1px solid rgba(0,0,0,.0975); width: 293px; padding-top: 2px; float: right; color: #ccc; font-size: 14px;">ⓒ 2017 DUOGRAM
     </div>
     <!-- /오른쪽 커뮤니티? -->
 </div>	
