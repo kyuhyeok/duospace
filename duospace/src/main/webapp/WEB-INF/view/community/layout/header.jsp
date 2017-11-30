@@ -5,23 +5,22 @@
 <%
    String cp = request.getContextPath();
 %>
-<div class="container" >
-	<table style="width:100%;height: 40px; margin: 10px auto 5px;">
-		<tr>
-			<td>
-				<a href="<%=cp%>/community">
-					<img alt="" src="<%=cp%>/resource/images/community_img.png" style="width: 50px;height: 50px;">
-				</a>
-				<input value="검색">
-			</td>
-			<td align="right">
-				<button class="btn">밴드찾기</button>
-			</td>
-			<td>
-				<a>알림</a>/
-				<a>메세지</a>/
-				<a>나의정보</a>
-			</td>
-		</tr>	
-	</table>
+<div style="background: #f875c0">
+
+<div class="container" style="vertical-align: middle;">	
+	<div style="float: left;vertical-align: middle;">
+		<a href="<%=cp%>/community">
+			<img alt="" src="<%=cp%>/resource/images/community_img.png" style="width: 50px;height: 50px;">
+		</a>
+		<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요">
+	</div>
+
+	<div style="float: right;vertical-align: middle;">
+		<button class="btn">밴드찾기</button>
+		<a href="<%=cp%>/">홈</a>/
+		<a>알림</a>/
+		<a>메세지</a>/
+		<a>나의정보</a>
+	</div>
+</div>
 </div>

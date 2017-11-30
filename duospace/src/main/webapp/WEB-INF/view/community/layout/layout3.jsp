@@ -15,7 +15,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuoSpace-관리자</title>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
-
+<link rel="stylesheet" href="<%=cp%>/resource/band/band.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/band/bandComponent.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/band/bandLayout.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>

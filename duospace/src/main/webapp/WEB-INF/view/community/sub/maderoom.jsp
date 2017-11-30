@@ -7,7 +7,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+
 <meta charset="UTF-8">
 <style type="text/css">
 
@@ -55,52 +55,51 @@ function formCheck() {
 }
 
 </script>
-</head>
 
 
-<body>
-<form method=post action="url" name="allForm" align="center">
-		<h3>밴드이름</h3>
-       	<input type=text name="test" value="" size=20 maxlength=20 placeholder="클럽 이름 입력">
-       	<input type=button value="동현" onclick="formCheck();">
-</form>
-<hr>
-<div style="width:1200px;height: 1200px;" align="center">
-			<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/2.JPG"/>
-	    	</a>
-	
-	    	<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/4.JPG"/>
-	    	</a>
+<div style="width: 1100px; height: 800px; " align="center">
+	<h2>밴드이름</h2>
+	<div>
+	  	<input type=text name="test" value="" size=20 maxlength=20 placeholder="클럽 이름 입력">
+	    <input type=button value="동현" onclick="formCheck();">
+	</div>
+	<div style="border-collapse: collapse; border: 1px solid #eee;" align="center">
+		<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/2.JPG"/>
+    	</a>
 
-	  		 <a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/5.JPG"/>
-	    	</a>
-	 		 <a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/6.JPG"/>
-	    	</a>
-	    	 <a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/7.JPG"/>
-	    	</a>
-	    	 <a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/8.JPG"/>
-	    	</a>
-	    	<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/9.JPG"/>
-	    	</a>
-	    	<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/10.JPG"/>
-	    	</a>
-	    	<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/11.JPG"/>
-	    	</a>
-	    	<a href="#">
-		    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/12.JPG"/>
-	    	</a>
-	    	
+    	<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/4.JPG"/>
+    	</a>
+
+  		 <a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/5.JPG"/>
+    	</a>
+ 		 <a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/6.JPG"/>
+    	</a>
+    	 <a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/7.JPG"/>
+    	</a>
+    	<br>
+    	 <a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/8.JPG"/>
+    	</a>
+    	<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/9.JPG"/>
+    	</a>
+    	<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/10.JPG"/>
+    	</a>
+    	<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/11.JPG"/>
+    	</a>
+    	<a href="#">
+	    	<img style="width: 200px;height:200px;"src="<%=cp%>/resource/images/12.JPG"/>
+    	</a>
+    	
+	</div>
 </div>
 
 
 
-</body>

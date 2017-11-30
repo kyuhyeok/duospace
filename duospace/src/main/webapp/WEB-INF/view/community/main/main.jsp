@@ -45,26 +45,45 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 </script>
  -->
 
-<div style="background: #D5D5D5"> 
+<div style="background: #eef0f3"> 
 	<div class="container"style="padding-bottom: 30px;">
   		<h3>내 모임/1</h3>
-		<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;">
-	  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff;">
-	  			<div style="padding-top: 55px;text-align: center;">
-	  				<img style="width: 50px;height: 50px;"  src="<%=cp%>/resource/images/icon_plus.png">
-	  			</div>
-	  			<div style="height: 85px;padding-top: 10px;text-align: center;">
-	  				<span class="uriText">밴드 만들기</span>
-	  			</div>
-	  		</a>
-		</div>
+  		<table>
+	  		<tr>
+	  			<td>
+					<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
+				  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff;">
+				  			<span style="display: inline-block ; padding-top: 55px;text-align: center;">
+				  				<img style="width: 50px;height: 50px;"  src="<%=cp%>/resource/images/icon_plus.png">
+				  			</span>
+				  			<br>
+				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;text-align: center;">
+				  				<span class="uriText">밴드 만들기</span>
+				  			</span>
+				  		</a>
+					</div>
+				</td>
+				<td>
+					<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;">
+				  		<a href="<%=cp%>/community/mymeeting/meetinglist" style="display: block;position: relative;background-color: #ffffff;">
+				  			<span style="display: inline; padding-top: 55px;text-align: center;">
+				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/2.JPG">
+				  			</span>
+				  			<br>
+				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;text-align: center;">
+				  				<span>자바</span>
+				  			</span>
+				  		</a>
+					</div>
+				</td>
+			</tr>
+  		</table>
 	</div>
 </div>
+<div style="background: #fff; min-height: 500px;">
 <div class="container">
 	<h3>공개 모임 인기글</h3>
-
 	<div>
 	</div>
-
 </div>
- 
+</div>
