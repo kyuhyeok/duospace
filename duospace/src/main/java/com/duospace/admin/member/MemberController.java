@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 	@RequestMapping(value="/admin/member/member")
 	public String list(Model model) throws Exception {
-		return ".admin4.menu1.member.member";
+		return ".admin.member.member";
 	}
 }
