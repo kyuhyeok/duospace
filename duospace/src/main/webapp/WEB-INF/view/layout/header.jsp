@@ -64,47 +64,9 @@ function modalSendLogin() {
 </style>
 <div class="container">
 	<div class="container-fluid">
-		<div id="page-header">
-			<div class="navbar-headder">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background-color: #BDBDBD; color: #FFFFFF;">
-       			<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-       			 <span class="icon-bar"></span> 
-     			 </button>
-			<div class="headder-brand">
-					<a href="<%=cp%>/"><span class="logo" style="color: #000000;">
-					Duo Space
-					</span></a>
-			<div class="navbar-collapse collapse" id="myNavbar" >
-				<ul class="nav navbar-nav">
-					<li><a href="#">공지사항</a></li>
-					<li class="dropdown"><a id="space" data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">Duo Space<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="space">
-							<li><a href="#">1 floor Core Cafe</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">2 floor Open Station</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Other</a></li>
-						</ul></li>
-					<li class="dropdown"><a data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">대여 및 구매<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">사무용품</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">카페주문</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">악세사리</a></li>
-						</ul></li>
-					<li><a href="#">예약하기</a></li>
-					<li><a href="#">고객센터</a></li>
-				</ul>
-				<div class="clear">
-					<div class="header-login" style="float: left;">
+		<div id="page-header" style="margin: 10px 0px 55px 0px;">
+			<div class="clear">
+					<div class="header-login">
 						<a href="<%=cp%>/community"><span
 							class="glyphicon glyphicon-log-in"></span>커뮤니티</a>
 						<a href="<%=cp%>/admin"><span
@@ -128,6 +90,51 @@ function modalSendLogin() {
 						</c:if>
 				</div>
 			</div>
+			<div class="headder-brand">
+					<a href="<%=cp%>/"><span class="logo" style="color: #000000;">
+					Duo Space
+					</span></a>
+			<div class="navbar-headder">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background-color: #BDBDBD; color: #FFFFFF;">
+       			<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+       			 <span class="icon-bar"></span> 
+     			 </button>
+			<div class="navbar-collapse collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#">회사소개</a></li>
+					<li class="dropdown"><a id="space" data-target="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">Duo Space<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="space">
+							<li><a href="#">지점 리스트</a></li>
+						</ul></li>
+					<li class="dropdown"><a data-target="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">예약<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">룸</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">좌석</a></li>
+						</ul></li>
+					<li><a href="#">Core/Cafe</a></li>
+					<li><a href="#">도서대여</a></li>
+					<li><a href="#">이용후기</a></li>
+					<li class="dropdown"><a data-target="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">고객센터<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">공지사항</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">FAQ</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">1:1문의</a></li>
+						</ul></li>
+				</ul>
+				
 					</div>
 				</div>
 			</div>

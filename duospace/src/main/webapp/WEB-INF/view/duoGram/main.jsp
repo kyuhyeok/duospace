@@ -11,16 +11,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- Bootstrap core CSS -->
+<link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
+
 <!-- textarea에 글을 길게 쓰면 자동으로 길이가 늘어난다. -->
 <script src="//code.jquery.com/jquery.min.js"></script>
+
 <script>
 $("textarea.autosize").on('keydown keyup', function () {
   $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 });
 </script>
-
-<!-- Bootstrap core CSS -->
-<link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<style type="text/css">
+.logo{
+	font-family:Airways;
+}
+</style>
 </head>
 <body style="margin: 0px; height: 100%; width: 100%;">
 
@@ -35,14 +42,13 @@ $("textarea.autosize").on('keydown keyup', function () {
 			</td>
 			
 			<td align="center"> 
-				<a href="#"><img src="<%=cp%>/resource/images/DuoSpace.PNG" style="width: 150px; height: 35px;"></a>			
+				<a href="#" class="logo" style="font-size: 46px; text-decoration:none; color: black;">Duo Gram</a>			
 			</td>
 			
-			
 			<td align="right" width="311px">
-				<a href="#"><img src="<%=cp%>/resource/images/record.JPG" style="width: 20px; height: 20px;"></a>  　 
-				<a href="#"><img src="<%=cp%>/resource/images/world.JPG" style="width: 20px; height: 20px;"></a>  　
-				<a href="#"><img src="<%=cp%>/resource/images/mypage.JPG" style="width: 20px; height: 20px;"></a>
+				<a href="#"><img src="<%=cp%>/resource/images/record.PNG" style="width: 25px; height: 20px;"></a>  　 
+				<a href="#"><img src="<%=cp%>/resource/images/world.PNG" style="width: 25px; height: 20px;"></a>  　
+				<a href="#"><img src="<%=cp%>/resource/images/mypage.PNG" style="width: 25px; height: 20px;"></a>
 			</td>
 		</tr>
 	</table>
@@ -57,77 +63,88 @@ $("textarea.autosize").on('keydown keyup', function () {
 <div style="width: 935px; margin: auto;">
 	<div style="height: 60px">
 	</div>
-	
 	<!-- 왼쪽 글쓰는곳 -->
-	<div style="width: 614px;">
-	<div style="margin-bottom: 60px; width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
-		<div style="min-height: 265px;">
-			<div>
-				<!-- 게시글 등록 및 동영상 추가 -->
-				<div style="height: 55px; padding: none; border-bottom: 1px solid #ccc">
-					<div align="left" style="font-size: 16px;">글쓰기
-					</div>
-					
-					<div align="right">
-						<button type="button" style="width: 80px; height: 28px; font-size: 12px;">게시글 등록</button>  
-						<button type="button" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
-					</div>
-				</div>
-				<!-- 내용 입력 -->
-				<div>
-					<div>
-						<textarea class="autosize" style="overflow:hidden; resize: none; width: 584px; min-height: 150px; border-radius: 4px; border: 1px solid ;"></textarea>
-					</div>
-				</div>
-				<!-- 첨부파일 -->
-				<div style="border-top: 1px solid rgba(0,0,0,.0975); margin-bottom: 14px"></div>
-				<div style="height: 40px">
-					<div>
-						<input type="text" style="border-radius: 4px; border: 1px solid #ccc; width: 584px; height: 28px;">
-					</div>
-				</div>
+	<div style="width: 614px; float: left;">
+	<div style="margin-bottom: 60px; width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
+		<!-- 게시글 등록 및 동영상 추가 -->
+		<div style="height: 40px; border-bottom: 1px solid #ccc; margin-top:20px;">
+			<div align="left" style="font-size: 16px; font-weight: bold;">글쓰기
+				<button class="btn btn-primary btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
+				<button class="btn btn-success btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
 			</div>
+		</div>
+		<!-- 내용 입력 -->
+		<div style="margin-top: 10px; margin-bottom: 10px;">
+			<textarea class="autosize" style="overflow:hidden; resize: none; width: 584px; min-height: 150px; border-radius: 4px; border: 1px solid rgba(0,0,0,.0975);"></textarea>
+		</div>
+		
+		<!-- 첨부파일 -->
+		<div style="border-top: 1px solid #ccc; margin-bottom: 10px"></div>
+		<div style="height: 40px">
+				<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
 		</div>
 	</div>
 	
 	<!-- 왼쪽 게시글들 -->
-	<div style="width: 614px; min-height: 210px; padding-left: 20px; padding-right: 20px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
-		<table>
+	<div style="width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
+	
 			<!-- 프로필 및 아이디 -->
-			<tr style="height: 60px;">
-				<td style="width: 614px; border-bottom: 1px solid rgba(0,0,0,.0975);">프로필사진과 아이디</td>
-			</tr>
+			<div style="height: 40px; border-bottom: 1px solid rgba(0,0,0,.0975); margin-top:20px; font-weight: bold; font-size: 16px;">
+				<div style="margin-top: 5px;">
+				<div style="float:left;">프로필사진과 아이디</div>
+				<div style="float:right;"><a href="#" style="text-decoration:none; color: #ccc;">▥</a></div>
+				</div>
+			</div>
+			
 			<!-- 사진 -->
-			<tr>
-			</tr>
-			<!-- 좋아요 및 댓글보기 -->
-			<tr style="min-height: 40px;">
-			</tr>
-			<!-- 좋아요 갯수표시 -->
-			<tr style="height: 18px;">
-			</tr>
+			<div style="min-height: 10px;">
+			</div>
+			
 			<!-- 게시한 글 -->
-			<tr>
-			</tr>
+			<div style="width: 584px; margin-top: 10px;">
+				오예
+				나는 오늘
+				집에가면 잔다
+				아싸뵤
+				뵤뵤뵤
+				뵤뵹
+			</div>
+			
 			<!-- 올린날짜 -->
-			<tr style="height: 20px">
-			</tr>
-			<!-- 그냥 선 -->
-			<tr style="height: 10px;"> 
-			</tr>
+			<div align="right" style="color: #ccc; margin-top: 10px;">
+				2017/11/30
+			</div>
+			
+			<!-- 좋아요 갯수표시 -->
+			<div style="height: 15px;margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #ccc; ">
+				<div style="margin-top: 5px;">
+				<div style="float:left; font-size: 14px;">좋아요　</div>
+				<div style="float:left; font-size: 14px;">댓글x개</div>
+				<div style="float:right; font-size: 14px;">조회수</div>
+				</div>
+			</div>
+			
 			<!-- 댓글다는곳 -->
-			<tr style="min-height: 60px; border-top: 1px solid rgba(0,0,0,.0975); padding-left: 20px; padding-right: 20px">
-			</tr>
-		</table>	
+			<div style="height: 50px;">
+				<input type="text" style="border-radius: 4px; margin-top: 7.5px; margin-bottom: 7.5px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 25px;">
+			</div>
 	</div>
-	</div>
+</div>
 	<!-- /왼쪽 게시글들 -->
 	
 	
 	<!-- 오른쪽 커뮤니티? -->
-    <div style="width: 293px; height: 950px; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px;">	
-
-
+    <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
+		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
+			친구생일 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+		</div>
+    </div>
+    
+    <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px;">	
+		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
+			다가오는 일정 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+		</div>
+		
     </div>
     <!-- /오른쪽 커뮤니티? -->
 </div>	
@@ -136,8 +153,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 <!-- footer -->
 <form>
-	<div style="width: 100%; height: 40px;background: black; margin: 0px; position: fixed; bottom:0px;">
-	</div>
+
 </form>
 <!-- /footer -->
 </body>
