@@ -1,8 +1,7 @@
 @charset "UTF-8";
 /** Page headers**/
 #page-header{
-		margin: 40px 0 55px 0;
-	    font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+		margin: 10px 0px 55px 0px;
 	    min-height: 44px;
 }
 #page-header .header-brand{
@@ -32,6 +31,12 @@
 
 #navbar li{
 	margin-left: 20px;
+}
+.clear{
+	float:right; margin-left:70%;
+}
+#myNavbar{
+	flat:left;
 }
 /** jumbotron **/
 .jumbotron {

@@ -6,9 +6,15 @@
 	String cp = request.getContextPath();
 %>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.start').removeClass('start');  
+$(function(){
+	$('.M').mouseover(function(){
+		$(this).children().children().children().attr("src",$(this).children().children().children().attr("src").replace(/off\.png$/,'on.png'));
+	});	
+	$('.M').mouseout(function(){
+		$(this).children().children().children().attr("src",$(this).children().children().children().attr("src").replace(/on\.png$/,'off.png'));
+	});	
 });
+
 </script>
 <style type="text/css">
 .logo-small {
@@ -71,7 +77,48 @@ img{
 	max-width: 100%;
 	max-height: 650px;
 }
-
+.Pic .img{
+    border-radius: 43px;
+    border: 1px solid #4374D9;
+    background: #ffffff;
+    width: 86px;
+    height: 86px;
+    box-sizing: border-box;
+    display: table-cell;
+    vertical-align: middle;
+}
+.Pic{
+    display: table;
+    width: 86px;
+    height: 86px;
+    margin: 0 auto;
+}
+li:hover .Pic .img{
+	border-radius: 43px;
+	border:0;
+	transition-duration: 0.3s;
+	background: #6798FD;
+}
+ul{
+	list-style: none;
+}
+.service{
+	text-align: center;
+}
+.subject{
+    font-size: 16px;
+    line-height: 26px;
+}
+.cont{
+	color: #898989;
+}
+.service li{
+	width: 25%;
+    padding-top: 5%;
+    display: inline-block;
+    vertical-align: top;
+    float:left;
+}
 </style>
 <div class="bodyFrame">
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -87,7 +134,7 @@ img{
 		<div class="carousel-inner">
 			<!--슬라이드1-->
 			<div class="item active">
-				<img src="<%=cp%>/resource/images/IMG_6958.jpg"
+				<img src="<%=cp%>/resource/images/duospace/IMG_6958.jpg"
 					style="width: 100%" alt="First slide">
 				<div class="container">
 					<div class="carousel-caption">
@@ -100,7 +147,7 @@ img{
 
 			<!--슬라이드2-->
 			<div class="item">
-				<img src="<%=cp%>/resource/images/IMG_6809.jpg"
+				<img src="<%=cp%>/resource/images/duospace/IMG_6809.jpg"
 					style="width: 100%" data-src="" alt="Second slide">
 				<div class="container">
 					<div class="carousel-caption">
@@ -112,7 +159,7 @@ img{
 
 			<!--슬라이드3-->
 			<div class="item">
-				<img src="<%=cp%>/resource/images/IMG_0006.jpg"
+				<img src="<%=cp%>/resource/images/duospace/IMG_0006.jpg"
 					style="width: 100%" data-src="" alt="Third slide">
 				<div class="container">
 					<div class="carousel-caption">
@@ -135,8 +182,8 @@ img{
 	</div>
 
 
-<div class="container">
-  <div class="row" style="margin: 0px ">
+<div class="container" style="margin-top: 5%;">
+  <div class="row">
     <div class="col-sm-4">
       <h3>같이(Duo)</h3>
       <p><b>협업만이 진정한 코워킹인가?</b><br></p>
@@ -177,74 +224,222 @@ img{
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-8">
-      <h2>듀오 스페이스(Duo Space)</h2>
-      <h4>우리 회사는...</h4>      
-      <p>회사소개</p>
-      <button class="btn btn-default btn-lg">들어 가기</button>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-signal slogo"></span>
-    </div>
-  </div>
+<div class="container text-center" style="margin-top: 8%; border-top: 1px solid #D8D8D8;">
+		<h2>서비스(Duo Service)</h2>
+  <ul class="service">
+  
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_9_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>우편물/택배 보관</b>
+  			</div>
+  			
+  			<div class="cont">
+  				부재 시에도 안전하게 우편물과<br>
+				택배를 보관하여<br>
+				전달해 드리고 있습니다.<br>
+  			</div>
+  	</li>  
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_1_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>컨시어지</b>
+  			</div>
+  			
+  			<div class="cont">
+  				외부 클라이언트 응대,<br>
+  				업무, 편의 서비스를 위해 커뮤니티<br>
+  				매니저가 상주하고 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_2_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>커뮤니티/SNS</b>
+  			</div>
+  			
+  			<div class="cont">
+  				커뮤니티/SNS를 통해 다양한<br>
+  				클라이언트 응대, 개인업무 및<br>
+				편의 서비스를 위해 매니저가<br> 
+				상주하고 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_3_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>Core/Cafe</b>
+  			</div>
+  			
+  			<div class="cont">
+  				아침을 든든하게 채우는<br>
+				빵과 우유, 나른한 오후 시간을 깨우는<br> 
+				커피와 차를 이용할 수 있는<br>
+				Core/Cafe를 이용해 보세요.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_4_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>인테리어/사무용 가구 완비</b>
+  			</div>
+  			
+  			<div class="cont">
+  			듀오 스페이스만의 감성이<br>
+  			 묻어나는 인테리어,	넓은 책상<br>
+  			 편안한 의자, 2단 서류<br>
+  			 서랍장이 준비되어 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_5_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>프로젝트룸</b>
+  			</div>
+  			
+  			<div class="cont">
+  				프로젝터용 모니터가 설치되어 있고 <br>
+  				 유리 파티션을 이용해 개방감을 살린<br>
+  				  프로젝트룸은 대화를 이끌어<br>
+  				   갈 수 있는 최적의 장소입니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_6_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>초고속 인터넷</b>
+  			</div>
+  			
+  			<div class="cont">
+  				기가 유/무선 초고속 인터넷<br>
+  				서비스를 제공합니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_7_off.png">
+  				</div>
+  			</div>
+  			<div class="subject">
+  				<b>복합기</b>
+  			</div>
+  			<div class="cont">
+  				각층마다 컬러/흑백 프린터, 스캔,<br>
+				복사, 팩스 기능을 탑재한 최신<br>
+				복합기를 무료로 편리하게<br> 
+				이용하실 수 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_8_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>청소 서비스</b>
+  			</div>
+  			
+  			<div class="cont">
+  				전문 청소 인력을 배치하여<br>
+  				쾌적한 업무 환경을<br>
+  				조성해드리고 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_10_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>철저한 보안</b>
+  			</div>
+  			
+  			<div class="cont">
+  				사전 등록된 멤버분들만<br> 
+				출입이 가능하며, 개별 도어록과<br>
+				보안 카메라가 설치되어 있습니다.<br>
+				손님 방문 시 확인 후 출입을<br>
+				도와드리고 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_11_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>개인 사물함</b>
+  			</div>
+  			
+  			<div class="cont">
+  				오픈오피스 멤버들을 위한 <br>
+				개인 사물함이 구비되어 짐을<br>
+				편안하게 보관하실 수 있습니다.<br>
+  			</div>
+  	</li>
+  	<li class="M">
+  			<div class="Pic">
+  				<div class="img">
+  					<img src="<%=cp%>/resource/images/duospace/M_con/M_con2_12_off.png">
+  				</div>
+  			</div>
+  			
+  			<div class="subject">
+  				<b>24시간 운영</b>
+  			</div>
+  			
+  			<div class="cont">
+  				듀오 스페이스는 언제나 멤버들을<br>
+				위해 열려있습니다.<br>
+  			</div>
+  	</li>
+
+  </ul>
 </div>
 
-<div class="container bg-grey">
-  <div class="row">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe slogo"></span>
-    </div>
-    <div class="col-sm-8">
-      <h2>Duo Value</h2>
-      <h4><strong>MISSION:</strong> 2017년 한 해 프로젝트</h4>      
-      <p><strong>VISION:</strong> 2020년 우리의 목표 Global 성장기업</p>
-    </div>
-  </div>
-</div>
-
-<div class="container text-center">
-  <h1>서비스</h1>
-  <h4>What we offer</h4>
-  <br>
-  <div class="row">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-off logo-small"></span>
-      <h4>POWER</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-heart logo-small"></span>
-      <h4>LOVE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-lock logo-small"></span>
-      <h4>JOB DONE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-  </div>
-  <br><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-leaf logo-small"></span>
-      <h4>GREEN</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-certificate logo-small"></span>
-      <h4>CERTIFIED</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-wrench logo-small"></span>
-      <h4 style="color:#303030;">HARD WORK</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-  </div>
-</div>
-<div class="container">
+<div class="container" style="margin: 10% 0px; border-top: 1px solid #D8D8D8;">
   <div class="text-center">
     <h2>듀오 스페이스(Duo Space)</h2>
     <h4> 다양한 시설을 즐겨 보세요!</h4>
