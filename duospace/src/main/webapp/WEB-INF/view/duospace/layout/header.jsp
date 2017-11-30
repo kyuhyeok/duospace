@@ -56,7 +56,7 @@ function modalSendLogin() {
 }
 .logo{
 	font-family: Airways;
-	font-size: 50px;
+	font-size: 45px;
 	font-weight: normal;
 }
 
