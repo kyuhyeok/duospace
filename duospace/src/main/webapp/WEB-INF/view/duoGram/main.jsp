@@ -13,6 +13,7 @@
 
 <!-- Bootstrap core CSS -->
 <link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
 <!-- textarea에 글을 길게 쓰면 자동으로 길이가 늘어난다. -->
 <script src="//code.jquery.com/jquery.min.js"></script>
@@ -22,7 +23,11 @@ $("textarea.autosize").on('keydown keyup', function () {
   $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 });
 </script>
-
+<style type="text/css">
+.logo{
+	font-family:Airways;
+}
+</style>
 </head>
 <body style="margin: 0px; height: 100%; width: 100%;">
 
@@ -37,9 +42,8 @@ $("textarea.autosize").on('keydown keyup', function () {
 			</td>
 			
 			<td align="center"> 
-				<a href="#"><img src="<%=cp%>/resource/images/DuoSpace.PNG" style="width: 150px; height: 35px;"></a>			
+				<a href="#" class="logo" style="font-size: 46px; text-decoration:none; color: black;">Duo Gram</a>			
 			</td>
-			
 			
 			<td align="right" width="311px">
 				<a href="#"><img src="<%=cp%>/resource/images/record.PNG" style="width: 25px; height: 20px;"></a>  　 
@@ -65,8 +69,8 @@ $("textarea.autosize").on('keydown keyup', function () {
 		<!-- 게시글 등록 및 동영상 추가 -->
 		<div style="height: 40px; border-bottom: 1px solid #ccc; margin-top:20px;">
 			<div align="left" style="font-size: 16px; font-weight: bold;">글쓰기
-				<button class="button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
-				<button class="button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
+				<button class="btn btn-primary btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
+				<button class="btn btn-success btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
 			</div>
 		</div>
 		<!-- 내용 입력 -->
@@ -77,7 +81,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 		<!-- 첨부파일 -->
 		<div style="border-top: 1px solid #ccc; margin-bottom: 10px"></div>
 		<div style="height: 40px">
-				<input type="text" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
+				<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
 		</div>
 	</div>
 	
@@ -88,7 +92,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 			<div style="height: 40px; border-bottom: 1px solid rgba(0,0,0,.0975); margin-top:20px; font-weight: bold; font-size: 16px;">
 				<div style="margin-top: 5px;">
 				<div style="float:left;">프로필사진과 아이디</div>
-				<div style="float:right;">:　</div>
+				<div style="float:right;"><a href="#" style="text-decoration:none; color: #ccc;">▥</a></div>
 				</div>
 			</div>
 			
@@ -114,9 +118,9 @@ $("textarea.autosize").on('keydown keyup', function () {
 			<!-- 좋아요 갯수표시 -->
 			<div style="height: 15px;margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #ccc; ">
 				<div style="margin-top: 5px;">
-				<div style="float:left; font-size: 14px;">좋아요</div>
-				<div style="float:right; font-size: 14px;">댓글</div>
-				<div style="float:right; font-size: 14px;">조회수　</div>
+				<div style="float:left; font-size: 14px;">좋아요　</div>
+				<div style="float:left; font-size: 14px;">댓글x개</div>
+				<div style="float:right; font-size: 14px;">조회수</div>
 				</div>
 			</div>
 			
