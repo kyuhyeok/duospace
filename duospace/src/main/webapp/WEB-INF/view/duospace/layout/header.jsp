@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-   String cp = request.getContextPath();
+	String cp = request.getContextPath();
 %>
 <script type="text/javascript">
 function dialogLogin() {
@@ -24,6 +24,13 @@ $(function(){
 	            return false;
 	        }
 	     });
+	   
+	   $(".submenu").children("li").on("mouseover", function(){
+		  $(this).children().css("background-color", "#4374D9");
+	   });
+	   $(".submenu").children("li").on("mouseleave", function(){
+		  $(this).children().css("background-color", "#6798FD");
+	   });
 });
 
 function modalSendLogin() {
@@ -39,139 +46,188 @@ function modalSendLogin() {
     	return false;
     }	
 
-   f.action="<%=cp%>/member/login"; 
-   f.submit();
-}
+   f.action="<%=cp%>/member/login";
+		f.submit();
+	}
 </script>
 <style type="text/css">
-.header-login{
+.header-login {
 	margin-top: 13px;
-	
 }
-.header-login a{
+
+.header-login a {
 	margin: 0px 5px;
 }
-.navbar-nav a{
+
+.navbar-nav a {
 	font-size: 16px;
 }
-.logo{
-	font-family: Airways;
-	font-size: 45px;
-	font-weight: normal;
+
+.dropdownmenu ul, .dropdownmenu li {
+	margin: 0;
+	padding: 0;
+}
+.dropdownmenu ul {
+	list-style: none;
+	width: 100%;
+}
+.dropdownmenu li {
+	float: left;
+	position: relative;
+	width:auto;
+}
+.dropdownmenu a {
+	background: #6798FD;
+	color: #FFFFFF;
+	display: block;
+	font: bold 16px/20px sans-serif;
+	padding: 30px 25px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+.submenu {
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 35px;
+	visibility: hidden;
+	z-index: 1;
+}
+li:hover ul.submenu {
+	opacity: 1;
+	top: 0px;	/* adjust this as per top nav padding top & bottom comes */
+	visibility: visible;
+}
+.submenu li {
+	float: none;
+	width: 100%;
+}
+.submenu a:hover {
+	background: #6798FD;
 }
 
 
 </style>
 <div class="container">
-	<div class="container-fluid">
-		<div id="page-header" style="margin: 10px 0px 55px 0px;">
+	<div class="container-fluid" style="padding:0px 0px 5% 0px;">
+		<div id="page-header" style="margin: 10px 0px;">
 			<div class="clear">
-					<div class="header-login">
-						<a href="<%=cp%>/community"><span
-							class="glyphicon glyphicon-log-in"></span>커뮤니티</a>
-						<a href="<%=cp%>/admin"><span
-							class="glyphicon glyphicon-log-in"></span>관리자</a> <i></i>
-						<c:if test="${sessionScope.member.userId=='admin'}">
-						</c:if>
-						<c:if test="${empty sessionScope.member}">
-							<a href="javascript:dialogLogin();"><span
-								class="glyphicon glyphicon-log-in"></span> 로그인</a>
-							<i></i>
-							<a href="#"><span class="glyphicon glyphicon-user"></span>
-								회원가입</a>
-						</c:if>
-						<c:if test="${not empty sessionScope.member}">
-							<a href="#"><span class="glyphicon glyphicon-home">POS</span></a>
-							<span style="color: blue;">${sessionScope.member.userName}</span>님 <i></i>
-							<a href="#"><span class="glyphicon glyphicon-log-out"></span>
-								로그아웃</a>
-							<a href="#"><span class="glyphicon glyphicon-book">마이
-									페이지</span></a>
-						</c:if>
-				</div>
-			</div>
-			<div class="headder-brand">
-					<a href="<%=cp%>/"><span class="logo" style="color: #000000;">
-					Duo Space
-					</span></a>
-			<div class="navbar-headder">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background-color: #BDBDBD; color: #FFFFFF;">
-       			<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-       			 <span class="icon-bar"></span> 
-     			 </button>
-			<div class="navbar-collapse collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li><a href="#">회사소개</a></li>
-					<li class="dropdown"><a id="space" data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">Duo Space<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="space">
-							<li><a href="#">지점 리스트</a></li>
-						</ul></li>
-					<li class="dropdown"><a data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">예약<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">룸</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="<%=cp%>/reserve">좌석</a></li>
-						</ul></li>
-					<li><a href="#">Core/Cafe</a></li>
-					<li><a href="#">도서대여</a></li>
-					<li><a href="#">이용후기</a></li>
-					<li class="dropdown"><a data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">고객센터<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">공지사항</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">FAQ</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">1:1문의</a></li>
-						</ul></li>
-				</ul>
-				
-					</div>
+				<div class="header-login">
+					<a href="<%=cp%>/community"><span
+						class="glyphicon glyphicon-log-in"></span>커뮤니티</a> <a
+						href="<%=cp%>/admin"><span class="glyphicon glyphicon-log-in"></span>관리자</a>
+					<i></i>
+					<c:if test="${sessionScope.member.userId=='admin'}">
+					</c:if>
+					<c:if test="${empty sessionScope.member}">
+						<a href="javascript:dialogLogin();"><span
+							class="glyphicon glyphicon-log-in"></span> 로그인</a>
+						<i></i>
+						<a href="#"><span class="glyphicon glyphicon-user"></span>
+							회원가입</a>
+					</c:if>
+					<c:if test="${not empty sessionScope.member}">
+						<a href="#"><span class="glyphicon glyphicon-home">POS</span></a>
+						<span style="color: blue;">${sessionScope.member.userName}</span>님 <i></i>
+						<a href="#"><span class="glyphicon glyphicon-log-out"></span>
+							로그아웃</a>
+						<a href="#"><span class="glyphicon glyphicon-book">마이
+								페이지</span></a>
+					</c:if>
 				</div>
 			</div>
 		</div>
-	</div>
+		<nav class="dropdownmenu" style="height: 100%">
+			<ul class="drop_menu">
+				<li><a href="<%=cp%>/space_main" style="font-family:Airways; font-size:35px; font-weight: normal; ">Duo Space</a></li>
+				<li><a href="#">회사 소개</a></li>
+				<li><a href="#">&nbsp;&nbsp;Duo Space&nbsp;&nbsp;</a>
+					<ul class="submenu">
+						<li><a href="#">지점 리스트</a></li>
+					</ul>
+				</li>
+				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<ul class="submenu">
+						<li><a href="#">룸 예약</a></li>
+						<li><a href="#">좌석 예약</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Core/Cafe</a>
+					<ul class="submenu">
+						<li><a href="#">Cafe메뉴</a></li>
+					</ul>
+				</li>
+				<li><a href="#">도서 대여</a>
+					<ul class="submenu">
+						<li><a href="#">도서 검색</a></li>
+					</ul>
+				</li>
+				<li><a href="#">이용 후기 게시판</a></li>
+				<li><a href="#">고객 센터</a>
+					<ul class="submenu">
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">1:1문의</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
 
+	</div>
 </div>
 
-<div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div id="modalLogin" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h2 id="myModalLabel" class="modal-title text-center fc-orange" style="font-family: sans-serif,나눔고딕, 맑은 고딕; font-weight: bold;">LOG IN</h2>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h2 id="myModalLabel" class="modal-title text-center fc-orange"
+					style="font-family: sans-serif, 나눔고딕, 맑은 고딕; font-weight: bold;">LOG
+					IN</h2>
 			</div>
 			<div class="modal-body">
-			    <form name="modalLoginForm" method="post">
-			         <div class="form-group">
-			            <label class="control-label" for="modalUserId">아이디</label>
-			            <input class="form-control" id="modalUserId" name="userId" type="text" style="outline=none; box-shadow:none; background:white;" placeholder="아이디">
-			        </div>
-			         <div class="form-group">
-			            <label class="control-label" for="modalUserPwd">패스워드</label>
-			            <input class="form-control" id="modalUserPwd" name="userPwd" type="password" style="outline=none; box-shadow:none; background:white;"placeholder="패스워드">
-			        </div>
-			        
-			        <div class="form-group">
-			            <button class="btn btn-lg btn-primary btn-block" type="button" style="color:white; background:black; float:left;" onclick="modalSendLogin();">로그인 <span class="glyphicon glyphicon-ok"></span></button>
-                    </div>
-                  	<a>　</a>
-			         <div style="text-align: center;">
-			                  <button type="button" style="background:#eaeaea;" class="btn btn-link" onclick="location.href='<%=cp%>/member/member';">회원가입</button>
-			                   <button type="button" style="background:#eaeaea;" class="btn btn-link">아이디찾기</button>
-			                   <button type="button" style="background:#eaeaea;" class="btn btn-link">패스워드찾기</button>
-			      </div>
-			   </form>
-			 </div>
+				<form name="modalLoginForm" method="post">
+					<div class="form-group">
+						<label class="control-label" for="modalUserId">아이디</label> <input
+							class="form-control" id="modalUserId" name="userId" type="text"
+							style="box-shadow: none; background: white;" placeholder="아이디">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="modalUserPwd">패스워드</label> <input
+							class="form-control" id="modalUserPwd" name="userPwd"
+							type="password" style="box-shadow: none; background: white;"
+							placeholder="패스워드">
+					</div>
+
+					<div class="form-group">
+						<button class="btn btn-lg btn-primary btn-block" type="button"
+							style="color: white; background: black; float: left;"
+							onclick="modalSendLogin();">
+							로그인 <span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</div>
+					<a> </a>
+					<div style="text-align: center;">
+						<button type="button" style="background: #eaeaea;"
+							class="btn btn-link"
+							onclick="location.href='<%=cp%>/member/member';">회원가입</button>
+						<button type="button" style="background: #eaeaea;"
+							class="btn btn-link">아이디찾기</button>
+						<button type="button" style="background: #eaeaea;"
+							class="btn btn-link">패스워드찾기</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
