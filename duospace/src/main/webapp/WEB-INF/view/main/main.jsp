@@ -11,18 +11,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="height: 100%; margin:0px;">
 
-<div style="padding:0; margin:400px auto;" align="center">
+<div style="margin:0px; padding:0px; height:100%; resize: none;" align="left">
+	<div style="max-width: 33%; float:left">
 	<a href="<%=cp%>/space_main" style="text-decoration: none;">
-		<button style="height: 100px; width: 100px;">듀오스페이스</button>
+		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duospace.jpg">
 	</a>
+	</div>
+	<div style="max-width: 33%; float:left;">
 	<a href="<%=cp%>/community" style="text-decoration: none;">
-		<button style="height: 100px; width: 100px;">커뮤니티</button>
+		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/community.jpg">
 	</a>
+	</div>
+	<div style="max-width: 33%; float:left">
 	<a href="<%=cp%>/duogram" style="text-decoration: none;">
-		<button style="height: 100px; width: 100px;">듀오그램</button>
+		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram 1.jpg">
 	</a>
+	</div>
 </div>
 </body>
 </html>
