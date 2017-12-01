@@ -117,7 +117,7 @@ function modalSendLogin() {
 						<ul class="dropdown-menu">
 							<li><a href="#">룸</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">좌석</a></li>
+							<li><a href="<%=cp%>/reserve">좌석</a></li>
 						</ul></li>
 					<li><a href="#">Core/Cafe</a></li>
 					<li><a href="#">도서대여</a></li>
