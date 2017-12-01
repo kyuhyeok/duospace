@@ -52,13 +52,13 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 	  		<tr>
 	  			<td>
 					<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-				  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff;">
-				  			<span style="display: inline-block ; padding-top: 55px;text-align: center;">
+				  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff; vertical-align: middle;">
+				  			<span style="display: inline-block ; padding-top: 55px; padding-left: 65px;">
 				  				<img style="width: 50px;height: 50px;"  src="<%=cp%>/resource/images/icon_plus.png">
 				  			</span>
 				  			<br>
-				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;text-align: center;">
-				  				<span class="uriText">밴드 만들기</span>
+				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;padding-left: 53px;">
+				  				<span style="padding: auto;">밴드 만들기</span>
 				  			</span>
 				  		</a>
 					</div>
@@ -70,8 +70,9 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/2.JPG">
 				  			</span>
 				  			<br>
-				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;text-align: center;">
-				  				<span>자바</span>
+				  			<span style="display:table ;height: 85px; margin-left: 25px;">
+				  				<span style="display:table; margin-top: 20px; ">제목</span>
+				  				<span style="display:table; margin-top: 2px; ">인원수</span>
 				  			</span>
 				  		</a>
 					</div>

@@ -46,7 +46,7 @@
 			<!-- 전체글 -->
 			<div style="float: left ">
 				<div style="width: 550px; height:30px; margin-bottom: 12px; background: #ffffff;border-style: outset;vertical-align: middle;">
-					<input type="text" placeholder="글 내용,#태그,@작성자 검색" style="width: 500px; border: none;margin-left: 20px;">
+					<input type="text" placeholder="글 내용,#태그,@작성자 검색" style="width: 500px;margin-left: 20px; border: none;">
 				</div>
 				<div style="width: 550px; margin-bottom: 12px; background: #ffffff;border-style: outset;">
 					<div style="width: 550px;height: 80px;padding: 30px;">
@@ -73,8 +73,25 @@
 								</span>
 								올린시간...
 							</div>
-							<div>
-								글 리스트...
+							<!-- 글 리스트.. -->
+							<div style="margin: 15px;">
+								asdfasdfasdfsadfasdfas<br>
+								basdfdsafas<br>
+								sadfasdfa<br>
+								sdafasdf<br>
+							</div>
+							<!-- 댓글 및 표정이모티콘 -->
+							<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
+								<div style="margin: 15px; float: left; padding-left: 50px;">
+									<button type="button">
+										표정짓기
+									</button>
+								</div>
+								<div style="margin: 15px; float: right; padding-right: 50px;">
+									<button type="button">
+										댓글쓰기
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
