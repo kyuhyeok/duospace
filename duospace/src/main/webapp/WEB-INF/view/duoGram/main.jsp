@@ -33,11 +33,11 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 <!-- header -->
 <form>
-<div style="background: #32b0e5; position: fixed; top:0px; margin: 0px; width: 100%; height:80px; border-bottom: 1px solid rgba(0,0,0,.0975);" align="center">
+<div style="background: #32b0e5; position: fixed; top:0px; margin: 0px; width: 100%; height:80px; border-bottom: 5px solid #2c7492;" align="center">
 	<table style="height: 80px; width: 935px; margin: 0px;">
 		<tr>
 			<td align="left" width="311px">
-      			<input type="text" style="border: 1px solid #2c7492; border-radius: 10px; 
+      			<input type="text" style="border: 2px solid #25576d; border-radius: 10px; 
       			height: 25px; width: 160px; background: #2fa6d8; color: white;"placeholder="                 검색">
 			</td>
 			
@@ -46,9 +46,9 @@ $("textarea.autosize").on('keydown keyup', function () {
 			</td>
 			
 			<td align="right" width="311px">
-				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">글로벌 페이지　|</a>
-				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">　기록　|</a>
-				<a href="#" style="font-family: 굴림; font-size: 15px; color: white; font-weight: bold;">　마이페이지</a>
+				<a href="#" style="font-family: 굴림; font-size: 12px; color: white; font-weight: bold;">Duo Space |</a>
+				<a href="#" style="font-family: 굴림; font-size: 12px; color: white; font-weight: bold;"> 기록 |</a>
+				<a href="#" style="font-family: 굴림; font-size: 12px; color: white; font-weight: bold;"> 마이페이지</a>
 			</td>
 		</tr>
 	</table>
@@ -60,33 +60,33 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 <!-- mid -->
 <form style="background: #fafafa; min-height: 2500px">
-<div style="width: 935px; margin: auto;">
-	<div style="height: 60px">
-	</div>
-	<!-- 왼쪽 글쓰는곳 -->
-	<div style="width: 614px; float: left;">
-	<div style="margin-bottom: 60px; width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
-		<!-- 게시글 등록 및 동영상 추가 -->
-		<div style="height: 40px; border-bottom: 1px solid #ccc; margin-top:20px;">
-			<div align="left" style="font-size: 16px; font-weight: bold;">글쓰기
-				<button class="btn btn-primary btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
-				<button class="btn btn-success btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
-			</div>
+	<div style="width: 935px; margin: auto;">
+		<div style="height: 60px">
 		</div>
-		<!-- 내용 입력 -->
-		<div style="margin-top: 10px; margin-bottom: 10px;">
-			<textarea class="autosize" style="overflow:hidden; resize: none; width: 584px; min-height: 150px; border-radius: 4px; border: 1px solid rgba(0,0,0,.0975);"></textarea>
-		</div>
+			<!-- 왼쪽 글쓰는곳 -->
+			<div style="width: 614px; float: left;">
+				<div style="margin-bottom: 60px; width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
+					<!-- 게시글 등록 및 동영상 추가 -->
+					<div style="height: 40px; border-bottom: 1px solid #ccc; margin-top:20px;">
+						<div align="left" style="font-size: 16px; font-weight: bold;">글쓰기
+							<button class="btn btn-primary btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
+							<button class="btn btn-success btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
+						</div>
+					</div>
+				<!-- 내용 입력 -->
+				<div style="margin-top: 10px; margin-bottom: 10px;">
+					<textarea class="autosize" style="overflow:hidden; resize: none; width: 584px; min-height: 150px; border-radius: 4px; border: 1px solid rgba(0,0,0,.0975);"></textarea>
+				</div>
 		
-		<!-- 첨부파일 -->
-		<div style="border-top: 1px solid #ccc; margin-bottom: 10px"></div>
-		<div style="height: 40px">
-				<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
-		</div>
-	</div>
+				<!-- 첨부파일 -->
+				<div style="border-top: 1px solid #ccc; margin-bottom: 10px"></div>
+				<div style="height: 40px">
+					<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
+				</div>
+			</div>
 	
-	<!-- 왼쪽 게시글들 -->
-	<div style="width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
+		<!-- 왼쪽 게시글들 -->
+		<div style="width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
 	
 			<!-- 프로필 및 아이디 -->
 			<div style="height: 40px; border-bottom: 1px solid rgba(0,0,0,.0975); margin-top:20px; font-weight: bold; font-size: 16px;">
