@@ -65,23 +65,23 @@ $("textarea.autosize").on('keydown keyup', function () {
 		</div>
 			<!-- 왼쪽 글쓰는곳 -->
 			<div style="width: 614px; float: left;">
-				<div style="margin-bottom: 60px; width: 614px; padding-left: 15px; padding-right: 15px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
+				<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
 					<!-- 게시글 등록 및 동영상 추가 -->
-					<div style="height: 40px; border-bottom: 1px solid #ccc; margin-top:20px;">
-						<div align="left" style="font-size: 16px; font-weight: bold;">글쓰기
-							<button class="btn btn-primary btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px; margin-left: 8px;">게시글 등록</button>
-							<button class="btn btn-success btn-sm button pull-right" style="width: 80px; height: 28px; font-size: 12px;">동영상 추가</button>
+					<div style="height: 30px;background: #e9ebee; border-bottom: 1px solid #dddfe2;">
+						<div align="left" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold;">글쓰기
 						</div>
 					</div>
 				<!-- 내용 입력 -->
-				<div style="margin-top: 10px; margin-bottom: 10px;">
-					<textarea class="autosize" style="overflow:hidden; resize: none; width: 584px; min-height: 150px; border-radius: 4px; border: 1px solid rgba(0,0,0,.0975);"></textarea>
+				<div style="margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
+					<textarea class="autosize" style="border:none; overflow:hidden; resize: none; width: 584px; min-height: 80px;"></textarea>
 				</div>
 		
 				<!-- 첨부파일 -->
-				<div style="border-top: 1px solid #ccc; margin-bottom: 10px"></div>
-				<div style="height: 40px">
-					<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 584px; height: 28px;">
+				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
+				<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
+					<input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px;">
+					<button class="button pull-right" style="border: 2px solid #ccc; background: #e9ebee; width: 80px; color: white; height: 28px; font-size: 12px; border-radius: 3px; margin-left: 8px;">게시글 등록</button>
+					<button class="button pull-right" style="border: 2px solid #ccc; background: #e9ebee; width: 80px; color: white; height: 28px; font-size: 12px; border-radius: 3px; ">동영상 추가</button>
 				</div>
 			</div>
 	
@@ -136,19 +136,19 @@ $("textarea.autosize").on('keydown keyup', function () {
 	<!-- 오른쪽 커뮤니티? -->
     <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
 		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
-			친구생일 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+			친구생일 <a href="#"><img src="<%=cp%>/resource/images/gear.PNG" style="width: 10px; height: 10px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 150px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
 		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
-			다가오는 일정 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+			다가오는 일정 <a href="#"><img src="<%=cp%>/resource/images/gear.PNG" style="width: 10px; height: 10px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 250px; background: white; border: 1px solid rgba(0,0,0,.0975); float:right; border-radius: 3px; margin-bottom: 20px">	
 		<div style="height: 35px; font-size: 14px; border-bottom: 1px solid #ccc">
-			커뮤니티 순위 <a href="#"><img src="<%=cp%>/resource/images/topni.PNG" style="width: 15px; height: 15px;"></a>
+			커뮤니티 순위 <a href="#"><img src="<%=cp%>/resource/images/gear.PNG" style="width: 10px; height: 10px;"></a>
 		</div>
     </div>
     
