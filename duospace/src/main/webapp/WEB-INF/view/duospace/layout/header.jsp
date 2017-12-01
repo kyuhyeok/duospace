@@ -145,7 +145,7 @@ li:hover ul.submenu {
 		<nav class="dropdownmenu" style="height: 100%">
 			<ul class="drop_menu">
 				<li><a href="<%=cp%>/space_main" style="font-family:Airways; font-size:35px; font-weight: normal; ">Duo Space</a></li>
-				<li><a href="#">회사 소개</a></li>
+				<li><a href="<%=cp%>/space_company">회사 소개</a></li>
 				<li><a href="#">&nbsp;&nbsp;Duo Space&nbsp;&nbsp;</a>
 					<ul class="submenu">
 						<li><a href="#">지점 리스트</a></li>
