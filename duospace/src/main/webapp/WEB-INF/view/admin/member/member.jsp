@@ -16,23 +16,16 @@
 <title>직원 관리</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" />
-<link href="<%=cp%>/resource/bootstrap/css/animate.min.css"
-	rel="stylesheet" />
-
-<!-- NProgress -->
-<link href="<%=cp%>/resource/bootstrap/css/nprogress.css"
-	rel="stylesheet" />
+<link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
 <!-- 우편번호 검색 서비스 -->
-<script
-	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<script	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
 <!-- 날짜Jquery -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 	$(function() {
 		$("#datepicker").datepicker();
@@ -327,25 +320,9 @@
 
 						<option value="N">일반회원</option>
 
-						<option value="A">등급1</option>
+						<option value="A">직원</option>
 
-						<option value="B">등급2</option>
-
-						<option value="C">등급3</option>
-
-						<option value="D">등급4</option>
-
-						<option value="E">등급5</option>
-
-						<option value="F">등급6</option>
-
-						<option value="G">등급7</option>
-
-						<option value="H">등급8</option>
-
-						<option value="I">등급9</option>
-
-						<option value="J">등급10</option>
+						<option value="B">관리자</option>
 
 					</select>
 				</div>
