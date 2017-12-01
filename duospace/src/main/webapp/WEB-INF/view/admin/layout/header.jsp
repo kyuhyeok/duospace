@@ -7,16 +7,15 @@
 %>
 <script type="text/javascript">
 $(function(){
-		$("body").on("click",".child_menu",function(){
-			var $trReplyAnswer = $(this)
+		$("body").on("click",".adminmenu>a",function(){
+			var $trReplyAnswer = $(this).next("ul");
 			var isVisible = $trReplyAnswer.is(":visible"); 
 			
 			if(isVisible){
-				$trReplyAnswer.hide();
+				$trReplyAnswer.slideUp();
 			}else{
-				$trReplyAnswer.show();
-				
-				listAnswer();
+				$trReplyAnswer.slideDown();
+			
 			}
 		});
 	});
@@ -54,7 +53,7 @@ $(function(){
 				<div class="menu_section">
 					<h3>회원님</h3>
 					<ul class="nav side-menu">
-						<li>
+						<li class="adminmenu">
 							<a href='#'>기본정보관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">사이트정보 관리</a></li>
@@ -65,14 +64,14 @@ $(function(){
 								<li><a href="#">배송업체 관리</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>시스템관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">접속로그</a></li>
 								<li><a href="#">로그인로그</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>디자인관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">메인 슬라이드 관리</a></li>
@@ -82,20 +81,19 @@ $(function(){
 								<li><a href="#">Header 배경이미지 관리</a></li>
 							</ul>
 						</li>
-						<li>
-							<a href="<%=cp%>/admin/member/member">회원관리<span class="caret"></span></a>
+						<li class="adminmenu">
+							<a>회원관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">관리자 리스트</a></li>
 								<li><a href="#">관리자 등록</a></li>
 								<li><a href="#">일반회원 리스트</a></li>
 								<li><a href="#">일반회원 등록</a></li>
 								<li><a href="#">회원등급 관리</a></li>
-
 								<li><a href="#">적립금 적립/사용 내역</a></li>
 								<li><a href="#">회원별 적립금 지급/차감</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>상품관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">카테고리 관리</a></li>
@@ -107,7 +105,7 @@ $(function(){
 								<li><a href="#">관심상품 관리</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>주문관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">전체주문리스트</a></li>
@@ -131,13 +129,13 @@ $(function(){
 								</li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>매출관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="/sales/bo/saleslist">매출리스트</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>게시판관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">게시글 리스트</a></li>
@@ -145,7 +143,7 @@ $(function(){
 								<li><a href="#">Contact 리스트</a></li>
 							</ul>
 						</li>
-						<li>
+						<li class="adminmenu">
 							<a>통계관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">회원 통계</a></li>
