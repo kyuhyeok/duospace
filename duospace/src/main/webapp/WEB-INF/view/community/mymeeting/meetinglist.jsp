@@ -7,7 +7,7 @@
 %>
 
 <header>
-	<div style="width: 100%; height: 30px; background: #e96eb5;" align="center">
+	<div style="width: 100%; height: 30px; background: #e96eb5; position: fixed; left: 0px; top: 50px;" align="center">
 		<table> 
 			<tr>
 				<td style="padding: 0px 20px;">
@@ -32,12 +32,10 @@
 		</table>
 	</div>
 </header>
-<div style="width: 100%; min-height: 800px; background:#eef0f3;">
-	<div style="height: 34px;">
-	</div>
+<div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
 	<div style="width: 1050px;min-height: 800px; margin: auto;">
 			<!-- 프로필 -->
-			<div style="vertical-align: top;margin-right: 20px;float: left">
+			<div style="vertical-align: top;margin-right: 20px;float: left; position: fixed; left: ">
 				<img src="<%=cp%>/resource/images/2.JPG" style="width:180px;height: 100px; ">
 				<h3>자바</h3>
 				<span>멤버 1</span>&nbsp;&nbsp;<a>초대</a>
@@ -105,12 +103,23 @@
 			</div>
 			<!-- 사이드. -->
 			<div style="float: left;margin-left: 20px;">
-				<div style="width: 240px;height: 300px;background: #fff;">
-					
-					<div align="left" style="width: 110px;">
-						 채팅 <a>새 채팅</a> 
+				<!-- 채팅DIV -->
+				<div style="border-style: outset;">
+					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #ccc;">
+						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
+							 채팅 
+						</div>
+						
+						<div style="float: right; margin-right: 15px;margin-top:5px;">
+							 <a>새 채팅</a> 
+						</div>
+						
 					</div>
-				
+					<div style="border-top: 1px solid #ccc; width: 240px; height: 63px; background: #fff; ">
+						<a>
+						
+						</a>
+					</div>
 				</div>
 			</div>
 	</div>

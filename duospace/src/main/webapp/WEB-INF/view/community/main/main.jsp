@@ -45,41 +45,39 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 </script>
  -->
 
-<div style="background: #eef0f3"> 
-	<div class="container"style="padding-bottom: 30px;">
-  		<h3>내 모임/1</h3>
-  		<table>
-	  		<tr>
-	  			<td>
-					<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-				  		<a href="<%=cp%>/community/sub/maderoom" style="display: block;position: relative;background-color: #ffffff; vertical-align: middle;">
-				  			<span style="display: inline-block ; padding-top: 55px; padding-left: 65px;">
-				  				<img style="width: 50px;height: 50px;"  src="<%=cp%>/resource/images/icon_plus.png">
-				  			</span>
-				  			<br>
-				  			<span style="display: inline-block ;height: 85px;padding-top: 10px;padding-left: 53px;">
-				  				<span style="padding: auto;">밴드 만들기</span>
-				  			</span>
-				  		</a>
-					</div>
-				</td>
-				<td>
-					<div style="position: relative;display: block;background-color: #ffffff; width: 180px;height: 200px;">
-				  		<a href="<%=cp%>/community/mymeeting/meetinglist" style="display: block;position: relative;background-color: #ffffff;">
-				  			<span style="display: inline; padding-top: 55px;text-align: center;">
-				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/2.JPG">
-				  			</span>
-				  			<br>
-				  			<span style="display:table ;height: 85px; margin-left: 25px;">
-				  				<span style="display:table; margin-top: 20px; ">제목</span>
-				  				<span style="display:table; margin-top: 2px; ">인원수</span>
-				  			</span>
-				  		</a>
-					</div>
-				</td>
-			</tr>
-  		</table>
-	</div>
+<div style="background: #eef0f3;"> 
+	<div class="container"style="padding-bottom: 30px; margin-top: 100px;">
+  		<div style="width: 100%;height: 40px;">
+	  		<h3>내 모임/1</h3>
+  		</div>
+  			<div style="float: left;">
+				<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
+			  		<a href="<%=cp%>/community/sub/maderoom" style="background-color: #ffffff; ">
+			  			<span style=" padding-top: 55px; padding-left: 65px;">
+			  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/icon_plus.png">
+			  			</span>
+			  			<br>
+			  			<span style="height: 85px;padding-top: 10px;padding-left: 53px;">
+			  				<span style="padding: auto;">모임 만들기</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/2.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+		</div>
 </div>
 <div style="background: #fff; min-height: 500px;">
 <div class="container">
