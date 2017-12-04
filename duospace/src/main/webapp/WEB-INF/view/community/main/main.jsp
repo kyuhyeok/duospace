@@ -44,9 +44,8 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 })();
 </script>
  -->
-
-<div style="background: #eef0f3;"> 
-	<div class="container"style="padding-bottom: 30px; margin-top: 100px;">
+<div style="background: #eef0f3; "> 
+	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
   		<div style="width: 100%;height: 40px;">
 	  		<h3>내 모임/1</h3>
   		</div>
@@ -54,7 +53,7 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 				<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
 			  		<a href="<%=cp%>/community/sub/maderoom" style="background-color: #ffffff; ">
 			  			<span style=" padding-top: 55px; padding-left: 65px;">
-			  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/icon_plus.png">
+			  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
 			  			</span>
 			  			<br>
 			  			<span style="height: 85px;padding-top: 10px;padding-left: 53px;">
@@ -67,7 +66,77 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
 			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
 			  			<span style=" padding-top: 55px;text-align: center;">
-			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/2.JPG">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+			  			</span>
+			  			<br>
+			  			<span style="display:table ;height: 85px; margin-left: 25px;">
+			  				<span style="display:table; margin-top: 20px; ">제목</span>
+			  				<span style="display:table; margin-top: 2px; ">인원수</span>
+			  			</span>
+			  		</a>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+			  		<a href="<%=cp%>/community/mymeeting/meetinglist" style=" background-color: #ffffff;">
+			  			<span style=" padding-top: 55px;text-align: center;">
+			  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
 			  			</span>
 			  			<br>
 			  			<span style="display:table ;height: 85px; margin-left: 25px;">
@@ -79,7 +148,7 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 			</div>
 		</div>
 </div>
-<div style="background: #fff; min-height: 500px;">
+<div style="background: #A7C7C5; min-height: 500px;">
 <div class="container">
 	<h3>공개 모임 인기글</h3>
 	<div>
