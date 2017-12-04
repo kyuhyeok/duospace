@@ -1,30 +1,5 @@
 @charset "UTF-8";
 /** Page headers**/
-#page-header{
-		margin: 10px 0px 55px 0px;
-	    min-height: 44px;
-}
-#page-header .header-brand{
-	float:left;
-    display: inline-block; 
-    padding-right:20px;
-    padding:0;
-    margin:0;
-}
-#page-header .header-brand  a{ 
-    text-decoration: none;
-}
-#page-header .logo{
-	float:left;
-}
-#page-header .header-login {
-	float:right;
-	min-height:27px;
-}
-#page-header .login {
-	float:right; position:relative;
-}
-
 #navbar{
 	float:left;
 }
@@ -35,6 +10,7 @@
 .clear{
 	float:right; margin-left:70%;
 }
+
 #myNavbar{
 	flat:left;
 }
@@ -191,7 +167,6 @@ h1 {
   padding-left: 10px;
   padding-right: 15px;
   margin-bottom: 0px;
-  color: #A6A6A6;
 }
 
 .footer-tet-right {

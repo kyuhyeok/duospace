@@ -60,6 +60,7 @@ $(function(){
 }
 
 .panel-footer h3 {
+	color:#172A40;
     font-size: 32px;
 }
 
@@ -182,7 +183,7 @@ ul{
 	</div>
 
 
-<div class="container" style="margin-top: 5%;">
+<div class="container" style="margin-top: 1%;">
   <div class="row">
     <div class="col-sm-4">
       <h3>같이(Duo)</h3>
@@ -439,7 +440,7 @@ ul{
   </ul>
 </div>
 
-<div class="container" style="margin: 10% 0px; border-top: 1px solid #D8D8D8;">
+<div class="container" style="margin: 8% 0px; border-top: 1px solid #D8D8D8;">
   <div class="text-center">
     <h2 style="margin: 5% 0px;">듀오 스페이스(Duo Space)</h2>
     <h4 style="margin-bottom: 5%;"> 다양한 시설을 즐겨 보세요!</h4>

@@ -26,10 +26,10 @@ $(function(){
 	     });
 	   
 	   $(".submenu").children("li").on("mouseover", function(){
-		  $(this).children().css("background-color", "#4374D9");
+		  $(this).children().css("background-color", "#D9383A");
 	   });
 	   $(".submenu").children("li").on("mouseleave", function(){
-		  $(this).children().css("background-color", "#6798FD");
+		  $(this).children().css("background-color", "#172A40");
 	   });
 });
 
@@ -51,16 +51,19 @@ function modalSendLogin() {
 	}
 </script>
 <style type="text/css">
-.header-login {
-	margin-top: 13px;
-}
-
 .header-login a {
+	text-decoration:none;
+	letter-spacing: -.06em;
+    color: #172A40!important;
+    font-weight: 700;
 	margin: 0px 5px;
+}
+.header-login a:hover{
+	color: #D9383A!important;
 }
 
 .navbar-nav a {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .dropdownmenu ul, .dropdownmenu li {
@@ -72,12 +75,13 @@ function modalSendLogin() {
 	width: 100%;
 }
 .dropdownmenu li {
+	color: #D9383A;
 	float: left;
 	position: relative;
 	width:auto;
 }
 .dropdownmenu a {
-	background: #6798FD;
+	background: #172A40;
 	color: #FFFFFF;
 	display: block;
 	font: bold 16px/20px sans-serif;
@@ -108,37 +112,34 @@ li:hover ul.submenu {
 	width: 100%;
 }
 .submenu a:hover {
-	background: #6798FD;
+	background: #D9383A;
 }
-
+.header-login a{
+	font-size: 14px;
+	color: #172A40; 
+}
 
 </style>
 <div class="container">
-	<div class="container-fluid" style="padding:0px 0px 5% 0px;">
-		<div id="page-header" style="margin: 10px 0px;">
+	<div class="container-fluid" style="padding:0px 0px 2% 0px;">
+		<div id="page-header" style="margin: 2px 0px; min-height: 0px;">
 			<div class="clear">
 				<div class="header-login">
-					<a href="<%=cp%>/community"><span
-						class="glyphicon glyphicon-log-in"></span>커뮤니티</a> <a
-						href="<%=cp%>/admin"><span class="glyphicon glyphicon-log-in"></span>관리자</a>
-					<i></i>
+					<a href="<%=cp%>/community">커뮤니티</a>
 					<c:if test="${sessionScope.member.userId=='admin'}">
 					</c:if>
 					<c:if test="${empty sessionScope.member}">
-						<a href="javascript:dialogLogin();"><span
-							class="glyphicon glyphicon-log-in"></span> 로그인</a>
+						<a href="javascript:dialogLogin();"> 로그인</a>
 						<i></i>
-						<a href="#"><span class="glyphicon glyphicon-user"></span>
+						<a href="#">
 							회원가입</a>
 					</c:if>
 					<c:if test="${not empty sessionScope.member}">
-						<a href="#"><span class="glyphicon glyphicon-home">POS</span></a>
-						<span style="color: blue;">${sessionScope.member.userName}</span>님 <i></i>
-						<a href="#"><span class="glyphicon glyphicon-log-out"></span>
-							로그아웃</a>
-						<a href="#"><span class="glyphicon glyphicon-book">마이
-								페이지</span></a>
+						<span style="color: #D9383A;">${sessionScope.member.userName}</span>님 <i></i>
+						<a href="#"> 로그아웃</a>
+						<a href="#"> 마이 페이지</a>
 					</c:if>
+					<a href="<%=cp%>/admin">관리자</a>
 				</div>
 			</div>
 		</div>
@@ -151,7 +152,7 @@ li:hover ul.submenu {
 						<li><a href="#">지점 리스트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<ul class="submenu">
 						<li><a href="#">룸 예약</a></li>
 						<li><a href="#">좌석 예약</a></li>
