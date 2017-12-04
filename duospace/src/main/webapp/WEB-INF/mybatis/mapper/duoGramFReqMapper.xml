@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duoGramFReq">
+	<insert id="insertFReq" parameterType="com.duospace.duogram.freq.FReq">
+		insert INTO gramfriend (memberNum, friendNum)
+        VALUES(#{from}, #{to})
+	</insert>
+	
+	<select id="listFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
+		SELECT friendNum FROM gramfriend
+		WHERE memberNum=#{memberNum} AND friendNum NOT IN (
+			SELECT memberNum FROM gramfriend
+			WHERE friendNum=#{memberNum}
+		)
+	</select>
+	
+	<select id="fReqDataCount" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*), 0) FROM gramfriend
+		WHERE memberNum=#{memberNum} AND friendNum NOT IN (
+			SELECT memberNum FROM gramfriend
+			WHERE friendNum=#{memberNum}
+		)
+	</select>
+	
+	<select id="readFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
+	
+	</select>
+	
+	<delete id="deleteFReq" parameterType="map">
+		DELETE TABLE gramfriend 
+		WHERE memberNum=#{from} AND friendNum=#{to}
+	</delete>
+	
+</mapper>
