@@ -30,6 +30,23 @@
 	   <aop:pointcut id="controllerOperation" expression="execution(public * com.duospace..*Controller.*(..))" />
    </aop:config>
 
+	<!-- Interceptor 설정 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+		 
+		 <!-- 모든 url에 인터셉터 적용 -->
+		<mvc:mapping path="/**"/>
+		
+		<!-- 제외 -->
+		<mvc:exclude-mapping path="/"/>
+		<mvc:exclude-mapping path="/main"/>
+		<mvc:exclude-mapping path="/resource/**"/>
+		<mvc:exclude-mapping path="/duospace/member/login"/>
+		
+		<bean class="com.duospace.member.LoginCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!-- 타일즈 환경 설정 -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
        <property name="definitions">
