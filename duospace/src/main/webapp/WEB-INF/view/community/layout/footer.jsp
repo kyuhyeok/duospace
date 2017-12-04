@@ -18,7 +18,7 @@
 		<a href="#">운영정책</a>
 		<a href="#">권리침해 신고안내</a>
 		<a href="#">개발자</a>
-		<a href="#">도움말</a>
+		<a href="<%=cp%>/resource/images/communiti/sub/qna">도움말</a>
 	</div>
 </footer>
   

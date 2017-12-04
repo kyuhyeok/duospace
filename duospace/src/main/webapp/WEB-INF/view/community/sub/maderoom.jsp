@@ -122,7 +122,7 @@ function formCheck() {
 	var f=document.allForm;
     var title = f.title.value;
     if (title == null || title == "") {
-        alert('클럽 이름을 입력하세요');
+        alert('모임 이름을 입력하세요');
         f.title.focus();
         return;
     }
@@ -146,11 +146,11 @@ $(function(){
 </script>
 
 
-<div style="width:840px; margin: 30px auto;">
+<div style="width:840px; margin: 80px auto;">
 	<div class="makeCover">
 	      <h2 class="title">제목</h2>
 	      <div>
-	      	  <input type="text" class="inputBox" id="subject" placeholder="클럽 이름 입력">
+	      	  <input type="text" class="inputBox" id="subject" placeholder="모임 이름 입력">
 	      </div>
 	      <div class="coverSelect">
 	      		<div class="coverMain">
@@ -234,9 +234,9 @@ $(function(){
 		<span class="shape">
 		</span>
 		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 비공개 클럽 </strong>
+			<strong style="font-size: 20px;"> 비공개 모임 </strong>
 			<br>
-			<span class="msg">클럽에 있는 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
+			<span class="msg">모임에 있는 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
 		</span>
 		</span>
 		</label>
@@ -247,9 +247,9 @@ $(function(){
 		<span class="shape">
 		</span>
 		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 공개클럽 </strong>
+			<strong style="font-size: 20px;"> 공개모임 </strong>
 			<br>
-			<span class="msg">누구나 클럽을 찾을 수 있고, 게시물을 볼 수 있습니다. </span>
+			<span class="msg">누구나 모임을 찾을 수 있고, 게시물을 볼 수 있습니다. </span>
 		</span>
 		</span>
 		</label>
@@ -260,8 +260,8 @@ $(function(){
 		<span class="shape">
 		</span>
 		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 회원전용클럽 </strong><br>
-			<span class="msg">클럽에 가입된 멤버만 게시물을 확인할 수 있습니다.</span>
+			<strong style="font-size: 20px;"> 회원전용모임 </strong><br>
+			<span class="msg">모임에 가입된 멤버만 게시물을 확인할 수 있습니다.</span>
 		</span>
 		</span>
 		</label>
@@ -272,7 +272,7 @@ $(function(){
 		<tr heigth="1" bgcolor="#82B5DF"><td colspan="4"></td></tr>
 		<tr align="center">
 			<td>&nbsp;</td>
-		<td colspan="4"><input type=button value="등록" onclick="javascript:writeCheck();">
+		<td colspan="4" align="center"><input type=button value="등록" onclick="javascript:writeCheck();">
 			<input type=button value="취소" onclick="javascript:history.back(-1)">
 			<td>&nbsp;</td>
 		</tr>
