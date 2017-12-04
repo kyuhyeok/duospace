@@ -16,6 +16,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DuoSpace</title>
 
+<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css" type="text/css"/>
+
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
+
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 
@@ -37,7 +45,9 @@
 <div>
     <tiles:insertAttribute name="footer"/>
 </div>
-
+<script type="text/javascript" src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
 
 </body>
 </html>

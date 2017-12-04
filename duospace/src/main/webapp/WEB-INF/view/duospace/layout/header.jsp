@@ -126,16 +126,16 @@ li:hover ul.submenu {
 			<div class="clear">
 				<div class="header-login">
 					<a href="<%=cp%>/community">커뮤니티</a>
-					<c:if test="${sessionScope.member.userId=='admin'}">
+					<c:if test="${sessionScope.user.userId=='admin'}">
 					</c:if>
-					<c:if test="${empty sessionScope.member}">
+					<c:if test="${empty sessionScope.user}">
 						<a href="javascript:dialogLogin();"> 로그인</a>
 						<i></i>
 						<a href="#">
 							회원가입</a>
 					</c:if>
-					<c:if test="${not empty sessionScope.member}">
-						<span style="color: #D9383A;">${sessionScope.member.userName}</span>님 <i></i>
+					<c:if test="${not empty sessionScope.user}">
+						<span style="color: #D9383A;">${sessionScope.user.userName}</span>님 <i></i>
 						<a href="#"> 로그아웃</a>
 						<a href="#"> 마이 페이지</a>
 					</c:if>

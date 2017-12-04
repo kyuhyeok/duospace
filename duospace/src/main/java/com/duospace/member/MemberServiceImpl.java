@@ -21,12 +21,7 @@ public class MemberServiceImpl implements MemberService {
 			dto = dao.selectOne("member.readMember", userId);
 			//회원정보 가져오기
 			if(dto!=null) {
-
-				if(dto.getEmail()!=null) {
-				String []s=dto.getEmail().split("@");
-				dto.setEmail1(s[0]);
-				dto.setEmail2(s[1]);
-				}
+				
 				if(dto.getPhone()!=null) {
 					String [] s = dto.getPhone().split("-");
 					dto.setPhone1(s[0]);
@@ -37,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 			
 		} catch (Exception e) {
+			System.out.println(e.toString());
 		}
 		
 		return dto;

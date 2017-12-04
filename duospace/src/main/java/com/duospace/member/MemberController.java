@@ -37,7 +37,7 @@ public class MemberController {
 		}
 		
 		//로그인 날짜 변경
-		service.updateLastLogin(dto.getEmail());
+		//service.updateLastLogin(dto.getEmail());
 		
 		//로그인 정보를 세션에 저장
 		SessionInfo info = new SessionInfo();

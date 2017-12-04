@@ -11,15 +11,6 @@
   outline: none;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  color: #222;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-}
-
 #login-box {
   position: relative;
   margin: 5% auto;
@@ -119,19 +110,19 @@ input[type="button"]:active {
   color: #FFFFFF;
   text-align: center;
 }
-a:link {
+.login-bottom a:link {
 	text-decoration: none; color: #172A40;
 }
-a:visited {
+.login-bottom a:visited {
 	text-decoration: none; color: #172A40;
 }
-a:active {
+.login-bottom a:active {
 	text-decoration: none; color: #172A40;
 }
-a:hover {
+.login-bottom a:hover {
 	text-decoration: none; color: #D9383A;
 }
-a{
+.login-bottom a{
 	font-family: sans-serif;
 	font-size: 13px;
 }
@@ -169,7 +160,7 @@ function sendLogin() {
 </script>
 <div class="bodyFrame">
 
-<div id="login-box">
+<div id="login-box" style="margin-top: 8%; margin-bottom: 10%;">
   <div class="left">
     <h1>LOG IN</h1>
     
@@ -181,7 +172,7 @@ function sendLogin() {
     
     <input type="button" name="signup_submit" onclick="sendLogin()" value="LOG IN" style="margin-left: 50px;"/>
     
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 30px;" class="login-bottom">
     <a href="<%=cp%>/member/member">회원가입</a> |
     <a href="#">비밀번호찾기</a> |
     <a href="#">아이디찾기</a>
