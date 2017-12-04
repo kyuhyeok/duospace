@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller("meeting.meetingController")
 public class MeetingController {
 	
-	@RequestMapping(value="/community/mymeeting/meetinglist",method=RequestMethod.GET)
+	@RequestMapping(value="/community/mymeeting/list",method=RequestMethod.GET)
 	public String list() {
-		return ".community.mymeeting.meetinglist";
+		return ".community.mymeeting.list";
 	}
 }

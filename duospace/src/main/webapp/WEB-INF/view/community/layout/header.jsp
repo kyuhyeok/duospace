@@ -17,12 +17,17 @@
 		<div style="float: right;vertical-align: middle;">
 			<button class="btn" style="margin-right: 100px; color: #ffffff;">밴드찾기</button>
 			<a href="<%=cp%>/space_main" style="color: #ffffff;">
-				duospace/
+			<span class="glyphicon glyphicon-log-in"></span>
+				duospace
 			</a>
 			<a href="<%=cp%>/duogram" style="color: #ffffff;">
-				duoGram/
+			<span class="glyphicon glyphicon-log-in"></span>
+				duoGram
 			</a>
-			<a href="<%=cp%>/" style="color: #ffffff;">홈/</a>
+			<a href="<%=cp%>/" style="color: #ffffff;">
+			<span class="glyphicon glyphicon-log-in"></span>
+				홈
+			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="color: #ffffff;">알림/</a>
 			<a style="color: #ffffff;">메세지/</a>
