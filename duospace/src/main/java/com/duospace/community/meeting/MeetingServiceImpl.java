@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.duospace.common.FileManager;
 import com.duospace.common.dao.CommonDAO;
 
 @Service("meeting.meetingService")
@@ -14,13 +13,16 @@ public class MeetingServiceImpl implements MeetingService{
 	@Autowired
 	private CommonDAO dao;
 	
-	@Autowired
-	private FileManager fileManager;
 	
 	@Override
 	public int insertMeeting(Meeting dto, String pathname) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.insertData("meeting.insertMeeting",dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override

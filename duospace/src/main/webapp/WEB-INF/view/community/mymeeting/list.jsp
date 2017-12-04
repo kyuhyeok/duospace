@@ -25,12 +25,17 @@ $(function(){
 */
 
 function dialogNewWord() {
-    $("#modalUserId").val("");
-    $("#modalUserPwd").val("");
+    $("#modalContent").val("");
 	$("#modalNewWord").modal("show");	
-    $("#modalUserId").focus();
+    $("#modalContent").focus();
 
 }
+function sendMeeting(){
+	var content=$.trim($("#content").val());
+	var query="content"+encodeURICompon
+}
+
+
 
 </script>
 <header>
@@ -196,9 +201,9 @@ function dialogNewWord() {
 					style="font-family: sans-serif, 나눔고딕, 맑은 고딕; font-weight: bold;">글쓰기</h2>
 			</div>
 			<div class="modal-body">
-				<form name="modalLoginForm" method="post">
+				<form name="modalNewWordForm" method="post">
 					<div class="form-group"> 
-						<textarea rows="10" cols="78"style="border: none;"></textarea>
+						<textarea rows="10" cols="78"style="border: none;"id="modalContent"name="content"></textarea>
 					</div>
 					<div class="form-group">
 						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
@@ -220,7 +225,7 @@ function dialogNewWord() {
 								</a>
 							</div>
 							<div style="margin: 15px; float: right; padding-right: 50px;">
-								<button type="button" class="btn btnReplyAnswerLayout">
+								<button type="button" class="btn btnReplyAnswerLayout" onclick="sendMeeting();">
 									글쓰기
 								</button>
 							</div>
