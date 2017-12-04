@@ -43,7 +43,7 @@ public class MemberController {
 		SessionInfo info = new SessionInfo();
 		info.setUserId(dto.getEmail());
 		info.setUserName(dto.getName());
-		session.setAttribute("member", info);
+		session.setAttribute("user", info);
 		
 		String uri = (String)session.getAttribute("preLoginURI");  //이전에 들럿던 주소
 		
