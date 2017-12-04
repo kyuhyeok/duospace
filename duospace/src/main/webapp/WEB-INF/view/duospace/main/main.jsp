@@ -17,19 +17,13 @@ $(function(){
 
 </script>
 <style type="text/css">
-.logo-small {
-	color: #6798FD;
-    font-size: 50px;
-}
-
-.slogo {
-	color: #6798FD;
-    font-size: 200px;
+*{
+	color: #172A40;
 }
 
 /** panel**/
 .panel {
-    border: 1px solid #4374D9; 
+    border: 1px solid #172A40; 
     border-radius:0;
     transition: box-shadow 0.5s;
 }
@@ -40,13 +34,13 @@ $(function(){
 
 .panel-footer .btn:hover {
     border: 1px solid #8C8C8C;
-    background-color: #4374D9 !important;
+    background-color: #D9383A!important;
     color: white;
 }
 
 .panel-heading {
-    color: #4374D9 !important;
-    background-color: #8C8C8C !important;
+    color: #172A40 !important;
+    background-color: #172A40 !important;
     padding: 25px;
     border-bottom: 1px solid #4374D9;
     border-top-left-radius: 0px;
@@ -71,7 +65,7 @@ $(function(){
 
 .panel-footer .btn {
     margin: 15px 0;
-    background-color: #6798FD;
+    background-color: #172A40;
     color: #ffffff;
 }
 img{
@@ -80,7 +74,7 @@ img{
 }
 .Pic .img{
     border-radius: 43px;
-    border: 1px solid #4374D9;
+    border: 1px solid #172A40;
     background: #ffffff;
     width: 86px;
     height: 86px;
@@ -98,7 +92,7 @@ li:hover .Pic .img{
 	border-radius: 43px;
 	border:0;
 	transition-duration: 0.3s;
-	background: #6798FD;
+	background: #D9383A;
 }
 ul{
 	list-style: none;
@@ -237,7 +231,7 @@ ul{
   			</div>
   			
   			<div class="subject">
-  				<b>우편물/택배 보관</b>
+  				<b>우편물/택배 보관</b> 
   			</div>
   			
   			<div class="cont">

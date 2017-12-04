@@ -122,7 +122,7 @@ li:hover ul.submenu {
 </style>
 <div class="container">
 	<div class="container-fluid" style="padding:0px 0px 2% 0px;">
-		<div id="page-header" style="margin: 2px 0px; min-height: 0px;">
+		<div id="page-header" style="margin: 1% 0px; min-height: 20px;">
 			<div class="clear">
 				<div class="header-login">
 					<a href="<%=cp%>/community">커뮤니티</a>
@@ -143,7 +143,7 @@ li:hover ul.submenu {
 				</div>
 			</div>
 		</div>
-		<nav class="dropdownmenu" style="height: 100%">
+		<nav class="dropdownmenu" style="height: 100%;margin-top:1%;">
 			<ul class="drop_menu">
 				<li><a href="<%=cp%>/space_main" style="font-family:Airways; font-size:35px; font-weight: normal; ">Duo Space</a></li>
 				<li><a href="<%=cp%>/space_company">회사 소개</a></li>
@@ -155,7 +155,7 @@ li:hover ul.submenu {
 				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<ul class="submenu">
 						<li><a href="#">룸 예약</a></li>
-						<li><a href="#">좌석 예약</a></li>
+						<li><a href="<%=cp%>/reserve">좌석 예약</a></li>
 					</ul>
 				</li>
 				<li><a href="#">Core/Cafe</a>
@@ -168,7 +168,7 @@ li:hover ul.submenu {
 						<li><a href="#">도서 검색</a></li>
 					</ul>
 				</li>
-				<li><a href="#">이용 후기 게시판</a></li>
+				<li><a href="<%=cp%>/review">이용 후기 게시판</a></li>
 				<li><a href="#">고객 센터</a>
 					<ul class="submenu">
 						<li><a href="#">공지사항</a></li>
