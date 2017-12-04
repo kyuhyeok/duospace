@@ -21,7 +21,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 		
 		try {
 			HttpSession session = request.getSession();
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			SessionInfo info = (SessionInfo)session.getAttribute("user");
 			String cp=request.getContextPath();
 			String uri=request.getRequestURI();
 			String queryString=request.getQueryString();  //쿼리스트링==파라미터

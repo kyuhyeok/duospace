@@ -18,7 +18,7 @@ public class MemberController {
 	//로그인 및 로그아웃--------------
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public String loginForm() throws Exception{
-		return "/member/login";
+		return ".member.login";
 	}
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
@@ -33,7 +33,7 @@ public class MemberController {
 		
 		if(dto==null || (! dto.getPwd().equals(userPwd))) {
 			model.addAttribute("message", "아이디 또는 패스워드가 일치하지 않습니다.");
-			return "/member/login";
+			return ".member.login";
 		}
 		
 		//로그인 날짜 변경
@@ -43,7 +43,7 @@ public class MemberController {
 		SessionInfo info = new SessionInfo();
 		info.setUserId(dto.getEmail());
 		info.setUserName(dto.getName());
-		session.setAttribute("member", info);
+		session.setAttribute("user", info);
 		
 		String uri = (String)session.getAttribute("preLoginURI");  //이전에 들럿던 주소
 		
