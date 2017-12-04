@@ -1,12 +1,16 @@
 package com.duospace.member;
 
 public class SessionInfo {
-	
+	private int userNum;
 	private String userId;
 	private String userName;
-	private int memberLevel;
 	
-	
+	public int getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -19,11 +23,6 @@ public class SessionInfo {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getMemberLevel() {
-		return memberLevel;
-	}
-	public void setMemberLevel(int memberLevel) {
-		this.memberLevel = memberLevel;
-	}
+	
 	
 }

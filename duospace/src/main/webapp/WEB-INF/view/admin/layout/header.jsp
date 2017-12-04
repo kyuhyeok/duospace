@@ -5,24 +5,7 @@
 <%
    String cp = request.getContextPath();
 %>
-<script type="text/javascript">
-$(function(){
-		$("body").on("click",".adminmenu>a",function(){
-			var $trReplyAnswer = $(this).next("ul");
-			var isVisible = $trReplyAnswer.is(":visible"); 
-			
-			if(isVisible){
-				$trReplyAnswer.slideUp();
-			}else{
-				$trReplyAnswer.slideDown();
-			
-			}
-		});
-	});
-</script>
-	
-	
-	
+
 	<body class="nav-md footer_fixed">
 	<div class="container body">
 		<div class="main_container">
@@ -30,7 +13,7 @@ $(function(){
 		<div class="left_col scroll-view">
 
 			<div class="navbar nav_title" style="border: 0;">
-				<a href="<%=cp%>/" class="site_title">
+				<a href="<%=cp%>/admin" class="site_title">
 					<span>Duo Space</span>
 				</a>
 			</div>
@@ -54,38 +37,8 @@ $(function(){
 					<h3>회원님</h3>
 					<ul class="nav side-menu">
 						<li class="adminmenu">
-							<a href='#'>기본정보관리<span class="caret"></span></a>
-							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">사이트정보 관리</a></li>
-								<li><a href="#">결제정보 관리</a></li>
-								<li><a href="#">PG정보 관리</a></li>
-								<li><a href="#">이용약관 관리</a></li>
-								<li><a href="#">개인정보취급방침 관리</a></li>
-								<li><a href="#">배송업체 관리</a></li>
-							</ul>
-						</li>
-						<li class="adminmenu">
-							<a>시스템관리<span class="caret"></span></a>
-							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">접속로그</a></li>
-								<li><a href="#">로그인로그</a></li>
-							</ul>
-						</li>
-						<li class="adminmenu">
-							<a>디자인관리<span class="caret"></span></a>
-							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">메인 슬라이드 관리</a></li>
-								<li><a href="#">메인 프로모션 관리</a></li>
-								<li><a href="#">메인 서비스 관리</a></li>
-								<li><a href="#">Header 디자인 관리</a></li>
-								<li><a href="#">Header 배경이미지 관리</a></li>
-							</ul>
-						</li>
-						<li class="adminmenu">
 							<a>회원관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">관리자 리스트</a></li>
-								<li><a href="#">관리자 등록</a></li>
 								<li><a href="#">일반회원 리스트</a></li>
 								<li><a href="#">일반회원 등록</a></li>
 								<li><a href="#">회원등급 관리</a></li>
@@ -94,60 +47,61 @@ $(function(){
 							</ul>
 						</li>
 						<li class="adminmenu">
-							<a>상품관리<span class="caret"></span></a>
+							<a>도서관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">카테고리 관리</a></li>
-								<li><a href="#">상품 리스트</a></li>
-								<li><a href="#">상품 등록</a></li>
-								<li><a href="#">상품재고 관리</a></li>
-								<li><a href="#">상품진열 관리</a></li>
-								<li><a href="#">장바구니 관리</a></li>
-								<li><a href="#">관심상품 관리</a></li>
+								<li><a href="#">도서 리스트</a></li>
+								<li><a href="#">도서 등록</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">
-							<a>주문관리<span class="caret"></span></a>
+							<a>지점관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">전체주문리스트</a></li>
-								<li><a href="#">입금대기</a></li>
-								<li><a href="#">결제완료</a></li>
-								<li><a href="#">배송준비</a></li>
-								<li><a href="#">배송중</a></li>
-								<li><a href="#">배송완료</a></li>
-								<li><a href="#">구매확정</a></li>
-								<li><a>취소 | 교환 | 반품 | 환불<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu" style="display: none">
-										<li class="sub_menu"><a href="#">취소신청</a></li>
-										<li><a href="#">취소완료</a></li>
-										<li><a href="#">반품신청</a></li>
-										<li><a href="#">반품완료</a></li>
-										<li><a href="#">교환신청</a></li>
-										<li><a href="#">교환완료</a></li>
-										<li><a href="#">환불신청</a></li>
-										<li><a href="#">환불완료</a></li>
-									</ul>
-								</li>
+								<li><a href="#">지점 리스트</a></li>
+								<li><a href="#">지점 등록</a></li>
+								<li><a href="#">좌석 배치도 리스트</a></li>
+								<li><a href="#">좌석 배치도 등록</a></li>
+								<li><a href="#">룸 정보 리스트</a></li>
+								<li><a href="#">룸 정보 등록</a></li>
+							</ul>
+						</li>
+						<li class="adminmenu">
+							<a>Core/Cafe관리<span class="caret"></span></a>
+							<ul class="nav child_menu" style="display: none">
+								<li><a href="#">메뉴 리스트</a></li>
+								<li><a href="#">메뉴 등록</a></li>
+							</ul>
+						</li>
+						<li class="adminmenu">
+							<a>이용권 관리<span class="caret"></span></a>
+							<ul class="nav child_menu" style="display: none">
+								<li><a href="#">이용권 리스트</a></li>
+								<li><a href="#">이용권 등록</a></li>
+								<li><a href="#">기간별 이용권 조회</a></li>
+							</ul>
+						</li>
+						<li class="adminmenu">
+							<a>게시판 관리<span class="caret"></span></a>
+							<ul class="nav child_menu" style="display: none">
+								<li><a href="#">공지사항 리스트</a></li>
+								<li><a href="#">FAQ 리스트</a></li>
+								<li><a href="#">1:1문의 리스트</a></li>
+								<li><a href="#">게시판 등록</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">
 							<a>매출관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="/sales/bo/saleslist">매출리스트</a></li>
-							</ul>
-						</li>
-						<li class="adminmenu">
-							<a>게시판관리<span class="caret"></span></a>
-							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">게시글 리스트</a></li>
-								<li><a href="#">게시글 등록</a></li>
-								<li><a href="#">Contact 리스트</a></li>
+								<li><a href="#">Core/Cafe 매출</a></li>
+								<li><a href="#">Duo Space 매출</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">
 							<a>통계관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">회원 통계</a></li>
 								<li><a href="#">매출 통계</a></li>
+								<li><a href="#">회원 통계</a></li>
+								<li><a href="#">연령대별 이용 통계</a></li>
+								<li><a href="#">이용권 통계</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -174,7 +128,7 @@ $(function(){
 						</a>
 						<ul class="dropdown-menu dropdown-usermenu pull-right">
 							<li>
-								<a href="/memberlogin/bo/memberlogout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+								<a href="<%=cp%>/main"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
 							</li>
 						</ul>
 					</li>
