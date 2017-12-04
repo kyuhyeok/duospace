@@ -14,7 +14,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>커뮤니티</title>
+<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/band/band.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/band/bandComponent.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/band/bandLayout.css" type="text/css"/>
@@ -36,6 +38,10 @@
 <div>
     <tiles:insertAttribute name="footer"/>
 </div>
+
+<script type="text/javascript" src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
 
 </body>
 </html>
