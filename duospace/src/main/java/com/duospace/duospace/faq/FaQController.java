@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("duospace.faqController")
 public class FaQController {
 
-	@RequestMapping(value="/faq")
+	@RequestMapping(value="/duospace/faq")
 	public String reserve(Model model) throws Exception {
-		return "";
+		return ".four.duospace.gogeak.faq.faq";
 	}
 }
+
+
