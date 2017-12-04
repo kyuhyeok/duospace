@@ -15,7 +15,7 @@ public class MeetingServiceImpl implements MeetingService{
 	
 	
 	@Override
-	public int insertMeeting(Meeting dto, String pathname) {
+	public int insertMeeting(Meeting dto) {
 		int result=0;
 		try {
 			result=dao.insertData("meeting.insertMeeting",dto);
@@ -49,14 +49,15 @@ public class MeetingServiceImpl implements MeetingService{
 		return 0;
 	}
 
+
 	@Override
-	public int updateMeeting(Meeting dto, String pathname) {
+	public int updateMeeting(Meeting dto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteMeeting(int num, String pathname) {
+	public int deleteMeeting(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
