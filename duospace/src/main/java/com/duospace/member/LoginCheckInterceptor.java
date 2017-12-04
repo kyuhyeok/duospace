@@ -25,7 +25,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 			String cp=request.getContextPath();
 			String uri=request.getRequestURI();
 			String queryString=request.getQueryString();  //쿼리스트링==파라미터
-			
 			if(info==null) {
 				
 				if(isAjax(request)) {  //ajax요청인데 로그인이 안되있으면 403에러를 던지겟다
@@ -38,6 +37,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 					uri=uri.substring(cp.length());
 				if(queryString!=null)
 					uri="?"+queryString;
+				
 				
 				session.setAttribute("preLoginURI", uri); //로그인 전 주소   ex. uri : /bbs/list
 				

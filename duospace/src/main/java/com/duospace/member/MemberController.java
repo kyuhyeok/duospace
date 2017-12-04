@@ -56,6 +56,16 @@ public class MemberController {
 		
 		return uri;
 	}
+	
+	@RequestMapping(value="/member/logout")
+	public String logout(HttpSession session) throws Exception {
+		// 로그인 정보를 세션에서 삭제 한다.
+		session.removeAttribute("user");
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 }
 
 
