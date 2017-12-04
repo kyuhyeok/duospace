@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<!-- 회원정보추가 -->
+	
+	
+	<!-- 회원정보가져오기 -->
+	<select id="readMember" resultType="com.duospace.member.Member" parameterType="String">
+		SELECT m1.memberNum,isUsed, email, name, pwd, phone, job, lastLogIn, updated
+				,profile, organization, hobby, joinDate, addrNum, addr1, addr2
+				,favor1, favor2,favor3, birth
+		FROM member1 m1
+		LEFT OUTER JOIN member2 m2 ON m1.memberNum=m2.memberNum
+		WHERE m2.email=#{userId} AND isUsed !=0
+	</select>
+	
+	
+</mapper>
+

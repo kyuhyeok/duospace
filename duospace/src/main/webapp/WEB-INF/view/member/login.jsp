@@ -54,7 +54,7 @@ function bgLabel(ob, id) {
 	    }
 }
 
-<%-- function sendLogin() {
+ function sendLogin() {
         var f = document.loginForm;
 
     	var str = f.userId.value;
@@ -71,13 +71,14 @@ function bgLabel(ob, id) {
 
         f.action = "<%=cp%>/member/login";
         f.submit();
-} --%>
+} 
+ 
 </script>
 <div class="bodyFrame">
 
     <form class="form-signin" name="loginForm" method="post">
         <h2 class="form-signin-heading">Log In</h2>
-        <label for="userId" id="lblUserId" class="lbl">아이디</label>
+        <label for="userId" id="lblUserId" class="lbl">아idid이디</label>
         <input type="text" id="userId" name="userId" class="form-control loginTF" autofocus="autofocus"
                   onfocus="document.getElementById('lblUserId').style.display='none';"
 	              onblur="bgLabel(this, 'lblUserId');">

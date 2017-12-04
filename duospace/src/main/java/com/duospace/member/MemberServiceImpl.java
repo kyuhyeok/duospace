@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member readMember(String userId) {
 		Member dto =null;
 		try {
-			dto = dao.selectOne("duospace.member.readMember", userId);
+			dto = dao.selectOne("member.readMember", userId);
 			//회원정보 가져오기
 			if(dto!=null) {
 
