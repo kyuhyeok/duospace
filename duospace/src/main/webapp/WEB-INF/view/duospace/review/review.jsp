@@ -10,6 +10,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function searchList() {
+		var f=document.searchForm;
+		f.submit();
+	}
+</script>
 <style type="text/css">
 *{
 	list-style: none;
