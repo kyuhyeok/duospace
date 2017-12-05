@@ -99,6 +99,7 @@ public class NoticeController {
 		
 		String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
 		
+		model.addAttribute("mode", "created");
 		model.addAttribute("listTop", listTop);
 		model.addAttribute("paging", paging);
 		model.addAttribute("page", current_page);
@@ -106,6 +107,7 @@ public class NoticeController {
 		model.addAttribute("list", list);
 		model.addAttribute("articleUrl", articleUrl);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("rows", rows);
 		
 		return ".four.duospace.gogeak.notice.list";
 	}
@@ -145,6 +147,8 @@ public class NoticeController {
 		
 		//String cp = req.getContextPath();
 		
+		service.updateHitCount(num);
+		
 		Notice dto = service.readNotice(num);
 		
 		if(searchValue.length()!=0) {
@@ -156,6 +160,7 @@ public class NoticeController {
 		}
 		
 		Map<String, Object> map = new HashMap<>();
+		
 		map.put("num", num);
 		map.put("searchKey", searchKey);
 		map.put("searchValue", searchValue);
@@ -163,7 +168,7 @@ public class NoticeController {
 		Notice preDto=service.preReadNotice(map);
 		Notice nextDto=service.nextReadNotice(map);
 		
-		service.updateHitCount(num);
+		
 		
 		
 		String query="page="+page+"&rows="+rows;
@@ -171,6 +176,7 @@ public class NoticeController {
 			query+="&searchKey="+searchKey+"&searchValue="+searchValue;
 		}
 		
+		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		model.addAttribute("dto", dto);
 		model.addAttribute("rows", rows);
@@ -185,6 +191,35 @@ public class NoticeController {
 		return ".four.duospace.gogeak.notice.article";
 	}
 	
+	@RequestMapping(value="/duospace/notice/update", method=RequestMethod.GET)
+	public String updateNotice(
+			@RequestParam(value="num") int num,
+			@RequestParam(value="page")String page,
+			Model model
+			) throws Exception{
+		
+		Notice dto = service.readNotice(num);
+		if(dto==null)
+			return "redirect:/duospace/notice/list?page="+page;
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+		
+		return ".four.duospace.gogeak.notice.created";
+	}
+	
+	@RequestMapping(value="/duospace/notice/update", method=RequestMethod.POST)
+	public String updateSuibmit(Notice dto, @RequestParam String page, HttpSession session) throws Exception{
+		
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"uploads"+File.separator+"notice";
+		
+		service.updateNotice(dto, pathname);
+		
+		return "redirect:/duospace/notice/list?page="+page;
+	}
 }
 
 

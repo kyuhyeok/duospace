@@ -110,4 +110,24 @@
 	
 	</select>
 	
+	<!-- 공지사항수정 -->
+	<update id="updateNotice" parameterType="com.duospace.duospace.notice.Notice">
+		UPDATE duonotice SET subject=#{subject}, content=#{subject}, savefilename=#{saveFilename, jdbcType=VARCHAR}, 
+							 notice=#{notice},originalfilename=#{originalFilename, jdbcType=VARCHAR}
+							 WHERE num=#{num} 
+	</update>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+

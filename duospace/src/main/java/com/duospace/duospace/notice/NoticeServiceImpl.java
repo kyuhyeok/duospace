@@ -107,8 +107,13 @@ public class NoticeServiceImpl implements NoticeService  {
 
 	@Override
 	public int updateNotice(Notice dto, String pathname) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			dao.updateData("duospace.notice.updateNotice", dto);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
