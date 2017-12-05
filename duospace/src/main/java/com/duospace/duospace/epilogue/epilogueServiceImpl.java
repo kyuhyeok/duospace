@@ -1,4 +1,4 @@
-package com.duospace.duospace.review;
+package com.duospace.duospace.epilogue;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.duospace.common.FileManager;
 import com.duospace.common.dao.CommonDAO;
 
-@Service("duospace.reviewService")
-public class ReviewServiceImpl implements ReviewService{
+@Service("duospace.epilogueService")
+public class epilogueServiceImpl implements epilogueService{
 	
 	@Autowired
 	private CommonDAO dao;
@@ -19,7 +19,7 @@ public class ReviewServiceImpl implements ReviewService{
 	private FileManager fileManager;
 	
 	@Override
-	public int insertReview(Review dto, String pathname) {
+	public int insertReview(epilogue dto, String pathname) {
 		int result=0;
 		try {
 			
@@ -28,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService{
 				dto.setSaveFilename(saveFilename);
 			}
 			
-			result=dao.insertData("duospace.review.created", dto);
+			result=dao.insertData("duospace.epilogue.created", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -36,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<Review> listReview(Map<String, Object> map) {
+	public List<epilogue> listReview(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public Review readReview(int reservnum) {
+	public epilogue readReview(int reservnum) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,7 +60,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int updateReview(Review dto, String pathname) {
+	public int updateReview(epilogue dto, String pathname) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

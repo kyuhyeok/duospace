@@ -1,4 +1,4 @@
-package com.duospace.duospace.review;
+package com.duospace.duospace.epilogue;
 
 import java.io.File;
 
@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.duospace.member.SessionInfo;
 
-@Controller("duospace.ReviewController")
-public class ReviewController {
+@Controller("duospace.epilogueController")
+public class epilogueController {
 	
 	@Autowired
-	private ReviewService service;
+	private epilogueService service;
 	
-	@RequestMapping(value="/review")
+	@RequestMapping(value="/epilogue")
 	public String reserve(Model model) throws Exception {
-		return ".review.review";
+		return ".epilogue.list";
 	}
 	
-	@RequestMapping(value="/duospace/review/created", method=RequestMethod.GET)
+	@RequestMapping(value="/duospace/epilogue/created", method=RequestMethod.GET)
 	public String createdForm(Model model) throws Exception{
 		
 		model.addAttribute("mode", "created");
 		
-		return ".review.r_created";
+		return ".epilogue.e_created";
 	}
 	
-	@RequestMapping(value="/duospace/review/created", method=RequestMethod.POST)
+	@RequestMapping(value="/duospace/epilogue/created", method=RequestMethod.POST)
 	public String createdSubmit(
-			Review dto,
+			epilogue dto,
 			HttpSession session
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
@@ -45,7 +45,7 @@ public class ReviewController {
 
 		service.insertReview(dto, pathname);
 		
-		return "redirect:/review";
+		return "redirect:/list";
 		
 	}
 }

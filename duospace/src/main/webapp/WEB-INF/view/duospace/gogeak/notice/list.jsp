@@ -45,7 +45,11 @@ $(function(){
 
 </head>
 <body>
+<<<<<<< HEAD
 	<div class="col-sm-12 body-frame-2">
+=======
+	<div class="col-sm-12 body-frame">
+>>>>>>> branch 'master' of https://github.com/kyuhyeok/duospace.git
 
 
 

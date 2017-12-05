@@ -91,7 +91,7 @@
                        	<option value="seoul">서울</option>
                        	<option value="">경기도</option>
                        	<option value="">인천</option>
-              </select>
+            		 </select>
               <select id="" class="selectField">
                    <option value="">지점</option>
                    <option value="">당산지점</option>
@@ -111,7 +111,7 @@
 	    				<a href="#">★</a>
 	    				<a href="#">★</a>
 					</p>
-					<input type="text" name="score" id="score" value="0" readonly="readonly">
+					<input type="text" name="starnum" id="score" value="0" readonly="readonly">
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
@@ -147,7 +147,7 @@
 			      <td align="center" >
 			        <button type="submit" class="btn" >등록하기</button>
 			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/review'">등록취소</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/epilogue'">등록취소</button>
 			      </td>
 			    </tr>
 			  </table>

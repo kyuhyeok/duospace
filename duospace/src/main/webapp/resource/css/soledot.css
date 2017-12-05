@@ -1,3 +1,7 @@
 #table1 td{
 	vertical-align: middle;
 }
+@font-face {
+	font-family:"Airways";
+	src: url("/duospace/resource/font/Airways.ttf") format("truetype");
+}
