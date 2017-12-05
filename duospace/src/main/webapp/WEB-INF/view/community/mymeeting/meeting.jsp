@@ -30,10 +30,17 @@ function dialogNewWord() {
     $("#modalContent").focus();
 
 }
+
 function sendMeeting(){
 	var content=$.trim($("#content").val());
-	var query="content"+encodeURICompon
+	var query="content"+encodeURIComponent(content);
+	
+	$.ajax({
+		type:"post"
+		,url:"<%=cp%>/meeting/insert"
+	});
 }
+
 
 
 
