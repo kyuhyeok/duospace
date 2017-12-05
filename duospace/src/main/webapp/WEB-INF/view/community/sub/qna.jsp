@@ -33,7 +33,7 @@ $(function(){
 <body>
 
 		<h2 style="margin-left: 450px;">도움말</h2>
-		<table style="margin: 30px auto;" border="1" cellspacing="0" cellpadding="10" width="1200px;" align="center">
+		<table style="margin: 80px auto;" border="1" cellspacing="0" cellpadding="10" width="1200px;" align="center">
 		<tr>
 			<td colspan="3">검색어를 입력하세요</td>
 		</tr>
