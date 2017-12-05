@@ -25,11 +25,18 @@ $(function(){
 	        }
 	     });
 	   
-	   $(".submenu").children("li").on("mouseover", function(){
-		  $(this).children().css("background-color", "#D9383A");
+	   $(".drop_menu").children().on("mouseover", function(){
+		   $(this).children().css("background-color", "#D9383A");
 	   });
-	   $(".submenu").children("li").on("mouseleave", function(){
+	   $(".drop_menu").children().on("mouseout", function(){
+			  $(this).children().css("background-color", "#172A40");
+		   });
+	   $(".submenu").children().on("mouseover", function(){
+		   $(this).children().css("background-color", "#D9383A");
+	   });
+	   $(".submenu").children().on("mouseout", function(){
 		  $(this).children().css("background-color", "#172A40");
+
 	   });
 });
 
@@ -126,8 +133,6 @@ li:hover ul.submenu {
 			<div class="clear">
 				<div class="header-login">
 					<a href="<%=cp%>/community">커뮤니티</a>
-					<c:if test="${sessionScope.user.userId=='admin'}">
-					</c:if>
 					<c:if test="${empty sessionScope.user}">
 						<a href="javascript:dialogLogin();"> 로그인</a>
 						<i></i>
@@ -136,10 +141,12 @@ li:hover ul.submenu {
 					</c:if>
 					<c:if test="${not empty sessionScope.user}">
 						<span style="color: #D9383A;">${sessionScope.user.userName}</span>님 <i></i>
-						<a href="#"> 로그아웃</a>
+						<a href="<%=cp%>/member/logout"> 로그아웃</a>
 						<a href="#"> 마이 페이지</a>
 					</c:if>
-					<a href="<%=cp%>/admin">관리자</a>
+					<c:if test="${sessionScope.user.userId=='admin'}">
+						<a href="<%=cp%>/admin">관리자</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -154,7 +161,7 @@ li:hover ul.submenu {
 				</li>
 				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<ul class="submenu">
-						<li><a href="#">룸 예약</a></li>
+						<li><a href="<%=cp%>/room">룸 예약</a></li>
 						<li><a href="<%=cp%>/reserve">좌석 예약</a></li>
 					</ul>
 				</li>
@@ -165,15 +172,15 @@ li:hover ul.submenu {
 				</li>
 				<li><a href="#">도서 대여</a>
 					<ul class="submenu">
-						<li><a href="#">도서 검색</a></li>
+						<li><a href="<%=cp%>/book">도서 검색</a></li>
 					</ul>
 				</li>
 				<li><a href="<%=cp%>/review">이용 후기 게시판</a></li>
 				<li><a href="#">고객 센터</a>
 					<ul class="submenu">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">FAQ</a></li>
-						<li><a href="#">1:1문의</a></li>
+						<li><a href="<%=cp%>/duospace/notice/list">공지사항</a></li>
+						<li><a href="<%=cp%>/duospace/faq">FAQ</a></li>
+						<li><a href="<%=cp%>/duospace/qna/list">1:1문의</a></li>
 					</ul>
 				</li>
 			</ul>

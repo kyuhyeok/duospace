@@ -14,14 +14,14 @@ function sendOk() {
 
 	var str = f.subject.value;
     if(!str) {
-        alert("제목을 입력하세요. ");
+        alert("제목을 입력하세요... ");
         f.subject.focus();
         return;
     }
 	
 	str = f.content.value;
     if(!str) {
-        alert("내용을 입력하세요. ");
+        alert("내용을 입력하세요... ");
         f.content.focus();
         return;
     }
@@ -47,13 +47,15 @@ function sendOk() {
 
 
 <form name="createdForm" method="post" enctype="multipart/form-data">
-<table class="createdTable" style="width: 700px; margin: 50px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+<table class="createdTable" style="margin: 50px auto 0px; border-spacing: 0px; border-collapse: collapse;">
   <tr style="border-bottom: 1px solid #e4e4e4;border-top: 1px solid #e4e4e4;" height="40px;">
     <td align="center" width="100px;" bgcolor="#eeeeee">
         제 목
     </td>
     <td>
+       
        <input type="text" name="subject" class="boxTF" style="width: 500px;">
+      	공지 <input type="checkbox" name="notice" value="1">
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -62,6 +64,7 @@ function sendOk() {
     </td>
     <td>
       ${sessionScope.user.userName}
+     
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4; max-height: 350px;">
@@ -84,7 +87,7 @@ function sendOk() {
     <td colspan="2" align="center">
       <button type="button" onclick="sendOk();">등록완료</button>
       <button type="reset">다시입력</button>
-      <button type="button">등록취소</button>
+      <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/notice/list'">등록취소</button>
     </td>
   </tr>
 </table>

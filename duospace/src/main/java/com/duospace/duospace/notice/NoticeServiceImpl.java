@@ -39,14 +39,27 @@ public class NoticeServiceImpl implements NoticeService  {
 
 	@Override
 	public List<Notice> listNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list=null;
+		
+		try {
+			list=dao.selectList("duospace.notice.list", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		
+		return list;
 	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			dao.selectOne("duospace.notice.dataCount", map);
+			
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
