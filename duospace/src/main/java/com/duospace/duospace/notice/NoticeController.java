@@ -2,6 +2,7 @@ package com.duospace.duospace.notice;
 
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.common.DuospaceUtil;
+import com.duospace.common.FileManager;
 
 @Controller("duospace.noticeController")
 public class NoticeController {
@@ -28,6 +31,9 @@ public class NoticeController {
 
 	@Autowired
 	private DuospaceUtil myUtil;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	@RequestMapping(value="/duospace/notice/list")
 	public String list(
@@ -220,7 +226,50 @@ public class NoticeController {
 		
 		return "redirect:/duospace/notice/list?page="+page;
 	}
+	
+	@RequestMapping(value="/duospace/download")
+	public void download(
+			@RequestParam int num,
+			HttpServletRequest req,
+			HttpServletResponse resp,
+			HttpSession session
+			) throws Exception{
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"notice";
+		
+		Notice dto = service.readNotice(num);
+		boolean flag=false;
+		
+		if(dto!=null) {
+			flag=fileManager.doFileDownload(dto.getSaveFilename(),
+					dto.getOriginalFilename(), pathname, resp);
+		}
+		
+		if(! flag) {
+			resp.setContentType("text/html;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			out.print("<script>alert('파일 다운로드가 실패했습니다.');history.back();</script>");
+		}
+		
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
