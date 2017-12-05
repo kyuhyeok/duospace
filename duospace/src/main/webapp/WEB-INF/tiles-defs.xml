@@ -131,5 +131,18 @@
 	<definition name=".*" extends=".duospaceLayout">
     	  <put-attribute name="body" value="/WEB-INF/view/duospace/{1}.jsp" />
 	</definition>
+	
+	<!-- 듀오그램 2단 -->
+	<definition name=".duoGramLayout" template="/WEB-INF/view/duoGram/layout/layout3.jsp">
+	    <put-attribute name="title" value="duoGram" />
+	  	<put-attribute name="header" value="/WEB-INF/view/duoGram/layout/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/main.jsp" />
+	</definition>
+	<definition name=".duoGram.*.*.*" extends=".duoGramLayout">
+		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".duoGram.*.*" extends=".duoGramLayout">
+		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}.jsp"/>
+	</definition>
 
 </tiles-definitions>
