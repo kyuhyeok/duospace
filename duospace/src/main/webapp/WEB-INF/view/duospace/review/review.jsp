@@ -10,6 +10,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function searchList() {
+		var f=document.searchForm;
+		f.submit();
+	}
+</script>
 <style type="text/css">
 *{
 	list-style: none;
@@ -139,6 +145,9 @@
 					<option value="created">등록일</option>
 				</select> <input type="text" name="searchValue" class="boxTF">
 				<button type="button" class="btn" onclick="searchList()">검색</button>
+			<div align="right" style="width:100%">
+				<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/review/created';">후기 등록</button>
+			</div>
 			</form>
 		</div>
 		<div class="row" style="margin:3% 0px;">
