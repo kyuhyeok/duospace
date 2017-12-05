@@ -4,11 +4,59 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Duogram {
 	private MultipartFile upload;  // <input type='file' name='upload' ..
-	private int replyNum, num, answer, memberNum, friendNum;
-	private String Intro, CoverSaveFileName, ProFileSaveFileName;
+	private int listNum, replyNum, num, answer, memberNum, friendNum, isopen;
+	private String name, pwd, Intro, saveFilename, originalFilename;
 	private String company, school, home, created, updated, content;
 	
+	public int getIsopen() {
+		return isopen;
+	}
+
+	public void setIsopen(int isopen) {
+		this.isopen = isopen;
+	}
+
+	public String getSaveFilename() {
+		return saveFilename;
+	}
+
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
+	}
+
+	public String getOriginalFilename() {
+		return originalFilename;
+	}
+
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+
 	public MultipartFile getUpload() {
 		return upload;
 	}
@@ -63,22 +111,6 @@ public class Duogram {
 
 	public void setIntro(String intro) {
 		Intro = intro;
-	}
-
-	public String getCoverSaveFileName() {
-		return CoverSaveFileName;
-	}
-
-	public void setCoverSaveFileName(String coverSaveFileName) {
-		CoverSaveFileName = coverSaveFileName;
-	}
-
-	public String getProFileSaveFileName() {
-		return ProFileSaveFileName;
-	}
-
-	public void setProFileSaveFileName(String proFileSaveFileName) {
-		ProFileSaveFileName = proFileSaveFileName;
 	}
 
 	public String getCompany() {

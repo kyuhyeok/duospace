@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface DuogramService {
-	public int insertBoard(Duogram dto, String pathname);
+	public int insertBoard(Duogram dto);
 	public List<Duogram> listBoard(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
 	public Duogram readBoard(int num);
