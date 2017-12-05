@@ -7,6 +7,32 @@
 %>
 
 <script type="text/javascript" src="<%=cp%>/resource/se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<style type="text/css">
+*{
+	list-style: none;
+}
+.star_rating a {
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+    /*line-height: 150%;*/
+}
+.star_rating a:hover, a:active {
+    color: #FFE400;
+    text-decoration: underline;
+}
+.star_rating {font-size:0; letter-spacing:-4px;}
+.star_rating a {
+    font-size:22px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    color:#ccc;
+    text-decoration:none;
+}
+.star_rating a:first-child {margin-left:0;}
+.star_rating a.on {color:#FFE400;}
+</style>
 <script type="text/javascript">
     function check() {
         var f = document.boardForm;
@@ -29,20 +55,69 @@
 
    		return true;
     }
+    $(function(){
+    	$( ".star_rating a" ).click(function() {
+    		var b=$(this).hasClass("on");
+    	    $(this).parent().children("a").removeClass("on");
+    	    $(this).addClass("on").prevAll("a").addClass("on");
+    	    if(b)
+    	    	$(this).removeClass("on");
+    	    
+    	    var s=0;
+    	    $(".star_rating a").each(function(){
+    	    	if($(this).hasClass("on"))
+    	    		s++;
+    	    });
+    	    $("#score").val(s);
+    	});
+    });
 </script>
 
-<div class="body-container" style="width: 700px;">
+<div class="body-container">
     <div class="body-title">
-        <h3><span style="font-family: Webdings">2</span> 게시판 </h3>
+        <h3><span style="font-family: Webdings">2</span> 이용 후기 등록 </h3>
     </div>
     
     <div>
 			<form name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return submitContents(this);"><!--submitContent(this): 스마트에디터에서 사용하는 함수 -->
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">
+			  		지점명
+			  	</td>
+			  	<td style="padding-left:10px;">
+			  		<select id="shopname" onchange="cityList();" class="selectField">
+                   		<option value="">지역명</option>
+                       	<option value="seoul">서울</option>
+                       	<option value="">경기도</option>
+                       	<option value="">인천</option>
+              </select>
+              <select id="" class="selectField">
+                   <option value="">지점</option>
+                   <option value="">당산지점</option>
+                   <option value="">강남지점</option>
+              </select>
+			  	</td>
+			  </tr>
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">
+			  	평점
+			  	</td>
+			  	<td style="padding-left:10px;">
+			  		<p class="star_rating">
+	   					<a href="#">★</a>
+	    				<a href="#">★</a>
+	   					<a href="#">★</a>
+	    				<a href="#">★</a>
+	    				<a href="#">★</a>
+					</p>
+					<input type="text" name="score" id="score" value="0" readonly="readonly">
+			  	</td>
+			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 			      <td style="padding-left:10px;"> 
-			        <input type="text" name="subject" maxlength="100" class="boxTF" style="width: 95%;"> 제목......
+			        <input type="text" name="subject" maxlength="100" class="boxTF" style="width: 95%;">
 			      </td>
 			  </tr>
 			
@@ -56,8 +131,14 @@
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			        <textarea name="content" id="content" style="width: 95%; height: 270px;">내용......</textarea>
+			        <textarea name="content" id="content" style="width: 95%; height: 450px;"></textarea>
 			      </td>
+			  </tr>
+			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+			      <td style="padding-left:10px;"> 
+			          <input type="file" name="upload" class="boxTF" size="70" style="height: 30px;">
+			       </td>
 			  </tr>
 			  </table>
 			
@@ -66,7 +147,7 @@
 			      <td align="center" >
 			        <button type="submit" class="btn" >등록하기</button>
 			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="#">등록취소</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/review'">등록취소</button>
 			      </td>
 			    </tr>
 			  </table>

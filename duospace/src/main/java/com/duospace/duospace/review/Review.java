@@ -4,7 +4,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Review {
 	private int reservnum, membernum, hitCount, starnum;
-	private String subject, content, created, saveFilename;
+	private String subject, content, created, saveFilename, userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	private MultipartFile upload;
 	private int replyCount;
 	
