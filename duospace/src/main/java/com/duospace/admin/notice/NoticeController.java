@@ -1,4 +1,5 @@
-package com.duospace.duospace.notice;
+package com.duospace.admin.notice;
+
 
 import java.io.File;
 
@@ -31,10 +32,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/duospace/notice/created", method=RequestMethod.POST)
-	public String createdSubmit(
-			Notice dto,
-			HttpSession session
-			) throws Exception{
+	public String createdSubmit(Notice dto, HttpSession session) throws Exception{
+		
 		
 		String root = session.getServletContext().getRealPath("/");
 		String pathname= root+File.separator+"uploads"+File.separator+"notice";
@@ -43,7 +42,7 @@ public class NoticeController {
 		service.insertNotice(dto, pathname);
 	
 		
-		return "redirect:/four/duospace/gogeak/notice/list";
+		return "redirect:/duospace/notice/list";
 	}
 	
 }
