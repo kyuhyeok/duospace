@@ -129,9 +129,11 @@ li:hover ul.submenu {
 </style>
 <div class="container">
 	<div class="container-fluid" style="padding:0px 0px 2% 0px;">
-		<div id="page-header" style="margin: 1% 0px; min-height: 20px;">
-			<div class="clear">
-				<div class="header-login">
+		<div id="page-header" style="margin: 1% 0px; min-height: 20px; width: 100%;">
+			
+				<div class="header-login" style="width: 100%; text-align: right;">
+				
+					<a href="<%=cp%>/duogram">Duo Gram</a>
 					<a href="<%=cp%>/community">커뮤니티</a>
 					<c:if test="${empty sessionScope.user}">
 						<a href="javascript:dialogLogin();"> 로그인</a>
@@ -148,7 +150,7 @@ li:hover ul.submenu {
 						<a href="<%=cp%>/admin">관리자</a>
 					</c:if>
 				</div>
-			</div>
+			
 		</div>
 		<nav class="dropdownmenu" style="height: 100%;margin-top:1%;">
 			<ul class="drop_menu">
@@ -175,7 +177,7 @@ li:hover ul.submenu {
 						<li><a href="<%=cp%>/book">도서 검색</a></li>
 					</ul>
 				</li>
-				<li><a href="<%=cp%>/review">이용 후기 게시판</a></li>
+				<li><a href="<%=cp%>/epilogue">이용 후기 게시판</a></li>
 				<li><a href="#">고객 센터</a>
 					<ul class="submenu">
 						<li><a href="<%=cp%>/duospace/notice/list">공지사항</a></li>

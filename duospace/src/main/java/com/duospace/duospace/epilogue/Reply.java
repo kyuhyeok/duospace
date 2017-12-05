@@ -1,4 +1,4 @@
-package com.duospace.duospace.review;
+package com.duospace.duospace.epilogue;
 
 public class Reply {
 	private int replyNum, memberNum, reservNum;

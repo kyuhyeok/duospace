@@ -20,7 +20,7 @@
 
 </head>
 <body>
-	<div class="container" role="main">
+	<div class="col-sm-12 body-frame">
 
 
 

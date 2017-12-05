@@ -1,8 +1,8 @@
-package com.duospace.duospace.review;
+package com.duospace.duospace.epilogue;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class Review {
+public class epilogue {
 	private int reservnum, membernum, hitCount, starnum;
 	private String subject, content, created, saveFilename, userId;
 	public String getUserId() {
