@@ -11,14 +11,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- textarea에 글을 길게 쓰면 자동으로 길이가 늘어난다. -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <!-- Bootstrap core CSS -->
 <link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
-<!-- textarea에 글을 길게 쓰면 자동으로 길이가 늘어난다. -->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
 <style type="text/css">
+
 .logo{
 	font-family:Airways;
 }
@@ -35,8 +36,9 @@ padding: 1.1em; /* prevents text jump on Enter keypress */
 padding-bottom: 0.2em;
 line-height: 1.6;
 }
+
 </style>
-  
+
 <script>
     $(document).ready(function() {
       $('.wrap').on( 'keyup', 'textarea', function (e){
@@ -48,60 +50,33 @@ line-height: 1.6;
 </script>
 
 <script type="text/javascript" src="<%=cp%>/resource/js/duogram/kkh.js">
-</script>
- 
+
 <script type="text/javascript">
-    function sendOk() {
-        var f = document.boardForm;
+function sendOk() {
+    var f = document.boardForm;
 
-    	str = f.content.value;
-        if(!str) {
-            alert("내용을 입력하세요. ");
-            f.content.focus();
-            return;
-        }
-
-   		f.action="<%=cp%>/bbs/${mode}";
-
-        f.submit();
+	str = f.content.value;
+    if(!str) {
+        alert("내용을 입력하세요. ");
+        f.content.focus();
+        return;
     }
+
+		f.action="<%=cp%>/duogram/${mode}";
+
+    f.submit();
+}
 </script>
 
 </head>
 <body style="margin: 0px; height: 100%; width: 100%;">
 
-<!-- header -->
-<form>
-	<div style="background: white; position: fixed; top:0px; margin: 0px; width: 100%; height:80px; border-bottom: 1px solid #eee" align="center">
-		<table style="height: 80px; width: 935px; margin: 0px;">
-			<tr>
-				<td align="left" width="311px">
-    	  			<input type="text" style="border: 1px solid #ccc; border-radius: 10px; 
-      				height: 25px; width: 160px; background: #eee; color: black;" placeholder="                 검색">
-				</td>
-				
-				<td align="center"> 
-					<a href="<%=cp%>/duogram" class="logo" style="font-size: 46px; text-decoration:none; color: black;">Duo Gram</a>			
-				</td>
-			
-				<td align="right" width="311px">
-					<a href="#" style="font-family:'나눔고딕'; font-size: 12px; color: black; font-weight: bold; text-decoration:none;"> 친구 |</a>
-					<a href="<%=cp%>/main" style="font-family: '나눔고딕'; font-size: 12px; color: black; font-weight: bold; text-decoration:none;"> HOME   |</a>
-					<a href="#" style="font-family: '나눔고딕'; font-size: 12px; color: black; font-weight: bold; text-decoration:none;"> 기록 |</a>
-					<a href="#" style="font-family: '나눔고딕'; font-size: 12px; color: black; font-weight: bold; text-decoration:none;"> 마이페이지</a>
-				</td>
-			</tr>
-		</table>
-</div>
-</form>
-	<!-- /header -->
-	<div style="height:80px">
-	</div>
+<!-- 윗칸 띄우기 -->
+<div style="height: 80px"></div>
 
 <!-- left -->
-
 <!-- mid -->
-<form style="background: #fafafa; min-height: 2500px">
+<form style="background: #fafafa; min-height: 2000px">
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
@@ -109,7 +84,6 @@ line-height: 1.6;
 		<!-- 왼쪽 글쓰는곳 -->
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
-				
 				<!-- 게시글 등록 및 동영상 추가 -->
 				<div style="height: 30px;background: #e9ebee; border-bottom: 1px solid #dddfe2;">
 					<div align="left" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
@@ -117,15 +91,17 @@ line-height: 1.6;
 				</div>
 				
 				<!-- 내용 입력 -->
-				<div style="margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
+				<div style="margin-top: 10px; margin-bottom: 10px;">
 					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요."></textarea>
 				</div>
 				
 				<!-- 첨부파일 -->
 				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
 					<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
-						<a href="#"><input type="text" placeholder="첨부파일" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px;"></a>
-						<button class="button pull-right" onclick="sendOk();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">게시글 등록</button>
+						<a href="#">
+							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
+						</a>
+						<button class="button pull-right" onclick="sendOk();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">${mode=='update'?'수정완료':'등록하기'}</button>
 						<button class="button pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
 				</div>
 			</div>
@@ -187,6 +163,7 @@ line-height: 1.6;
 				<div style="height: 50px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);">
 					<input type="text" style="border-radius: 4px; margin-top: 10px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';" placeholder="　댓글 달기">
 				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -208,28 +185,28 @@ line-height: 1.6;
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			친구생일 
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			예약일정
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			나의 커뮤니티
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			인기 커뮤니티
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
@@ -260,12 +237,9 @@ line-height: 1.6;
 </div>
 </div>
 </form>
+<!-- right -->
+
 <!-- /mid -->
 
-<!-- footer -->
-<form>
-
-</form>
-<!-- /footer -->
 </body>
 </html>

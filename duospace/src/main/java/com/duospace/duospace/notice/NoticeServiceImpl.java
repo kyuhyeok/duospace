@@ -39,32 +39,81 @@ public class NoticeServiceImpl implements NoticeService  {
 
 	@Override
 	public List<Notice> listNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list=null;
+		
+		try {
+			list=dao.selectList("duospace.notice.list", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		
+		return list;
 	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.notice.dataCount", map);
+			
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
-	public Notice readNotice() {
-		// TODO Auto-generated method stub
-		return null;
+	public Notice readNotice(int num) {
+		Notice dto = null;
+		try {
+			dto=dao.selectOne("duospace.notice.readNotice", num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
 	@Override
 	public int updateHitCount(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.updateData("duospace.notice.updateHitCount", num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
+	}
+	@Override
+	public Notice preReadNotice(Map<String, Object> map) {
+		Notice dto = null;
+		try {
+			dto=dao.selectOne("duospace.notice.preDto", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
+	}
+	
+	@Override
+	public Notice nextReadNotice(Map<String, Object> map) {
+		Notice dto = null;
+		try {
+			dto=dao.selectOne("duospace.notice.nextDto", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
 	@Override
 	public int updateNotice(Notice dto, String pathname) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			dao.updateData("duospace.notice.updateNotice", dto);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
@@ -79,16 +128,18 @@ public class NoticeServiceImpl implements NoticeService  {
 		return 0;
 	}
 
-	@Override
-	public Notice preReadNotice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public Notice nextReadNotice() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Notice> listNoticeTop() {
+		List<Notice> list=null;
+		
+		try {
+			list=dao.selectList("duospace.notice.listNotice");
+		} catch (Exception e) {
+			e.toString();
+		}
+		
+		return list;
 	}
 
 }

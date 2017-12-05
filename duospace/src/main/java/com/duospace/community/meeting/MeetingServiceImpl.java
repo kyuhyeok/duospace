@@ -13,7 +13,6 @@ public class MeetingServiceImpl implements MeetingService{
 	@Autowired
 	private CommonDAO dao;
 	
-	
 	@Override
 	public int insertMeeting(Meeting dto) {
 		int result=0;
