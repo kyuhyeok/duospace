@@ -20,13 +20,13 @@ public class DuogramController {
 	
 	@RequestMapping(value="/duogram/{memberNum}")
 	public String duogram(
-			@PathVariable int userNum,
+			@PathVariable int memberNum,
 			HttpSession session,
 			Model model) throws Exception {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String me="true";
-		if(info.getMemberNum()!=userNum)
+		if(info.getMemberNum()!=memberNum)
 			me="false";
 
 		
@@ -35,9 +35,9 @@ public class DuogramController {
 	}
 
 	
-	@RequestMapping(value="/duogram/{userNum}/created",
+	@RequestMapping(value="/duogram/{memberNum}/created",
 			method=RequestMethod.POST)
-	public String createdSubmit(@PathVariable int userNum,HttpServletRequest req, Duogram dto) throws Exception {
+	public String createdSubmit(@PathVariable int memberNum,HttpServletRequest req, Duogram dto) throws Exception {
 		service.insertBoard(dto);
 		
 		return "duogram/main/main";

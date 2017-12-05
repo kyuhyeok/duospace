@@ -71,14 +71,12 @@ function sendOk() {
 </head>
 <body style="margin: 0px; height: 100%; width: 100%;">
 
-
-	<div style="height:80px">
-	</div>
+<!-- 윗칸 띄우기 -->
+<div style="height: 80px"></div>
 
 <!-- left -->
-
 <!-- mid -->
-<form style="background: #fafafa; min-height: 2500px">
+<form style="background: #fafafa; min-height: 2000px">
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
@@ -101,7 +99,7 @@ function sendOk() {
 				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
 					<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
 						<a href="#">
-							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px;">첨부파일</button>
+							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
 						</a>
 						<button class="button pull-right" onclick="sendOk();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">${mode=='update'?'수정완료':'등록하기'}</button>
 						<button class="button pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
@@ -187,28 +185,28 @@ function sendOk() {
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			친구생일 
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			예약일정
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			나의 커뮤니티
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			인기 커뮤니티
-			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 10px; height: 10px;"></a>
+			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
@@ -239,12 +237,9 @@ function sendOk() {
 </div>
 </div>
 </form>
+<!-- right -->
+
 <!-- /mid -->
 
-<!-- footer -->
-<form>
-
-</form>
-<!-- /footer -->
 </body>
 </html>

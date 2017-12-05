@@ -5,11 +5,16 @@
 <%
    String cp = request.getContextPath();
 %>
+<style type="text/css">
+.logo{
+	font-family: Airways;
+}
+</style>
 <div style="background: #172A40; width:100%; position: fixed; left: 0px; top:0px; margin: 0px; border-bottom: 20px solid #D9383A;" >
 	<div class="container" style="vertical-align: middle;">	
 		<div style="float: left;vertical-align: middle;">
-			<a href="<%=cp%>/community">
-				<img alt="" src="<%=cp%>/resource/images/communiti/community_img.png" style="width: 50px;height: 50px;">
+			<a href="<%=cp%>/community" class="logo" style="color: white; font-size: 33px;">
+				Duo moim
 			</a>
 			<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요" style="border-radius: 20px; width: 250px;">
 		</div>
@@ -29,9 +34,15 @@
 				홈
 			</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a style="color: #ffffff;">알림/</a>
-			<a style="color: #ffffff;">메세지/</a>
-			<a style="color: #ffffff;">나의정보</a>
+			<a style="color: #ffffff;">
+				<img src="<%=cp%>/resource/images/communiti/bell.png" style="width: 35px; height: 35px; margin-right: 15px;">
+			</a>
+			<a style="color: #ffffff;">
+				<img src="<%=cp%>/resource/images/communiti/talk.png" style="width: 40px; height: 40px;">
+			</a>
+			<a style="color: #ffffff;">
+				<img src="<%=cp%>/resource/images/communiti/member.png" style="width: 60px; height: 60px;">
+			</a>
 		</div>
 	</div>
 </div>
