@@ -10,6 +10,6 @@ public class SpotController {
 	@RequestMapping(value="/admin/spotlist")
 	public String list(Model model) throws Exception {
 
-		return ".admin.menu3.spot.spotlist";
+		return ".admin4.menu3.spot.spotlist";
 	}
 }
