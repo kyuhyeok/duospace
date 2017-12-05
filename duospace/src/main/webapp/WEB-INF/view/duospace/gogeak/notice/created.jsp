@@ -61,7 +61,7 @@ function sendOk() {
       작성자
     </td>
     <td>
-       <input type="text" name="name" class="boxTF">
+      ${sessionScope.user.userName}
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4; max-height: 350px;">

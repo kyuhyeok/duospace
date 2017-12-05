@@ -3,7 +3,7 @@ package com.duospace.common;
 import org.springframework.stereotype.Service;
 
 @Service("myUtil")
-public class MyUtil {
+public abstract class MyUtil {
 	//********************************************
 	// 총페이지 수 구하기
 	public int pageCount(int numPerPage, int dataCount) {
