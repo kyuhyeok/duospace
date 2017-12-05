@@ -179,8 +179,8 @@ li:hover ul.submenu {
 				<li><a href="#">고객 센터</a>
 					<ul class="submenu">
 						<li><a href="<%=cp%>/duospace/notice/list">공지사항</a></li>
-						<li><a href="<%=cp%>/duospace/notice/list">FAQ</a></li>
-						<li><a href="<%=cp%>/duospace/notice/list">1:1문의</a></li>
+						<li><a href="<%=cp%>/duospace/faq">FAQ</a></li>
+						<li><a href="<%=cp%>/duospace/qna/list">1:1문의</a></li>
 					</ul>
 				</li>
 			</ul>
