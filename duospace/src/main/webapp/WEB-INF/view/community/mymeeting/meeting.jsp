@@ -5,8 +5,10 @@
 <%
 	String cp=request.getContextPath();
 %>
+
 <script type="text/javascript">
 /*
+//댓글버튼
 $(function(){
 		$("body").on("click",".btnReplyAnswerLayout",function(){//btn클래스 클릭하면.
 			var replyNum = $(this).attr("data-replyNum");
@@ -24,34 +26,82 @@ $(function(){
 	});
 */
 
+
 function dialogNewWord() {
+    $("#modalSubject").val("");
     $("#modalContent").val("");
 	$("#modalNewWord").modal("show");	
     $("#modalContent").focus();
-
 }
 
-function sendMeeting(){
-	var content=$.trim($("#content").val());
+//글쓰기 누를때.
+function sendFreeboard(){
+	var uid="${sessionScope.user.userNum}"
+	
+	if(! uid){
+		location.href='<%=cp%>/member/login';
+		return;
+	}
+	
+	
+	var content=$.trim($("#modalContent").val());
+
+	if(! content){
+		$("#modalContent").focus();
+		return;
+	}
+	
 	var query="content"+encodeURIComponent(content);
+	
+	var url="<%=cp%>/freeboard/insertFreeboard";
 	
 	$.ajax({
 		type:"post"
-		,url:"<%=cp%>/meeting/insert"
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data){
+			
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/member/login";
+				return;
+			}
+			$("#modalContent").val("");
+			
+			$("#listMeetingBody").empty();
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
 	});
 }
-
-
-
-
+/*
+function listpage(){
+	var url="";
+	var query="";
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$("#moimfreeboardlist").html(data);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+*/
 </script>
+
 <header>
 	<div style="width: 100%; height: 25px; background: #D9383A; position: fixed; left: 0px; top: 50px;" align="center">
 		<table> 
 			<tr>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;">
-						전체글
+					<a style="color: #ffffff;" id="moimfreeboardlist">
+						전체글<!-- freeboardNum -->
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
@@ -85,7 +135,7 @@ function sendMeeting(){
 					<hr>
 				</div>
 			</div>
-			
+			<!-- 가운데 글리스트 -->
 			<!-- 전체글 -->
 			<div style="float: left ">
 				<!-- 검색 -->
@@ -133,6 +183,9 @@ function sendMeeting(){
 					</div>
 				</div>
 				
+				<!-- 전체보기 리스트 -->
+				<div id="listFreeboard"></div>
+				
 				<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
 					<div style="border-radius: 10px;">
 						<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
@@ -165,12 +218,32 @@ function sendMeeting(){
 						<!-- 
 						 <div id="listReply"></div>
 						 -->
-						
 					</div>
 				</div>
 			</div>
 			
 			<!-- 사이드. -->
+			<div style="float: left;margin-left: 20px;margin-bottom: 12px;">
+				<!-- 채팅DIV -->
+				<div>
+					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
+						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
+							 채팅 
+						</div>
+						
+						<div style="float: right; margin-right: 15px;margin-top:5px;">
+							 <a>새 채팅</a> 
+						</div>
+						
+					</div>
+					<div style="border-top: 1px solid #ccc; width: 240px; height: 63px; background: #fff; ">
+						<a>
+						
+						</a>
+					</div>
+				</div>
+			</div>
+			
 			<div style="float: left;margin-left: 20px;">
 				<!-- 채팅DIV -->
 				<div>
@@ -209,8 +282,9 @@ function sendMeeting(){
 			</div>
 			<div class="modal-body">
 				<form name="modalNewWordForm" method="post">
-					<div class="form-group"> 
-						<textarea rows="10" cols="78"style="border: none;"id="modalContent"name="content"></textarea>
+					<input type="hidden" name="cmoimcode" value="${dto.comimcode}">
+					<div class="form-group">
+						<textarea rows="10" cols="78" style="border: none;" id="modalContent" name="content" placeholder="내용을 입력하세요."></textarea>
 					</div>
 					<div class="form-group">
 						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
@@ -232,7 +306,7 @@ function sendMeeting(){
 								</a>
 							</div>
 							<div style="margin: 15px; float: right; padding-right: 50px;">
-								<button type="button" class="btn btnReplyAnswerLayout" onclick="sendMeeting();">
+								<button type="button" class="btn btnReplyAnswerLayout" onclick="sendFreeboard();">
 									글쓰기
 								</button>
 							</div>
