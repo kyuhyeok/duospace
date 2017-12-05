@@ -25,7 +25,7 @@
 			<span class="glyphicon glyphicon-log-in"></span>
 				duospace
 			</a>
-			<a href="<%=cp%>/duogram" style="color: #ffffff;">
+			<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="color: #ffffff;">
 			<span class="glyphicon glyphicon-log-in"></span>
 				duoGram
 			</a>

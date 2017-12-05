@@ -1,14 +1,14 @@
-package com.duospace.duospace.review;
+package com.duospace.duospace.book;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("duospace.ReviewController")
-public class ReviewController {
+@Controller("duospace.bookController")
+public class BookController {
 	
-	@RequestMapping(value="/review")
+	@RequestMapping(value="/book")
 	public String reserve(Model model) throws Exception {
-		return ".review.review";
-	}	
+		return ".book.book";
+	}
 }

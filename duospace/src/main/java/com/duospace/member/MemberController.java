@@ -43,6 +43,7 @@ public class MemberController {
 		SessionInfo info = new SessionInfo();
 		info.setUserId(dto.getEmail());
 		info.setUserName(dto.getName());
+		info.setMemberNum(dto.getMemberNum());
 		session.setAttribute("user", info);
 		
 		String uri = (String)session.getAttribute("preLoginURI");  //이전에 들럿던 주소
@@ -56,6 +57,16 @@ public class MemberController {
 		
 		return uri;
 	}
+	
+	@RequestMapping(value="/member/logout")
+	public String logout(HttpSession session) throws Exception {
+		// 로그인 정보를 세션에서 삭제 한다.
+		session.removeAttribute("user");
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 }
 
 

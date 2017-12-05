@@ -1,15 +1,16 @@
 package com.duospace.member;
 
 public class SessionInfo {
-	private int userNum;
+	private int memberNum;
 	private String userId;
 	private String userName;
 	
-	public int getUserNum() {
-		return userNum;
+	
+	public int getMemberNum() {
+		return memberNum;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
 	}
 	public String getUserId() {
 		return userId;
