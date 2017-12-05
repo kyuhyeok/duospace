@@ -38,7 +38,7 @@ public class FReqController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setMemberNum(info.getUserNum());
+			dto.setMemberNum(info.getMemberNum());
 			
 			service.insertFReq(dto);
 			
@@ -65,7 +65,7 @@ public class FReqController {
 		int dataCount=0;
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("memberNum", info.getUserNum());
+		map.put("memberNum", info.getMemberNum());
 		
 		dataCount=service.fReqDataCount(map);
 		total_page=myUtil.pageCount(rows, dataCount);
@@ -101,7 +101,7 @@ public class FReqController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setMemberNum(info.getUserNum());
+			dto.setMemberNum(info.getMemberNum());
 			
 			service.deleteFResp(dto);
 			
@@ -128,7 +128,7 @@ public class FReqController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setMemberNum(info.getUserNum());
+			dto.setMemberNum(info.getMemberNum());
 			
 			service.insertFReq(dto);
 			
@@ -155,7 +155,7 @@ public class FReqController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setMemberNum(info.getUserNum());
+			dto.setMemberNum(info.getMemberNum());
 			
 			service.deleteFReq(dto);
 			
@@ -181,7 +181,7 @@ public class FReqController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setMemberNum(info.getUserNum());
+			dto.setMemberNum(info.getMemberNum());
 			
 			service.deleteFreind(dto);
 			
