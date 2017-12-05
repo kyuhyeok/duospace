@@ -3,6 +3,7 @@ package com.duospace.duospace.notice;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Notice {
+	private int listNum;
 	private int notice;
 	private int num, hitCount;
 	private String subject, created;
@@ -11,7 +12,12 @@ public class Notice {
 	private String originalFilename;
 	private String saveFilename;
 	
-	
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public int getNotice() {
 		return notice;
 	}

@@ -23,7 +23,7 @@
 	
 	<!-- 공지글 갯수 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*),0) FROM
+		SELECT NVL(COUNT(*),0) FROM duonotice
 		<where>
 		  <if test="searchValue!=NULL and searchValue!=''">
 		    <include refid="where-list"/>
@@ -35,7 +35,7 @@
 	<select id="list" parameterType="map" resultType="com.duospace.duospace.notice.Notice">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb.* FROM
-			(SELECT num, subject, content,hitcount, savefilename, notice,created
+			(SELECT num, subject, content,hitcount, savefilename, notice,TO_CHAR(created,'YYYY-MM-DD') created
 			 FROM duonotice
 			 <where>
 				<if test="searchValue!=null and searchValue !=''">
@@ -51,13 +51,63 @@
 	</select>
 	
 	
+	<!-- 공지올리기 -->
+	<select id="listNotice" resultType="com.duospace.duospace.notice.Notice">
+		SELECT  num, subject, content,hitcount, savefilename, notice,TO_CHAR(created,'YYYY-MM-DD') created
+		FROM duonotice
+		WHERE notice=1
+		ORDER BY num
+	</select>
+	
+	<!-- 글보기 -->
+	<select id="readNotice" parameterType="Integer" resultType="com.duospace.duospace.notice.Notice">
+		SELECT num, subject, content,hitcount, savefilename, notice,TO_CHAR(created) created,originalfilename 
+		FROM duonotice
+		WHERE num=#{num}
+	</select>
+	
+	<!-- 조회수증가 -->
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE duonotice SET hitCount=hitCount+1 WHERE num=#{num}
+	</update>
+	
+	<!-- 이전글(현재글보다 최근) 가져오기 -->
+	<select id="preDto" parameterType="Map" resultType="com.duospace.duospace.notice.Notice">
+	  SELECT tb.* FROM(
+		SELECT num,subject
+		FROM duonotice
+		<where>
+			<if test="searchValue !=null and searchValue !=''">
+			  <include refid="where-list"/>
+			</if>
+		
+		<![CDATA[
+		  AND (num>#{num})
+		 ]]>
+		 </where>
+		ORDER BY num )tb
+		WHERE ROWNUM=1
+	
+	</select>
 	
 	
+	<!-- 다음글(현재글보다 나중) 가져오기 -->
+	<select id="nextDto" parameterType="Map" resultType="com.duospace.duospace.notice.Notice">
+	  SELECT tb.* FROM(
+		SELECT num,subject
+		FROM duonotice
+		<where>
+			<if test="searchValue !=null and searchValue !=''">
+			  <include refid="where-list"/>
+			</if>
+		
+		<![CDATA[
+		  AND (num<#{num})
+		 ]]>
+		 </where>
+		ORDER BY num DESC
+		)tb WHERE ROWNUM=1
 	
-	
-	
-	
-	
-	
+	</select>
 	
 </mapper>

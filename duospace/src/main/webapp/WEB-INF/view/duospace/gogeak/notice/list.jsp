@@ -8,31 +8,6 @@
 	// String path = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+cp;
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DuoSpace</title>
-
-<link rel="stylesheet"
-	href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css"
-	type="text/css" />
-<link rel="stylesheet"
-	href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet"
-	href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css"
-	type="text/css" />
-
-<link rel="stylesheet" href="<%=cp%>/resource/css/style2.css"
-	type="text/css" />
-<link rel="stylesheet" href="<%=cp%>/resource/css/layout2.css"
-	type="text/css" />
-
-
-<script type="text/javascript"
-	src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	
 </script>
@@ -56,7 +31,7 @@
 	<div>
 	  <table style="border-spacing: 0px; border-collapse: collapse; width: 100%;">
 	    <tr>
-	      <td align="left">8개 (1/1 페이지) <button type="button">삭제</button></td>
+	      <td align="left">${dataCount}개 (${page}/${total_page} 페이지) <button type="button">삭제</button></td>
 	     
 	      <td align="right">
 			<form name="listRows" method="post">
@@ -78,26 +53,55 @@
 	      </th>
     	  <th>번호</th>
     	  <th width="40%">제목</th>
-    	  <th>작성자</th>
     	  <th>작성일</th>
     	  <th>조회수</th>
     	  <th>첨부</th>
     	</tr>
+    
+     <c:forEach var="dto" items="${listTop}">
+    	
     	<tr height="38px;">
     	  <td>
 	         <input type="checkbox" name="checkAll">
 	      </td>
-    	  <td>8</td>
-    	  <td>제목입니당</td>
-    	  <td>홍길동</td>
-    	  <td>2019-08-06</td>
-    	  <td>1</td>
-    	  <td></td>
+    	  <td>공지</td>
+    	  <td>
+    	  <a href="${articleUrl}&num=${dto.num}" style="font-weight: bold;"> ${dto.subject}</a></td>
+    	  <td>${dto.created}</td>
+    	  <td>${dto.hitCount}</td>
+    	  <td>
+    	    <c:if test="${not empty dto.saveFilename}">
+    	      <img src="<%=cp%>/resource/images/duospace/icon/disk.gif">
+    	    </c:if>
+    	  </td>
     	</tr>
+    </c:forEach>
+    
+    
+    <c:forEach var="dto" items="${list}">
+    	
+    	<tr height="38px;">
+    	  <td>
+	         <input type="checkbox" name="checkAll">
+	      </td>
+    	  <td>${dto.listNum}</td>
+    	  <td>
+    	  <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a></td>
+    	  <td>${dto.created}</td>
+    	  <td>${dto.hitCount}</td>
+    	  <td>
+    	    <c:if test="${not empty dto.saveFilename}">
+    	      <img src="<%=cp%>/resource/images/duospace/icon/disk.gif">
+    	    </c:if>
+    	  </td>
+    	</tr>
+    </c:forEach>
  	  </table>
 	</div>
 
-<div class="noticePage">1</div>
+<div class="noticePage" align="center">
+	${paging}
+</div>
 
 
 <form name="searchForm" method="post">
@@ -125,26 +129,6 @@
 </form>
 					
 
-		
-
-
-
-
-
-
-
-
-
-
 
 	</div>
 
-	<script type="text/javascript"
-		src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
-
-	<script type="text/javascript"
-		src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
-</body>
-</html>
