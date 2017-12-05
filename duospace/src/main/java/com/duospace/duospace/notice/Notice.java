@@ -1,4 +1,4 @@
-package com.duospace.admin.notice;
+package com.duospace.duospace.notice;
 
 import org.springframework.web.multipart.MultipartFile;
 

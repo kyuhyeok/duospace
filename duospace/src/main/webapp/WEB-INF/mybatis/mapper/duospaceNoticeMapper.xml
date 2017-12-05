@@ -2,9 +2,62 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.notice">
-	<insert id="created" parameterType="com.duospace.admin.notice.Notice">
+	<insert id="created" parameterType="com.duospace.duospace.notice.Notice">
 		INSERT INTO duonotice (num, subject, content, savefilename, originalfilename, notice)
 		VALUES (seq_duonotice.NEXTVAL,#{subject},#{content},#{saveFilename, jdbcType=VARCHAR}
 				,#{originalFilename, jdbcType=VARCHAR}, #{notice})
 	</insert>
+	
+	<sql id="where-list">
+	  <if test="searchKey=='subject'">
+	  	INSTR (subject,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='content'">
+	    DBMS_LOB.INSTR(content,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='created'">
+	    TO_CHAR(created,'YYYY-MM-DD') = #{searchValue} 
+	    OR TO_CHAR(created,'YYYYMMDD') = #{searchValue}
+	  </if>
+	</sql>
+	
+	<!-- 공지글 갯수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM
+		<where>
+		  <if test="searchValue!=NULL and searchValue!=''">
+		    <include refid="where-list"/>
+		  </if>
+		</where>
+	</select>
+	
+	<!-- 공지글 리스트 -->
+	<select id="list" parameterType="map" resultType="com.duospace.duospace.notice.Notice">
+		SELECT * FROM(
+			SELECT ROWNUM rnum, tb.* FROM
+			(SELECT num, subject, content,hitcount, savefilename, notice,created
+			 FROM duonotice
+			 <where>
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				</if>			 
+			 </where>
+			 ORDER BY num DESC
+			)tb 
+<![CDATA[			
+			WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

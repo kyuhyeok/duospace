@@ -1,4 +1,4 @@
-package com.duospace.admin.notice;
+package com.duospace.duospace.notice;
 
 import java.util.List;
 import java.util.Map;
