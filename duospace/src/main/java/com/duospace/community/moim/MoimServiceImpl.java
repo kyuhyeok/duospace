@@ -1,4 +1,4 @@
-package com.duospace.community.meeting;
+package com.duospace.community.moim;
 
 import java.util.List;
 import java.util.Map;
@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
 
-@Service("meeting.meetingService")
-public class MeetingServiceImpl implements MeetingService{
+@Service("moim.moimService")
+public class MoimServiceImpl implements MoimService{
 	@Autowired
 	private CommonDAO dao;
 	
 	@Override
-	public int insertMeeting(Meeting dto) {
+	public int insertMoim(Moim dto) {
 		int result=0;
 		try {
-			result=dao.insertData("meeting.insertMeeting",dto);
+			result=dao.insertData("moim.insertMoim",dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -25,7 +25,7 @@ public class MeetingServiceImpl implements MeetingService{
 	}
 
 	@Override
-	public List<Meeting> listMeeting(Map<String, Object> map) {
+	public List<Moim> listMoim(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -37,7 +37,7 @@ public class MeetingServiceImpl implements MeetingService{
 	}
 
 	@Override
-	public Meeting readMeeting(int num) {
+	public Moim readMoim(int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -50,13 +50,13 @@ public class MeetingServiceImpl implements MeetingService{
 
 
 	@Override
-	public int updateMeeting(Meeting dto) {
+	public int updateMoim(Moim dto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteMeeting(int num) {
+	public int deleteMoim(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
