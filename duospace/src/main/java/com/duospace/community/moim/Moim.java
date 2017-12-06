@@ -1,6 +1,6 @@
-package com.duospace.community.meeting;
+package com.duospace.community.moim;
 
-public class Meeting {
+public class Moim {
 	private int moimnum;//모임번호
 	private String comname;//모임이름
 	private int isopen;//공개여부

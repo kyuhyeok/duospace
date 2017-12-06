@@ -13,7 +13,7 @@
 <div style="background: #172A40; width:100%; position: fixed; left: 0px; top:0px; margin: 0px; border-bottom: 20px solid #D9383A;" >
 	<div class="container" style="vertical-align: middle;">	
 		<div style="float: left;vertical-align: middle;">
-			<a href="<%=cp%>/community" class="logo" style="color: white; font-size: 33px;">
+			<a href="<%=cp%>/community/${sessionScope.user.memberNum}" class="logo" style="color: white; font-size: 33px;">
 				Duo moim
 			</a>
 			<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요" style="border-radius: 20px; width: 250px;">

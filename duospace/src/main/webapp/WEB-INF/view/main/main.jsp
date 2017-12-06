@@ -20,7 +20,7 @@
 	</a>
 	</div>
 	<div style="max-width: 33%; float:left;">
-	<a href="<%=cp%>/community" style="text-decoration: none;">
+	<a href="<%=cp%>/community/${sessionScope.user.memberNum}" style="text-decoration: none;">
 		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram/community.jpg">
 	</a>
 	</div>

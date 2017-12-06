@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.duospace.common.MyUtil;
 
-@Service("duogram.util")
+@Service("duogram.duoGramUtil")
 public class DuoGramUtil extends MyUtil{
 
 	@Override
