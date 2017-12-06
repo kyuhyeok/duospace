@@ -5,8 +5,120 @@
 <%
 	String cp = request.getContextPath();
 %>
+<script type="text/javascript">
+	$(function() {
 
-	<div class="right_col" role="main">
+		var expand = 'expanded';
+		var content = $('.faq-content');
+		//FAQ Accordion
+		$('.faq-accordion > li > a').click(function(e) {
+			e.preventDefault();
+			if ($(this).hasClass(expand)) {
+				$(this).removeClass(expand);
+				//	          $('.faq-accordion > li > a > div').not(this).css('opacity', '1');//returns li back to normal state
+				$(this).parent().children('ul').stop(true, true).slideUp();
+			} else {
+				//	            $('.faq-accordion > li > a > div').not(this).css('opacity', '0.5');//dims inactive li
+				$('.faq-accordion > li > a.expanded').removeClass(expand);
+				$(this).addClass(expand);
+				content.filter(":visible").slideUp();
+				$(this).parent().children('ul').stop(true, true).slideDown();
+			}
+		}); //accordion function
+
+		content.hide();
+
+	});
+</script>
+<style type="text/css">
+.faq-accordion {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.faq-content {
+	list-style: none;
+	padding-left: 10px;
+}
+
+.faq-accordion>li {
+	border-top: 1px solid rgba(198, 198, 198, 0.4);
+	color: #666;
+	padding: 1.125em 0
+}
+
+.faq-accordion li a {
+	color: #666;
+	padding: 1.125em;
+}
+
+.faq-accordion>li:last-child {
+	border-bottom: 1px solid rgba(198, 198, 198, 0.4);
+}
+
+.faq-accordion>li>a:before {
+	content: 'Q.';
+	padding-right: 0.313em
+}
+
+.faq-accordion>li>a:after {
+	color: #ff8300;
+	content: '+';
+	float: right;
+	font-weight: 300;
+	margin-right: 1.25em;
+	-webkit-transform: scale(2);
+	-ms-transform: scale(2);
+	transform: scale(2);
+	overflow-y: hidden;
+}
+
+.faq-accordion>li>a.expanded:after {
+	color: #ffa326;
+	content: '\2212';
+	-webkit-transform: scale(2);
+	-ms-transform: scale(2);
+	transform: scale(2);
+}
+
+.faq-accordion>li>a.expanded {
+	font-weight: 700;
+	opacity: 1 !important
+}
+
+.faq-content {
+	background-color: #ececec;
+	margin: 20px 0 -20px;
+}
+
+.faq-content p:before {
+	content: 'A.';
+	color: #ff8300;
+	float: left;
+	font-weight: 700;
+	margin-right: .5em
+}
+
+.faq-content p {
+	margin: 0 1.2em;
+	padding: 1.250em 0
+}
+
+.faq-hide {
+	display: none
+}
+
+.faq-selected {
+	color: #49494b !important;
+	-webkit-transition: all 1s ease;
+	transition: all 1s ease;
+}
+</style>
+
+
+
+
+	<div class="right_col" role="main" style="background: #ffffff; padding: 50px 100px 200px;">
 
 		<div class="">
 			<div class="page-title">
@@ -19,350 +131,123 @@
 			</div>
 			<div class="clearfix"></div>
 
-			<form action="productlist" class="form-horizontal" id="frm"
-				name="frm" method="post">
+	
+		<div style="margin-top: 50px;"></div>
 
-				<input name="r_page" type="hidden" value="1" /> <input
-					name="r_pagelimit" type="hidden" value="10" /> <input
-					name="r_rowlimit" type="hidden" value="10" /> <input id="r_prseq"
-					name="r_prseq" type="hidden" value="" /> <input name="r_prseqarr"
-					type="hidden" /> <input name="r_column" type="hidden" value="" />
-				<input name="r_columnvalue" type="hidden" value="" />
+		<div role="tabpanel" style="width: 100%;">
 
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="x_panel">
-							<div class="x_title">
-								<h2>
-									검색 <small>Search</small>
-								</h2>
-								<ul class="nav navbar-right panel_toolbox">
-									<li><a class="collapse-link"><i
-											class="fa fa-chevron-up"></i></a></li>
-									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+			<!-- Nav tabs -->
+		   <div id="qnaCode">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#home" data-qnacode="1" aria-controls="home" role="tab" data-toggle="tab">예약/결제</a>
+				</li>
+				<li role="presentation">
+					<a href="#profile" data-qnacode="2" aria-controls="profile" role="tab" data-toggle="tab">이용권</a>
+				</li>
+				<li role="presentation">
+					<a href="#messages" data-qnacode="5" aria-controls="messages" role="tab" data-toggle="tab">회원가입/로그인</a>
+				</li>
+				<li role="presentation">
+					<a href="#settings" data-qnacode="3" aria-controls="settings" role="tab" data-toggle="tab">카페/대여</a>
+				</li>
+				<li role="presentation">
+					<a href="#settings" data-qnacode="6" aria-controls="settings" role="tab" data-toggle="tab">기타문의</a>
+				</li>
+			</ul>
+		   </div>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="home">
+
+					<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">질문1</a>
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">질문2</a>
+									<span style="margin-left: 80%;">
+									<button type="button">수정</button>
+									<button type="button">삭제</button>
+									</span>
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">질문3</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
+									
 								</ul>
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content">
-								<div class="form-group">
-									<div class="form-group">
-										<label class="col-sm-2 col-xs-12 control-label" for="ctgr1">지점명</label>
-										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" id="ctgr1" name="ctgr1">
-												<option value="">지역</option>
-												<option value="">서울</option>
-												<option value="3">경기</option>
-												<option value="14">인천</option>
-											</select>
-										</div>
-										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" id="ctgr2" name="ctgr2">
-												<option value="">지점</option>
-
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="control-label col-sm-2 col-xs-12"
-											for="managerphoto">게시글 수</label>
-										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" onchange="rowLimit(this);">
-												<option value="10" selected="selected">10</option>
-												<option value="20">20</option>
-												<option value="30">30</option>
-												<option value="50">50</option>
-											</select>
-										</div>
-									</div>
-									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
-									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="sc_column">
-											<option value="">선택</option>
-											<option value="subject">제목</option>
-											<option value="content">내용</option>
-											<option value="name">작성자</option>
-											<option value="created">등록일</option>
-										</select>
-									</div>
-									<div class="col-sm-2 col-xs-12">
-										<input class="form-control" id="sc_columnvalue"
-											name="sc_columnvalue" placeholder="검색어" type="text" value="" />
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="col-xs-12">
-										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="dataSearch()">검색</button>
-									</div>
-								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="x_panel">
-							<div class="x_title">
-								<h2>
-									지점 리스트<small>Shop List</small>
-								</h2>
-								<ul class="nav navbar-right panel_toolbox">
-									<li><a>Total 26 EA</a></li>
-									<li><a href="javascript:location.reload();"><i
-											class="fa fa-refresh"></i></a></li>
-									<li><a class="collapse-link"><i
-											class="fa fa-chevron-up"></i></a></li>
-									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-								</ul>
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content">
-
-								<div class="table-responsive">
-									<table class="table table-hover" id="table1">
-										<thead>
-											<tr>
-												<th><input class="flat" id="ck_main" type="checkbox" />
-												</th>
-												<th>지점코드</th>
-												<th>지점명</th>
-												<th>우편번호</th>
-												<th>주소1</th>
-												<th>주소2</th>
-												<th>매니저</th>
-												<th>전화번호</th>
-											</tr>
-										</thead>
-										<tbody>
+				<div role="tabpanel" class="tab-pane" id="profile">질문1</div>
+				<div role="tabpanel" class="tab-pane" id="messages">질문1</div>
+				<div role="tabpanel" class="tab-pane" id="settings">질문1</div>
+			</div>
+		</div>
+	
+	<div></div>
 
 
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
+		<hr style="border: 1px solid #cccccc;margin: 50px auto 30px;">
 
+		<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/faq/created'">등록</button>
 
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
+			<table id="faq" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<th class="bar">구분</th>
+					<th colspan="2">질문내용</th>
+				</tr>
+				<tr onclick="fnAnswer(0);" class="off">
+					<td class="init">수강신청</td>
+					<td>수강등록 및 결제는 방문시에만 가능한가요?</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="answer">
+					<td>&nbsp;</td>
+					<td colspan="2">KH정보교육원에서 개강하는 모든 실업자 교육과정은 전액 국비지원과정으로 진행됩니다. 국비지원과정 지원서(노동부 양식)작성및 수강등록을 하셔야 되므로 방문하셔야 됩니다.</td>
+				</tr>
+				<tr onclick="fnAnswer(1);" class="off">
+					<td class="init">수강신청</td>
+					<td>과목별 수강료는 어떻게 되나요?</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr class="answer">
+					<td>&nbsp;</td>
+					<td colspan="2">KH정보교육원에서 진행하는 모든 실업자 교육과정은 전액 국비지원과정이므로 수강료가 0원 입니다.</td>
+				</tr>
+				<tr onclick="fnAnswer(2);" class="off">
+					<td class="init">수강신청</td>
+					<td>수강신청은 아무 때나 가능한가요?</td>
+					<td>&nbsp;</td>
+				</tr>
 
+		</table>
 
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>경기도</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-										</tbody>
-									</table>
-								</div>
-
-								<div class="form-group">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<button type="button" class="btn btn-success btn-sm"
-											onclick="dataListUp( 'PR_USE', 'Y' )">
-											<i class="fa fa-check-square-o"></i> 승인
-										</button>
-										<button type="button" class="btn btn-warning btn-sm"
-											onclick="dataListUp( 'PR_USE', 'N' )">
-											<i class="fa fa-check-square-o"></i> 미승인
-										</button>
-										<button type="button" class="btn btn-danger btn-sm"
-											onclick="dataListDel()">
-											<i class="fa fa-check-square-o"></i> 삭제
-										</button>
-									</div>
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="pull-right">
-
-											<script type="text/javascript">
-												function pager(r_page) {
-													$('input[name="r_page"]')
-															.val(r_page);
-													handling.submit('', '');
-												}
-											</script>
-
-											<span class="pageNum"> <!-- * 처음이전처리 -->
-
-
-
-												<button type="button" class="btn btn-info btn-sm">처음</button>
-												<button type="button" class="btn btn-default btn-sm">이전</button>
-
-
-												<!-- 처음이전처리 -->
-
-
-												<button class="btn btn-default btn-sm active" type="button">1</button>
-
-
-
-												<!-- * 다음 끝처리 --> <!-- 다음 끝처리 --> <!-- * 처음이전처리 --> <!-- 처음이전처리 -->
-
-
-
-												<button class="btn btn-default btn-sm" type="button"
-													onclick="pager( 2 )">2</button> <!-- * 다음 끝처리 --> <!-- 다음 끝처리 -->
-
-
-
-												<!-- * 처음이전처리 --> <!-- 처음이전처리 -->
-
-
-
-												<button class="btn btn-default btn-sm" type="button"
-													onclick="pager( 3 )">3</button> <!-- * 다음 끝처리 -->
-
-
-												<button type="button" class="btn btn-default btn-sm"
-													onclick="pager( 2 )">다음</button>
-												</a>
-												<button type="button" class="btn btn-info btn-sm"
-													onclick="pager( 3 )">끝</button>
-												</a> <!-- 다음 끝처리 -->
-
-
-
-											</span>
-
-
-										</div>
-									</div>
-								</div>
-
-								<div class="ln_solid"></div>
-
-								<div class="form-group">
-									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm"
-											onclick="dataAdd()">
-											<i class="fa fa-plus"></i> 등록
-										</button>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</form>
 
 		</div>
 	</div>

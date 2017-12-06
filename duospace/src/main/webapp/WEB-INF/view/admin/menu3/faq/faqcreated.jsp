@@ -6,7 +6,41 @@
 	String cp = request.getContextPath();
 %>
 
-<script type="text/javascript" src="<%=cp%>/resource/se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+$(function() {
+	
+	$(".btn-sm:first").click(function(){
+		if($("#qnaCode option:selected").val().length==0){
+			var tex="질문분류를 선택해 주세요";
+			$("#message").text(tex);
+		}
+		
+		var f=document.faqForm;
+
+		var str=f.subject.value;
+		if(! str){
+			alert("제목을 입력하세요!");
+			f.subject.focus();
+			return;
+		}
+		
+		str=f.content.value;
+		if(! str){
+			alert("내용을 입력하세요!");
+			f.content.focus();
+			return;
+		}
+		
+		
+		f.action="<%=cp%>/admin/faq/created";
+		f.submit();
+		
+	});
+	
+});
+
+</script>
+
 
 	<div class="right_col" role="main" style="background: #ffffff; padding: 50px 100px 200px;">
 
@@ -26,14 +60,13 @@
 
 		</div>
 		
-		
-		    <div>
-			<form name="boardForm" method="post" enctype="multipart/form-data" onsubmit=""> <!-- 스마트에디터르 부르는메소드 -->
+	<div>
+			<form name="faqForm" method="post"> 
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			 <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">문의종류</td>
 			      <td style="padding-left:10px;"> 
-			        <select name="qnaCode">
+			        <select id="qnaCode" name="qnaCode">
 			           <option value="" selected="selected">:: 선택 ::</option>
 			           <option value="1">예약/결제</option>
 			           <option value="2">이용권</option>
@@ -42,6 +75,7 @@
 			           <option value="5">회원가입/로그인</option>
 			           <option value="6">기타문의</option>
 			        </select>
+			         <span id="message" style="color: red"></span>
 			      </td>
 			  </tr>			 
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
@@ -63,69 +97,20 @@
 
 			  </table>
 			
-			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+			  <table class="buttonTable" style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
 			      <td align="center" >
-			        <button type="submit" class="btn">${mode=='update'?'수정완료':'등록하기'}</button>
-			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn">${mode=='update'?'수정취소':'등록취소'}</button>
-			         <c:if test="${mode=='update'}">
-			         	 <input type="hidden" name="num" value="${dto.num}">
-			        	 <input type="hidden" name="page" value="${page}">
-			         	
-			         	
-			        </c:if>
+			        <button type="button" class="btn btn-success btn-sm">${mode=='update'?'수정완료':'등록하기'}</button>
+			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
+			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/faq/list'">${mode=='update'?'수정취소':'등록취소'}</button>
+			         
 			      </td>
 			    </tr>
 			  </table>
 			</form>
     </div>
+	
 		
 		
 	</div>
 
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "content",
-	sSkinURI: "<%=cp%>/resource/se/SmartEditor2Skin.html",	
-	htParams : {bUseToolbar : true,
-		fOnBeforeUnload : function(){
-			//alert("아싸!");
-		}
-	}, //boolean
-	fOnAppLoad : function(){
-		//예제 코드
-		//oEditors.getById["content"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-	},
-	fCreator: "createSEditor2"
-});
-
-function pasteHTML() {
-	var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-	oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
-}
-
-function showHTML() {
-	var sHTML = oEditors.getById["content"].getIR();
-	alert(sHTML);
-}
-	
-function submitContents(elClickedObj) {
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
-	
-	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
-	
-	try {
-		// elClickedObj.form.submit();
-		return check();
-	} catch(e) {}
-}
-
-function setDefaultFont() {
-	var sDefaultFont = '돋움';
-	var nFontSize = 24;
-	oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
-}
-</script>
