@@ -3,8 +3,16 @@ package com.duospace.duogram.freq;
 public class FReq {
 	private int memberNum, friendNum;
 	private String userId, userName;
+	private String reqDate;
 	private int fReqCount;
 	
+	
+	public String getReqDate() {
+		return reqDate;
+	}
+	public void setReqDate(String reqDate) {
+		this.reqDate = reqDate;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
