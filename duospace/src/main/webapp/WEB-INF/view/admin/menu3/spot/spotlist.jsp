@@ -5,11 +5,7 @@
 <%
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <script type="text/javascript">
 $(function(){
 	$('#ck_main').click(function(){
@@ -402,6 +398,3 @@ function dataListDel(  ){
 
 		</div>
 	</div>
-
-</body>
-</html>
