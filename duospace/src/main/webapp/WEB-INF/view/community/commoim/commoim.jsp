@@ -146,7 +146,7 @@ $(function(){
 </script>
 
 
-<div style="width:840px; margin: 80px auto;">
+<div style="width:840px; margin: 80px auto 0px;">
 	<div class="makeCover">
 	      <h2 class="title">제목</h2>
 	      <div>
@@ -228,55 +228,53 @@ $(function(){
 </div>
 
 <div style="background-color:white;">
-<label style=margin:100px auto; for="check1" class="uCheck -checkbox">
+	<label style=margin:100px; for="check1" class="uCheck -checkbox">
 		<input type="radio" value="secret" name="bandOpenType" id="check1" class="checkInput">
 		<span class="checkLabel">
-		<span class="shape">
+			<span class="shape">
+			</span>
+			<span class="text" style="background-color:#dcdcdc">
+				<strong style="font-size: 20px;"> 비공개 모임 </strong>
+				<br>
+				<span class="msg">모임에 있는 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
+			</span>
 		</span>
-		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 비공개 모임 </strong>
-			<br>
-			<span class="msg">모임에 있는 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
-		</span>
-		</span>
-		</label>
+	</label>
 
-		<label style=margin:100px auto;  for="check2" class="uCheck -checkbox">
+	<label style=margin:100px;  for="check2" class="uCheck -checkbox">
 		<input type="radio" value="secret" name="bandOpenType" id="check2" class="checkInput">
 		<span class="checkLabel">
-		<span class="shape">
-		</span>
-		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 공개모임 </strong>
-			<br>
-			<span class="msg">누구나 모임을 찾을 수 있고, 게시물을 볼 수 있습니다. </span>
-		</span>
+			<span class="shape"></span>
+			<span class="text" style="background-color:#dcdcdc">
+				<strong style="font-size: 20px;"> 공개모임 </strong>
+				<br>
+				<span class="msg">누구나 모임을 찾을 수 있고, 게시물을 볼 수 있습니다. </span>
+			</span>
 		</span>
 		</label>
 		
-		<label style=margin:100px auto; for="check3" class="uCheck -checkbox">
+	<label style=margin:100px; for="check3" class="uCheck -checkbox">
 		<input type="radio" value="secret" name="bandOpenType" id="check3" class="checkInput">
 		<span class="checkLabel">
-		<span class="shape">
+			<span class="shape"></span>
+			<span class="text" style="background-color:#dcdcdc">
+				<strong style="font-size: 20px;"> 회원전용모임 </strong><br>
+				<span class="msg">모임에 가입된 멤버만 게시물을 확인할 수 있습니다.</span>
+			</span>
 		</span>
-		<span class="text" style="background-color:#dcdcdc">
-			<strong style="font-size: 20px;"> 회원전용모임 </strong><br>
-			<span class="msg">모임에 가입된 멤버만 게시물을 확인할 수 있습니다.</span>
-		</span>
-		</span>
-		</label>
+	</label>
 </div>
-		
-		<table>
-		<tr heigth="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
-		<tr heigth="1" bgcolor="#82B5DF"><td colspan="4"></td></tr>
+
+<div style="width: 100%; height: 35px;"align="center">
+	<table>
 		<tr align="center">
-			<td>&nbsp;</td>
-		<td colspan="4" align="center"><input type=button value="등록" onclick="javascript:writeCheck();">
-			<input type=button value="취소" onclick="javascript:history.back(-1)">
-			<td>&nbsp;</td>
+			<td align="center">
+			<input type=button value="등록" onclick="javascript:writeCheck();" class="btn">
+			<input type=button value="취소" onclick="javascript:history.back(-1)" class="btn">
+			</td>
 		</tr>
-		</table>
+	</table>
+</div>
 
 
 

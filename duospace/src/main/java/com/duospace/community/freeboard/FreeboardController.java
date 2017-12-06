@@ -19,11 +19,11 @@ public class FreeboardController {
 	@Autowired
 	private FreeboardService service;
 	
-	@RequestMapping(value="/meeting/freeboard",method=RequestMethod.GET)
+	@RequestMapping(value="/moim/freeboard",method=RequestMethod.GET)
 	@ResponseBody
 	public String list(Model model) {
 		
-		return ".community.mymeeting.freeboard";
+		return ".community.mymoim.freeboard";
 	}
 	
 	
@@ -47,21 +47,6 @@ public class FreeboardController {
 		Map<String, Object> model=new HashMap<>();
 		model.put("state", state);
 		return model;
-	}
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 }
