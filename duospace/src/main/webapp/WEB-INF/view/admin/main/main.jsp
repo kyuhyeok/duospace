@@ -5,12 +5,33 @@
 <%
 	String cp=request.getContextPath();
 %>
+	<div class="top_nav">
+
+		<div class="nav_menu">
+			<nav class="" role="navigation">
+				<div class="nav toggle">
+					<a id="menu_toggle"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+				</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						관리자 ▽ <span class=" fa fa-angle-down" ></span>
+					</a>
+					<ul class="dropdown-menu dropdown-usermenu pull-right">
+						<li>
+							<a href="<%=cp%>/main"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+						</li>
+					</ul>
+				</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 
 <div class="adminBodyFrame">
-    			<div class="right_col" role="main">
-
-				<div class="">
-					<div class="page-title">
+    			<div class="right_col" role="main" >
+				<div class="container" style="background: #ffffff; ">
+					<div class="page-title" style="margin: 0px 10px;">
 						<div class="title_left">
 							<h3>Index Page</h3>
 						</div>
@@ -19,16 +40,14 @@
 						</div>
 					</div>
 					<div class="clearfix"></div>
-
 					<div class="row">
-
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 600px;">
+							<div class="x_panel" style="height: 700px;">
 								<div class="x_title">
 									<h2>Notice Page</h2>
 									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+										<li><a class="collapse-link">▼</a></li>
+										<li><a class="close-link">X</a></li>
 									</ul>
 									<div class="clearfix"></div>
 								</div>
@@ -53,3 +72,4 @@
 				</div>
 			</div>
 </div>
+

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.duospace.common.dao.CommonDAO;
 
-@Service("duogram.fRequest")
+@Service("duogram.fReqService")
 public class FReqServiceImpl implements FReqService{
 	@Autowired
 	private CommonDAO  dao;

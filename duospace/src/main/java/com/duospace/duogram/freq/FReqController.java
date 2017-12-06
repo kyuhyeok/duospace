@@ -64,7 +64,7 @@ public class FReqController {
 		int dataCount=0;
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("memberNum", info.getMemberNum());
+		map.put("to", info.getMemberNum());
 		
 		dataCount=service.fReqDataCount(map);
 		total_page=myUtil.pageCount(rows, dataCount);
