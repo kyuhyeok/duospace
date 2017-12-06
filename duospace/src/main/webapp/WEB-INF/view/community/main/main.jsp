@@ -51,7 +51,7 @@ var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
   		</div>
   			<div style="float: left;">
 				<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-			  		<a href="<%=cp%>/community/sub/maderoom" style="background-color: #ffffff; ">
+			  		<a href="<%=cp%>/community/commoim/commoim" style="background-color: #ffffff; ">
 			  			<span style=" padding-top: 55px; padding-left: 65px;">
 			  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
 			  			</span>

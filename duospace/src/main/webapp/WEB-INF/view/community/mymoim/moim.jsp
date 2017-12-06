@@ -34,47 +34,8 @@ function dialogNewWord() {
     $("#modalContent").focus();
 }
 
-//글쓰기 누를때.
-function sendFreeboard(){
-	var uid="${sessionScope.user.userNum}"
-	
-	if(! uid){
-		location.href='<%=cp%>/member/login';
-		return;
-	}
-	
-	var content=$.trim($("#modalContent").val());
-	
-	if(! content){
-		$("#modalContent").focus();
-		return;
-	}
-	
-	var query="content"+encodeURIComponent(content);
-	
-	var url="<%=cp%>/freeboard/insertFreeboard";
-	
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:query
-		,dataType:"json"
-		,success:function(data){
-			
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}
-			$("#modalContent").val("");
-			
-			$("#listMoimBody").empty();
-		}
-		,error:function(e){
-			console.log(e.responseText);
-		}
-	});
-}
+
+
 /*
 function listpage(){
 	var url="";

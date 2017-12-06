@@ -9,7 +9,11 @@
 %>
 
 <script type="text/javascript">
-	
+function deleteNotice() {
+	if(confirm("삭제하시겠습니까?")){
+		location.href='<%=cp%>/duospace/notice/delete?page=${page}&num=${dto.num}&rows=${rows}';
+	}
+}
 </script>
 <style type="text/css">
 
@@ -45,8 +49,8 @@
 			<c:if test="${not empty dto.saveFilename}">
 			<tr height="35">
 			    <td colspan="2" align="right" style="padding-left: 5px;">
-			       첨&nbsp;&nbsp;부 :
-		           ${dto.originalFilename}
+			       첨부파일 :
+		           <a href="<%=cp%>/duospace/download?num=${dto.num}">${dto.originalFilename}</a>
 			    </td>
 			</tr>
 			</c:if>
@@ -60,7 +64,7 @@
 				<td align="left">
 				<c:if test="${sessionScope.user.userId=='admin'}">
 			     	<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/notice/update?num=${dto.num}&page=${page}';">수정</button>
-				    <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>';">삭제</button>
+				    <button type="button" class="btn" onclick="deleteNotice();">삭제</button>
 				</c:if>
 				</td>
 			    <td align="right" >

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,18 +91,17 @@ public class NoticeController {
 			n++;
 		}
 		
-		String query ="";
+		String query ="rows="+rows;
 		String listUrl= cp+"/duospace/notice/list";
-		String articleUrl=cp+"/duospace/notice/article?page="+current_page;
+		String articleUrl;
 		if(searchValue.length()!=0) {
-			query="searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue,"utf-8");
+			query+="&searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue,"utf-8");
 			
 		}
 		
-		if(query.length()!=0) {
 			listUrl=cp+"/duospace/notice/list?"+query;
 			articleUrl=cp+"/duospace/notice/article?page="+current_page+"&"+query;
-		}
+		
 		
 		String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
 		
@@ -127,7 +127,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/duospace/notice/created", method=RequestMethod.POST)
-	public String createdSubmit(Notice dto, HttpSession session) throws Exception{
+	public String createdSubmit(Notice dto,
+			HttpSession session) throws Exception{
 		
 		
 		String root = session.getServletContext().getRealPath("/");
@@ -174,7 +175,7 @@ public class NoticeController {
 		Notice preDto=service.preReadNotice(map);
 		Notice nextDto=service.nextReadNotice(map);
 		
-		
+		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
 		
 		String query="page="+page+"&rows="+rows;
@@ -227,7 +228,7 @@ public class NoticeController {
 		return "redirect:/duospace/notice/list?page="+page;
 	}
 	
-	@RequestMapping(value="/duospace/download")
+	@RequestMapping(value="/duospace/download", method=RequestMethod.GET)
 	public void download(
 			@RequestParam int num,
 			HttpServletRequest req,
@@ -255,6 +256,91 @@ public class NoticeController {
 	}
 	
 	
+	//첨부된 파일 삭제
+	@RequestMapping(value="/duospace/deleteFile", method=RequestMethod.GET)
+	public String deleteFile(
+			@RequestParam int num,
+			@RequestParam String page,
+			HttpSession session
+			) throws Exception{
+		
+		//db에서 dto가져오기
+		Notice dto = service.readNotice(num);
+		
+		if(dto==null) {
+			return "redirect:/duospace/notice/list?page="+page;
+		}
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"notice";
+		
+		if(dto.getSaveFilename() !=null && dto.getSaveFilename().length() !=0) {
+			fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+			
+			dto.setSaveFilename("");
+			dto.setOriginalFilename("");
+			service.updateNotice(dto, pathname);
+		}
+		
+		return "redirect:/duospace/notice/update?page="+page;  //파일 삭제후 업데이트로 다시 이동
+	}
+	
+	
+	//공지사항삭제
+	@RequestMapping(value="/duospace/notice/delete", method=RequestMethod.GET)
+	public String deleteNotice(
+			@RequestParam String page,
+			@RequestParam int num,
+			@RequestParam String rows,
+			HttpSession session
+			) throws Exception{
+		
+		Notice dto = service.readNotice(num);
+		if(dto==null) {
+			return "redirect:/duospace/notice/list?page="+page;
+		}
+		
+		if(dto.getSaveFilename()!=null && dto.getSaveFilename().length() !=0) {
+			//서버에서 첨부파일 삭제
+			String root = session.getServletContext().getRealPath("/");
+			String pathname=root+File.separator+"uploads"+File.separator+"notice";
+			fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+		}
+		
+		service.deleteNotice(dto.getNum());
+		
+		
+		return "redirect:/duospace/notice/list?page="+page+"&rows="+rows;
+	}
+	
+	@RequestMapping(value="/duospace/notice/deleteList", method=RequestMethod.POST)
+	public String deleteList(
+			@RequestParam Integer[] nums,
+			@RequestParam String page,
+			@RequestParam String rows,
+			HttpSession session
+			) throws Exception{	
+		//Arrays.asList(nums) []==>List로
+		List<Integer> list = Arrays.asList(nums);
+		
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"notice";
+		
+		//첨부파일삭제
+		for(Integer num:list) {
+			Notice dto=service.readNotice(num);
+			if(dto!=null&&dto.getSaveFilename()!=null&&dto.getSaveFilename().length() !=0) {
+
+					fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+			}
+		}
+		
+		//리스트삭제
+		service.deleteListNotice(list);
+	
+
+		return "redirect:/duospace/notice/list?page="+page+"&rows="+rows;
+	}
 }
 
 
