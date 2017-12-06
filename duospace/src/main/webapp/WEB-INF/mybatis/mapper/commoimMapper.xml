@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commoim">
+	<insert id="insertCommoim" parameterType="com.duospace.community.commoim.Commoim">
+		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,regcode,membernum)
+			VALUES(seq_commoim.NEXTVAL,#{comname},#{isopen},#{catecode},#{regcode},#{memberNum})
+	</insert>
+</mapper>

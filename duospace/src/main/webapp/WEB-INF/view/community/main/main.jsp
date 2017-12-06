@@ -5,45 +5,12 @@
 <%
 	String cp=request.getContextPath();
 %>
-<!-- 
+
 <script type="text/javascript">
-var ESCAPED_FRAGMENT_REGEXP = /[\?&]_escaped_fragment_=([^&]*)/g;
 
-(function init() {
-    require(['app_base'],function(){
-        require(['_band_libs/jackpotLog/JackpotLogger'], function(JackpotLogger) {
-            var SEOUri = null;
-            var currentUri = location.href;
-
-            // 기존 hashbang URI -> 신규 URI로 변경
-            if (currentUri.indexOf('#!') > 0 ) {
-                JackpotLogger.sendReferrerLog(JackpotLogger.PRODUCT_CODE.BAND_WEB_PC, document.referrer);
-                location.replace(currentUri.replace(/\/?#!\/?/gi, '/'));
-                return;
-            }
-
-            var escapedFragment = ESCAPED_FRAGMENT_REGEXP.exec(currentUri);
-
-            // hashbang으로 전환 for SEO
-            if ( escapedFragment != null && escapedFragment[1] != null ) {
-                SEOUri = escapedFragment[1];
-            }
-
-            require(['application/DApplication'],function(App){
-                $(document).on('contextmenu','._prevent_context',function(){
-                    return false;
-                });
-                $(document).on('dragstart','._prevent_context',function(){
-                    return false;
-                });
-
-                App.start({bandNo: '', SEOUri : SEOUri});
-            });
-        });
-    });
-})();
 </script>
- -->
+
+ 
 <div style="background: #eef0f3; "> 
 	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
   		<div style="width: 100%;height: 40px;">

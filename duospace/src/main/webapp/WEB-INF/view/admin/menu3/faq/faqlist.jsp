@@ -6,46 +6,13 @@
 	String cp = request.getContextPath();
 %>
 
-<script type="text/javascript">
-$(function(){
-	$('#ck_main').click(function(){
-		if($(this).prop('checked')){
-			$('input[name=ck_sub]').prop('checked',true);
-		}else{
-			$('input[name=ck_sub]').prop('checked', false);
-		}
-	});
-});
-
-function dataListDel(  ){
-	
-	if( !$('input[name="ck_sub"]').is(':checked') ){
-		alert('선택 후 진행해 주십시오');
-		return;
-	}
-	if( !confirm("삭제 처리를 진행하시겠습니까?")){
-		return;
-	};
-	
-	var r_prseqarr = [];
-	$( 'input[name="ck_sub"]:checked').each(function(i){
-		r_prseqarr[i] = $(this).val();
-	});
-	$('input[name="r_prseqarr"]').val(r_prseqarr.join(','));
-	$('input[name="r_page"]').val(1);
-		handling.submit( '', 'productlistdel' );
-}
-
-</script>
-</head>
-<body>
 	<div class="right_col" role="main">
 
-		<div class="container" style="background: #ffffff;">
-			<div class="page-title" style="margin: 0px 10px;">
+		<div class="">
+			<div class="page-title">
 				<div class="title_left">
 					<h3>
-						지점 관리 <small>Shop Manage</small>
+						FAQ 관리 <small>FAQ Manage</small>
 					</h3>
 				</div>
 				<div class="title_right"></div>
@@ -382,7 +349,8 @@ function dataListDel(  ){
 
 								<div class="form-group">
 									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';">
+										<button type="button" class="btn btn-success btn-sm"
+											onclick="dataAdd()">
 											<i class="fa fa-plus"></i> 등록
 										</button>
 									</div>
@@ -398,3 +366,4 @@ function dataListDel(  ){
 
 		</div>
 	</div>
+

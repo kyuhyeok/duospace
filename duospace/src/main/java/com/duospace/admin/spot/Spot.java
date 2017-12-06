@@ -1,8 +1,8 @@
 package com.duospace.admin.spot;
 
 public class Spot {
-	public int spotCode;
-	public String spotName, spotAddrNum, spotAddr1, spotAddr2, Manager, Tel;
+	private int spotCode;
+	private String spotName, spotAddrNum, spotAddr1, spotAddr2, Manager, Tel;
 	public int getSpotCode() {
 		return spotCode;
 	}
@@ -45,4 +45,5 @@ public class Spot {
 	public void setTel(String tel) {
 		Tel = tel;
 	}
+	
 }
