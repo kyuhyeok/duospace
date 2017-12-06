@@ -204,50 +204,8 @@ function dataListDel(  ){
 													handling.submit('', '');
 												}
 											</script>
-
-											<span class="pageNum"> <!-- * 처음이전처리 -->
-
-
-
-												<button type="button" class="btn btn-info btn-sm">처음</button>
-												<button type="button" class="btn btn-default btn-sm">이전</button>
-
-
-												<!-- 처음이전처리 -->
-
-
-												<button class="btn btn-default btn-sm active" type="button">1</button>
-
-
-
-												<!-- * 다음 끝처리 --> <!-- 다음 끝처리 --> <!-- * 처음이전처리 --> <!-- 처음이전처리 -->
-
-
-
-												<button class="btn btn-default btn-sm" type="button"
-													onclick="pager( 2 )">2</button> <!-- * 다음 끝처리 --> <!-- 다음 끝처리 -->
-
-
-
-												<!-- * 처음이전처리 --> <!-- 처음이전처리 -->
-
-
-
-												<button class="btn btn-default btn-sm" type="button"
-													onclick="pager( 3 )">3</button> <!-- * 다음 끝처리 -->
-
-
-												<button type="button" class="btn btn-default btn-sm"
-													onclick="pager( 2 )">다음</button>
-												</a>
-												<button type="button" class="btn btn-info btn-sm"
-													onclick="pager( 3 )">끝</button>
-												</a> <!-- 다음 끝처리 -->
+											
 												${paging}
-
-
-											</span>
-
 
 										</div>
 									</div>
@@ -258,7 +216,7 @@ function dataListDel(  ){
 
 								<div class="form-group">
 									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';">
+										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';" style="border: 0; outline: 0;">
 											<i class="fa fa-plus"></i> 등록
 										</button>
 									</div>
