@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.duospace.common.MyUtil;
 import com.duospace.member.SessionInfo;
 
 @Controller("duogram.fReqController")
@@ -23,7 +22,7 @@ public class FReqController {
 	private FReqService service;
 	
 	@Autowired
-	private MyUtil myUtil;
+	private DuoGramUtil myUtil;
 	
 	//친구 요청에 대한 수락 : AJAX(JSON)
 	@RequestMapping(value="/duogram/insertFResp", method=RequestMethod.POST)
