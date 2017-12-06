@@ -118,8 +118,8 @@ padding-left: 30px;
 </style>
 
 <script type="text/javascript">
-function formCheck() {
-	var f=document.allForm;
+function commoimForm() {
+	var f=document.commoimForm;
     var title = f.title.value;
     if (title == null || title == "") {
         alert('모임 이름을 입력하세요');
@@ -143,138 +143,153 @@ $(function(){
     	});
 });  
 
+
+function sendCommoim(){
+	var uid="${sessionScope.user.memberNum}";
+	
+	
+	var isopen=1;
+//체크를 하면 비공개방...
+	if($("input[name=isopen]:checked").each(function() {
+			  isopen = $(this).val();
+			}
+		)
+	)
+	var comname=$.trim($("#comname").val()); //ID:comname를 앞뒤공백제거하고 comname에넣는다.
+	var regcode=$("form[name=commoimForm] [name=regcode]").val();
+	var catecode=$("form[name=commoimForm] [name=catecode]").val();
+	var query="comname="+encodeURIComponent(comname);//한글깨짐방지//제목 데이터 입력
+		query+="&regcode="+regcode;
+		query+="&catecode="+catecode;
+		query+="&isopen="+isopen;
+		
+	var url="<%=cp%>/commoim/insert";
+
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data){
+			$("#comname").val("");
+			$("#regcode").val("");
+			$("#catecode").val("");
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 </script>
 
 
-<div style="width:840px; margin: 80px auto 0px;">
-	<div class="makeCover">
-	      <h2 class="title">제목</h2>
-	      <div>
-	      	  <input type="text" class="inputBox" id="subject" placeholder="모임 이름 입력">
-	      </div>
-	      <div class="coverSelect">
-	      		<div class="coverMain">
-	      		    <span class="cover">
-	      		        <img class="coverSelected coverImg" width="300" height="225"
-	      		                 src="<%=cp%>/resource/images/communiti/12.JPG" >
-	      		    </span>
-	      		</div>
-	      		
-	      		<div class="coverList">
-	      		     <div class="head">
-	      		          <h3>이미지 선택</h3>
-	      		     </div>
-	      		     <div class="list">
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/0.png"/>
-		      		             <span class="mask"></span>
-		      		          </a>
+<form name="commoimForm" method="post" style="min-height:650px;">
+	<div style="width:840px;  margin: 200px auto 0px;">
+		<div class="makeCover">
+		      <h2 class="title">제목</h2>
+		      <div>
+		      	  <input type="text" class="inputBox" id="comname" name="comname" placeholder="모임 이름 입력"> 
+		      	  <!-- 지역 설정 -->
+		      	  <span>지역 설정: </span>
+		      	  <select id="regcode" name="regcode" style="border: none;">
+			      	  	<option value="1">당산</option>
+			      	  	<option value="2">영등포</option>
+		      	  </select>
+		      	  <!-- 카테고리설정 -->
+		      	  <span>카테고리 설정: </span>
+		      	  <select id="catecode" name="catecode" style="border: none;">
+			      	  <option value="2">스프링</option>
+			      	  <option value="5">자바</option>
+		      	  </select>
+		      </div>
+		      <div class="coverSelect">
+		      		<div class="coverMain">
+		      		    <span class="cover">
+		      		        <img class="coverSelected coverImg" width="300" height="225"
+		      		                 src="<%=cp%>/resource/images/communiti/12.JPG" >
+		      		    </span>
+		      		</div>
+		      		<div class="coverList">
+		      		     <div class="head">
+		      		          <h3>이미지 선택</h3>
 		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/8.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/7.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/6.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet"> 
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/5.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/4.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/3.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		     <div class="coverSet">
-		      		          <a href="#" class="coverA">
-		      		             <img class="coverImg" width="120" height="90"
-		      		                 src="<%=cp%>/resource/images/communiti/2.JPG"/>
-		      		             <span class="mask"></span>
-		      		          </a>
-		      		     </div>
-		      		 </div>
-	      		</div>
-	      </div>
+		      		     <div class="list">
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/0.png"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/8.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/7.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/6.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet"> 
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/5.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/4.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/3.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		     <div class="coverSet">
+			      		          <a href="#" class="coverA">
+			      		             <img class="coverImg" width="120" height="90"
+			      		                 src="<%=cp%>/resource/images/communiti/2.JPG"/>
+			      		             <span class="mask"></span>
+			      		          </a>
+			      		     </div>
+			      		 </div>
+		      		</div>
+		      </div>
+		</div>
+		<!-- 비공개 공개 체크박스 -->
+		<div style="width: 100%; height: 35px;"align="center">
+			비공개방 체크<input type="checkbox" name="isopen" value="0" id="isopen">
+		</div>
+		<div style="width: 100%; height: 35px;"align="center">
+			<table>
+				<tr align="center">
+					<td align="center">
+					<input type="button" value="등록" onclick="sendCommoim();" class="btn">
+					<input type="button" value="취소" onclick="javascript:history.back(-1)" class="btn">
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
-</div>
-
-<div style="background-color:white;">
-	<label style=margin:100px; for="check1" class="uCheck -checkbox">
-		<input type="radio" value="secret" name="bandOpenType" id="check1" class="checkInput">
-		<span class="checkLabel">
-			<span class="shape">
-			</span>
-			<span class="text" style="background-color:#dcdcdc">
-				<strong style="font-size: 20px;"> 비공개 모임 </strong>
-				<br>
-				<span class="msg">모임에 있는 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
-			</span>
-		</span>
-	</label>
-
-	<label style=margin:100px;  for="check2" class="uCheck -checkbox">
-		<input type="radio" value="secret" name="bandOpenType" id="check2" class="checkInput">
-		<span class="checkLabel">
-			<span class="shape"></span>
-			<span class="text" style="background-color:#dcdcdc">
-				<strong style="font-size: 20px;"> 공개모임 </strong>
-				<br>
-				<span class="msg">누구나 모임을 찾을 수 있고, 게시물을 볼 수 있습니다. </span>
-			</span>
-		</span>
-		</label>
-		
-	<label style=margin:100px; for="check3" class="uCheck -checkbox">
-		<input type="radio" value="secret" name="bandOpenType" id="check3" class="checkInput">
-		<span class="checkLabel">
-			<span class="shape"></span>
-			<span class="text" style="background-color:#dcdcdc">
-				<strong style="font-size: 20px;"> 회원전용모임 </strong><br>
-				<span class="msg">모임에 가입된 멤버만 게시물을 확인할 수 있습니다.</span>
-			</span>
-		</span>
-	</label>
-</div>
-
-<div style="width: 100%; height: 35px;"align="center">
-	<table>
-		<tr align="center">
-			<td align="center">
-			<input type=button value="등록" onclick="javascript:writeCheck();" class="btn">
-			<input type=button value="취소" onclick="javascript:history.back(-1)" class="btn">
-			</td>
-		</tr>
-	</table>
-</div>
+</form>
 
 
 

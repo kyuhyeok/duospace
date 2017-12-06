@@ -48,7 +48,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 				result=true;
 			}
 			
-			
 		} catch (Exception e) {
 			logger.info("pre : "+e.toString());
 		}
