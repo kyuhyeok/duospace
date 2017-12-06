@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.faq">
+
+<insert id="created" parameterType="com.duospace.admin.faq.Faq">
+	INSERT INTO faq (num,subject,content,qnaCode) VALUES (seq_FAQ.NEXTVAL,#{subject},#{content},#{qnaCode})
+</insert>
+
+<select id="faqList" parameterType="map" resultType="com.duospace.admin.faq.Faq">
+	SELECT num,subject,content,f.qnacode, qnaname
+	FROM faq f
+	JOIN qnacate q ON f.qnacode=q.qnacode
+	WHERE f.qnacode=#{qnaCode}
+	ORDER BY num
+</select>
+
+</mapper>
