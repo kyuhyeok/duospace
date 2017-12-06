@@ -17,6 +17,10 @@ $(function(){
 	});
 });
 
+function searchList() {
+	var f=document.searchForm;
+	f.submit();
+}
 function dataListDel(  ){
 	
 	if( !$('input[name="ck_sub"]').is(':checked') ){
@@ -79,23 +83,6 @@ function dataListDel(  ){
 							<div class="x_content">
 								<div class="form-group">
 									<div class="form-group">
-										<label class="col-sm-2 col-xs-12 control-label" for="ctgr1">지점명</label>
-										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" id="ctgr1" name="ctgr1">
-												<option value="">지역</option>
-												<option value="">서울</option>
-												<option value="3">경기</option>
-												<option value="14">인천</option>
-											</select>
-										</div>
-										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" id="ctgr2" name="ctgr2">
-												<option value="">지점</option>
-
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">게시글 수</label>
 										<div class="col-sm-2 col-xs-12">
@@ -109,24 +96,27 @@ function dataListDel(  ){
 									</div>
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="sc_column">
+										<select class="form-control" name="searchKey">
 											<option value="">선택</option>
-											<option value="subject">제목</option>
-											<option value="content">내용</option>
-											<option value="name">작성자</option>
-											<option value="created">등록일</option>
+											<option value="spotCode">지점코드</option>
+											<option value="spotName">지점명</option>
+											<option value="spotaddrnum">우편번호</option>
+											<option value="spotAddr1">도로명주소</option>
+											<option value="spotAddr2">지번주소</option>
+											<option value="manager">매니저이름</option>
+											<option value="tel">전화번호</option>
 										</select>
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										<input class="form-control" id="sc_columnvalue"
-											name="sc_columnvalue" placeholder="검색어" type="text" value="" />
+											name="searchValue" placeholder="검색어" type="text"/>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="dataSearch()">검색</button>
+											onclick="searchList()">검색</button>
 									</div>
 								</div>
 
@@ -143,7 +133,7 @@ function dataListDel(  ){
 									지점 리스트<small>Shop List</small>
 								</h2>
 								<ul class="nav navbar-right panel_toolbox">
-									<li><a>Total 26 EA</a></li>
+									<li><a>Total ${dataCount}EA (${page}/${total_page}페이지)</a></li>
 									<li><a href="javascript:location.reload();"><i
 											class="fa fa-refresh"></i></a></li>
 									<li><a class="collapse-link"><i
@@ -163,142 +153,27 @@ function dataListDel(  ){
 												<th>지점코드</th>
 												<th>지점명</th>
 												<th>우편번호</th>
-												<th>주소1</th>
-												<th>주소2</th>
+												<th>도로명 주소</th>
+												<th>지번 주소</th>
 												<th>매니저</th>
 												<th>전화번호</th>
 											</tr>
 										</thead>
 										<tbody>
 
-
+										<c:forEach var="dto" items="${list}">
 											<tr>
 												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
+													value="${dto.spotCode}" /></td>
+												<td>${dto.spotCode}</td>
+												<td>듀오 스페이스 -${dto.spotName}</td>
+												<td>${dto.spotAddrNum}</td>
+												<td>${dto.spotAddr1}</td>
+												<td>${dto.spotAddr2}</td>
+												<td>${dto.manager}</td>
+												<td>${dto.tel}</td>
 											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>서울</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
-
-
-											<tr>
-												<td><input class="flat" name="ck_sub" type="checkbox"
-													value="39" /></td>
-												<td>123123</td>
-												<td>듀오 스페이스 -당산지점</td>
-												<td>01530</td>
-												<td>경기도</td>
-												<td>영등포구 당산동</td>
-												<td>박가람</td>
-												<td>010-0000-0000</td>
-											</tr>
+										</c:forEach>
 
 										</tbody>
 									</table>
@@ -368,7 +243,7 @@ function dataListDel(  ){
 												<button type="button" class="btn btn-info btn-sm"
 													onclick="pager( 3 )">끝</button>
 												</a> <!-- 다음 끝처리 -->
-
+												${paging}
 
 
 											</span>
@@ -377,7 +252,8 @@ function dataListDel(  ){
 										</div>
 									</div>
 								</div>
-
+		<input type="hidden" name="rows" value="${rows}">
+       <input type="hidden" name="page" value="${page}">
 								<div class="ln_solid"></div>
 
 								<div class="form-group">

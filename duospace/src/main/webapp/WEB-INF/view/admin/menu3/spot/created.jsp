@@ -123,22 +123,22 @@ function sample4_execDaumPostcode() {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지 점 명</td>
 			      <td style="padding-left:10px;"> 
-			        듀오스페이스 - <input type="text" name="spotname" class="boxTF" style="width: 10%;">
+			        듀오스페이스 - <input type="text" name="spotName" class="boxTF" style="width: 10%;">
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지점주소</td>
 			      <td style="padding-left:10px;"> 
-			        <input type="text" id="sample4_postcode" placeholder="우편번호" name="spotaddrnum">
+			        <input type="text" id="sample4_postcode" placeholder="우편번호" name="spotAddrNum">
 					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="spotaddr1">
-					<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="spotaddr2">
+					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="spotAddr1">
+					<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="spotAddr2">
 					<span id="guide" style="color:#999"></span>
 			      </td>
 			  </tr>
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
-			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">지점 전화번호</td>
-			      <td style="padding-left:10px;"> 
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">지점 전화번호</td>
+			      <td style="padding-left:10px;">
 			        <input type="text" name="tel" maxlength="100" class="boxTF" style="width: 95%;">
 			      </td>
 			  </tr>
