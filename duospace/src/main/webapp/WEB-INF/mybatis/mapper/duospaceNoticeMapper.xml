@@ -110,6 +110,8 @@
 	
 	</select>
 	
+	
+	
 	<!-- 공지사항수정 -->
 	<update id="updateNotice" parameterType="com.duospace.duospace.notice.Notice">
 		UPDATE duonotice SET subject=#{subject}, content=#{subject}, savefilename=#{saveFilename, jdbcType=VARCHAR}, 
@@ -117,6 +119,17 @@
 							 WHERE num=#{num} 
 	</update>
 	
+	
+	<delete id="deleteNotice" parameterType="Integer">
+		DELETE FROM duonotice WHERE num=#{num}
+	</delete>
+	
+	<delete id="deleteList" parameterType="java.util.List">
+		DELETE FROM duonotice WHERE num IN 
+		  <foreach collection="list" item="num" index="index" open="(" separator="," close=")">
+		  	#{num}
+		  </foreach>
+	</delete>
 	
 </mapper>
 

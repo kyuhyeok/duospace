@@ -118,14 +118,25 @@ public class NoticeServiceImpl implements NoticeService  {
 
 	@Override
 	public int deleteNotice(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.notice.deleteNotice",num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		
+		return result;
 	}
 
 	@Override
-	public int deleteListNotice() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteListNotice(List<Integer> list) {
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.notice.deleteList", list);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 
@@ -141,5 +152,6 @@ public class NoticeServiceImpl implements NoticeService  {
 		
 		return list;
 	}
+
 
 }

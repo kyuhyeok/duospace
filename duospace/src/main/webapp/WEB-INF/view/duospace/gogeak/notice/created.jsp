@@ -53,8 +53,6 @@ function sendOk() {
         제 목
     </td>
     <td>
-    	<input type="hidden" name="num" value="${dto.num}">
-    	<input type="hidden" name="page" value="${page}">
   		<input type="text" name="subject" class="boxTF" style="width: 500px;" value="${dto.subject}">
       	공지 <input type="checkbox" name="notice" value="1" ${dto.notice=='1'?"checked='checked'":""}>
     </td>
@@ -90,12 +88,19 @@ function sendOk() {
     	 등록파일
     </td>
      <td>
-      ${dto.originalFilename}
+      ${dto.originalFilename} &nbsp;&nbsp; <c:if test="${not empty dto.originalFilename}"><a href="<%=cp%>/duospace/deleteFile?page=${page}&num=${dto.num}">x</a></c:if>
     </td>
   </tr>
   </c:if>
   <tr>
     <td colspan="2" align="center">
+      <c:if test="${mode=='update'}">
+			         	 <input type="hidden" name="num" value="${dto.num}">
+			        	 <input type="hidden" name="page" value="${page}">
+			         	 <input type="hidden" name="saveFilename" value="${dto.saveFilename}">
+			         	 <input type="hidden" name="originalFilename" value="${dto.originalFilename}">
+			         	
+	  </c:if>
       <button type="button" onclick="sendOk();">${mode=='update'?"수정완료":"등록완료"}</button>
       <button type="reset">다시입력</button>
       <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/notice/list'">${mode=='update'?"수정취소":"등록취소"}</button>

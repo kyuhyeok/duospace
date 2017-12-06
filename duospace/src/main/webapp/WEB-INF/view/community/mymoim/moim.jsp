@@ -30,52 +30,12 @@ $(function(){
 function dialogNewWord() {
     $("#modalSubject").val("");
     $("#modalContent").val("");
-	$("#modalNewWord").modal("show");	
+	$("#modalNewWord").modal("show");
     $("#modalContent").focus();
 }
 
-//글쓰기 누를때.
-function sendFreeboard(){
-	var uid="${sessionScope.user.userNum}"
-	
-	if(! uid){
-		location.href='<%=cp%>/member/login';
-		return;
-	}
-	
-	
-	var content=$.trim($("#modalContent").val());
 
-	if(! content){
-		$("#modalContent").focus();
-		return;
-	}
-	
-	var query="content"+encodeURIComponent(content);
-	
-	var url="<%=cp%>/freeboard/insertFreeboard";
-	
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:query
-		,dataType:"json"
-		,success:function(data){
-			
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}
-			$("#modalContent").val("");
-			
-			$("#listMeetingBody").empty();
-		}
-		,error:function(e){
-			console.log(e.responseText);
-		}
-	});
-}
+
 /*
 function listpage(){
 	var url="";
@@ -97,7 +57,7 @@ function listpage(){
 
 <header>
 	<div style="width: 100%; height: 25px; background: #D9383A; position: fixed; left: 0px; top: 50px;" align="center">
-		<table> 
+		<table>
 			<tr>
 				<td style="padding: 0px 20px;">
 					<a style="color: #ffffff;" id="moimfreeboardlist">
@@ -105,17 +65,17 @@ function listpage(){
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;">
+					<a style="color: #ffffff;" id="moimalbum">
 						사진첩
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;">
+					<a style="color: #ffffff;" id="moim">
 						일정
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;">
+					<a style="color: #ffffff;" id="moimmember">
 						멤버
 					</a>
 				</td>

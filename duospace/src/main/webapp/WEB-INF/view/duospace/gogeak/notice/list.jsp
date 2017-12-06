@@ -25,6 +25,24 @@ $(function(){
 			});
 		}
 	});
+	
+	$("#deletelistBtn").click(function(){
+		var cnt = $("input[name=nums]:checkbox:checked").length;
+		
+		if(cnt==0){
+			alert("선택된 항목이 없습니다!");
+			return;
+		}
+		
+		if(confirm("선택한 항목을 삭제하시겠습니까?")){
+		var f=document.deleteList;
+		f.action="<%=cp%>/duospace/notice/deleteList";
+		f.submit();
+		}
+		
+	})
+	
+	
 });
 
 </script>
@@ -58,7 +76,7 @@ $(function(){
 	    <tr>
 	      <td align="left">${dataCount}개 (${page}/${total_page} 페이지) 
 	       <c:if test="${sessionScope.user.userId=='admin'}">
-	     	 <button type="button">삭제</button>
+	     	 <button type="button" id="deletelistBtn">삭제</button>
 	       </c:if>
 	       </td>
 	      <td align="right">
@@ -73,7 +91,7 @@ $(function(){
 	    </tr>
 	  </table>
 	  
-    
+    <form name="deleteList" method="post">
  	  <table class="noticeList" style="margin:10px auto 0px;border-spacing: 0px; border-collapse: collapse; width: 100%">
  	    <tr style="background: #eeeeee; border-top: 1px solid black; border-bottom: 1px solid black;" height="35px;">
     	 <c:if test="${sessionScope.user.userId=='admin'}">
@@ -93,7 +111,7 @@ $(function(){
     	<tr height="38px;">
     	 <c:if test="${sessionScope.user.userId=='admin'}">
     	  <td>
-	         <input type="checkbox" name="nums">
+	         <input type="checkbox" name="nums" value="${dto.num}">
 	      </td>
 	      </c:if>
     	  <td style="width: 10%"><span>공지</span></td>
@@ -102,8 +120,8 @@ $(function(){
     	  <td>${dto.created}</td>
     	  <td>${dto.hitCount}</td>
     	  <td>
-    	    <c:if test="${not empty dto.saveFilename}">
-    	      <img src="<%=cp%>/resource/images/duospace/icon/disk.gif">
+    	     <c:if test="${not empty dto.saveFilename}">
+    	      <a href="<%=cp%>/duospace/download?num=${dto.num}"><img src="<%=cp%>/resource/images/duospace/icon/disk.gif"></a>
     	    </c:if>
     	  </td>
     	</tr>
@@ -115,7 +133,7 @@ $(function(){
     	<tr height="38px;">
     	<c:if test="${sessionScope.user.userId=='admin'}">
     	  <td>
-	         <input type="checkbox" name="nums">
+	         <input type="checkbox" name="nums" value="${dto.num}">
 	      </td>
 	     </c:if>
     	  <td>${dto.listNum}</td>
@@ -125,14 +143,15 @@ $(function(){
     	  <td>${dto.hitCount}</td>
     	  <td>
     	    <c:if test="${not empty dto.saveFilename}">
-    	      <img src="<%=cp%>/resource/images/duospace/icon/disk.gif">
+    	      <a href="<%=cp%>/duospace/download?num=${dto.num}"><img src="<%=cp%>/resource/images/duospace/icon/disk.gif"></a>
     	    </c:if>
-    	    <input type="hidden" name="rows" value="${rows}">
-    	    <input type="hidden" name="page" value="${page}">
     	  </td>
     	</tr>
     </c:forEach>
  	  </table>
+ 	   <input type="hidden" name="rows" value="${rows}">
+       <input type="hidden" name="page" value="${page}">
+ 	 </form>
 	</div>
 
 <form name="searchForm" method="post">
@@ -157,8 +176,9 @@ $(function(){
 
     <td align="right">
    
+   <c:if test="${sessionScope.user.userId=='admin'}">
       <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/notice/created';">글올리기</button>
-  
+  </c:if>
     </td>
   </tr>
 

@@ -12,7 +12,7 @@ public interface NoticeService {
 	public int updateHitCount(int num);
 	public int updateNotice(Notice dto,String pathname);
 	public int deleteNotice(int num);
-	public int deleteListNotice();
+	public int deleteListNotice(List<Integer> list);
 	public Notice preReadNotice(Map<String, Object> map);
 	public Notice nextReadNotice(Map<String, Object> map);
 	
