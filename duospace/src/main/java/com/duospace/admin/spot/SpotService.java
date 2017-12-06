@@ -9,6 +9,6 @@ public interface SpotService {
 	public int dataCount(Map<String, Object> map);
 	public Spot readSpot(int spotCode);
 	public int updateSpot(Spot dto, String pathname);
-	public int deleteSpot(int spotCode);
+	public int deleteListSpot(List<Integer> list);
 	
 }

@@ -27,14 +27,24 @@ public class SpotServiceImpl implements SpotService{
 
 	@Override
 	public List<Spot> listSpot(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Spot> list=null;
+		try {
+			list=dao.selectList("duospace.spot.list", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.spot.dataCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
@@ -49,8 +59,9 @@ public class SpotServiceImpl implements SpotService{
 		return 0;
 	}
 
+
 	@Override
-	public int deleteSpot(int spotCode) {
+	public int deleteListSpot(List<Integer> list) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

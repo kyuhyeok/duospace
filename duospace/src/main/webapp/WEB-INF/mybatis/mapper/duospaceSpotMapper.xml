@@ -2,9 +2,60 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.spot">
+	<sql id="where-list">
+	  <if test="searchKey=='spotName'">
+	  	INSTR (spotName,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='spotAddr1'">
+	    INSTR(spotAddr1,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='spotAddr2'">
+	    INSTR(spotAddr2,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='manager'">
+	  	INSTR (manager,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='tel'">
+	  	INSTR (tel,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='spotAddrNum'">
+	  	INSTR (spotAddrNum,#{searchValue}) &gt; 0
+	  </if>
+	</sql>
+
 	<insert id="insert" parameterType="com.duospace.admin.spot.Spot">
 		INSERT INTO spot (spotCode, spotName, spotAddrNum,
-		 spotAddr1, spotAddr2, Manager, Tel) VALUES(SEQ_SPOT.NEXTVAL, #{spotName}, #{spotAddrNum},
-		  #{spotAddr1}, #{spotAddr2}, #{Manager}, #{Tel});
+		 spotAddr1, spotAddr2, manager, tel) 
+		 VALUES(SEQ_SPOT.NEXTVAL, #{spotName}, #{spotAddrNum},
+		  #{spotAddr1}, #{spotAddr2}, #{manager}, #{tel})
 	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM spot
+		<where>
+		  <if test="searchValue!=NULL and searchValue!=''">
+		    <include refid="where-list"/>
+		  </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="map" resultType="com.duospace.admin.spot.Spot">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM (
+				SELECT spotCode, spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel 
+				FROM spot
+				<where>
+					<if test="searchValue!=null and searchValue!=''">
+						<include refid="where-list"/>
+					</if>
+				</where>
+				ORDER BY spotCode DESC
+			) tb
+<![CDATA[
+			WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+		
+	</select>
+	
 </mapper> 
