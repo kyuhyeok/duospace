@@ -71,8 +71,11 @@ function sendOk() {
 </head>
 <body style="margin: 0px; height: 100%; width: 100%;">
 
+<!-- 오른쪽 구석 친구 창 -->
+<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px" >
+</div>
 <!-- 윗칸 띄우기 -->
-<div style="height: 80px"></div>
+<div style="height: 110px"></div>
 
 <!-- left -->
 <!-- mid -->
@@ -92,7 +95,7 @@ function sendOk() {
 				
 				<!-- 내용 입력 -->
 				<div style="margin-top: 10px; margin-bottom: 10px;">
-					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요."></textarea>
+					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요.">${dto.content}</textarea>
 				</div>
 				
 				<!-- 첨부파일 -->

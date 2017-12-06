@@ -1,6 +1,5 @@
 package com.duospace.duogram;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,16 @@ public class DuogramController {
 	@Autowired
 	private DuogramService service;
 	
+	// SNS 가입 처리
+	@RequestMapping(value="/duogram/duogram/snsRegister",
+			method=RequestMethod.POST)
+	public String snsRegister(HttpSession session, Model model) {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		service.insertAccept(info.getMemberNum());
+		return "redirect:/duogram/"+info.getMemberNum();
+	}
+	
+	// SNS 메인 화면
 	@RequestMapping(value="/duogram/{memberNum}")
 	public String duogram(
 			@PathVariable int memberNum,
@@ -25,22 +34,22 @@ public class DuogramController {
 			Model model) throws Exception {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		int countAccept=service.countAccept(memberNum);
+		if(countAccept==0) {
+			return ".duoGram.acceptcheck";
+		}
+		
 		String me="true";
 		if(info.getMemberNum()!=memberNum)
 			me="false";
-
+		
+		// sns 타임라인 불러오기
+		
 		
 		model.addAttribute("me", me);
+		
 		return ".duoGramLayout";
 	}
 
-	
-	@RequestMapping(value="/duogram/{memberNum}/created",
-			method=RequestMethod.POST)
-	public String createdSubmit(@PathVariable int memberNum,HttpServletRequest req, Duogram dto) throws Exception {
-		service.insertBoard(dto);
-		
-		return "duogram/main/main";
-	}
-	
 }

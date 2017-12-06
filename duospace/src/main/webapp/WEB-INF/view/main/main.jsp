@@ -10,6 +10,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+function modalSendAgree() {
+	var f=document.modalLoginForm;
+	
+    if(f.memberNum.value==0) {
+    	f.memberNum.focus();
+    	return false;
+    }
+    
+    if(f.memberNum.value==1) {
+    	f.memberNum.focus();
+    	return true;
+    }
+
+   f.action="<%=cp%>/main/main";
+		f.submit();
+	}
+	
+</script>
 </head>
 <body style="height: 100%; margin:0px;">
 
@@ -25,7 +45,7 @@
 	</a>
 	</div>
 	<div style="max-width: 33%; float:left">
-	<a href="<%=cp%>/duogram" style="text-decoration: none;">
+	<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="text-decoration: none;">
 		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram/duogram 1.jpg">
 	</a>
 	</div>
