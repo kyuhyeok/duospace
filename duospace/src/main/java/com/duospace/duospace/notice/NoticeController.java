@@ -2,6 +2,7 @@ package com.duospace.duospace.notice;
 
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.common.DuospaceUtil;
+import com.duospace.common.FileManager;
 
 @Controller("duospace.noticeController")
 public class NoticeController {
@@ -28,6 +31,9 @@ public class NoticeController {
 
 	@Autowired
 	private DuospaceUtil myUtil;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	@RequestMapping(value="/duospace/notice/list")
 	public String list(
@@ -99,6 +105,7 @@ public class NoticeController {
 		
 		String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
 		
+		model.addAttribute("mode", "created");
 		model.addAttribute("listTop", listTop);
 		model.addAttribute("paging", paging);
 		model.addAttribute("page", current_page);
@@ -106,6 +113,7 @@ public class NoticeController {
 		model.addAttribute("list", list);
 		model.addAttribute("articleUrl", articleUrl);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("rows", rows);
 		
 		return ".four.duospace.gogeak.notice.list";
 	}
@@ -145,6 +153,8 @@ public class NoticeController {
 		
 		//String cp = req.getContextPath();
 		
+		service.updateHitCount(num);
+		
 		Notice dto = service.readNotice(num);
 		
 		if(searchValue.length()!=0) {
@@ -156,6 +166,7 @@ public class NoticeController {
 		}
 		
 		Map<String, Object> map = new HashMap<>();
+		
 		map.put("num", num);
 		map.put("searchKey", searchKey);
 		map.put("searchValue", searchValue);
@@ -163,7 +174,7 @@ public class NoticeController {
 		Notice preDto=service.preReadNotice(map);
 		Notice nextDto=service.nextReadNotice(map);
 		
-		service.updateHitCount(num);
+		
 		
 		
 		String query="page="+page+"&rows="+rows;
@@ -171,6 +182,7 @@ public class NoticeController {
 			query+="&searchKey="+searchKey+"&searchValue="+searchValue;
 		}
 		
+		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		model.addAttribute("dto", dto);
 		model.addAttribute("rows", rows);
@@ -185,7 +197,79 @@ public class NoticeController {
 		return ".four.duospace.gogeak.notice.article";
 	}
 	
+	@RequestMapping(value="/duospace/notice/update", method=RequestMethod.GET)
+	public String updateNotice(
+			@RequestParam(value="num") int num,
+			@RequestParam(value="page")String page,
+			Model model
+			) throws Exception{
+		
+		Notice dto = service.readNotice(num);
+		if(dto==null)
+			return "redirect:/duospace/notice/list?page="+page;
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+		
+		return ".four.duospace.gogeak.notice.created";
+	}
+	
+	@RequestMapping(value="/duospace/notice/update", method=RequestMethod.POST)
+	public String updateSuibmit(Notice dto, @RequestParam String page, HttpSession session) throws Exception{
+		
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"uploads"+File.separator+"notice";
+		
+		service.updateNotice(dto, pathname);
+		
+		return "redirect:/duospace/notice/list?page="+page;
+	}
+	
+	@RequestMapping(value="/duospace/download")
+	public void download(
+			@RequestParam int num,
+			HttpServletRequest req,
+			HttpServletResponse resp,
+			HttpSession session
+			) throws Exception{
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"notice";
+		
+		Notice dto = service.readNotice(num);
+		boolean flag=false;
+		
+		if(dto!=null) {
+			flag=fileManager.doFileDownload(dto.getSaveFilename(),
+					dto.getOriginalFilename(), pathname, resp);
+		}
+		
+		if(! flag) {
+			resp.setContentType("text/html;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			out.print("<script>alert('파일 다운로드가 실패했습니다.');history.back();</script>");
+		}
+		
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

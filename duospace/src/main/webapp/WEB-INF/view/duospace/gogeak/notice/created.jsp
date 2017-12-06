@@ -26,7 +26,7 @@ function sendOk() {
         return;
     }
 
-	f.action="<%=cp%>/duospace/notice/created";
+	f.action="<%=cp%>/duospace/notice/${mode}";
     f.submit();
 }
 </script>
@@ -38,12 +38,12 @@ function sendOk() {
 
 </head>
 <body>
-	<div class="container" role="main">
+	<div class="col-sm-12 body-frame-2" role="main">
 
 
 
-<div style="margin-top: 50px;"></div>
-<div style="font-weight: bold; font-size: 25px; margin-bottom: 50px;">공지사항</div>
+<div style="margin-top: 30px;"></div>
+<div style="font-weight: bold; font-size: 25px; margin-bottom: 30px;">공지사항</div>
 
 
 <form name="createdForm" method="post" enctype="multipart/form-data">
@@ -53,9 +53,10 @@ function sendOk() {
         제 목
     </td>
     <td>
-       
-       <input type="text" name="subject" class="boxTF" style="width: 500px;">
-      	공지 <input type="checkbox" name="notice" value="1">
+    	<input type="hidden" name="num" value="${dto.num}">
+    	<input type="hidden" name="page" value="${page}">
+  		<input type="text" name="subject" class="boxTF" style="width: 500px;" value="${dto.subject}">
+      	공지 <input type="checkbox" name="notice" value="1" ${dto.notice=='1'?"checked='checked'":""}>
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -72,7 +73,7 @@ function sendOk() {
      내용
     </td>
     <td>
-      <textarea rows="10" cols="80" name="content" class="boxTF"></textarea>
+      <textarea rows="10" cols="80" name="content" class="boxTF">${dto.content}</textarea>
     </td>
   </tr>
  <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -83,11 +84,21 @@ function sendOk() {
        <input type="file" name="upload" class="boxTF">
     </td>
   </tr>
+  <c:if test="${mode=='update'}">
+  <tr> 
+    <td align="center" bgcolor="#eeeeee">
+    	 등록파일
+    </td>
+     <td>
+      ${dto.originalFilename}
+    </td>
+  </tr>
+  </c:if>
   <tr>
     <td colspan="2" align="center">
-      <button type="button" onclick="sendOk();">등록완료</button>
+      <button type="button" onclick="sendOk();">${mode=='update'?"수정완료":"등록완료"}</button>
       <button type="reset">다시입력</button>
-      <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/notice/list'">등록취소</button>
+      <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/notice/list'">${mode=='update'?"수정취소":"등록취소"}</button>
     </td>
   </tr>
 </table>

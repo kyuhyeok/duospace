@@ -17,12 +17,12 @@
 
 </head>
 <body>
-	<div class="container" role="main">
+	<div class="col-sm-12 body-frame-2" role="main">
 
 
 
-<div style="margin-top: 50px;"></div>
-<div style="font-weight: bold; font-size: 25px; margin-bottom: 50px;">공지사항</div>
+<div style="margin-top: 30px;"></div>
+<div style="font-weight: bold; font-size: 25px; margin-bottom: 30px;">공지사항</div>
 
 
 
@@ -57,7 +57,13 @@
 			   </td>
 			</tr>
 			<tr height="60">
-			    <td align="left" colspan="2" valign="top" style="padding-top: 5px;">
+				<td align="left">
+				<c:if test="${sessionScope.user.userId=='admin'}">
+			     	<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/notice/update?num=${dto.num}&page=${page}';">수정</button>
+				    <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>';">삭제</button>
+				</c:if>
+				</td>
+			    <td align="right" >
 			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/notice/list?${query}';">리스트</button>
 			    </td>
 			</tr>

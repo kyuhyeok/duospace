@@ -33,7 +33,7 @@
     <!-- 4 단 관리자 -->
 	<definition name=".admin4Layout" template="/WEB-INF/view/admin/layout/layout4.jsp">
 	    <put-attribute name="title" value="spring" />
-	  	<put-attribute name="header" value="/WEB-INF/view/admin/layout/header.jsp" />
+	  	<put-attribute name="header" value="/WEB-INF/view/admin/layout/header1.jsp" />
 	  	<put-attribute name="left" value="/WEB-INF/view/admin/menu1/left.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/admin/main/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/admin/layout/footer.jsp" />
@@ -63,7 +63,7 @@
 		<put-attribute name="body" value="/WEB-INF/view/blog/{2}/{3}.jsp"/>
 	</definition>
 
-	<!-- 커뮤니티 3단 -->
+	<!-- 커뮤니티(moim) 3단 -->
 	<definition name=".communityLayout" template="/WEB-INF/view/community/layout/layout3.jsp">
 	    <put-attribute name="title" value="community" />
 	  	<put-attribute name="header" value="/WEB-INF/view/community/layout/header.jsp" />
