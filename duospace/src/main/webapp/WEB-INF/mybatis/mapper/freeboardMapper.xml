@@ -2,8 +2,31 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freeboard">
+	<!-- 글쓰기 -->
 	<insert id="insertFreeboard" parameterType="com.duospace.community.freeboard.Freeboard">
-		INSERT INTO freeboard(boardnum,subject,content,writer,cmoimcode)
-       	 	VALUES(SEQ_FREEBOARD.NEXTVAL,#{subject},#{content},#{writer},#{cmoimcode});
+		INSERT INTO freeboard(boardnum,content,writer,cmoimCode)
+       	 	VALUES(SEQ_FREEBOARD.NEXTVAL,#{content},#{writer},#{cmoimCode})
 	</insert>
+	<!-- 글갯수 -->
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM freeboard
+	</select>
+	<!-- 글 리스트 -->
+	<select id="listFreeboard" parameterType="com.duospace.community.freeboard.Freeboard">
+		SELECT * FROM(
+		    SELECT ROWNUM rnum, tb.*FROM(
+		        SELECT  boardnum, content, f.created, hitcount, writer, f.cmoimcode
+		            FROM freeboard f 
+		            JOIN commoim c ON f.cmoimcode = c.cmoimcode
+		            ORDER BY boardnum DESC 
+<![CDATA[	
+		    ) tb WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+	</select>
+	
+	
+	
+	
+	
 </mapper>

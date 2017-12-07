@@ -149,15 +149,17 @@ function sendCommoim(){
 	
 	
 	var isopen=1;
-//체크를 하면 비공개방...
+	//체크를 하면 비공개방...
 	if($("input[name=isopen]:checked").each(function() {
 			  isopen = $(this).val();
 			}
 		)
 	)
+		
 	var comname=$.trim($("#comname").val()); //ID:comname를 앞뒤공백제거하고 comname에넣는다.
 	var regcode=$("form[name=commoimForm] [name=regcode]").val();
 	var catecode=$("form[name=commoimForm] [name=catecode]").val();
+	
 	var query="comname="+encodeURIComponent(comname);//한글깨짐방지//제목 데이터 입력
 		query+="&regcode="+regcode;
 		query+="&catecode="+catecode;
@@ -174,6 +176,10 @@ function sendCommoim(){
 			$("#comname").val("");
 			$("#regcode").val("");
 			$("#catecode").val("");
+			
+			//입력 완료후 커뮤니티로 돌아간다.
+			location.href="<%=cp%>/community/${sessionScope.user.memberNum}";
+			
 		}
 		,error:function(e){
 			console.log(e.responseText);
