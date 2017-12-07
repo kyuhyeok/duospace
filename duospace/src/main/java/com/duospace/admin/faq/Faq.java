@@ -2,11 +2,11 @@ package com.duospace.admin.faq;
 
 public class Faq {
 
-	private int num;
-	private String subject;
-	private String content;
-	private int qnaCode;
-	private String qnaName;
+	private int num;  		 //faq기본키
+	private String subject;  //제목
+	private String content;  //내용
+	private int qnaCode;     //분류코드
+	private String qnaName;  //분류이름
 	
 	
 	public String getQnaName() {
