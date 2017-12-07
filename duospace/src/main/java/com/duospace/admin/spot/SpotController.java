@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.duospace.common.DuospaceUtil;
+import com.duospace.member.SessionInfo;
 
 @Controller("admin.spot.SpotController")
 public class SpotController {
@@ -52,7 +56,7 @@ public class SpotController {
 			) throws Exception{
 			String cp = req.getContextPath();
 		
-			int rows=10;
+			int rows=5;
 			int total_page=0;
 			int dataCount=0;
 			
@@ -62,6 +66,7 @@ public class SpotController {
 			Map<String, Object> map= new HashMap<>();
 			map.put("searchKey", searchKey);
 			map.put("searchValue", searchValue);
+			
 			
 			dataCount= service.dataCount(map);
 			
@@ -106,6 +111,58 @@ public class SpotController {
 			model.addAttribute("list", list);
 			model.addAttribute("rows", rows);
 			
-		return ".admin4.menu3.spot.spotlist";
+		return "admin/spot/list";
+	}
+	
+	@RequestMapping(value="/admin/spot/update" , method=RequestMethod.GET)
+	public String updateForm(
+				@RequestParam(value="spotCode") int spotCode,
+				@RequestParam(value="page") String page,
+				Model model
+			) throws Exception{
+		Spot dto = service.readSpot(spotCode);
+		if(dto==null) 
+			return "redirect:/admin/spotlist?page="+page;
+			
+		model.addAttribute("page", page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "update");
+		
+		return ".admin4.menu3.spot.created";
+	}
+	
+	@RequestMapping(value="/admin/spot/update", method=RequestMethod.POST)
+	public String updateSubmit(
+			@RequestParam(value="page") String page,
+			Spot dto,
+			Model model
+			) throws Exception{
+		service.updateSpot(dto);
+		
+		return"redirect:/admin/spotlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/spot/deleteSpot")
+	@ResponseBody
+	public Map<String, Object> deleteSpot(
+			@RequestParam int spotCode,
+			HttpSession session
+			) throws Exception{
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		if(info==null) {
+			state="loginFail";
+		}else {
+			Map<String, Object> map=new HashMap<>();
+			map.put("spotCode", spotCode);
+			map.put("userId", info.getUserId());
+			service.deleteSpot(map);
+			state="true";
+		}
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+
+		return model;
 	}
 }

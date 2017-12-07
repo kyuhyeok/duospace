@@ -62,7 +62,7 @@ public class SpotServiceImpl implements SpotService{
 	public int updateSpot(Spot dto) {
 		int result=0;
 		try {
-			result=dao.selectOne("duospace.spot.updateSpot", dto);
+			result=dao.updateData("duospace.spot.updateSpot", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -72,8 +72,24 @@ public class SpotServiceImpl implements SpotService{
 
 	@Override
 	public int deleteListSpot(List<Integer> list) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.spot.deleteList", list);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteSpot(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.spot.deleteSpot", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 	
 }

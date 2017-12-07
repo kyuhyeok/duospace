@@ -10,5 +10,5 @@ public interface SpotService {
 	public Spot readSpot(int spotCode);
 	public int updateSpot(Spot dto);
 	public int deleteListSpot(List<Integer> list);
-	
+	public int deleteSpot(Map<String, Object> map);
 }
