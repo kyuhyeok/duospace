@@ -26,10 +26,21 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public List<Faq> listFaq(Map<String, Object> map) {
+	public List<Faq> listFaq() {
 		List<Faq> list=null;
 		try {
-			list=dao.selectList("duospace.faq.faqList", map);
+			list=dao.selectList("duospace.faq.faqList");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Faq> listQnaCate() {
+		List<Faq> list=null;
+		try {
+			list=dao.selectList("duospace.faq.qnacateList");
 		} catch (Exception e) {
 			e.toString();
 		}
@@ -38,14 +49,37 @@ public class FaqServiceImpl implements FaqService {
 
 	@Override
 	public int updateFaq(Faq dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.updateData("duospace.faq.update", dto);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteFaq(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.faq.delete", num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
+
+	@Override
+	public Faq readFaq(int num) {
+		Faq dto = null;
+		try {
+			dto=dao.selectOne("duospace.faq.readFaq", num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
+	}
+
+	
 
 }

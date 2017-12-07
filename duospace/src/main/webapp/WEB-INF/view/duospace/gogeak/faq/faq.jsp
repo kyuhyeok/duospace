@@ -190,7 +190,48 @@
 						</div>
 					</div>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="profile">.vdvd..</div>
+				<div role="tabpanel" class="tab-pane" id="profile">
+
+						<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service"
+						style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">iㄴㅅㄴㅅㄴㅅㄴㅅㄴㅅ</a>
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Bacon ipsum-->
+									<li><a href="#">Beer Ipsum</a>
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">Carey ipsum</a>
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
 				<div role="tabpanel" class="tab-pane" id="messages">.dfdf..</div>
 				<div role="tabpanel" class="tab-pane" id="settings">.dvd..</div>
 			</div>
