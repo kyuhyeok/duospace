@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,7 +93,7 @@ public class SpotController {
 				articleUrl = articleUrl+"&"+query;
 			}
 			
-			String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
+			String paging = myUtil.paging2Method(current_page, total_page, listUrl);
 			
 			model.addAttribute("paging", paging);
 			model.addAttribute("page", current_page);
@@ -107,5 +108,51 @@ public class SpotController {
 			model.addAttribute("rows", rows);
 			
 		return ".admin4.menu3.spot.spotlist";
+	}
+	
+	@RequestMapping(value="/admin/spot/update" , method=RequestMethod.GET)
+	public String updateForm(
+				@RequestParam(value="spotCode") int spotCode,
+				@RequestParam(value="page") String page,
+				Model model
+			) throws Exception{
+		Spot dto = service.readSpot(spotCode);
+		if(dto==null) 
+			return "redirect:/admin/spotlist?page="+page;
+			
+		model.addAttribute("page", page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "update");
+		
+		return ".admin4.menu3.spot.created";
+	}
+	
+	@RequestMapping(value="/admin/spot/update", method=RequestMethod.POST)
+	public String updateSubmit(
+			@RequestParam(value="page") String page,
+			Spot dto,
+			Model model
+			) throws Exception{
+		service.updateSpot(dto);
+		
+		return"redirect:/admin/spotlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/spot/deleteSpot")
+	public String deleteSpot(
+			@RequestParam int spotCode,
+			@RequestParam String page,
+			@RequestParam int rows,
+			HttpSession session
+			) throws Exception{
+		System.out.println(spotCode+"190283910384230957023495673849");
+		Spot dto = service.readSpot(spotCode);
+		System.out.println(spotCode+"19028sldakf3910384230957023495673849");
+		if(dto==null)
+			return "redirect:/admin/spotlist?page="+page;
+		
+		service.deleteSpot(dto.getSpotCode());
+
+		return "redirect:/admin/spotlist?page="+page+"&rows="+rows;
 	}
 }

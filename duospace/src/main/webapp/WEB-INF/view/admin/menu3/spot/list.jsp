@@ -1,68 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
-	String cp = request.getContextPath();
-%>
-
-<script type="text/javascript">
-$(function(){
-	$('#ck_main').click(function(){
-		if($(this).prop('checked')){
-			$('input[name=ck_sub]').prop('checked',true);
-		}else{
-			$('input[name=ck_sub]').prop('checked', false);
-		}
-	});
-});
-
-function searchList() {
-	var f=document.searchForm;
-	f.submit();
-}
-function dataListDel(  ){
-	
-	if( !$('input[name="ck_sub"]').is(':checked') ){
-		alert('선택 후 진행해 주십시오');
-		return;
-	}
-	if( !confirm("삭제 처리를 진행하시겠습니까?")){
-		return;
-	};
-	
-	var r_prseqarr = [];
-	$( 'input[name="ck_sub"]:checked').each(function(i){
-		r_prseqarr[i] = $(this).val();
-	});
-	$('input[name="r_prseqarr"]').val(r_prseqarr.join(','));
-	$('input[name="r_page"]').val(1);
-		handling.submit( '', 'productlistdel' );
-}
-
-function deleteSpot(spotCode, page) {
-	var spotCode="${dto.spotCode}";
-	var page="${page}";
-	var query = "spotCode="+spotCode+"&page="+page;
-	var url = "<%=cp%>/admin/spot/deleteSpot" + query;
-	  
-	  
-	var uid="${sessionScope.user.userId}";
-	if(! uid){
-		location.href="<%=cp%>/member/login";
-		return;
-	}
-	if(! confirm("게시물을 삭제하시겠습니까?"))
-		location.href=url;
-		return;
-}
-
-
-
-</script>
-</head>
-<body>
-	<div class="right_col" role="main">
+	String cp=request.getContextPath();
+%><div class="right_col" role="main">
 
 		<div class="container" style="background: #ffffff;">
 			<div class="page-title" style="margin: 0px 10px;">
@@ -143,8 +85,7 @@ function deleteSpot(spotCode, page) {
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
+<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
@@ -240,9 +181,8 @@ function deleteSpot(spotCode, page) {
 						</div>
 					</div>
 
-				</div>
-
-			</form>
+				</div>		
+				</form>
 
 		</div>
 	</div>

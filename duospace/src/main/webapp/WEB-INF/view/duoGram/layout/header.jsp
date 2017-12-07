@@ -33,10 +33,10 @@
 				</td>
 			
 				<td align="right" width="311px" style="padding-right: 10px;">
-					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;" id="dgFReq">
     	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;">
     	  			</a>
-    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;" id="dgMess">
     	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;">
     	  			</a>	
 					<a title=기록 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
@@ -45,7 +45,7 @@
 					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
-					</td>
+				</td>
 			</tr>
 		</table>
 	</div>

@@ -106,7 +106,7 @@ function sample4_execDaumPostcode() {
         	alert("매니저 이름을 입력하세요. 매니저 이름은 한글만 가능합니다.")
         	
         }
-   		f.action="<%=cp%>/admin/spot/created";
+   		f.action="<%=cp%>/admin/spot/${mode}";
 
    		return true;
     }
@@ -123,23 +123,23 @@ function sample4_execDaumPostcode() {
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지 점 명</td>
 			      <td style="padding-left:10px;"> 
-			        듀오스페이스 - <input type="text" name="spotName" class="boxTF" style="width: 10%;">
+			        듀오스페이스 - <input type="text" name="spotName" class="boxTF" style="width: 10%;" value="${dto.spotName}">
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지점주소</td>
 			      <td style="padding-left:10px;"> 
-			        <input type="text" id="sample4_postcode" placeholder="우편번호" name="spotAddrNum">
+			        <input type="text" id="sample4_postcode" placeholder="우편번호" name="spotAddrNum" value="${dto.spotAddrNum}">
 					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="spotAddr1">
-					<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="spotAddr2">
+					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="spotAddr1" value="${dto.spotAddr1}">
+					<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="spotAddr2" value="${dto.spotAddr2}">
 					<span id="guide" style="color:#999"></span>
 			      </td>
 			  </tr>
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">지점 전화번호</td>
 			      <td style="padding-left:10px;">
-			        <input type="text" name="tel" maxlength="100" class="boxTF" style="width: 95%;">
+			        <input type="text" name="tel" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.tel}">
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
@@ -152,7 +152,7 @@ function sample4_execDaumPostcode() {
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">매니저 이름</td>
 			      <td style="padding-left:10px;"> 
-			        <input type="text" name="manager" maxlength="100" class="boxTF" style="width: 95%;">
+			        <input type="text" name="manager" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.manager}">
 			      </td>
 			  </tr>
 			  </table>
@@ -160,9 +160,9 @@ function sample4_execDaumPostcode() {
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
 			      <td align="center" >
-			        <button type="submit" class="btn btn-success btn-sm" onclick="check();">등록하기</button>
+			        <button type="submit" class="btn btn-success btn-sm" onclick="check();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
-			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spotlist'">등록취소</button>
+			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spotlist'">${mode=='update'?'수정취소':'등록취소'}</button>
 			      </td>
 			    </tr>
 			  </table>
