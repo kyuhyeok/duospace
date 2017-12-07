@@ -70,7 +70,7 @@
 		 WHERE spotCode=#{spotCode}
 	</update>
 	
-	<delete id="deleteSpot" parameterType="map">
+	<delete id="deleteSpot" parameterType="Integer">
 		DELETE FROM spot WHERE spotCode=#{spotCode}
 	</delete>
 	

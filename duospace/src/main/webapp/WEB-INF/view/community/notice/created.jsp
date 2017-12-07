@@ -26,7 +26,7 @@ function sendOk() {
         return;
     }
 
-	f.action="<%=cp%>/duospace/notice/created";
+	f.action="<%=cp%>/community/notice/created";
     f.submit();
 }
 </script>

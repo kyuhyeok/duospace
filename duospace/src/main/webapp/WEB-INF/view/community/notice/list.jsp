@@ -25,9 +25,9 @@
 	href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css"
 	type="text/css" />
 
-<link rel="stylesheet" href="<%=cp%>/resource/css/style2.css"
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css"
 	type="text/css" />
-<link rel="stylesheet" href="<%=cp%>/resource/css/layout2.css"
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css"
 	type="text/css" />
 
 
@@ -56,7 +56,7 @@
 	<div>
 	  <table style="border-spacing: 0px; border-collapse: collapse; width: 100%;">
 	    <tr>
-	      <td align="left">8개 (1/1 페이지) <button type="button">삭제</button></td>
+	      <td align="left">${dataCount}개(${page}/${total_page} 페이지) <button type="button">삭제</button></td>
 	     
 	      <td align="right">
 			<form name="listRows" method="post">
@@ -78,26 +78,38 @@
 	      </th>
     	  <th>번호</th>
     	  <th width="40%">제목</th>
-    	  <th>작성자</th>
     	  <th>작성일</th>
     	  <th>조회수</th>
     	  <th>첨부</th>
     	</tr>
+    	<c:forEach var="dto" items="${list}">
     	<tr height="38px;">
     	  <td>
 	         <input type="checkbox" name="checkAll">
 	      </td>
-    	  <td>8</td>
-    	  <td>제목입니당</td>
-    	  <td>홍길동</td>
-    	  <td>2019-08-06</td>
-    	  <td>1</td>
+    	  <td>${dto.noticenum}</td>
+    	  <td><a href="${articleUrl}&noticenum=${dto.noticenum}">${dto.subject}</a>
+    	  </td>
+    	  <td>${dto.created}</td>
+    	  <td>${dto.hitCount}</td>
     	  <td></td>
     	</tr>
+    	</c:forEach>
  	  </table>
-	</div>
+ 	  </div>
 
-<div class="noticePage">1</div>
+<table style="width: 700px; margin: 0px auto; border-spacing: 0px;">
+<tr height="35">
+	<td align="center">
+		<c:if test="${dataCount==0}">
+			등록된 게시물이 없습니다.
+		</c:if>
+		<c:if test="${dataCount!=0 }">
+			${paging}
+		</c:if>
+		</td>
+		</tr>
+</table>
 
 
 <form name="searchForm" method="post">
@@ -114,9 +126,9 @@
       <input type="hidden" name="rows" value="${rows}">
     </td>
     <td align="right">
-   
+   <c:if test="${sessionScope.user.userId=='admin' }">
       <button type="button" onclick="javascript:location.href='<%=cp%>/community/notice/created';">글올리기</button>
-  
+  </c:if>
     </td>
   </tr>
 
