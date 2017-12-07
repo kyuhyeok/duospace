@@ -64,3 +64,6 @@
 	</div>
 </form>
 <!-- /header -->
+<jsp:include page="../fReq/listFReq.jsp" flush="false">
+<jsp:include page="../fMess/listFMess.jsp" flush="false">
+<jsp:include page="../fMess/fMess.jsp" flush="false">
