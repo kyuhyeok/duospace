@@ -15,11 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.duospace.common.DuospaceUtil;
-import com.duospace.member.SessionInfo;
 
 @Controller("admin.spot.SpotController")
 public class SpotController {
@@ -56,7 +53,7 @@ public class SpotController {
 			) throws Exception{
 			String cp = req.getContextPath();
 		
-			int rows=5;
+			int rows=10;
 			int total_page=0;
 			int dataCount=0;
 			
@@ -66,7 +63,6 @@ public class SpotController {
 			Map<String, Object> map= new HashMap<>();
 			map.put("searchKey", searchKey);
 			map.put("searchValue", searchValue);
-			
 			
 			dataCount= service.dataCount(map);
 			
@@ -111,7 +107,7 @@ public class SpotController {
 			model.addAttribute("list", list);
 			model.addAttribute("rows", rows);
 			
-		return "admin/spot/list";
+		return ".admin4.menu3.spot.spotlist";
 	}
 	
 	@RequestMapping(value="/admin/spot/update" , method=RequestMethod.GET)
@@ -143,26 +139,20 @@ public class SpotController {
 	}
 	
 	@RequestMapping(value="/admin/spot/deleteSpot")
-	@ResponseBody
-	public Map<String, Object> deleteSpot(
+	public String deleteSpot(
 			@RequestParam int spotCode,
+			@RequestParam String page,
+			@RequestParam int rows,
 			HttpSession session
 			) throws Exception{
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		String state;
+		System.out.println(spotCode+"190283910384230957023495673849");
+		Spot dto = service.readSpot(spotCode);
+		System.out.println(spotCode+"19028sldakf3910384230957023495673849");
+		if(dto==null)
+			return "redirect:/admin/spotlist?page="+page;
 		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			Map<String, Object> map=new HashMap<>();
-			map.put("spotCode", spotCode);
-			map.put("userId", info.getUserId());
-			service.deleteSpot(map);
-			state="true";
-		}
-		Map<String, Object> model = new HashMap<>();
-		model.put("state", state);
+		service.deleteSpot(dto.getSpotCode());
 
-		return model;
+		return "redirect:/admin/spotlist?page="+page+"&rows="+rows;
 	}
 }

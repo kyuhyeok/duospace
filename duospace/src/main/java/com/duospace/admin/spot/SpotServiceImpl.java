@@ -82,10 +82,10 @@ public class SpotServiceImpl implements SpotService{
 	}
 
 	@Override
-	public int deleteSpot(Map<String, Object> map) {
+	public int deleteSpot(int spotCode) {
 		int result=0;
 		try {
-			result=dao.deleteData("duospace.spot.deleteSpot", map);
+			result=dao.deleteData("duospace.spot.deleteSpot", spotCode);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
