@@ -10,41 +10,45 @@
 $(function(){
 	$('#ck_main').click(function(){
 		if($(this).prop('checked')){
-			$('input[name=ck_sub]').prop('checked',true);
+			$('input[name=spotCodes]').prop('checked',true);
 		}else{
-			$('input[name=ck_sub]').prop('checked', false);
+			$('input[name=spotCodes]').prop('checked', false);
 		}
 	});
+		$("#deletelistBtn").click(function(){
+			
+			var cnt = $("input[name=spotCodes]:checkbox:checked").length;
+			
+			if(cnt==0){
+				alert("선택된 항목이 없습니다!");
+				return;
+			}
+			
+			if(confirm("선택한 항목을 삭제하시겠습니까?")){
+				var f=document.deleteList;
+				f.action="<%=cp%>/admin/spot/deleteList";
+				f.submit();
+			}
+			
+		});
+
 });
 
-function searchList() {
-	var f=document.searchForm;
-	f.submit();
-}
-function dataListDel(  ){
-	
-	if( !$('input[name="ck_sub"]').is(':checked') ){
-		alert('선택 후 진행해 주십시오');
+function search2(f) {
+	f.action="<%=cp%>/admin/spotlist";
+	if($("#searchform option:selected").val().length==0){
+		var tex="검색목록을 선택해 주세요";
+		$("#message").text(tex);
 		return;
 	}
-	if( !confirm("삭제 처리를 진행하시겠습니까?")){
-		return;
-	};
-	
-	var r_prseqarr = [];
-	$( 'input[name="ck_sub"]:checked').each(function(i){
-		r_prseqarr[i] = $(this).val();
-	});
-	$('input[name="r_prseqarr"]').val(r_prseqarr.join(','));
-	$('input[name="r_page"]').val(1);
-		handling.submit( '', 'productlistdel' );
+	f.submit();
+}
+function search3(f) {
+	f.action="<%=cp%>/admin/spotlist";
+	f.submit();
 }
 
 function deleteSpot(spotCode, page) {
-	var spotCode="${dto.spotCode}";
-	var page="${page}";
-	var query = "spotCode="+spotCode+"&page="+page;
-	var url = "<%=cp%>/admin/spot/deleteSpot" + query;
 	  
 	  
 	var uid="${sessionScope.user.userId}";
@@ -52,13 +56,14 @@ function deleteSpot(spotCode, page) {
 		location.href="<%=cp%>/member/login";
 		return;
 	}
-	if(! confirm("게시물을 삭제하시겠습니까?"))
-		location.href=url;
+	if(confirm("게시물을 삭제하시겠습니까?"))
+	var query = "?spotCode="+spotCode+"&page="+page;
+	location.href = "<%=cp%>/admin/spot/deleteSpot" + query;
 		return;
 }
-
-
-
+function rowLimit() {
+	
+}
 </script>
 </head>
 <body>
@@ -74,17 +79,7 @@ function deleteSpot(spotCode, page) {
 				<div class="title_right"></div>
 			</div>
 			<div class="clearfix"></div>
-
-			<form action="productlist" class="form-horizontal" id="frm"
-				name="frm" method="post">
-
-				<input name="r_page" type="hidden" value="1" /> <input
-					name="r_pagelimit" type="hidden" value="10" /> <input
-					name="r_rowlimit" type="hidden" value="10" /> <input id="r_prseq"
-					name="r_prseq" type="hidden" value="" /> <input name="r_prseqarr"
-					type="hidden" /> <input name="r_column" type="hidden" value="" />
-				<input name="r_columnvalue" type="hidden" value="" />
-
+	
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
@@ -99,55 +94,64 @@ function deleteSpot(spotCode, page) {
 								</ul>
 								<div class="clearfix"></div>
 							</div>
+							<form name="searchList" class="form-horizontal" method="post">
 							<div class="x_content">
 								<div class="form-group">
 									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">게시글 수</label>
 										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" onchange="rowLimit(this);">
-												<option value="10" selected="selected">10</option>
-												<option value="20">20</option>
-												<option value="30">30</option>
-												<option value="50">50</option>
+											<select class="form-control" onchange="search3(this.form);" name="rows" id="rows">
+												<option value="10" selected="selected" ${rows==10 ? "selected='selected' ":"" }>10</option>
+												<option value="20" ${rows==20 ? "selected='selected' ":"" }>20</option>
+												<option value="30" ${rows==30 ? "selected='selected' ":"" }>30</option>
+												<option value="50" ${rows==50 ? "selected='selected' ":"" }>50</option>
 											</select>
 										</div>
 									</div>
+									
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="searchKey">
+									
+										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
 											<option value="spotCode">지점코드</option>
 											<option value="spotName">지점명</option>
-											<option value="spotaddrnum">우편번호</option>
+											<option value="spotAddrNum">우편번호</option>
 											<option value="spotAddr1">도로명주소</option>
 											<option value="spotAddr2">지번주소</option>
 											<option value="manager">매니저이름</option>
 											<option value="tel">전화번호</option>
+											<option value="region">지역명</option>
 										</select>
+										
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										<input class="form-control" id="sc_columnvalue"
 											name="searchValue" placeholder="검색어" type="text"/>
+									</div>
+									<div class="col-sm-2 col-xs-12">
+										<span id="message" style="color: red;"></span>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="searchList()">검색</button>
+											onclick="search2(this.form);">검색</button>
 									</div>
 								</div>
-
 							</div>
+						</form>
 						</div>
 					</div>
 				</div>
-
+		<form name="deleteList" class="form-horizontal" method="post">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
+							
 								<h2>
 									지점 리스트<small>Shop List</small>
 								</h2>
@@ -176,6 +180,7 @@ function deleteSpot(spotCode, page) {
 												<th style="text-align: center;">지번 주소</th>
 												<th style="text-align: center;">매니저</th>
 												<th style="text-align: center;">전화번호</th>
+												<th style="text-align: center;">지역</th>
 												<th style="text-align: center;">관리</th>
 											</tr>
 										</thead>
@@ -183,7 +188,7 @@ function deleteSpot(spotCode, page) {
 
 										<c:forEach var="dto" items="${list}">
 											<tr style="text-align: center">
-												<td><input class="flat" name="ck_sub" type="checkbox"
+												<td><input class="flat" name="spotCodes" type="checkbox"
 													value="${dto.spotCode}" /></td>
 												<td>${dto.spotCode}</td>
 												<td>듀오 스페이스 -${dto.spotName}</td>
@@ -192,6 +197,7 @@ function deleteSpot(spotCode, page) {
 												<td>${dto.spotAddr2}</td>
 												<td>${dto.manager}</td>
 												<td>${dto.tel}</td>
+												<td>${dto.region}</td>
 												<td>
 												<button type="button" class="btn btn-warning btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/update?spotCode=${dto.spotCode}&page=${page}';">
 												수정
@@ -211,7 +217,7 @@ function deleteSpot(spotCode, page) {
 								<div class="form-group">
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<button type="button" class="btn btn-danger btn-sm"
-											onclick="dataListDel()">
+											id="deletelistBtn">
 											<i class="fa fa-check-square-o"></i> 삭제
 										</button>
 									</div>

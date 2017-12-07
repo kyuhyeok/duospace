@@ -3,6 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.spot">
 	<sql id="where-list">
+		<if test="searchKey=='spotCode'">
+	  	spotCode=#{searchValue}
+	  </if>
 	  <if test="searchKey=='spotName'">
 	  	INSTR (spotName,#{searchValue}) &gt; 0
 	  </if>
@@ -21,13 +24,16 @@
 	  <if test="searchKey=='spotAddrNum'">
 	  	INSTR (spotAddrNum,#{searchValue}) &gt; 0
 	  </if>
+	  <if test="searchKey=='region'">
+	  	INSTR (region,#{searchValue}) &gt; 0
+	  </if>
 	</sql>
 
 	<insert id="insert" parameterType="com.duospace.admin.spot.Spot">
 		INSERT INTO spot (spotCode, spotName, spotAddrNum,
-		 spotAddr1, spotAddr2, manager, tel) 
+		 spotAddr1, spotAddr2, manager, tel, region) 
 		 VALUES(SEQ_SPOT.NEXTVAL, #{spotName}, #{spotAddrNum},
-		  #{spotAddr1}, #{spotAddr2}, #{manager}, #{tel})
+		  #{spotAddr1}, #{spotAddr2}, #{manager}, #{tel}, #{region})
 	</insert>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -42,7 +48,7 @@
 	<select id="list" parameterType="map" resultType="com.duospace.admin.spot.Spot">
 		SELECT * FROM (
 			SELECT ROWNUM rnum, tb.* FROM (
-				SELECT spotCode, spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel 
+				SELECT spotCode, spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel, region
 				FROM spot
 				<where>
 					<if test="searchValue!=null and searchValue!=''">
@@ -59,14 +65,14 @@
 	
 	
 	<select id="readSpot" parameterType="map" resultType="com.duospace.admin.spot.Spot">
-		SELECT spotCode, spotname, spotaddrnum, spotaddr1, spotaddr2, manager, tel 
+		SELECT spotCode, spotname, spotaddrnum, spotaddr1, spotaddr2, manager, tel, region
 		FROM spot 
 		WHERE spotCode=#{spotCode}
 	</select>
 	
 	<update id="updateSpot" parameterType="com.duospace.admin.spot.Spot">
 		UPDATE spot SET spotName=#{spotName}, spotAddr1=#{spotAddr1}, spotAddr2=#{spotAddr2},
-		 manager=#{manager}, tel=#{tel} 
+		 manager=#{manager}, tel=#{tel} ,region=#{region}
 		 WHERE spotCode=#{spotCode}
 	</update>
 	
@@ -76,7 +82,7 @@
 	
 	<delete id="deleteList" parameterType="java.util.List">
 		DELETE FROM spot WHERE spotCode IN 
-		  <foreach collection="list" item="num" index="index" open="(" separator="," close=")">
+		  <foreach collection="list" item="spotCode" index="index" open="(" separator="," close=")">
 		  	#{spotCode}
 		  </foreach>
 	</delete>
