@@ -21,6 +21,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			result=dao.insertData("community.notice.created", dto);
 		} catch (Exception e) {
+			e.toString();
 		}
 		return result;
 	}
@@ -31,7 +32,9 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		try {
 			list=dao.selectList("community.notice.listNotice", map);
+		  System.out.println(list.size()+"###################@#@#@@@@@@@@@@@@@@@@@@@@@@@@@");
 		} catch (Exception e) {
+			e.toString();
 		}
 		return list;
 	}
@@ -41,8 +44,9 @@ public class NoticeServiceImpl implements NoticeService {
 		int result=0;
 		
 		try {
-			result=dao.selectOne("community.dataCount", map);
+			result=dao.selectOne("community.notice.dataCount", map);
 		} catch (Exception e) {
+			e.toString();
 		}
 		
 		return result;
@@ -50,26 +54,50 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public Notice readNotice(int noticenum) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		
+		try {
+			dto=dao.selectOne("community.notice.readNotice", noticenum);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
 	@Override
 	public int updateHitCount(int noticenum) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		
+		try {
+			result=dao.updateData("community.notice.updateHitCount", noticenum);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
 	public Notice preReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		
+		try {
+			dto=dao.selectOne("community.notice.preReadNotice", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
 	@Override
 	public Notice nextReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		try {
+			dto=dao.selectOne("community.notice.nextReadNotice", map);
+		} catch (Exception e) { 
+			e.toString();
+		}
+		
+		return dto;
 	}
 
 	@Override

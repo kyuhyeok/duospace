@@ -4,8 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Notice {
 	
-	private int noticenum,hitcount;
-	private String subject, content, savefilename, originalfilename, created, writer;
+	private int noticenum,hitCount;
+	private String subject, content, saveFilename, originalFilename, created;
 	private MultipartFile upload;
 	private int listNum;
 	
@@ -28,11 +28,11 @@ public class Notice {
 	public void setNoticenum(int noticenum) {
 		this.noticenum = noticenum;
 	}
-	public int getHitcount() {
-		return hitcount;
+	public int getHitCount() {
+		return hitCount;
 	}
-	public void setHitcount(int hitcount) {
-		this.hitcount = hitcount;
+	public void setHitcount(int hitCount) {
+		this.hitCount = hitCount;
 	}
 	public String getSubject() {
 		return subject;
@@ -46,29 +46,25 @@ public class Notice {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getSavefilename() {
-		return savefilename;
+	
+	public String getSaveFilename() {
+		return saveFilename;
 	}
-	public void setSavefilename(String savefilename) {
-		this.savefilename = savefilename;
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
 	}
-	public String getOriginalfilename() {
-		return originalfilename;
+	
+	public String getOriginalFilename() {
+		return originalFilename;
 	}
-	public void setOriginalfilename(String originalfilename) {
-		this.originalfilename = originalfilename;
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
 	}
 	public String getCreated() {
 		return created;
 	}
 	public void setCreated(String created) {
 		this.created = created;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 }
