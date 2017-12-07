@@ -55,7 +55,17 @@
 			WHERE ROWNUM <= #{end}
 		)WHERE rnum >= #{start}
 ]]>
-		
 	</select>
+	
+	
+	<select id="readSpot" parameterType="map" resultType="com.duospace.admin.spot.Spot">
+		SELECT spotCode, spotname, spotaddrnum, spotaddr1, spotaddr2, manager, tel 
+		FROM spot 
+		WHERE spotCode=#{spotCode}
+	</select>
+	
+	<update id="updateSpot" parameterType="">
+		UPDATE spot SET 
+	</update>
 	
 </mapper> 

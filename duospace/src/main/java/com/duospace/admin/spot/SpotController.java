@@ -92,7 +92,7 @@ public class SpotController {
 				articleUrl = articleUrl+"&"+query;
 			}
 			
-			String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
+			String paging = myUtil.paging2Method(current_page, total_page, listUrl);
 			
 			model.addAttribute("paging", paging);
 			model.addAttribute("page", current_page);

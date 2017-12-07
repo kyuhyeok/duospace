@@ -145,24 +145,25 @@ function dataListDel(  ){
 							<div class="x_content">
 
 								<div class="table-responsive">
-									<table class="table table-hover" id="table1">
+									<table class="table table-hover" id="table1" style="text-align: center; border-collapse: collapse;">
 										<thead>
 											<tr>
-												<th><input class="flat" id="ck_main" type="checkbox" />
+												<th style="text-align: center;"><input class="flat" id="ck_main" type="checkbox" />
 												</th>
-												<th>지점코드</th>
-												<th>지점명</th>
-												<th>우편번호</th>
-												<th>도로명 주소</th>
-												<th>지번 주소</th>
-												<th>매니저</th>
-												<th>전화번호</th>
+												<th style="text-align: center;">지점코드</th>
+												<th style="text-align: center;">지점명</th>
+												<th style="text-align: center;">우편번호</th>
+												<th style="text-align: center;">도로명 주소</th>
+												<th style="text-align: center;">지번 주소</th>
+												<th style="text-align: center;">매니저</th>
+												<th style="text-align: center;">전화번호</th>
+												<th style="text-align: center;">관리</th>
 											</tr>
 										</thead>
 										<tbody>
 
 										<c:forEach var="dto" items="${list}">
-											<tr>
+											<tr style="text-align: center">
 												<td><input class="flat" name="ck_sub" type="checkbox"
 													value="${dto.spotCode}" /></td>
 												<td>${dto.spotCode}</td>
@@ -172,6 +173,15 @@ function dataListDel(  ){
 												<td>${dto.spotAddr2}</td>
 												<td>${dto.manager}</td>
 												<td>${dto.tel}</td>
+												<td>
+												<button class="btn btn-warning btn-sm" onclick="">
+												수정
+												</button>
+												<button type="button" class="btn btn-danger btn-sm"
+													onclick="dataListDel()">
+													<i class="fa fa-check-square-o"></i> 삭제
+												</button>
+												</td>
 											</tr>
 										</c:forEach>
 
@@ -181,33 +191,13 @@ function dataListDel(  ){
 
 								<div class="form-group">
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<button type="button" class="btn btn-success btn-sm"
-											onclick="dataListUp( 'PR_USE', 'Y' )">
-											<i class="fa fa-check-square-o"></i> 승인
-										</button>
-										<button type="button" class="btn btn-warning btn-sm"
-											onclick="dataListUp( 'PR_USE', 'N' )">
-											<i class="fa fa-check-square-o"></i> 미승인
-										</button>
 										<button type="button" class="btn btn-danger btn-sm"
 											onclick="dataListDel()">
 											<i class="fa fa-check-square-o"></i> 삭제
 										</button>
 									</div>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="pull-right">
-
-											<script type="text/javascript">
-												function pager(r_page) {
-													$('input[name="r_page"]')
-															.val(r_page);
-													handling.submit('', '');
-												}
-											</script>
-											
 												${paging}
-
-										</div>
 									</div>
 								</div>
 		<input type="hidden" name="rows" value="${rows}">
@@ -216,7 +206,7 @@ function dataListDel(  ){
 
 								<div class="form-group">
 									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';" style="border: 0; outline: 0;">
+										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';">
 											<i class="fa fa-plus"></i> 등록
 										</button>
 									</div>
