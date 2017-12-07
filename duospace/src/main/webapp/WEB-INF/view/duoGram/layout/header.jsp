@@ -33,12 +33,18 @@
 				</td>
 			
 				<td align="right" width="311px" style="padding-right: 10px;">
-					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;">
-    	  			</a>
-    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;">
-    	  			</a>	
+					<div id="dgFReq">
+						<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+	    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;">
+	    	  			</a>
+	    	  			<jsp:include page="../fReq/listFReq.jsp" flush="false">
+    	  			</div>
+    	  			<div id="dgMess">
+	    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+	    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;">
+	    	  			</a>
+	    	  			<jsp:include page="../fMess/listFMess.jsp" flush="false">
+    	  			</div>	
 					<a title=기록 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">
 					</a>
@@ -64,3 +70,4 @@
 	</div>
 </form>
 <!-- /header -->
+<jsp:include page="../fMess/fMess.jsp" flush="false">
