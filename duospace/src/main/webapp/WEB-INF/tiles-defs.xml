@@ -34,12 +34,12 @@
 	<definition name=".admin4Layout" template="/WEB-INF/view/admin/layout/layout4.jsp">
 	    <put-attribute name="title" value="spring" />
 	  	<put-attribute name="header" value="/WEB-INF/view/admin/layout/header1.jsp" />
-	  	<put-attribute name="left" value="/WEB-INF/view/admin/menu1/left.jsp" />
+	  	<put-attribute name="left" value="/WEB-INF/view/admin/main/left.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/admin/main/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/admin/layout/footer.jsp" />
 	</definition>
 	<definition name=".admin4.*.*.*" extends=".admin4Layout">
-	  	<put-attribute name="left" value="/WEB-INF/view/admin/{1}/left.jsp" />
+	  	
 		<put-attribute name="body" value="/WEB-INF/view/admin/{1}/{2}/{3}.jsp"/>
 	</definition>
 	<definition name=".admin4.*.*" extends=".admin4Layout">

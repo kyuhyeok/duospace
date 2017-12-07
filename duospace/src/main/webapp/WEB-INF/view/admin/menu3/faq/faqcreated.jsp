@@ -13,6 +13,7 @@ $(function() {
 		if($("#qnaCode option:selected").val().length==0){
 			var tex="질문분류를 선택해 주세요";
 			$("#message").text(tex);
+			return;
 		}
 		
 		var f=document.faqForm;

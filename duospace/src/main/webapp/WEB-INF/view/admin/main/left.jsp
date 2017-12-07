@@ -6,6 +6,8 @@
 	String cp=request.getContextPath();
 %>
 
+
+
 <div class="col-md-12 left_col">
 		<div class="left_col scroll-view">
 
@@ -54,7 +56,7 @@
 							<a>지점관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="<%=cp%>/admin/spotlist">지점 리스트</a></li>
-								<li><a href="#">지점 등록</a></li>
+								<li><a href="<%=cp%>/admin/spot/created">지점 등록</a></li>
 								<li><a href="#">좌석 배치도 리스트</a></li>
 								<li><a href="#">좌석 배치도 등록</a></li>
 								<li><a href="#">룸 정보 리스트</a></li>
@@ -80,7 +82,7 @@
 							<a>게시판 관리<span class="caret"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">공지사항 리스트</a></li>
-								<li><a href="#">FAQ 리스트</a></li>
+								<li><a href="<%=cp%>/admin/faq/list">FAQ 리스트</a></li>
 								<li><a href="#">1:1문의 리스트</a></li>
 								<li><a href="#">게시판 등록</a></li>
 							</ul>
@@ -108,4 +110,5 @@
 			<!-- /sidebar menu -->
 		</div>
 	</div>
+
 
