@@ -33,21 +33,15 @@
 				</td>
 			
 				<td align="right" width="311px" style="padding-right: 10px;">
-					<!-- 친구 -->
+				
+					<!-- 마이페이지 -->
 					<div style="float: right">
-					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;" id="dgFReq">
-    	  			</a>
-    	  			</div>
-    	  			
-    	  			<!-- 메신저 -->
-    	  			<div style="float: right">
-    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">
-    	  			</a>
-    	  			</div>
-    	  			
-    	  			<!-- 드롭다운 기록 -->
+					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
+					</a>
+					</div>
+					
+					<!-- 드롭다운 기록 -->
     	  			<div class="dropdown" style="float: right">
 					<a title=기록 aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<span style="background: red;"class="badge"><img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">3</span>
@@ -60,13 +54,19 @@
 						</ul>
 					</div>
 					
-					<!-- 마이페이지 -->
+					<!-- 메신저 -->
+    	  			<div style="float: right">
+    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">
+    	  			</a>
+    	  			</div>
+					
+					<!-- 친구 -->
 					<div style="float: right">
-					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
-					</a>
-					</div>
-
+					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;" id="dgFReq">
+    	  			</a>
+    	  			</div>
 				</td>
 			</tr>
 		</table>
