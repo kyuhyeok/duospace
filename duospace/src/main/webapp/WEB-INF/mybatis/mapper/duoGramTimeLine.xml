@@ -8,9 +8,9 @@
 	</insert>
 	
 	<insert id="insertBoard" parameterType="com.duospace.duogram.Duogram">
-		INSERT INTO gramTimeLine (num, memberNum, content,
+		INSERT INTO gramTimeLine (num, memberNum, content,blogNum,
 			saveFilename, originalFilename)
-			VALUES (seq_gramtimeline.NEXTVAL, #{memberNum}, #{content}
+			VALUES (seq_gramtimeline.NEXTVAL, #{memberNum}, #{content}, #{blogNum}
 			, #{saveFilename, jdbcType=VARCHAR}, #{originalFilename, jdbcType=VARCHAR})
 	</insert>
 	
@@ -18,17 +18,26 @@
 	   SELECT COUNT(*) FROM duogram WHERE memberNum = #{memberNum}
 	</select>
 	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM gramtimeline g
+		JOIN member2 m2 ON g.memberNum=m2.memberNum
+		WHERE g.blogNum=#{blogNum}
+	</select>
+	
 	<select id="listBoard" parameterType="map"
 				resultType="com.duospace.duogram.Duogram">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb. * FROM (
-				SELECT num, m2.userId, g.memberNum, content, created
+				SELECT num, m2.name, g.memberNum, blogNum, content, created
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
+				WHERE g.blogNum=#{blogNum}
 				ORDER BY num DESC
 		<![CDATA[
 			) tb WHERE ROWNUM <= #{end}
 		) WHERE rnum >= #{start}
 			]]>
 	</select>
+	
 </mapper>

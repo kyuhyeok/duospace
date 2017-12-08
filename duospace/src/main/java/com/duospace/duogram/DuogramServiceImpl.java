@@ -48,10 +48,10 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public int dataCount() {
+	public int dataCount(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.selectOne("duogram.dataCount");
+			result=dao.selectOne("duogram.dataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -62,7 +62,7 @@ public class DuogramServiceImpl implements DuogramService {
 	public List<Duogram> listDuogram(Map<String, Object> map) {
 		List<Duogram> list=null;
 		try {
-			list=dao.selectList("duogram.listGuest", map);
+			list=dao.selectList("duogram.listBoard", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
