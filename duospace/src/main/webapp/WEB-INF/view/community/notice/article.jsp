@@ -25,9 +25,9 @@
 	href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css"
 	type="text/css" />
 
-<link rel="stylesheet" href="<%=cp%>/resource/css/style2.css"
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css"
 	type="text/css" />
-<link rel="stylesheet" href="<%=cp%>/resource/css/layout2.css"
+<link rel="stylesheet" href="<%=cp%>/resource/css/layout.css"
 	type="text/css" />
 
 
@@ -55,16 +55,14 @@
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			    <td colspan="2" align="center" style="background: #e4e4e4;">
-				  제목
+				${dto.subject}
 			    </td>
 			</tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 :작성자
-			    </td>
+			  
 			    <td width="50%" align="right" style="padding-right: 5px;">
-			       20070905 | 조회 10
+			       ${dto.created} | 조회 ${dto.hitCount}
 			    </td>
 			</tr>
 			<tr height="35">
@@ -76,12 +74,12 @@
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
 			  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
-			     내용
+			    ${dto.content}
 			   </td>
 			</tr>
 			<tr height="60">
 			    <td align="left" colspan="2" valign="top" style="padding-top: 5px;">
-			        <button type="button" class="btn" onclick="javascript:location.href='';">리스트</button>
+			        <button type="button" class="btn" onclick="javascript:location.href=<%=cp%>/duospace/community/notice/list">리스트</button>
 			    </td>
 			</tr>
 			
@@ -93,14 +91,19 @@
 			  <tr height="35" style="border-bottom: 1px dashed #cccccc;border-top: 1px solid #cccccc;">
 			    <td colspan="2" align="left" style="padding-left: 5px;">
 			       이전글 :
-			         
+			       <c:if test="${not empty preReadDto}">
+			       	
+			       <a href="<%=cp%>/community/notice/article?${query}&noticenum=${preReadDto.noticenum}">${preReadDto.subject}</a>
+			       </c:if>  
 			    </td>
 			</tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td colspan="2" align="left" style="padding-left: 5px;">
 			       다음글 :
-			         
+			       <c:if test="${not empty nextReadDto}">
+			       <a href="<%=cp%>/community/notice/article?${query}&noticenum=${nextReadDto.noticenum}">${nextReadDto.subject}</a>
+			        </c:if> 
 			    </td>
 			</tr>
 			</table>

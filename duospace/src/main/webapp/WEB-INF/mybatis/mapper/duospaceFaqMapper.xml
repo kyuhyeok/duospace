@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.faq">
+
+	<insert id="created" parameterType="com.duospace.admin.faq.Faq">
+		INSERT INTO faq (num,subject,content,qnaCode) VALUES (seq_FAQ.NEXTVAL,#{subject},#{content},#{qnaCode})
+	</insert>
+	
+	<select id="qnacateList" resultType="com.duospace.admin.faq.Faq">
+		SELECT qnaCode,qnaName FROM qnacate
+	</select>
+	
+	
+	<select id="faqList" resultType="com.duospace.admin.faq.Faq">
+		SELECT num,subject,content,q.qnacode, qnaname
+		FROM faq f
+		RIGHT OUTER JOIN qnacate q ON f.qnacode=q.qnacode
+		ORDER BY num
+	</select>
+	
+	<select id="readFaq" parameterType="Integer" resultType="com.duospace.admin.faq.Faq">
+		SELECT num,subject, content,f.qnacode,qnaname
+		FROM faq f
+		JOIN qnacate q ON f.qnacode=q.qnacode
+		WHERE num=#{num}
+	</select>
+	
+	<update id="update" parameterType="com.duospace.admin.faq.Faq">
+		UPDATE faq SET subject=#{subject}, content=#{content}, qnacode=#{qnaCode}
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM faq WHERE num=#{num}
+	</delete>
+
+</mapper>

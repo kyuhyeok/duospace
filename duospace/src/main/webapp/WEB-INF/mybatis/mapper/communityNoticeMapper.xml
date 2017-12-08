@@ -4,8 +4,9 @@
 <mapper namespace="community.notice">
 
 	<insert id="created" parameterType="com.duospace.duospace.notice.Notice">
-		INSERT INTO communitynotice (noticenum, subject, content, savefilename, originalfilename)
-		VALUES (seq_communitynotice.NEXTVAL,#{subject},#{content},#{saveFilename, jdbcType=VARCHAR}
+		INSERT INTO communitymainnotice (noticenum, subject, content, savefilename, originalfilename)
+		VALUES (seq_communitymainnotice.NEXTVAL,#{subject},#{content}
+		,#{saveFilename, jdbcType=VARCHAR}
 				,#{originalFilename, jdbcType=VARCHAR})
 	</insert>
 	
@@ -26,7 +27,7 @@
 	</sql>
 	
 	<select id="dataCount" resultType="Integer" parameterType="map">
-		SELECT NVL(COUNT(noticenum), 0) FROM communitymainnotice
+		SELECT NVL(COUNT(*), 0) FROM communitymainnotice
 		<where>
 			<if test="searchValue != null and searchValue != ''">
 				<include refid="where-list"/>
@@ -40,7 +41,7 @@
 				SELECT noticenum, subject, hitCount, TO_CHAR(created, 'yyyy-mm-dd') as created
 				FROM communitymainnotice
 				<where>
-					<if test="searchValue != null and searchCalue != ''">
+					<if test="searchValue != null and searchValue != ''">
 						<include refid="where-list"/>
 					</if>
 				</where>
@@ -59,4 +60,42 @@
 	<update id="updateHitCount" parameterType="Integer">
 		UPDATE communitymainnotice SET hitCount=hitCount+1 WHERE noticenum =#{noticenum}
 	</update>
+	
+	<select id="preReadNotice" resultType="com.duospace.community.notice.Notice"
+		parameterType="map">
+		SELECT tb.* FROM(
+			SELECT noticenum, subject FROM communitymainnotice
+			<where>
+				<if test="searchValue != null and searchValue != ''">
+						<include refid="where-list"/>
+				</if>
+				<![CDATA[
+				AND (noticenum > #{noticenum})
+				]]>
+			</where>
+			ORDER BY noticenum ASC
+			
+		) tb WHERE ROWNUM=1		
+		</select>
+		
+		<select id="nextReadNotice" resultType="com.duospace.community.notice.Notice" parameterType="map">
+		
+		SELECT tb.* FROM(
+			SELECT noticenum, subject FROM communitymainnotice
+				<where>
+					<if test="searchValue != null and searchValue != '' ">
+						<include refid="where-list"/>
+					</if>
+					<![CDATA[
+						AND (noticenum < #{noticenum})
+					]]>
+				</where>
+				ORDER BY noticenum DESC
+		) tb WHERE ROWNUM=1
+		</select>
+		
+		<update id="updateNotice" parameterType="com.duospace.community.notice.Notice">
+			UPDATE communitymainnotice SET subject=#{subject}, content=#{content} WHERE noticenum =#{noticenum}
+		</update>
+	
 </mapper>

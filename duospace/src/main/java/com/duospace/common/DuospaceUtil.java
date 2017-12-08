@@ -81,6 +81,53 @@ public class DuospaceUtil {
 	
 	
 	
+	  public String paging2Method(int current_page, int total_page, String list_url) {
+	      StringBuffer sb = new StringBuffer();
+	      
+	      int numPerBlock = 5;
+	      int currentPageSetup;
+	      int n, page;
+	      
+	      if(current_page<1 || total_page<1)
+	         return "";
+	      
+	      if(list_url.indexOf("?")!=-1)
+	         list_url += "&";
+	      else
+	         list_url += "?";
+	      
+	      //currentPageSetup : 맨앞에 나타나는 페이지번호
+	      currentPageSetup = (current_page/numPerBlock)*numPerBlock;
+	      if(current_page%numPerBlock ==0)
+	         currentPageSetup=currentPageSetup-numPerBlock;
+	      
+	      n = current_page -  numPerBlock;
+	      if(total_page > numPerBlock && currentPageSetup >0) {
+	         sb.append("<a href='" + list_url + "page=1'><button type=\"button\" class=\"btn btn-info btn-sm\">처음</button></a>");
+	         sb.append("&nbsp;<a href='" + list_url + "page=" + n + "'><button type=\"button\" class=\"btn btn-default btn-sm\">이전</button></a>");
+	      }
+	      // 바로가기(페이지번호)
+	            page = currentPageSetup + 1;
+	            while (page <= total_page && page <= (currentPageSetup + numPerBlock)) {
+	               if (page == current_page) {
+	                  sb.append("&nbsp;<button type=\"button\" class=\"btn btn-default btn-sm active\">" + page + "</button>");
+	               } else {
+	                  sb.append("&nbsp;<a href='" + list_url + "page=" + page + "' style='color: #7c7b7b'><button type=\"button\" class=\"btn btn-default btn-sm\">" + page + "</button></a>");
+	               }
+	               page++;
+	            }
+
+	            // 다음(10페이지 후), 마지막
+	            n = current_page + numPerBlock;
+	            if (n > total_page)
+	               n = total_page;
+	            if (total_page - currentPageSetup > numPerBlock) {
+	               sb.append("&nbsp;<a href='" + list_url + "page=" + n + "'><button type=\"button\" class=\"btn btn-default btn-sm\">다음</button></a>");
+	               sb.append("&nbsp;<a href='" + list_url + "page=" + total_page + "'><button type=\"button\" class=\"btn btn-info btn-sm\">끝</button></a>");
+	            }
+
+	            return sb.toString();
+
 	
 	
 	
@@ -88,8 +135,7 @@ public class DuospaceUtil {
 	
 	
 	
-	
-	
+	  }
 	
 	
 	

@@ -34,19 +34,11 @@ $(function(){
 
 });
 
-function search2(f) {
-	f.action="<%=cp%>/admin/spotlist";
-	if($("#searchform option:selected").val().length==0){
-		var tex="검색목록을 선택해 주세요";
-		$("#message").text(tex);
-		return;
-	}
+function searchList() {
+	var f=document.searchForm;
 	f.submit();
 }
-function search3(f) {
-	f.action="<%=cp%>/admin/spotlist";
-	f.submit();
-}
+
 
 function deleteSpot(spotCode, page) {
 	  
@@ -61,9 +53,9 @@ function deleteSpot(spotCode, page) {
 	location.href = "<%=cp%>/admin/spot/deleteSpot" + query;
 		return;
 }
-function rowLimit() {
-	
-}
+
+
+
 </script>
 </head>
 <body>
@@ -79,7 +71,8 @@ function rowLimit() {
 				<div class="title_right"></div>
 			</div>
 			<div class="clearfix"></div>
-	
+
+			<form name="searchForm" class="form-horizontal" method="post">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
@@ -94,64 +87,56 @@ function rowLimit() {
 								</ul>
 								<div class="clearfix"></div>
 							</div>
-							<form name="searchList" class="form-horizontal" method="post">
 							<div class="x_content">
 								<div class="form-group">
 									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">게시글 수</label>
 										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" onchange="search3(this.form);" name="rows" id="rows">
-												<option value="10" selected="selected" ${rows==10 ? "selected='selected' ":"" }>10</option>
-												<option value="20" ${rows==20 ? "selected='selected' ":"" }>20</option>
-												<option value="30" ${rows==30 ? "selected='selected' ":"" }>30</option>
-												<option value="50" ${rows==50 ? "selected='selected' ":"" }>50</option>
+											<select class="form-control" onchange="rowLimit(this);">
+												<option value="10" selected="selected">10</option>
+												<option value="20">20</option>
+												<option value="30">30</option>
+												<option value="50">50</option>
 											</select>
 										</div>
 									</div>
-									
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-									
-										<select class="form-control" name="searchKey" id="searchform">
+										<select class="form-control" name="searchKey">
 											<option value="">선택</option>
 											<option value="spotCode">지점코드</option>
 											<option value="spotName">지점명</option>
-											<option value="spotAddrNum">우편번호</option>
+											<option value="spotaddrnum">우편번호</option>
 											<option value="spotAddr1">도로명주소</option>
 											<option value="spotAddr2">지번주소</option>
 											<option value="manager">매니저이름</option>
 											<option value="tel">전화번호</option>
 											<option value="region">지역명</option>
 										</select>
-										
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										<input class="form-control" id="sc_columnvalue"
 											name="searchValue" placeholder="검색어" type="text"/>
-									</div>
-									<div class="col-sm-2 col-xs-12">
-										<span id="message" style="color: red;"></span>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="search2(this.form);">검색</button>
+											onclick="searchList()">검색</button>
 									</div>
 								</div>
+
 							</div>
-						</form>
 						</div>
 					</div>
 				</div>
-		<form name="deleteList" class="form-horizontal" method="post">
+
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-							
 								<h2>
 									지점 리스트<small>Shop List</small>
 								</h2>

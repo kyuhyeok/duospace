@@ -2,7 +2,13 @@ package com.duospace.admin.spot;
 
 public class Spot {
 	private int spotCode;
-	private String spotName, spotAddrNum, spotAddr1, spotAddr2, Manager, Tel;
+	private String spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel, region;
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
 	public int getSpotCode() {
 		return spotCode;
 	}
@@ -34,16 +40,17 @@ public class Spot {
 		this.spotAddr2 = spotAddr2;
 	}
 	public String getManager() {
-		return Manager;
+		return manager;
 	}
 	public void setManager(String manager) {
-		Manager = manager;
+		this.manager = manager;
 	}
 	public String getTel() {
-		return Tel;
+		return tel;
 	}
 	public void setTel(String tel) {
-		Tel = tel;
+		this.tel = tel;
 	}
+	
 	
 }

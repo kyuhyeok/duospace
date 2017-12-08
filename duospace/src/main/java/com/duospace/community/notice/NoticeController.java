@@ -15,9 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.duospace.community.notice.MyUtil;
 
 @Controller("community.noticeController")
 public class NoticeController {
@@ -91,8 +88,8 @@ public class NoticeController {
 			query = "searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 		}
 		
-		listUrl = cp+"/community/list";
-		articleUrl = cp+"/community/article?page=" + current_page;
+		listUrl = cp+"/community/notice/list";
+		articleUrl = cp+"/community/notice/article?page=" + current_page;
 		if(query.length()!=0) {
 			listUrl = listUrl + "?" + query;
 			articleUrl = articleUrl + "&"+ query;
@@ -106,10 +103,57 @@ public class NoticeController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("paging", paging);
-	
+		
 		return ".community.notice.list";
 	}
+	@RequestMapping(value="/community/notice/article",
+			method=RequestMethod.GET)
+	public String article(
+			@RequestParam(value="noticenum") int noticenum,
+			@RequestParam(value="page") String page,
+			@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
+			@RequestParam(value="searchValue",defaultValue="") String searchValue,
+			Model model
+			) throws Exception{
+		
+		searchValue = URLDecoder.decode(searchValue, "utf-8");
+		
+		service.updateHitCount(noticenum);
+		
+		Notice dto= service.readNotice(noticenum);
+		if(dto==null)
+		
+		return "redirect:/community/notice/list?page="+page;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchKey", searchKey);
+		map.put("searchValue", searchValue);
+		map.put("noticenum", noticenum);
+		
+		Notice preReadDto = service.preReadNotice(map);
+		Notice nextReadDto = service.nextReadNotice(map);
+		
+		String query = "page="+page;
+		if(searchValue.length()!=0) {
+			query +="&searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("preReadDto", preReadDto);
+		model.addAttribute("nextReadDto", nextReadDto);
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+
+		return ".community.notice.article";
+	}
 	
+	@RequestMapping(value="/community/notice/update", method=RequestMethod.POST)
+	public String updateSubmit(Notice dto, @RequestParam String page) throws Exception{
+		
+		service.updateNotice(dto);
+		
+		return "redirect:/notice/list?page="+page;
+	}
 }
 
 

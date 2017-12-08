@@ -1,5 +1,8 @@
 package com.duospace.community.commoim;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +23,18 @@ public class CommoimServiceImpl implements CommoimService{
 		}
 		return result;
 	}
+
+	@Override
+	public List<Commoim> listCommoim(Map<String, Object> map) {
+		List<Commoim> list=null;
+		try {
+			list=dao.selectList("commoim.listCommoim",map);//mapper주소...
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	
 
 }
