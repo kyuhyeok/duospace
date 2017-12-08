@@ -60,7 +60,7 @@
 								<li><a href="#">좌석 배치도 리스트</a></li>
 								<li><a href="#">좌석 배치도 등록</a></li>
 								<li><a href="#">룸 정보 리스트</a></li>
-								<li><a href="#">룸 정보 등록</a></li>
+								<li><a href="<%=cp%>/admin/room/created">룸 정보 등록</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">
