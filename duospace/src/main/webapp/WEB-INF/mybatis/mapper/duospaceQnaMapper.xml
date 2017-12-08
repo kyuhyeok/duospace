@@ -42,7 +42,7 @@
 	</select>
 	
 	
-	<select id="list" parameterMap="map" resultType="com.duospace.duospace.qna.Qna">
+	<select id="list" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb.* FROM(
 				SELECT num,content,subject,created,answer,qnacode,m2.membernum,
