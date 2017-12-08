@@ -40,25 +40,26 @@ public class DuogramController {
 	}
 	
 	// SNS 메인 화면
-	@RequestMapping(value="/duogram/{memberNum}")
+	@RequestMapping(value="/duogram/{blogNum}")
 	public String duogram(
-			@PathVariable int memberNum,
+			@PathVariable int blogNum,
 			HttpSession session,
 			Model model) throws Exception {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
-		int countAccept=service.countAccept(memberNum);
+		int countAccept=service.countAccept(blogNum);
 		if(countAccept==0) {
 			return ".duoGram.acceptcheck";
 		}
 		
 		String me="true";
-		if(info.getMemberNum()!=memberNum)
+		if(info.getMemberNum()!=blogNum)
 			me="false";
 		
 		// sns 타임라인 불러오기
 		model.addAttribute("me", me);
+		model.addAttribute("blogNum", blogNum);
 		
 		return ".duoGramLayout";
 	}
@@ -74,7 +75,6 @@ public class DuogramController {
 
 		String state;
 		if(info==null) {
-			System.out.println("낄낄");
 			state="loginFail";
 		} else {
 			dto.setMemberNum(info.getMemberNum());
@@ -87,16 +87,22 @@ public class DuogramController {
 		return model;	
 	}
 	
+	// 리스트
 	@RequestMapping(value="/duogram/list")
 	@ResponseBody
 	public Map<String, Object> list(
-			@RequestParam(value="pageNo", defaultValue="1") int current_page
+			@RequestParam(value="pageNo", defaultValue="1") int current_page,
+			@RequestParam int blogNum
 			) throws Exception {
+		
 		int rows=10;
 		int dataCount;
 		int total_page;
 		
-		dataCount=service.dataCount();
+		Map<String, Object> map=new HashMap<>();
+		map.put("blogNum", blogNum);
+		
+		dataCount=service.dataCount(map);
 		total_page = util.pageCount(rows, dataCount);
 		if(current_page>total_page)
 			current_page=total_page;
@@ -104,7 +110,6 @@ public class DuogramController {
 		int start=(current_page-1)*rows+1;
 		int end=current_page*rows;
 		
-		Map<String, Object> map=new HashMap<>();
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -127,5 +132,4 @@ public class DuogramController {
 		
 		return model;
 	}
-
 }

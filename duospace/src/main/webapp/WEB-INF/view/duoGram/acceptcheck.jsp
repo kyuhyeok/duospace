@@ -10,7 +10,6 @@
 <form action="<%=cp%>/duogram/snsRegister" method="post">
 <table style="width:200px;">
 	<tr align=center>
-		Duo Gram 사용을 시작하시겠습니까?
 		<td style="width: 100%; height: 100px; border: 1px solid #ccc">
 			<input type="hidden" name="register" value="1">
 			<button type="submit">수락</button>
