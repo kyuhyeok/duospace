@@ -122,8 +122,6 @@
 		<put-attribute name="body" value="/WEB-INF/view/duospace/main/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/duospace/layout/footer.jsp" />
 	</definition>
-<<<<<<< HEAD
-=======
 	
 	<!-- 듀오그램 2.3단 -->
 	<definition name=".duoGramLayout" template="/WEB-INF/view/duoGram/layout/layout3.jsp">
@@ -140,8 +138,7 @@
 	<definition name=".duoGram.*.*" extends=".duoGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}.jsp"/>
 	</definition>
-	
->>>>>>> branch 'master' of https://www.github.com/kyuhyeok/duospace
+
 	<!-- 순서가 바뀌면 안됨(* 많은것이 위에) -->
 	<definition name=".*.*.*" extends=".duospaceLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}/{3}.jsp"/>
@@ -152,19 +149,5 @@
 	<definition name=".*" extends=".duospaceLayout">
     	  <put-attribute name="body" value="/WEB-INF/view/duospace/{1}.jsp" />
 	</definition>
-<<<<<<< HEAD
-	
-	<!-- 순서가 바뀌면 안됨(* 많은것이 위에) -->
-	<definition name=".*.*.*" extends=".duospaceLayout">
-		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}/{3}.jsp"/>
-	</definition>
-	<definition name=".*.*" extends=".duospaceLayout">
-		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}.jsp"/>
-	</definition>
-	<definition name=".*" extends=".duospaceLayout">
-    	  <put-attribute name="body" value="/WEB-INF/view/duospace/{1}.jsp" />
-	</definition>
-=======
->>>>>>> branch 'master' of https://www.github.com/kyuhyeok/duospace
 
 </tiles-definitions>

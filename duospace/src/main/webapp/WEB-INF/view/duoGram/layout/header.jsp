@@ -44,7 +44,6 @@
     	  			<div style="float: right">
     	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
     	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">
-<<<<<<< HEAD
     	  			</a>
     	  			</div>
     	  			
@@ -52,11 +51,6 @@
     	  			<div class="dropdown" style="float: right">
 					<a title=기록 aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<span style="background: red;"class="badge"><img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">3</span>
-=======
-    	  			</a>	
-					<a title=기록 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-						<img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">
->>>>>>> branch 'master' of https://www.github.com/kyuhyeok/duospace
 					</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">김종기님께서 게시물에 좋아요를 하셨습니다.</a></li>
@@ -71,9 +65,6 @@
 					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
-<<<<<<< HEAD
-					</div>
-=======
 				</td>
 			</tr>
 		</table>
@@ -87,7 +78,6 @@
 				</td>
 				<td align="right">
 					<a href="<%=cp%>/member/logout" style="padding-right: 15px;"> 로그아웃</a>
->>>>>>> branch 'master' of https://www.github.com/kyuhyeok/duospace
 				</td>
 			</tr>
 		</table>
