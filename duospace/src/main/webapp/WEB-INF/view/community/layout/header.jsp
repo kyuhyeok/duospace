@@ -21,13 +21,13 @@
 	
 		<div style="float: right;vertical-align: middle;">
 		
-			<button class="btn" style="margin-right: 20px; color: #ffffff; font-size: large;" >
-				커뮤니티
-			</button>
 			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/community">
+				커뮤니티
+			</a>
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist">
 				인기모임
 			</a>
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/community/${sessionScope.user.memberNum}">
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/mymoim/${sessionScope.user.memberNum}">
 				나의모임
 			</a>
 			
