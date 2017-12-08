@@ -6,13 +6,13 @@
 	String cp=request.getContextPath();
 %>
 
-
-<div style="margin: 150px auto;min-height:500px; width:200px; padding-top: 300px;">
+<div style="position: fixed; padding-left: 850px; padding-top: 200px;">
 <form action="<%=cp%>/duogram/snsRegister" method="post">
-<table>
+<table style="width:200px;">
 	<tr align=center>
-		<td style="height: 100px; border: 1px solid #ccc">
-			<input type="hidden" name="snsRegister" value="1">
+		Duo Gram 사용을 시작하시겠습니까?
+		<td style="width: 100%; height: 100px; border: 1px solid #ccc">
+			<input type="hidden" name="register" value="1">
 			<button type="submit">수락</button>
 			<button type="button" onclick="javascript:location.href='<%=cp%>';">거절</button>
 		</td>

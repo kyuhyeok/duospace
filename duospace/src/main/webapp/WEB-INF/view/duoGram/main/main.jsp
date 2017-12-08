@@ -16,28 +16,10 @@
 
 <!-- Bootstrap core CSS -->
 <link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
-<style type="text/css">
-
-.logo{
-	font-family:Airways;
-}
-
-.wrap {
-width: 500px;
-}
-
-.wrap textarea {
-width: 100%;
-resize: none;
-overflow-y: hidden; /* prevents scroll bar flash */
-padding: 1.1em; /* prevents text jump on Enter keypress */
-padding-bottom: 0.2em;
-line-height: 1.6;
-}
-
-</style>
 
 <script>
     $(document).ready(function() {
@@ -49,23 +31,62 @@ line-height: 1.6;
     });
 </script>
 
-<script type="text/javascript" src="<%=cp%>/resource/js/duogram/kkh.js">
 
 <script type="text/javascript">
-function sendOk() {
-    var f = document.boardForm;
+// 무한스크롤
+$(function(){
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() + 100 >= $(document).height() - $(window).height()) {
+	    	if(pageNo<totalPage) {
+	    		++pageNo;
+	    		listPage(pageNo);
+	    	}
+	    }
+	});
+});
 
-	str = f.content.value;
-    if(!str) {
-        alert("내용을 입력하세요. ");
-        f.content.focus();
-        return;
-    }
-
-		f.action="<%=cp%>/duogram/${mode}";
-
-    f.submit();
+function listPage(page) {
+	var url="<%=cp%>/duogram/list";
+	
+	// json으로 넘겨 받음
+	$.post(url, {pageNo:page}, function(data){
+		printDuogram(data);
+	}, "json");
 }
+
+function sendBoard() {
+	var uid="${sessionScope.user.memberNum}";
+	if(!uid){
+		location.href="<%=cp%>/member/login";
+		return;
+	} 
+	// 공백이 있으면 뭐?
+	var content=$.trim($("#content").val());
+	if(! content) {
+		$("#content").focus();
+		return;
+	}
+	
+	var q="content="+encodeURIComponent(content);
+	
+	var url="<%=cp%>/duogram/insert";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data) {
+
+			$("#content").val("");
+		}
+	    ,error:function(e) {
+	    	console.log(e.responseText);
+	    }
+	});
+}
+
+
 </script>
 
 </head>
@@ -79,7 +100,7 @@ function sendOk() {
 
 <!-- left -->
 <!-- mid -->
-<form style="background: #fafafa; min-height: 2000px">
+<div style="background: #fafafa; min-height: 2000px">
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
@@ -88,6 +109,7 @@ function sendOk() {
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
 				<!-- 게시글 등록 및 동영상 추가 -->
+				<form name="boardForm" method="post">
 				<div style="height: 30px;background: #e9ebee; border-bottom: 1px solid #dddfe2;">
 					<div align="left" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
 					</div>
@@ -95,7 +117,7 @@ function sendOk() {
 				
 				<!-- 내용 입력 -->
 				<div style="margin-top: 10px; margin-bottom: 10px;">
-					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요.">${dto.content}</textarea>
+					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요." id=content></textarea>
 				</div>
 				
 				<!-- 첨부파일 -->
@@ -104,10 +126,12 @@ function sendOk() {
 						<a href="#">
 							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
 						</a>
-						<button class="button pull-right" onclick="sendOk();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">${mode=='update'?'수정완료':'등록하기'}</button>
-						<button class="button pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
+						<!-- 글 및 동영상 등록 -->
+						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;"> 등록하기 </button>
+						<button type="button" class="btn pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
+					</div>
+					</form>
 				</div>
-			</div>
 	
 			<!-- 왼쪽 게시글들 -->
 			<div style="width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
@@ -239,7 +263,7 @@ function sendOk() {
     <!-- /오른쪽 커뮤니티? -->
 </div>
 </div>
-</form>
+</div>
 <!-- right -->
 
 <!-- /mid -->
