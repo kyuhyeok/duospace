@@ -65,6 +65,8 @@
 					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
+					</div>
+
 				</td>
 			</tr>
 		</table>
