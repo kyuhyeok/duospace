@@ -1,5 +1,8 @@
 package com.duospace.duogram;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,39 @@ public class DuogramServiceImpl implements DuogramService {
 			System.out.println(e.toString());
 		}
 		return result;
+	}
+
+	@Override
+	public int insertBoard(Duogram dto) {
+		int result=0;
+		try {
+			result=dao.insertData("duogram.insertBoard", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int dataCount() {
+		int result=0;
+		try {
+			result=dao.selectOne("duogram.dataCount");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Duogram> listDuogram(Map<String, Object> map) {
+		List<Duogram> list=null;
+		try {
+			list=dao.selectList("duogram.listGuest", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 }
