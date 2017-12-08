@@ -216,9 +216,17 @@ text-align:center;
 <script type="text/javascript">
 $(document).click(function(){
 	$('#dgFReqlistview').hide();
-	$('#messengers').hide();
+	$('#dgfmessengers').hide();
 });
+$(window).resize(function() {
+	var xp=5;
+	var yp=-350;
+	$("#dgFReqPos").css("top",$("#dgFReq").offset().top+xp);
+	$("#dgFReqPos").css("left",$("#dgFReq").offset().left+yp);
 
+	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
+	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
+});
 $(function() {
 	var xp=5;
 	var yp=-350;
@@ -229,6 +237,7 @@ $(function() {
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
 	readaCnt();
+	setInterval("readaCnt()",10000);
 	
 	$("body").on("click", "#dgFReq", function(event){
 		event.stopPropagation();
@@ -236,14 +245,51 @@ $(function() {
 		
 		if(isVisible){
 			$('#dgFReqlistview').hide();
+			$('#dgfmessengers').hide();
 			dReqcl();
 		}else {
 			$('#dgFReqlistview').show();
+			$('#dgfmessengers').hide();
 			listFRPage(1);
 		}
 	});
-	$("body").on("click", "#dgFReqlistview", function(event){
+	$("body").on("click", "#dgFReqlistview", function(event){//메신저 클릭
 		event.stopPropagation();
+	});
+	$("body").on("click", "#dgMess", function(event){//메신저 클릭
+		event.stopPropagation();
+		var isVisible=$("#dgfmessengers").is(":visible");
+		
+		if(isVisible){
+			$('#dgfmessengers').hide();
+			$('#dgFReqlistview').hide();
+			dMcl();
+		}else {
+			$('#dgfmessengers').show();
+			$('#dgFReqlistview').hide();
+			listFMCard(page);
+		}
+	});
+	$("body").on("click", "#dgfmessengers", function(event){//메신저 클릭
+		event.stopPropagation();
+	});
+	$("body").on("click", ".objectListItem messegeContainer", function(){//채팅할 친구 클릭
+		var fNum=$(this).attr("data-fmnum");
+		var fName=$(this).attr("data-fmname");
+		var fPS=$(this).attr("data-fmPS");
+		
+		var isVisible=$("#dgChatTabFlyout").is(":visible");
+		
+		if(isVisible){
+			dchatcl();
+			//readFM(fNum, fName);
+			//listfMC(fNum, 1);
+		}else {
+			$('#dgChatTabFlyout').show();
+			readFM(fNum, fName);
+			//listFMCon(fNum, page);
+			//psIn(fNum, imagePath);
+		}
 	});
 });
 function readaCnt() {
@@ -364,7 +410,7 @@ function delFReq(friendNum) {
 		}
 	});
 }
-function insReq(friendNum) {
+function insFReq(friendNum) {
 	var url="<%=cp%>/duogram/insertFReq";
 	var q="friendNum="+friendNum;
 	
@@ -397,7 +443,8 @@ function insReq(friendNum) {
 	});
 }
 </script>
-<div id="dgFReqPos" style="position: fixed;top:30px;">
+
+<div id="dgFReqPos" style="position: fixed;top:30px;z-index: 10;">
 	<div class="uiToggleFLayoutR" id="dgFReqlistview">
 	    <ul>
 	    	<li style="border-top: none;">
@@ -407,27 +454,21 @@ function insReq(friendNum) {
 	    				<!-- 스크롤 가능 영역 -->
 	    				<div class="uiScrollableAreaWrap" style="position: relative;">
 	    					<div class="uiScrollableAreaBody" style="width: 430px;">
-	    						<!-- 친구 요청 전체 리스트 -->
 	    						<div class="uiScrollableAreaContent">
-	    							<!-- 빈공간 -->
 	    							<div style="height: 31px;"></div>
 	    							<div style="padding-top: 0;">
-		    							<!-- 친구요청 첫 페이지 -->
 	    								<ul class="_4kg _4ks" id="friendRequestList">
 	    								</ul>
 	    							</div>
-	    							<!-- 친구요청 두번째 페이지 이상 -->
 	    							<div>
 	    							</div>
 	    						</div>
 	    					</div>
 	    				</div>
-	    				<!-- 스크롤 숨김 -->
 	    				<div class="uiScrollableAreaTrack" style="opacity: 0;visibility: hidden;">
 	    					<div style="height: 539.75px;top: 0px;">
 	    					</div>
 	    				</div>
-	    				<!-- 친구요청 상단바 -->
 	    				<div style="left: 0px;top: 0px;opacity: 1;width: 622px;display: block;z-index: 4;
 	    							height: 0;position: absolute;outline: none;">
 							<div style="bottom: 0px;position: absolute;">

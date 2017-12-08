@@ -23,7 +23,26 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
+<style type="text/css">
 
+.logo{
+	font-family:Airways;
+}
+
+.wrap {
+width: 500px;
+}
+
+.wrap textarea {
+width: 100%;
+resize: none;
+overflow-y: hidden; /* prevents scroll bar flash */
+padding: 1.1em; /* prevents text jump on Enter keypress */
+padding-bottom: 0.2em;
+line-height: 1.6;
+}
+
+</style>
 </head>
 <body>
 
