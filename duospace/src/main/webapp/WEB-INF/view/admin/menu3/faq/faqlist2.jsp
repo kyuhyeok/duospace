@@ -331,10 +331,10 @@
 
 												<button type="button" class="btn btn-default btn-sm"
 													onclick="pager( 2 )">다음</button>
-												</a>
+												
 												<button type="button" class="btn btn-info btn-sm"
 													onclick="pager( 3 )">끝</button>
-												</a> <!-- 다음 끝처리 -->
+											
 
 
 

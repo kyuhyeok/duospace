@@ -57,7 +57,7 @@ public class FaqController {
 
 		Faq dto = service.readFaq(num);
 		if(dto==null) {
-			return "redirect:/admin.faq.list";
+			return "redirect:/admin/faq/list";
 		}
 		model.addAttribute("mode", "update");
 		model.addAttribute("dto", dto);
