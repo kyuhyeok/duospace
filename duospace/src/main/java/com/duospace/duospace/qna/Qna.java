@@ -8,12 +8,28 @@ public class Qna {
 	private String created;
 	private int answer;
 	private int qnaCode;
+	private int listNum;
+	
+	private long gap;
 	
 	private int memberNum;
 	private String userId;
 	private String userName;
 	
 	
+
+	public long getGap() {
+		return gap;
+	}
+	public void setGap(long gap) {
+		this.gap = gap;
+	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public int getNum() {
 		return num;
 	}

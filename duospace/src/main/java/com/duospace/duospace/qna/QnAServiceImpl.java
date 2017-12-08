@@ -27,8 +27,13 @@ public class QnAServiceImpl implements QnAService{
 
 	@Override
 	public List<Qna> listQna(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Qna> list=null;
+		try {
+			list=dao.selectList("duospace.qna.list", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
 	}
 
 	@Override
@@ -39,8 +44,13 @@ public class QnAServiceImpl implements QnAService{
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.qna.dataCount", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 function changeRows(f){
-	f.action="<%=cp%>/duospace/notice/list";
+	f.action="<%=cp%>/duospace/qna/list";
 	f.submit();
 }
 $(function(){
@@ -82,11 +82,10 @@ $(function(){
     	  <th>번호</th>
     	  <th width="40%">제목</th>
     	  <th>작성일</th>
-    	  <th>조회수</th>
     	</tr>
 
     
-    	
+    	<c:forEach items="${list}" var="dto">
     	<tr height="38px;">
     	<c:if test="${sessionScope.user.userId=='admin'}">
     	  <td>
@@ -97,12 +96,11 @@ $(function(){
     	  <td style="text-align: left">
     	  <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a></td>
     	  <td>${dto.created}</td>
-    	  <td>${dto.hitCount}</td>
 
     	</tr>
-   
+   		</c:forEach>
+   		
  	  </table>
- 	   <input type="hidden" name="rows" value="${rows}">
        <input type="hidden" name="page" value="${page}">
  	 </form>
 	</div>
@@ -116,6 +114,15 @@ $(function(){
   </tr>
   <tr> 
     <td>
+      <select name="searchCode">
+        <option value="" selected="selected">전체</option>
+        <option value="1">예약/결제</option>
+        <option value="2">이용권</option>
+        <option value="3">카페</option>
+        <option value="4">도서예약</option>
+        <option value="5">회원가입/로그인</option>
+        <option value="6">기타문의</option>
+      </select>
       <select name="searchKey">
         <option value="subject">제목</option>
         <option value="content">내용</option>
@@ -123,8 +130,7 @@ $(function(){
       </select>
       <input type="text" name="searchValue">
       <button type="button" onclick="changeRows(this.form)">검색</button>
-      <input type="hidden" name="rows" value="${rows}">
-      <input type="hidden" name="page" value="${page}">
+     
     </td>
 
     <td align="right">
