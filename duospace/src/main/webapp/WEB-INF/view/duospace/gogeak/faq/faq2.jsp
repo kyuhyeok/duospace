@@ -117,7 +117,7 @@
  
  
  
-	<div class="right_col" role="main" style="background: #ffffff; padding: 0px 100px 200px;">
+	<div class="right_col" role="main" style="background: #ffffff; padding: 50px 100px 200px;">
  
 		<div class="">
 			<div class="page-title">
@@ -161,8 +161,6 @@
 		   
 			<!-- Tab panes -->
 			<div class="tab-content">
-			
-				<!-- 예약 -->
 				<div role="tabpanel" class="tab-pane active" id="reserve">
  
 					<!-- 아코디언 -->
@@ -189,30 +187,49 @@
 								</ul>
 							</div>
 						</div>
-					</div>			
+					</div>
+					
+	<!-- 아코디언끝 -->				
 				</div>
 				
 				
-				<!-- 이용권 -->
+				
 				<div role="tabpanel" class="tab-pane" id="ticket">
 						<!-- 아코디언 -->
 					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
-									<c:forEach items="${list}" var="dto">
-									 <c:if test="${dto.qnaCode==2}">
-									<li><a href="#">${dto.subject}</a>
-								
+									<li><a href="#">tlzl</a>
+									
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>${dto.content}</p>
+													<p>아코디언 답이구여</p>
 												</div>
 											</li>
 										</ul></li>
-									 </c:if>
-									</c:forEach>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">zzzz</a>
+									
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디dddd언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">질rrrr</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
 									
 								</ul>
 							</div>
@@ -226,20 +243,36 @@
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">카페카페</a>
 									
-								<c:forEach items="${list}" var="dto">
-									 <c:if test="${dto.qnaCode==3}">
-									<li><a href="#">${dto.subject}</a>
-								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>${dto.content}</p>
+													<p>아코디언 답이구여</p>
 												</div>
 											</li>
 										</ul></li>
-									 </c:if>
-									</c:forEach>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">zzzz</a>
+									
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">질rrrr</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
 									
 								</ul>
 							</div>
@@ -248,8 +281,6 @@
 				
 				
 				</div>
-				
-				<!-- 대여 -->
 				<div role="tabpanel" class="tab-pane" id="book">
 
 							<!-- 아코디언 -->
@@ -257,20 +288,36 @@
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">대여대여</a>
 									
-									<c:forEach items="${list}" var="dto">
-									 <c:if test="${dto.qnaCode==4}">
-									<li><a href="#">${dto.subject}</a>
-								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>${dto.content}</p>
+													<p>아코디언 답이구여</p>
 												</div>
 											</li>
 										</ul></li>
-									 </c:if>
-									</c:forEach>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">zzzz</a>
+									
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">질rrrr</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
 									
 								</ul>
 							</div>
@@ -279,8 +326,6 @@
 
 
 				</div>
-				
-				<!-- 회원 -->
 				<div role="tabpanel" class="tab-pane" id="member">
 
 						<!-- 아코디언 -->
@@ -288,20 +333,36 @@
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">회원회원</a>
 									
-									<c:forEach items="${list}" var="dto">
-									 <c:if test="${dto.qnaCode==5}">
-									<li><a href="#">${dto.subject}</a>
-								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>${dto.content}</p>
+													<p>아코디언 답이구여</p>
 												</div>
 											</li>
 										</ul></li>
-									 </c:if>
-									</c:forEach>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">zzzz</a>
+									
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">회원</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
 									
 								</ul>
 							</div>
@@ -309,8 +370,6 @@
 					</div>
 
 				</div>
-				
-				<!-- 기타 -->
 				<div role="tabpanel" class="tab-pane" id="others">
 
 						<!-- 아코디언 -->
@@ -318,20 +377,36 @@
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
+									<li><a href="#">기타기</a>
 									
-									<c:forEach items="${list}" var="dto">
-									 <c:if test="${dto.qnaCode==6}">
-									<li><a href="#">${dto.subject}</a>
-								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>${dto.content}</p>
+													<p>아코디언 답이구여</p>
 												</div>
 											</li>
 										</ul></li>
-									 </c:if>
-									</c:forEach>
+									<!--Bacon ipsum-->
+									<li><a href="#" style="width: 100px">기티가가</a>
+									
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여.</p>
+												</div>
+											</li>
+										</ul></li>
+										
+									<!--Beer ipsum-->
+									<li><a href="#">질기기긱</a> 
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>아코디언 답이구여baxtrry.</p>
+												</div>
+											</li>
+										</ul></li>
+									<!--Carey ipsum-->
 									
 								</ul>
 							</div>
