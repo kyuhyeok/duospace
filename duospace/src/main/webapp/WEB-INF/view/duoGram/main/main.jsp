@@ -66,7 +66,11 @@ function sendBoard() {
 		,dataType:"json"
 		,success:function(data) {
 			$("#content").val("");
-			location.herf="<%=cp%>/duogram/${blogNum}";
+			
+			// 글쓰기 후 새로고침
+			$("#listDuogramBody").empty();
+			pageNo=1;
+			listPage(1);
 		}
 	    ,error:function(e) {
 	    	console.log(e.responseText);
@@ -203,7 +207,6 @@ function printDuogram(data) {
 	
 			<!-- 왼쪽 게시글들 -->
 			<div id="listDuogramBody"></div>
-
 		</div>
 	</div>
 	<!-- /왼쪽 게시글들 -->
