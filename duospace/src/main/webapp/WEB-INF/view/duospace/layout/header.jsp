@@ -133,7 +133,7 @@ li:hover ul.submenu {
 			
 				<div class="header-login" style="width: 100%; text-align: right;">
 				
-					<a href="<%=cp%>/duogram">Duo Gram</a>
+					<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}">Duo Gram</a>
 					<a href="<%=cp%>/community/${sessionScope.user.memberNum}">Duo Moim</a>
 					<c:if test="${empty sessionScope.user}">
 						<a href="javascript:dialogLogin();"> 로그인</a>

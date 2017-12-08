@@ -66,9 +66,7 @@ function sendBoard() {
 		,dataType:"json"
 		,success:function(data) {
 			$("#content").val("");
-		}
-		,brforeSend : function(e) {
-		e.setRequestHeader("AJAX", true);
+			location.herf="<%=cp%>/duogram/${blogNum}";
 		}
 	    ,error:function(e) {
 	    	console.log(e.responseText);
