@@ -1,0 +1,134 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+   String cp = request.getContextPath();
+%>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script><script charset="UTF-8" type="text/javascript" src="http://t1.daumcdn.net/cssjs/postcode/1506320738556/170925.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<style type="text/css">
+*{
+	list-style: none;
+}
+.body-container{
+	background: #ffffff;
+}
+
+</style>
+<script type="text/javascript">
+    function check() {
+    	alert
+        var f = document.boardForm;
+
+    	var str = f.roomName.value;
+        if(!str) {
+            alert("룸 이름을 입력하세요. ");
+            f.roomName.focus();
+            return;
+        }
+
+    	str = f.floorNum.value;
+    		if(str.length==0){
+    			var tex="층을 선택해 주세요";
+    			$("#message").text(tex);
+    			return;
+    		}
+		
+    		
+   		f.action="<%=cp%>/admin/spot/${mode}";
+		f.submit();
+    }
+    
+$(function(){
+	$("[placeholder]").css("color","red");
+});
+    
+</script>
+<style type="text/css">
+</style>
+
+<div class="body-container">
+    <div class="body-title">
+        <h3><span style="font-family: Webdings">2</span> 룸 등록 </h3>
+    </div>
+    <div>
+			<form name="boardForm" method="post">
+			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
+			  	<td style="padding-left:10px;">
+			  		<select name="floorNum" id="sdbox">
+			  			<option selected="selected" value="">지점 선택</option>
+			  			<option value="1">1층</option>
+			  			<option value="2">2층</option>
+			  			<option value="3">3층</option>
+			  			<option value="">Other</option>
+			  		</select>
+			  		<input type="text" name="floor" value="1층" readonly="readonly">
+			  		<span id="message" style="color: red;"></span>
+			  	</td>
+			  </tr>
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
+			  	<td style="padding-left:10px;">
+			  		<select name="floorNum" id="sdbox">
+			  			<option selected="selected" value="">층 선택</option>
+			  			<option value="1">1층</option>
+			  			<option value="2">2층</option>
+			  			<option value="3">3층</option>
+			  			<option value="">Other</option>
+			  		</select>
+			  		<input type="text" name="floor" value="1층" readonly="readonly">
+			  		<span id="message" style="color: red;"></span>
+			  	</td>
+			  </tr>
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">룸 이름</td>
+			      <td style="padding-left:10px;"> 
+			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="" placeholder="룸 이름">
+			      </td>
+			  </tr>
+			   <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+			      <td style="padding-left:10px;"> 
+			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
+			       </td>
+			  </tr>
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 설명</td>
+			      <td style="padding-left:10px;">
+			        <input type="text" name="rcontent" maxlength="100" class="boxTF" style="width: 95%;" placeholder="룸 설명">
+			      </td>
+			  </tr>
+			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 가격</td>
+			      <td style="padding-left:10px;">
+			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" placeholder="룸 가격">
+			      </td>
+			  </tr>
+			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>
+			      <td style="padding-left:10px;"> 
+			          ${sessionScope.user.userName}
+			      </td>
+			  </tr>
+			 
+			  </table>
+			
+			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+			     <tr height="45"> 
+			      <td align="center" >
+			        <button type="button" class="btn btn-success btn-sm" onclick="check();">등록하기</button>
+			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
+			        <button type="button" class="btn btn-danger btn-sm">등록취소</button>
+			      </td>
+			    </tr>
+			  </table>
+			</form>
+			
+
+    </div>
+</div>
+<script type="text/javascript">
+</script>
