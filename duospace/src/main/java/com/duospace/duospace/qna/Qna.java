@@ -13,8 +13,8 @@ public class Qna {
 	private long gap;
 	
 	private int memberNum;
-	private String userId;
-	private String userName;
+	private String email;
+	private String name;
 	
 	
 
@@ -72,17 +72,17 @@ public class Qna {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public String getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

@@ -8,37 +8,42 @@
 		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},0,#{qnaCode})
 	</insert>
 
-	<sql id="where-list"> 
-			<if test="searchKey=='subject'">
-				AND INSTR(subject,#{subject}) &gt; 0
-			</if>
-			<if test="searchKey=='content'">
-				AND INSTR(content,#{content}) &gt; 0
-			</if>
-			<if test="searchKey=='name'">
-				AND name=#{name}
-			</if>
-			<if test="searchKey=='email'">
-				AND email=#{email}
-			</if>
-			<if test="searchKey=='created'">
-				AND (TO_CHAR(created,'YYYYMMDD')=#{created} 
-				      OR TO_CHAR(created,'YYYY-MM-DD'=#{created})
-				      )
-			</if>
+	<sql id="where-list">
+	  <if test="searchKey=='subject'">
+	  	INSTR (subject,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='content'">
+	    DBMS_LOB.INSTR(content,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='created'">
+	    TO_CHAR(created,'YYYY-MM-DD') = #{searchValue} 
+	    OR TO_CHAR(created,'YYYYMMDD') = #{searchValue}
+	  </if>
+	  <if test="searchKey=='email'">
+	  	email=#{searchValue}
+	  </if>
+	  <if test="searchKey=='name'">
+	  	name=#{searchValue}
+	  </if>
 	</sql>
 
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*),0) FROM sc
 		<where>
-			<if test="searchValue !=NULL AND searchValue != ''">
-				<include refid="where-list"/>
-			</if>
-			<if test="searchCode !=NULL AND searchCode !=''">
-				AND searchCode = #{searchCode}
-			</if>
-		</where>
+		
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>			 
+			 </where>
 	</select>
 	
 	
@@ -50,16 +55,21 @@
 				FROM sc
 				JOIN member2 m2 ON sc.memberNum=m2.memberNum
 				<where>
-					<if test="searchValue !=NULL AND searchValue != ''">
-						<include refid="where-list"/>
-					</if>
-					<if test="searchCode !=NULL AND searchCode !=''">
-						AND searchCode = #{searchCode}
-					</if>
-				</where>
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>			 
+			 </where>
 				ORDER BY num DESC
 			)tb
-<![CDATA[
+<![CDATA[			
 			WHERE ROWNUM <= #{end}
 		)WHERE rnum >= #{start}
 ]]>

@@ -64,6 +64,9 @@ public class QnAController {
 		
 		Iterator<Qna> it = list.iterator();
 		
+		
+		
+		
 		int listNum, n=0;
 		while(it.hasNext()) {
 			Qna dto = it.next();

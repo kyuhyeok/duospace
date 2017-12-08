@@ -66,7 +66,7 @@ $(function(){
 
 
 <div style="margin-top: 30px;"></div>
-<div style="font-weight: bold; font-size: 25px; margin-bottom: 30px;">공지사항</div>
+<div style="font-weight: bold; font-size: 25px; margin-bottom: 30px;">1:1문의게시판</div>
 
 
 	<div>
@@ -76,11 +76,12 @@ $(function(){
  	    <tr style="background: #eeeeee; border-top: 1px solid black; border-bottom: 1px solid black;" height="35px;">
     	 <c:if test="${sessionScope.user.userId=='admin'}">
     	  <th>
-	         <input type="checkbox" name="checkAll">
+	         <input type="checkbox" name="checkAll"> 
 	      </th>
 	      </c:if>
     	  <th>번호</th>
     	  <th width="40%">제목</th>
+    	  <th>작성자</th>
     	  <th>작성일</th>
     	</tr>
 
@@ -95,6 +96,7 @@ $(function(){
     	  <td>${dto.listNum}</td>
     	  <td style="text-align: left">
     	  <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a></td>
+    	  <td>${dto.name}</td>
     	  <td>${dto.created}</td>
 
     	</tr>
@@ -126,6 +128,8 @@ $(function(){
       <select name="searchKey">
         <option value="subject">제목</option>
         <option value="content">내용</option>
+        <option value="email">아이디</option>
+        <option value="name">이름</option>
         <option value="created">등록일</option>
       </select>
       <input type="text" name="searchValue">
