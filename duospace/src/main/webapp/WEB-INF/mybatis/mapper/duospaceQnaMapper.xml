@@ -8,4 +8,12 @@
 		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},0,#{qnaCode})
 	</insert>
 
+	<sql id="where-list">
+		
+	</sql>
+
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		
+	</select>
 </mapper>
