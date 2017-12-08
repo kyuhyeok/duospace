@@ -1,8 +1,8 @@
-package com.duospace.duogram;
+package com.duospace.duogram.mypage;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class Duogram {
+public class Mypage {
 	private MultipartFile upload;  // <input type='file' name='upload' ..
 	private int listNum, replyNum, num, answer, blogNum, memberNum, friendNum, isopen;
 	private String name, pwd, Intro, saveFilename, originalFilename;

@@ -1,4 +1,4 @@
-package com.duospace.duogram;
+package com.duospace.duogram.mypage;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
 
-@Service("duogram.duogramService")
-public class DuogramServiceImpl implements DuogramService {
+@Service("duogram.mypageService")
+public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	private CommonDAO dao;
@@ -18,7 +18,7 @@ public class DuogramServiceImpl implements DuogramService {
 	public int insertAccept(int memberNum) {
 		int result=0;
 		try {
-			result=dao.insertData("duogram.insertAccept", memberNum);
+			result=dao.insertData("mypage.insertAccept", memberNum);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -29,7 +29,7 @@ public class DuogramServiceImpl implements DuogramService {
 	public int countAccept(int memberNum) {
 		int result=0;
 		try {
-			result=dao.selectOne("duogram.countAccept", memberNum);
+			result=dao.selectOne("mypage.countAccept", memberNum);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -37,10 +37,10 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public int insertBoard(Duogram dto) {
+	public int insertBoard(Mypage dto) {
 		int result=0;
 		try {
-			result=dao.insertData("duogram.insertBoard", dto);
+			result=dao.insertData("mypage.insertBoard", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -51,7 +51,7 @@ public class DuogramServiceImpl implements DuogramService {
 	public int dataCount(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.selectOne("duogram.dataCount", map);
+			result=dao.selectOne("mypage.dataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -59,10 +59,10 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public List<Duogram> listDuogram(Map<String, Object> map) {
-		List<Duogram> list=null;
+	public List<Mypage> listDuogram(Map<String, Object> map) {
+		List<Mypage> list=null;
 		try {
-			list=dao.selectList("duogram.listBoard", map);
+			list=dao.selectList("mypage.listBoard", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

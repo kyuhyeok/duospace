@@ -26,14 +26,24 @@ public class FreeboardServiceImpl implements FreeboardService{
 
 	@Override
 	public List<Freeboard> listFreeboard(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Freeboard> list=null;
+		try {
+			list=dao.selectList("freeboard.listFreeboard",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 	@Override
-	public int dataCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int dataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.dataCountFreeboard",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override

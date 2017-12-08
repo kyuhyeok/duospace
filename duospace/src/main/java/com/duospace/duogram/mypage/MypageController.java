@@ -1,4 +1,4 @@
-package com.duospace.duogram;
+package com.duospace.duogram.mypage;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,39 +19,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.common.MyUtil;
 import com.duospace.member.SessionInfo;
 
-@Controller("duogram.duogramController")
-public class DuogramController {
+@Controller("duogram.mypageController")
+public class MypageController {
 	
 	@Autowired
-	private DuogramService service;
+	private MypageService service;
 	
 	@Autowired
 	private MyUtil util;
 	
-	// SNS 가입 처리
-	@RequestMapping(value="/duogram/snsRegister",
-			method=RequestMethod.POST)
-	public String snsRegister(
-			@RequestParam int register,
-			HttpSession session, Model model) {
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		service.insertAccept(info.getMemberNum());
-		return "redirect:/duogram/"+info.getMemberNum();
-	}
-	
-	// SNS 메인 화면
-	@RequestMapping(value="/duogram/{blogNum}")
+	// mypage 메인 화면
+	@RequestMapping(value="/duogram/mypage/{blogNum}")
 	public String duogram(
 			@PathVariable int blogNum,
 			HttpSession session,
 			Model model) throws Exception {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		
-		int countAccept=service.countAccept(blogNum);
-		if(countAccept==0) {
-			return ".duoGram.acceptcheck";
-		}
 		
 		String me="true";
 		if(info.getMemberNum()!=blogNum)
@@ -61,14 +45,14 @@ public class DuogramController {
 		model.addAttribute("me", me);
 		model.addAttribute("blogNum", blogNum);
 		
-		return ".duoGramLayout";
+		return ".duoGram.main.mypage";
 	}
 	
 	// 글쓰기
-	@RequestMapping(value="/duogram/insert", method=RequestMethod.POST)
+	@RequestMapping(value="/duogram/mypage/insert", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertBorad(
-			Duogram dto,
+			Mypage dto,
 			HttpSession session
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
@@ -88,7 +72,7 @@ public class DuogramController {
 	}
 	
 	// 리스트
-	@RequestMapping(value="/duogram/list")
+	@RequestMapping(value="/duogram/mypage/list")
 	@ResponseBody
 	public Map<String, Object> list(
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
@@ -114,10 +98,10 @@ public class DuogramController {
 		map.put("end", end);
 		
 		int listNum, n=0;
-		List<Duogram> list=service.listDuogram(map);
-		Iterator<Duogram> it=list.iterator();
+		List<Mypage> list=service.listDuogram(map);
+		Iterator<Mypage> it=list.iterator();
 		while (it.hasNext()) {
-			Duogram dto=it.next();
+			Mypage dto=it.next();
 			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 			listNum=dataCount-(start+n-1);
 			dto.setListNum(listNum);
