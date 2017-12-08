@@ -76,7 +76,7 @@ public class SpotServiceImpl implements SpotService{
 		try {
 			result=dao.deleteData("duospace.spot.deleteList", list);
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.toString();
 		}
 		return result;
 	}

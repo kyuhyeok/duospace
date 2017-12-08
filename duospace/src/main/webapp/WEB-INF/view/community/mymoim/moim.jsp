@@ -7,26 +7,8 @@
 %>
 
 <script type="text/javascript">
-/*
-//댓글버튼
-$(function(){
-		$("body").on("click",".btnReplyAnswerLayout",function(){//btn클래스 클릭하면.
-			var replyNum = $(this).attr("data-replyNum");
-			var $trReplyAnswer = $(this).parent().parent().next();//아버지의 아버지의 다음.parent(아버지),child(자식)//td>tr>다음tr
-			var isVisible = $trReplyAnswer.is(":visible"); 
-			
-			if(isVisible){
-				$trReplyAnswer.hide();
-			}else{
-				$trReplyAnswer.show();
-				
-				listAnswer(replyNum);
-			}
-		});
-	});
-*/
 
-
+//모달 글쓰기창 띄우기.
 function dialogNewWord() {
     $("#modalSubject").val("");
     $("#modalContent").val("");
@@ -34,25 +16,81 @@ function dialogNewWord() {
     $("#modalContent").focus();
 }
 
-
-
-/*
-function listpage(){
-	var url="";
-	var query="";
+<!-- 자유글 쓰기 -->
+function sendFreeboard(){
+	var uid="${sessionScope.user.memberNum}";
+	
+	var url="<%=cp%>/freeboard/insertFreeboard";
+	
+	var Content = $.trim($("#modalContent").val());
+	var cmoimCode = "${cmoimCode}";
+	
+	var query = "content="+encodeURIComponent(Content);
+		query += "&cmoimCode="+cmoimCode;
+		
 	$.ajax({
 		type:"post"
 		,url:url
 		,data:query
+		,dataType:"json"
 		,success:function(data){
-			$("#moimfreeboardlist").html(data);
+			$("#modalContent").val("");
+			
+			location.href="<%=cp%>/community/mymoim/moim?cmoimCode=${cmoimCode}";
 		}
 		,error:function(e){
 			console.log(e.responseText);
 		}
 	});
 }
-*/
+
+<!-- list 페이지처리 -->
+var pageNo=1;
+var totalPage=1;
+
+// 스크롤바 존재 여부
+function checkScrollBar() {
+    var hContent = $("body").height();
+    var hWindow = $(window).height();
+    if(hContent>hWindow) { 
+        return true;    
+    }
+    return false;
+}
+
+$(function(){
+	listPage(1);
+});
+
+//무한 스크롤
+$(function(){
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() + 100 >= $(document).height() - $(window).height()) {
+	    	if(pageNo<totalPage) {
+	    		++pageNo;
+	    		listPage(pageNo);
+	    	}
+	    }
+	});
+});
+
+function listPage(page) {
+	var url="<%=cp%>/guest/list";
+	$.post(url, {pageNo:page}, function(data){
+		printFreeboard(data);
+	}, "json");
+}
+
+function printFreeboard(data){
+	var uid="${sessionScope.user.memberNum}";
+	var total_page=data.total_page;
+	var dataCount=data.dataCount;
+	
+	var out="<h3>아아아</h3>";
+	
+	$("#listFreeboard").html(out);
+}
+
 </script>
 
 <header>
@@ -142,10 +180,8 @@ function listpage(){
 						</div>
 					</div>
 				</div>
-				
-				<!-- 전체보기 리스트 -->
 				<div id="listFreeboard"></div>
-				
+				<!-- 여기서부터 새로운글 -->
 				<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
 					<div style="border-radius: 10px;">
 						<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
@@ -180,6 +216,7 @@ function listpage(){
 						 -->
 					</div>
 				</div>
+				<!-- 여기까지 -->
 			</div>
 			
 			<!-- 사이드. -->
@@ -242,7 +279,7 @@ function listpage(){
 			</div>
 			<div class="modal-body">
 				<form name="modalNewWordForm" method="post">
-					<input type="hidden" name="cmoimcode" value="${dto.comimcode}">
+					<input type="hidden" name="cmoimCode" value="${dto.comimCode}">
 					<div class="form-group">
 						<textarea rows="10" cols="78" style="border: none;" id="modalContent" name="content" placeholder="내용을 입력하세요."></textarea>
 					</div>
@@ -266,7 +303,7 @@ function listpage(){
 								</a>
 							</div>
 							<div style="margin: 15px; float: right; padding-right: 50px;">
-								<button type="button" class="btn btnReplyAnswerLayout" onclick="sendFreeboard();">
+								<button type="button" class="btn" onclick="sendFreeboard();">
 									글쓰기
 								</button>
 							</div>

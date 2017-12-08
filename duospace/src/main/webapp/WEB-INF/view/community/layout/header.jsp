@@ -20,7 +20,15 @@
 		</div>
 	
 		<div style="float: right;vertical-align: middle;">
-			<button class="btn" style="margin-right: 100px; color: #ffffff;">밴드찾기</button>
+		
+			<button class="btn" style="margin-right: 30px; color: #ffffff; font-size: x-large;" >
+				커뮤니티
+			</button>
+			
+			<a style="margin-right: 30px; color: #ffffff; font-size: x-large;" href="<%=cp%>/community/${sessionScope.user.memberNum}">
+				모임
+			</a>
+			
 			<a href="<%=cp%>/space_main" style="color: #ffffff;">
 			<span class="glyphicon glyphicon-log-in"></span>
 				duospace

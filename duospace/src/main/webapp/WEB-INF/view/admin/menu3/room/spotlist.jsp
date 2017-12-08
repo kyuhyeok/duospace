@@ -1,10 +1,65 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-	String cp=request.getContextPath();
-%><div class="right_col" role="main">
+	String cp = request.getContextPath();
+%>
+
+<script type="text/javascript">
+$(function(){
+	$('#ck_main').click(function(){
+		if($(this).prop('checked')){
+			$('input[name=spotCodes]').prop('checked',true);
+		}else{
+			$('input[name=spotCodes]').prop('checked', false);
+		}
+	});
+		$("#deletelistBtn").click(function(){
+			
+			var cnt = $("input[name=spotCodes]:checkbox:checked").length;
+			
+			if(cnt==0){
+				alert("선택된 항목이 없습니다!");
+				return;
+			}
+			
+			if(confirm("선택한 항목을 삭제하시겠습니까?")){
+				var f=document.deleteList;
+				f.action="<%=cp%>/admin/spot/deleteList";
+				f.submit();
+			}
+			
+		});
+
+});
+
+function searchList() {
+	var f=document.searchForm;
+	f.submit();
+}
+
+
+function deleteSpot(spotCode, page) {
+	  
+	  
+	var uid="${sessionScope.user.userId}";
+	if(! uid){
+		location.href="<%=cp%>/member/login";
+		return;
+	}
+	if(confirm("게시물을 삭제하시겠습니까?"))
+	var query = "?spotCode="+spotCode+"&page="+page;
+	location.href = "<%=cp%>/admin/spot/deleteSpot" + query;
+		return;
+}
+
+
+
+</script>
+</head>
+<body>
+	<div class="right_col" role="main">
 
 		<div class="container" style="background: #ffffff;">
 			<div class="page-title" style="margin: 0px 10px;">
@@ -17,16 +72,7 @@
 			</div>
 			<div class="clearfix"></div>
 
-			<form action="productlist" class="form-horizontal" id="frm"
-				name="frm" method="post">
-
-				<input name="r_page" type="hidden" value="1" /> <input
-					name="r_pagelimit" type="hidden" value="10" /> <input
-					name="r_rowlimit" type="hidden" value="10" /> <input id="r_prseq"
-					name="r_prseq" type="hidden" value="" /> <input name="r_prseqarr"
-					type="hidden" /> <input name="r_column" type="hidden" value="" />
-				<input name="r_columnvalue" type="hidden" value="" />
-
+			<form name="searchForm" class="form-horizontal" method="post">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
@@ -66,6 +112,7 @@
 											<option value="spotAddr2">지번주소</option>
 											<option value="manager">매니저이름</option>
 											<option value="tel">전화번호</option>
+											<option value="region">지역명</option>
 										</select>
 									</div>
 									<div class="col-sm-2 col-xs-12">
@@ -85,7 +132,8 @@
 						</div>
 					</div>
 				</div>
-<div class="row">
+
+				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
@@ -117,6 +165,7 @@
 												<th style="text-align: center;">지번 주소</th>
 												<th style="text-align: center;">매니저</th>
 												<th style="text-align: center;">전화번호</th>
+												<th style="text-align: center;">지역</th>
 												<th style="text-align: center;">관리</th>
 											</tr>
 										</thead>
@@ -124,7 +173,7 @@
 
 										<c:forEach var="dto" items="${list}">
 											<tr style="text-align: center">
-												<td><input class="flat" name="ck_sub" type="checkbox"
+												<td><input class="flat" name="spotCodes" type="checkbox"
 													value="${dto.spotCode}" /></td>
 												<td>${dto.spotCode}</td>
 												<td>듀오 스페이스 -${dto.spotName}</td>
@@ -133,6 +182,7 @@
 												<td>${dto.spotAddr2}</td>
 												<td>${dto.manager}</td>
 												<td>${dto.tel}</td>
+												<td>${dto.region}</td>
 												<td>
 												<button type="button" class="btn btn-warning btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/update?spotCode=${dto.spotCode}&page=${page}';">
 												수정
@@ -152,7 +202,7 @@
 								<div class="form-group">
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<button type="button" class="btn btn-danger btn-sm"
-											onclick="dataListDel()">
+											id="deletelistBtn">
 											<i class="fa fa-check-square-o"></i> 삭제
 										</button>
 									</div>
@@ -181,8 +231,9 @@
 						</div>
 					</div>
 
-				</div>		
-				</form>
+				</div>
+
+			</form>
 
 		</div>
 	</div>

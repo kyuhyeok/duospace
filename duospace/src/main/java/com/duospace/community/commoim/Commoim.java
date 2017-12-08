@@ -5,7 +5,7 @@ public class Commoim {
 	private String comname;//모임이름
 	private int isopen;//공개여부
 	private String created;//모임생성일
-	
+	private int moimcount;//모임 인원수
 	private int catecode,regcode,memberNum;//카테고리,지역,회원번호.(참조키)
 
 	
@@ -63,6 +63,14 @@ public class Commoim {
 
 	public void setRegcode(int regcode) {
 		this.regcode = regcode;
+	}
+
+	public int getMoimcount() {
+		return moimcount;
+	}
+
+	public void setMoimcount(int moimcount) {
+		this.moimcount = moimcount;
 	}
 	
 	

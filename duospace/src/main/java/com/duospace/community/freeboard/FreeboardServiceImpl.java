@@ -31,7 +31,7 @@ public class FreeboardServiceImpl implements FreeboardService{
 	}
 
 	@Override
-	public int dataCount(Map<String, Object> map) {
+	public int dataCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
