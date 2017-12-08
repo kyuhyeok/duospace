@@ -130,19 +130,19 @@ public class FReqServiceImpl implements FReqService{
 		
 		try {
 			Map<String, Object> map=new HashMap<>();
-			map.put("from", dto.getFriendNum());
-			map.put("to", dto.getMemberNum());
+			map.put("from", dto.getMemberNum());
+			map.put("to", dto.getFriendNum());
 			
-			if(readFReq(map)==null) {
+			if(readFReq(map)!=null) {
 				return result;
 			}
 			
 			map.clear();
 			
-			map.put("from", dto.getMemberNum());
-			map.put("to", dto.getFriendNum());
+			map.put("from", dto.getFriendNum());
+			map.put("to", dto.getMemberNum());
 			
-			if(readFReq(map)==null) {
+			if(readFReq(map)!=null) {
 				result=dao.deleteData("duoGramFReq.deleteFReq", map);
 			}
 		} catch (Exception e) {
