@@ -4,31 +4,50 @@
 <mapper namespace="duoGramFReq">
 	<insert id="insertFReq" parameterType="com.duospace.duogram.freq.FReq">
 		insert INTO gramfriend (memberNum, friendNum)
-        VALUES(#{from}, #{to})
+        VALUES(#{memberNum}, #{friendNum})
 	</insert>
 	
 	<select id="listFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
-		SELECT friendNum FROM gramfriend
-		WHERE memberNum=#{memberNum} AND friendNum NOT IN (
-			SELECT memberNum FROM gramfriend
-			WHERE friendNum=#{memberNum}
-		)
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM (
+				SELECT friendNum, name, reqDate FROM (
+                    SELECT memberNum friendNum, reqDate FROM gramfriend 
+                    WHERE friendNum=#{to}
+                ) f
+                JOIN member2 m ON f.friendNum=m.memberNum
+                WHERE friendNum NOT IN (
+                    SELECT friendNum FROM gramfriend 
+                    WHERE memberNum=#{to}
+				) ORDER BY reqDate DESC
+				<![CDATA[
+			) tb WHERE ROWNUM<=#{end}
+		) WHERE rnum>=#{start}
+		]]>
 	</select>
 	
 	<select id="fReqDataCount" resultType="Integer" parameterType="map">
-		SELECT NVL(COUNT(*), 0) FROM gramfriend
-		WHERE memberNum=#{memberNum} AND friendNum NOT IN (
-			SELECT memberNum FROM gramfriend
-			WHERE friendNum=#{memberNum}
-		)
+		SELECT NVL(COUNT(*),0) FROM (
+        	SELECT friendNum, name, reqDate FROM (
+                SELECT memberNum friendNum, reqDate FROM gramfriend 
+                WHERE friendNum=#{to}
+            ) f
+            JOIN member2 m ON f.friendNum=m.memberNum
+            WHERE friendNum NOT IN (
+                SELECT friendNum FROM gramfriend 
+                WHERE memberNum=#{to}
+			) ORDER BY reqDate DESC
+        )
 	</select>
 	
 	<select id="readFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
-	
+		SELECT friendNum, f.memberNum, name 
+		FROM gramfriend f
+		JOIN member2 m ON f.friendNum=m.memberNum
+		WHERE f.memberNum=#{from} AND friendNum=#{to}
 	</select>
 	
 	<delete id="deleteFReq" parameterType="map">
-		DELETE TABLE gramfriend 
+		DELETE FROM gramfriend 
 		WHERE memberNum=#{from} AND friendNum=#{to}
 	</delete>
 	

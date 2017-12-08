@@ -94,6 +94,9 @@ public class FReqServiceImpl implements FReqService{
 			if(readFReq(map)!=null) {
 				return result;
 			}
+			map.clear();
+			map.put("from", dto.getMemberNum());
+			map.put("to", dto.getFriendNum());
 			result=dao.deleteData("duoGramFReq.deleteFReq", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -114,9 +117,8 @@ public class FReqServiceImpl implements FReqService{
 			if(readFReq(map)!=null) {
 				result=1;
 				return result;
-			}else {
-				result=dao.insertData("duoGramFReq.insertFReq", dto);
 			}	
+			result=dao.insertData("duoGramFReq.insertFReq", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -142,9 +144,10 @@ public class FReqServiceImpl implements FReqService{
 			map.put("from", dto.getFriendNum());
 			map.put("to", dto.getMemberNum());
 			
-			if(readFReq(map)!=null) {
-				result=dao.deleteData("duoGramFReq.deleteFReq", map);
+			if(readFReq(map)==null) {
+				return result;
 			}
+			result=dao.deleteData("duoGramFReq.deleteFReq", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

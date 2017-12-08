@@ -140,7 +140,7 @@ public class FReqController {
 		
 		return model;
 	}
-	//여기서부터 작업해야됨
+	
 	//친구 요청 : AJAX(JSON)
 	@RequestMapping(value="/duogram/insertFReq", method=RequestMethod.POST)
 	@ResponseBody
@@ -151,7 +151,6 @@ public class FReqController {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
 		
-		int count=0;
 		if(info==null) {
 			state="loginFail";
 		}else {
@@ -164,7 +163,6 @@ public class FReqController {
 		
 		Map<String, Object> model=new HashMap<>();
 		model.put("state", state);
-		model.put("count", count);
 		
 		return model;
 	}

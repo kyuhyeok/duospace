@@ -216,7 +216,7 @@ text-align:center;
 <script type="text/javascript">
 $(document).click(function(){
 	$('#dgFReqlistview').hide();
-	$('#messengers').hide();
+	$('#dgfmessengers').hide();
 });
 $(window).resize(function() {
 	var xp=5;
@@ -245,25 +245,33 @@ $(function() {
 		
 		if(isVisible){
 			$('#dgFReqlistview').hide();
+			$('#dgfmessengers').hide();
 			dReqcl();
 		}else {
 			$('#dgFReqlistview').show();
+			$('#dgfmessengers').hide();
 			listFRPage(1);
 		}
 	});
-	$("body").on("click", "#dgFReqlistview", function(event){
+	$("body").on("click", "#dgFReqlistview", function(event){//메신저 클릭
 		event.stopPropagation();
 	});
-	$("body").on("click", "#dgMess", function(){//메신저 클릭
+	$("body").on("click", "#dgMess", function(event){//메신저 클릭
+		event.stopPropagation();
 		var isVisible=$("#dgfmessengers").is(":visible");
 		
 		if(isVisible){
 			$('#dgfmessengers').hide();
+			$('#dgFReqlistview').hide();
 			dMcl();
 		}else {
 			$('#dgfmessengers').show();
-			//listFMCard(page);
+			$('#dgFReqlistview').hide();
+			listFMCard(page);
 		}
+	});
+	$("body").on("click", "#dgfmessengers", function(event){//메신저 클릭
+		event.stopPropagation();
 	});
 	$("body").on("click", ".objectListItem messegeContainer", function(){//채팅할 친구 클릭
 		var fNum=$(this).attr("data-fmnum");
