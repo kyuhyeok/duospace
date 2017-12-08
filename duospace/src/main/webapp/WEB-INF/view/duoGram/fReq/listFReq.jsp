@@ -237,6 +237,7 @@ $(function() {
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
 	readaCnt();
+	setInterval("readaCnt()",10000);
 	
 	$("body").on("click", "#dgFReq", function(event){
 		event.stopPropagation();
