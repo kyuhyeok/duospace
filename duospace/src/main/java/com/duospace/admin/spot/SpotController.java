@@ -48,13 +48,13 @@ public class SpotController {
 	public String list(
 			HttpServletRequest req,
 			@RequestParam(value="page", defaultValue="1") int current_page,
+			@RequestParam(value="rows", defaultValue="10") int rows,
 			@RequestParam(value="searchKey", defaultValue="spotName") String searchKey,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			Model model
 			) throws Exception{
 			String cp = req.getContextPath();
-		
-			int rows=10;
+			
 			int total_page=0;
 			int dataCount=0;
 			
@@ -95,7 +95,6 @@ public class SpotController {
 			model.addAttribute("page", current_page);
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("listUrl", listUrl);
-			model.addAttribute("query", query);
 			model.addAttribute("searchKey", searchKey);
 			model.addAttribute("searchValue", searchValue);
 			model.addAttribute("dataCount", dataCount);

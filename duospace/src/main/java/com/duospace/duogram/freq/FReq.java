@@ -2,7 +2,7 @@ package com.duospace.duogram.freq;
 
 public class FReq {
 	private int memberNum, friendNum;
-	private String userId, userName;
+	private String userId, name;
 	private String reqDate;
 	private int fReqCount;
 	
@@ -31,11 +31,11 @@ public class FReq {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getfReqCount() {
 		return fReqCount;

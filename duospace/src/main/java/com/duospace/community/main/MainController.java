@@ -36,7 +36,7 @@ public class MainController {
 		if(info.getMemberNum()!=memberNum)
 			me="false";
 		model.addAttribute("me", me);
-		
+		model.addAttribute("moimNum", memberNum);
 		//데이터 개수
 		int dataCount;
 		Map<String, Object> map = new HashMap<>();
@@ -50,4 +50,5 @@ public class MainController {
 		
 		return ".communityLayout";
 	}	
+	
 }

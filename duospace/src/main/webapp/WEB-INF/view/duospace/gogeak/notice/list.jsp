@@ -61,8 +61,6 @@ $(function(){
 }
 </style>
 
-</head>
-<body>
 	<div class="col-sm-12 body-frame-2">
 
 

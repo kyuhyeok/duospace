@@ -34,14 +34,21 @@ $(function(){
 
 });
 
-function searchList() {
-	var f=document.searchForm;
+function search2(f) {
+	f.action="<%=cp%>/admin/spotlist";
+	if($("#searchform option:selected").val().length==0){
+		var tex="검색목록을 선택해 주세요";
+		$("#message").text(tex);
+		return;
+	}
+	f.submit();
+}
+function search3(f) {
+	f.action="<%=cp%>/admin/spotlist";
 	f.submit();
 }
 
-
 function deleteSpot(spotCode, page) {
-	  
 	  
 	var uid="${sessionScope.user.userId}";
 	if(! uid){
@@ -54,8 +61,6 @@ function deleteSpot(spotCode, page) {
 		return;
 }
 
-
-
 </script>
 </head>
 <body>
@@ -65,14 +70,13 @@ function deleteSpot(spotCode, page) {
 			<div class="page-title" style="margin: 0px 10px;">
 				<div class="title_left">
 					<h3>
-						지점 관리 <small>Shop Manage</small>
+						룸 관리 <small>Room Manage</small>
 					</h3>
 				</div>
 				<div class="title_right"></div>
 			</div>
 			<div class="clearfix"></div>
-
-			<form name="searchForm" class="form-horizontal" method="post">
+	
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
@@ -89,56 +93,65 @@ function deleteSpot(spotCode, page) {
 							</div>
 							<div class="x_content">
 								<div class="form-group">
+							<form name="selectListForm" class="form-horizontal" method="post">
 									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">게시글 수</label>
 										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" onchange="rowLimit(this);">
-												<option value="10" selected="selected">10</option>
-												<option value="20">20</option>
-												<option value="30">30</option>
-												<option value="50">50</option>
+											<select class="form-control" onchange="search3(this.form);" name="rows" id="rows">
+												<option value="10" selected="selected" ${rows==10?"selected='selected'":""}>10</option>
+												<option value="20" ${rows==20?"selected='selected'":""}>20</option>
+												<option value="30" ${rows==30?"selected='selected'":""}>30</option>
+												<option value="50" ${rows==50?"selected='selected'":""}>50</option>
 											</select>
+											<input type="hidden" name="rows" value="${rows}">
+											<input type="hidden" name="searchKey" value="${searchKey}">
+											<input type="hidden" name="searchValue" value="${searchValue}">
 										</div>
 									</div>
+								</form>
+									<form name="searchList" class="form-horizontal" method="post">
+									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="searchKey">
+										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
-											<option value="spotCode">지점코드</option>
-											<option value="spotName">지점명</option>
-											<option value="spotaddrnum">우편번호</option>
-											<option value="spotAddr1">도로명주소</option>
-											<option value="spotAddr2">지번주소</option>
-											<option value="manager">매니저이름</option>
-											<option value="tel">전화번호</option>
-											<option value="region">지역명</option>
-										</select>
+											<option value="roomCode">룸코드</option>
+											<option value="roomName">룸 이름</option>
+											<option value="floorNum">층 번호</option>
+										</select>										
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										<input class="form-control" id="sc_columnvalue"
 											name="searchValue" placeholder="검색어" type="text"/>
 									</div>
+									<div class="col-sm-2 col-xs-12">
+										<span id="message" style="color: red;"></span>
+									</div>
 								</div>
-
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="searchList()">검색</button>
+											onclick="search2(this.form);">검색</button>
 									</div>
 								</div>
-
+								
+								</form>
+									</div>
 							</div>
+							<input type="hidden" name="rows" value="${rows}">
+						    <input type="hidden" name="page" value="${page}">	
 						</div>
 					</div>
 				</div>
-
+		<form name="deleteList" class="form-horizontal" method="post">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
+							
 								<h2>
-									지점 리스트<small>Shop List</small>
+									룸 리스트<small>Room List</small>
 								</h2>
 								<ul class="nav navbar-right panel_toolbox">
 									<li><a>Total ${dataCount}EA (${page}/${total_page}페이지)</a></li>
@@ -158,11 +171,10 @@ function deleteSpot(spotCode, page) {
 											<tr>
 												<th style="text-align: center;"><input class="flat" id="ck_main" type="checkbox" />
 												</th>
-												<th style="text-align: center;">지점코드</th>
-												<th style="text-align: center;">지점명</th>
-												<th style="text-align: center;">우편번호</th>
-												<th style="text-align: center;">도로명 주소</th>
-												<th style="text-align: center;">지번 주소</th>
+												<th style="text-align: center;">룸 코드</th>
+												<th style="text-align: center;">룸 이름</th>
+												<th style="text-align: center;">층 번호</th>
+												<th style="text-align: center;">지점 명</th>
 												<th style="text-align: center;">매니저</th>
 												<th style="text-align: center;">전화번호</th>
 												<th style="text-align: center;">지역</th>
@@ -213,10 +225,11 @@ function deleteSpot(spotCode, page) {
 			        							<c:if test="${dataCount!=0 }">
 			              						 ${paging}
 			        							 </c:if>
+			        							 <input type="hidden" name="rows" value="${rows}">
+      											 <input type="hidden" name="page" value="${page}">
 									</div>
 								</div>
-		<input type="hidden" name="rows" value="${rows}">
-       <input type="hidden" name="page" value="${page}">
+		
 								<div class="ln_solid"></div>
 
 								<div class="form-group">

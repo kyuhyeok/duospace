@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.qna">
+
+	<insert id="insert" parameterType="com.duospace.duospace.qna.Qna">
+		INSERT INTO sc (num,subject,content,membernum,answer,qnacode)
+		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},0,#{qnaCode})
+	</insert>
+
+	<sql id="where-list"> 
+			<if test="searchKey=='subject'">
+				AND INSTR(subject,#{subject}) &gt; 0
+			</if>
+			<if test="searchKey=='content'">
+				AND INSTR(content,#{content}) &gt; 0
+			</if>
+			<if test="searchKey=='name'">
+				AND name=#{name}
+			</if>
+			<if test="searchKey=='email'">
+				AND email=#{email}
+			</if>
+			<if test="searchKey=='created'">
+				AND (TO_CHAR(created,'YYYYMMDD')=#{created} 
+				      OR TO_CHAR(created,'YYYY-MM-DD'=#{created})
+				      )
+			</if>
+	</sql>
+
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM sc
+		<where>
+			<if test="searchValue !=NULL AND searchValue != ''">
+				<include refid="where-list"/>
+			</if>
+			<if test="searchCode !=NULL AND searchCode !=''">
+				AND searchCode = #{searchCode}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="list" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
+		SELECT * FROM(
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT num,content,subject,created,answer,qnacode,m2.membernum,
+				        name,email
+				FROM sc
+				JOIN member2 m2 ON sc.memberNum=m2.memberNum
+				<where>
+					<if test="searchValue !=NULL AND searchValue != ''">
+						<include refid="where-list"/>
+					</if>
+					<if test="searchCode !=NULL AND searchCode !=''">
+						AND searchCode = #{searchCode}
+					</if>
+				</where>
+				ORDER BY num DESC
+			)tb
+<![CDATA[
+			WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+	</select>
+	
+	
+	
+	
+</mapper>

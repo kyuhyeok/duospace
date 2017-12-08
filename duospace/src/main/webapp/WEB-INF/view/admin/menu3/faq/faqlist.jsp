@@ -142,7 +142,7 @@ function deleteOk(num) {
 			
 			
 			
-	<c:forEach var="vo" items="${list}">
+	<c:forEach var="vo" items="${qlist}">
 				<div role="tabpanel" class="tab-pane active" id="reserve${vo.qnaCode}">
 					<!-- 아코디언 -->
 					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">

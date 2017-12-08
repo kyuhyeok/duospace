@@ -50,7 +50,6 @@ function search3(f) {
 
 function deleteSpot(spotCode, page) {
 	  
-	  
 	var uid="${sessionScope.user.userId}";
 	if(! uid){
 		location.href="<%=cp%>/member/login";
@@ -61,9 +60,7 @@ function deleteSpot(spotCode, page) {
 	location.href = "<%=cp%>/admin/spot/deleteSpot" + query;
 		return;
 }
-function rowLimit() {
-	
-}
+
 </script>
 </head>
 <body>
@@ -94,25 +91,29 @@ function rowLimit() {
 								</ul>
 								<div class="clearfix"></div>
 							</div>
-							<form name="searchList" class="form-horizontal" method="post">
 							<div class="x_content">
 								<div class="form-group">
+							<form name="selectListForm" class="form-horizontal" method="post">
 									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">게시글 수</label>
 										<div class="col-sm-2 col-xs-12">
 											<select class="form-control" onchange="search3(this.form);" name="rows" id="rows">
-												<option value="10" selected="selected" ${rows==10 ? "selected='selected' ":"" }>10</option>
-												<option value="20" ${rows==20 ? "selected='selected' ":"" }>20</option>
-												<option value="30" ${rows==30 ? "selected='selected' ":"" }>30</option>
-												<option value="50" ${rows==50 ? "selected='selected' ":"" }>50</option>
+												<option value="10" selected="selected" ${rows==10?"selected='selected'":""}>10</option>
+												<option value="20" ${rows==20?"selected='selected'":""}>20</option>
+												<option value="30" ${rows==30?"selected='selected'":""}>30</option>
+												<option value="50" ${rows==50?"selected='selected'":""}>50</option>
 											</select>
+											<input type="hidden" name="rows" value="${rows}">
+											<input type="hidden" name="searchKey" value="${searchKey}">
+											<input type="hidden" name="searchValue" value="${searchValue}">
 										</div>
 									</div>
-									
+								</form>
+									<form name="searchList" class="form-horizontal" method="post">
+									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-									
 										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
 											<option value="spotCode">지점코드</option>
@@ -134,15 +135,19 @@ function rowLimit() {
 										<span id="message" style="color: red;"></span>
 									</div>
 								</div>
-
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
 											onclick="search2(this.form);">검색</button>
 									</div>
 								</div>
+								
+								</form>
+									</div>
 							</div>
-						</form>
+							<input type="hidden" name="rows" value="${rows}">
+						    <input type="hidden" name="page" value="${page}">	
+						
 						</div>
 					</div>
 				</div>
@@ -228,10 +233,11 @@ function rowLimit() {
 			        							<c:if test="${dataCount!=0 }">
 			              						 ${paging}
 			        							 </c:if>
+			        							 <input type="hidden" name="rows" value="${rows}">
+      											 <input type="hidden" name="page" value="${page}">
 									</div>
 								</div>
-		<input type="hidden" name="rows" value="${rows}">
-       <input type="hidden" name="page" value="${page}">
+		
 								<div class="ln_solid"></div>
 
 								<div class="form-group">

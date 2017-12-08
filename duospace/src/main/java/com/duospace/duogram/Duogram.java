@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Duogram {
 	private MultipartFile upload;  // <input type='file' name='upload' ..
-	private int listNum, replyNum, num, answer, memberNum, friendNum, isopen;
+	private int listNum, replyNum, num, answer, blogNum, memberNum, friendNum, isopen;
 	private String name, pwd, Intro, saveFilename, originalFilename;
 	private String company, school, home, created, updated, content;
 	
@@ -159,6 +159,14 @@ public class Duogram {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getBlogNum() {
+		return blogNum;
+	}
+
+	public void setBlogNum(int blogNum) {
+		this.blogNum = blogNum;
 	}
 	
 }

@@ -16,28 +16,10 @@
 
 <!-- Bootstrap core CSS -->
 <link href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
-<style type="text/css">
-
-.logo{
-	font-family:Airways;
-}
-
-.wrap {
-width: 500px;
-}
-
-.wrap textarea {
-width: 100%;
-resize: none;
-overflow-y: hidden; /* prevents scroll bar flash */
-padding: 1.1em; /* prevents text jump on Enter keypress */
-padding-bottom: 0.2em;
-line-height: 1.6;
-}
-
-</style>
 
 <script>
     $(document).ready(function() {
@@ -49,34 +31,148 @@ line-height: 1.6;
     });
 </script>
 
-<script type="text/javascript" src="<%=cp%>/resource/js/duogram/kkh.js">
 
 <script type="text/javascript">
-function sendOk() {
-    var f = document.boardForm;
 
-	str = f.content.value;
-    if(!str) {
-        alert("내용을 입력하세요. ");
-        f.content.focus();
-        return;
-    }
+var pageNo=1;
+var totalPage=1;
 
-		f.action="<%=cp%>/duogram/${mode}";
+$(function(){
+	listPage(1);
+});
 
-    f.submit();
+function sendBoard() {
+	var uid="${sessionScope.user.memberNum}";
+	if(!uid){
+		location.href="<%=cp%>/member/login";
+		return;
+	} 
+	// 공백이 있으면 뭐?
+	var content=$.trim($("#content").val());
+	if(! content) {
+		$("#content").focus();
+		return;
+	}
+	
+	var blogNum="${blogNum}";
+	var q="content="+encodeURIComponent(content)+"&blogNum="+blogNum;
+	
+	var url="<%=cp%>/duogram/insert";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data) {
+			$("#content").val("");
+			
+			// 글쓰기 후 새로고침
+			$("#listDuogramBody").empty();
+			pageNo=1;
+			listPage(1);
+		}
+	    ,error:function(e) {
+	    	console.log(e.responseText);
+	    }
+	});
 }
+
+
+
+// 무한스크롤
+$(function(){
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() + 100 >= $(document).height() - $(window).height()) {
+	    	if(pageNo<totalPage) {
+	    		++pageNo;
+	    		listPage(pageNo);
+	    	}
+	    }
+	});
+});
+
+function listPage(page) {
+	var url="<%=cp%>/duogram/list";
+	var blogNum="${blogNum}";
+	
+	// json으로 넘겨 받음
+	$.post(url, {pageNo:page, blogNum:blogNum}, function(data){
+		printDuogram(data);
+	}, "json");
+}
+
+function printDuogram(data) {
+	// console.log(data);
+	var uid="${sessionScope.user.memberNum}";
+	var dataCount=data.dataCount;
+	var page=pageNo;
+	totalPage=data.total_page;
+	
+	var out="";
+	if(dataCount!=0) { 
+		for(var idx=0; idx<data.list.length; idx++) {
+			var num=data.list[idx].num;
+			var memberNum=data.list[idx].memberNum;
+			var content=data.list[idx].content;
+			var created=data.list[idx].created;
+			var name=data.list[idx].name;
+			
+			out+="<div style='margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
+			out+="<div style='height: 30px; padding-left: 15px; padding-right: 15px; margin-top:20px; font-weight: bold; font-size: 16px;'>";
+			out+="<div style='margin-top: 5px;'>";
+			out+="<div style='float: left;margin-right: 8px;'>";
+			out+="<a href='#' style='text-decoration:none; color: black;'>";
+			out+="<img src='#' style='font-family: '나눔고딕';'>";
+			out+="</a>";
+			out+="</div>";
+			out+="<div style='float:left;'><a href='#' style='text-decoration:none; color: black; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<div style='float:right;'><a href='#' style='text-decoration:none; color: #ccc; font-family: '나눔고딕';'>";
+			out+="<img src='<%=cp%>/resource/images/duogram/dot.PNG' style='width: 12px; height: 3px;'></a>";
+			out+="</div>";
+			out+="</div>";
+			out+="</div>";
+			out+="<div style='border-top: 1px solid #ccc; margin-bottom: 10px; margin-top: 10px;max-width:100%;height: 100%;overflow: hidden;'>";
+			out+="<a>";
+			out+="<img style='max-width:100%;border: 0;	src='https://scontent-icn1-1.xx.fbcdn.net/v/t15.0-10/24133944_966022340205707_6194669685078753280_n.jpg?oh=cf7e75a1afcae89eabb2928519009a28&oe=5A9CE0E2'>";
+			out+="</a>";
+			out+="</div>";
+			out+="<div style='padding-left: 15px; padding-right: 15px;'>";
+			out+="</div>";
+			out+="<div style='height: 15px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;'>";
+			out+="<div style='margin-top: 5px;'>";
+			out+="<a href='#'><div style='float:left; font-size: 14px; font-weight: bold font-family: '나눔고딕';'>"+"좋아요x개　"+"</div></a>";
+			out+="<div style='float:left; font-size: 14px;'>";
+			out+="<a href='#' style='text-decoration:none; color: #999; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
+			out+="</div>";
+			out+="</div>";
+			out+="</div>";
+			out+="<div style='padding-top: 10px; margin-left: 15px; margin-right: 15px; margin-bottom: 15px; width: 584px; font-weight: normal; font-size: 15px; line-height: 1.5em;'>"+content+"</div>";
+			out+="<div style='margin: 20px'></div>";
+			out+="<div style='color: #ccc; padding-bottom: 7px; padding-left: 15px; padding-right: 15px; font-family: '나눔고딕'; font-size: 12px'>"+created+"</div>";
+			out+="<div style='height: 50px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);'>";
+			out+="<input type='text' style='border-radius: 4px; margin-top: 10px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
+			out+="</div>";
+			out+="</div>";
+		}
+		$("#listDuogramBody").append(out);
+	}	
+}
+
 </script>
 
 </head>
-<body style="margin: 0px; height: 100%; width: 100%;">
+<body style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
 
+<!-- 오른쪽 구석 친구 창 -->
+<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px" >
+</div>
 <!-- 윗칸 띄우기 -->
-<div style="height: 80px"></div>
+<div style="height: 110px"></div>
 
 <!-- left -->
 <!-- mid -->
-<form style="background: #fafafa; min-height: 2000px">
+<div>
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
@@ -85,6 +181,7 @@ function sendOk() {
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
 				<!-- 게시글 등록 및 동영상 추가 -->
+				<form name="boardForm" method="post">
 				<div style="height: 30px;background: #e9ebee; border-bottom: 1px solid #dddfe2;">
 					<div align="left" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
 					</div>
@@ -92,7 +189,7 @@ function sendOk() {
 				
 				<!-- 내용 입력 -->
 				<div style="margin-top: 10px; margin-bottom: 10px;">
-					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요."></textarea>
+					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요." id=content></textarea>
 				</div>
 				
 				<!-- 첨부파일 -->
@@ -101,70 +198,15 @@ function sendOk() {
 						<a href="#">
 							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
 						</a>
-						<button class="button pull-right" onclick="sendOk();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">${mode=='update'?'수정완료':'등록하기'}</button>
-						<button class="button pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
+						<!-- 글 및 동영상 등록 -->
+						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;"> 등록하기 </button>
+						<button type="button" class="btn pull-right" style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; ">동영상 추가</button>
+					</div>
+					</form>
 				</div>
-			</div>
 	
 			<!-- 왼쪽 게시글들 -->
-			<div style="width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;">
-				<!-- 프로필 및 아이디 -->
-				<div style="height: 30px; padding-left: 15px; padding-right: 15px; margin-top:20px; font-weight: bold; font-size: 16px;">
-					<div style="margin-top: 5px;">
-						<div style="float: left;margin-right: 8px;">
-							<a href="#" style="text-decoration:none; color: black;">
-								<img src="#" style="font-family: '나눔고딕';">사딘!!
-							</a>
-						</div>
-						<div style="float:left;"><a href="#" style="text-decoration:none; color: black; font-family: '나눔고딕';">아이디</a></div>
-						<div style="float:right;"><a href="#" style="text-decoration:none; color: #ccc; font-family: '나눔고딕';"><img src="<%=cp%>/resource/images/duogram/dot.PNG" style="width: 12px; height: 3px;"></a></div>
-					</div>
-				</div>
-		
-				<!-- 사진 -->
-				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-top: 10px;max-width:100%;height: 100%;overflow: hidden;">
-					<a>
-						<img style="max-width:100%;border: 0;"
-						src="https://scontent-icn1-1.xx.fbcdn.net/v/t15.0-10/24133944_966022340205707_6194669685078753280_n.jpg?oh=cf7e75a1afcae89eabb2928519009a28&oe=5A9CE0E2">
-					</a>
-				</div>
-		
-				<!-- 좋아요 아이콘 -->
-				<div style="padding-left: 15px; padding-right: 15px;">
-					<a href="#" style="text-decoration:none; color: black; font-size: 35px;">♥</a>
-				</div>
-				
-				<!-- 좋아요 갯수표시 -->
-				<div style="height: 15px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
-					<div style="margin-top: 5px;">
-						<div style="float:left; font-size: 14px; font-weight: bold font-family: '나눔고딕';">좋아요 x개　</div>
-						<div style="float:left; font-size: 14px;">
-							<a href="#" style="text-decoration:none; color: #999; font-family: '나눔고딕';">댓글x개</a>
-						</div>
-					</div>
-				</div>
-				
-				<!-- 게시한 글 -->
-				<div style="font-family: '나눔고딕'; padding-top: 10px; padding-left: 15px; padding-right: 15px; padding-bottom: 10px; width: 584px; font-weight: normal; font-size: 14px; line-height: 1;">
-					<p>오예</p>
-					<p>나는 오늘</p>
-					<p>집에가면 잔다</p>
-					<p>아싸뵤</p>
-					<p>뵤뵤뵤</p>
-					<p>뵤뵹</p>
-				</div>
-
-				<!-- 작성 시간 -->
-				<div style="color: #ccc; padding-bottom: 7px; padding-left: 15px; padding-right: 15px; font-family: '나눔고딕'; font-size: 12px">
-					2017/11/30
-				</div>
-		
-				<!-- 댓글다는곳 -->
-				<div style="height: 50px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);">
-					<input type="text" style="border-radius: 4px; margin-top: 10px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';" placeholder="　댓글 달기">
-				</div>
-			
-			</div>
+			<div id="listDuogramBody"></div>
 		</div>
 	</div>
 	<!-- /왼쪽 게시글들 -->
@@ -236,7 +278,7 @@ function sendOk() {
     <!-- /오른쪽 커뮤니티? -->
 </div>
 </div>
-</form>
+</div>
 <!-- right -->
 
 <!-- /mid -->

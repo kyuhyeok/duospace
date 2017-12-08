@@ -60,7 +60,25 @@
 	content: 'Q.';
 	padding-right: 0.313em
 }
- 
+.faq-accordion>li>a:after {
+	color: #ff8300;
+	content: '+';
+	float: right;
+	font-weight: 300;
+	margin-right: 1.25em;
+	-webkit-transform: scale(2);
+	-ms-transform: scale(2);
+	transform: scale(2);
+	overflow-y: hidden;
+}
+
+.faq-accordion>li>a.expanded:after {
+	color: #ffa326;
+	content: '\2212';
+	-webkit-transform: scale(2);
+	-ms-transform: scale(2);
+	transform: scale(2);
+} 
  
 .faq-accordion>li>a.expanded {
 	font-weight: 700;
@@ -99,7 +117,7 @@
  
  
  
-	<div class="right_col" role="main" style="background: #ffffff; padding: 50px 100px 200px;">
+	<div class="right_col" role="main" style="background: #ffffff; padding: 0px 100px 200px;">
  
 		<div class="">
 			<div class="page-title">
@@ -124,25 +142,27 @@
 					<a href="#reserve" data-qnacode="1" aria-controls="reserve" role="tab" data-toggle="tab">예약/결제</a>
 				</li>
 				<li role="presentation">
-					<a href="#ticket" data-qnacode="2" aria-controls="profile" role="tab" data-toggle="tab">이용권</a>
+					<a href="#ticket" data-qnacode="2" aria-controls="ticket" role="tab" data-toggle="tab">이용권</a>
 				</li>
 				<li role="presentation">
-					<a href="#cafe" data-qnacode="3" aria-controls="settings" role="tab" data-toggle="tab">카페</a>
+					<a href="#cafe" data-qnacode="3" aria-controls="cafe" role="tab" data-toggle="tab">카페</a>
 				</li>
 				<li role="presentation">
-					<a href="#book" data-qnacode="4" aria-controls="settings" role="tab" data-toggle="tab">대여</a>
+					<a href="#book" data-qnacode="4" aria-controls="book" role="tab" data-toggle="tab">대여</a>
 				</li>
 				<li role="presentation">
-					<a href="#member" data-qnacode="5" aria-controls="messages" role="tab" data-toggle="tab">회원가입/로그인</a>
+					<a href="#member" data-qnacode="5" aria-controls="member" role="tab" data-toggle="tab">회원가입/로그인</a>
 				</li>
 				<li role="presentation">
-					<a href="#others" data-qnacode="6" aria-controls="settings" role="tab" data-toggle="tab">기타문의</a>
+					<a href="#others" data-qnacode="6" aria-controls="others" role="tab" data-toggle="tab">기타문의</a>
 				</li>
 			</ul>
 		   </div>
- 
+		   
 			<!-- Tab panes -->
 			<div class="tab-content">
+			
+				<!-- 예약 -->
 				<div role="tabpanel" class="tab-pane active" id="reserve">
  
 					<!-- 아코디언 -->
@@ -150,95 +170,49 @@
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
-									<li><a href="#">질문1</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
+									
+									<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==1}">
+									<li><a href="#">${dto.subject}</a>
+								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>아코디언 답이구여</p>
+													<p>${dto.content}</p>
 												</div>
 											</li>
 										</ul></li>
-									<!--Bacon ipsum-->
-									<li><a href="#" style="width: 100px">질문2</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여.</p>
-												</div>
-											</li>
-										</ul></li>
-										
-									<!--Beer ipsum-->
-									<li><a href="#">질문3</a> 
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여baxtrry.</p>
-												</div>
-											</li>
-										</ul></li>
-									<!--Carey ipsum-->
+									 </c:if>
+									</c:forEach>	
+									
 									
 								</ul>
 							</div>
 						</div>
-					</div>
-					
-	<!-- 아코디언끝 -->				
+					</div>			
 				</div>
 				
 				
-				
+				<!-- 이용권 -->
 				<div role="tabpanel" class="tab-pane" id="ticket">
 						<!-- 아코디언 -->
 					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
-									<li><a href="#">tlzl</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
+									<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==2}">
+									<li><a href="#">${dto.subject}</a>
+								
 										<ul class="faq-content">
 											<li>
 												<div>
-													<p>아코디언 답이구여</p>
+													<p>${dto.content}</p>
 												</div>
 											</li>
 										</ul></li>
-									<!--Bacon ipsum-->
-									<li><a href="#" style="width: 100px">zzzz</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여.</p>
-												</div>
-											</li>
-										</ul></li>
-										
-									<!--Beer ipsum-->
-									<li><a href="#">질rrrr</a> 
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여baxtrry.</p>
-												</div>
-											</li>
-										</ul></li>
-									<!--Carey ipsum-->
+									 </c:if>
+									</c:forEach>
 									
 								</ul>
 							</div>
@@ -246,16 +220,128 @@
 					</div>
 
 				</div>
-				<div role="tabpanel" class="tab-pane" id="member">회원가입아코디언</div>
-				<div role="tabpanel" class="tab-pane" id="cafe">카페이용아코디언</div>
-				<div role="tabpanel" class="tab-pane" id="book">책대여</div>
-				<div role="tabpanel" class="tab-pane" id="others">기타문의</div>
+				<div role="tabpanel" class="tab-pane" id="cafe">
+						<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									
+								<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==3}">
+									<li><a href="#">${dto.subject}</a>
+								
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>${dto.content}</p>
+												</div>
+											</li>
+										</ul></li>
+									 </c:if>
+									</c:forEach>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				
+				
+				</div>
+				
+				<!-- 대여 -->
+				<div role="tabpanel" class="tab-pane" id="book">
+
+							<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									
+									<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==4}">
+									<li><a href="#">${dto.subject}</a>
+								
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>${dto.content}</p>
+												</div>
+											</li>
+										</ul></li>
+									 </c:if>
+									</c:forEach>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				
+				<!-- 회원 -->
+				<div role="tabpanel" class="tab-pane" id="member">
+
+						<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									
+									<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==5}">
+									<li><a href="#">${dto.subject}</a>
+								
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>${dto.content}</p>
+												</div>
+											</li>
+										</ul></li>
+									 </c:if>
+									</c:forEach>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<!-- 기타 -->
+				<div role="tabpanel" class="tab-pane" id="others">
+
+						<!-- 아코디언 -->
+					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
+						<div class="slide-left">
+							<div class="faq">
+								<ul class="faq-accordion" style="list-style: none;">
+									
+									<c:forEach items="${list}" var="dto">
+									 <c:if test="${dto.qnaCode==6}">
+									<li><a href="#">${dto.subject}</a>
+								
+										<ul class="faq-content">
+											<li>
+												<div>
+													<p>${dto.content}</p>
+												</div>
+											</li>
+										</ul></li>
+									 </c:if>
+									</c:forEach>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+			
+				</div>
 			</div>
 		</div>
 	
-	
-		<button type="button" style="margin-top: 30px;"  class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/faq/created'">등록</button>
- 
 		</div>
 	</div>
  

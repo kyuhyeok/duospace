@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.floor">
+	<insert id="insert" parameterType="com.duospace.admin.floor.Floor">
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, #{floorName}, #{spotCode})
+	</insert>
+	<select id="list" resultType="com.duospace.admin.floor.Floor">
+		SELECT spotCode, spotName FROM spot
+	</select>
+	
+	<select id="readFloor" resultType="com.duospace.admin.floor.Floor" parameterType="Integer">
+		SELECT floorNum, floorName, spotCode 
+		FROM floor
+		WHERE floorNum=#{floorNum}
+	</select>
+	
+	
+</mapper>
