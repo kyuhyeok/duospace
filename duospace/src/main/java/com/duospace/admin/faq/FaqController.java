@@ -1,8 +1,7 @@
 package com.duospace.admin.faq;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +21,11 @@ public class FaqController {
 			@RequestParam(value="qnaCode", defaultValue="1") int qnaCode,
 			Model model) throws Exception {
 
-		Map<String, Object> map = new HashMap<>();
+	
+		List<Faq> list= service.listFaq();
+		List<Faq> qnaList = service.listQnaCate();
 		
-		map.put("qnaCode", qnaCode);
-		List<Faq> list= service.listFaq(map);
-		
+		model.addAttribute("qlist",qnaList);
 		model.addAttribute("list", list);
 		
 		
@@ -34,9 +33,11 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/admin/faq/created", method=RequestMethod.GET)
-	public String insertFaq(Model model) throws Exception {
+	public String insertFaq(@RequestParam(value="qnaCode", defaultValue="1")int qnaCode,
+							Model model) throws Exception {
 		
 		model.addAttribute("mode", "created");
+		model.addAttribute("qnaCode", qnaCode);
 		
 		return ".admin4.menu3.faq.faqcreated";
 	}
@@ -46,7 +47,36 @@ public class FaqController {
 		
 		service.insertFaq(dto);
 
-		return "redirect:/admin/faq/list";
+		return "redirect:/admin/faq/list?qnaCode="+dto.getQnaCode();
 	}
 	
+	@RequestMapping(value="/admin/faq/update", method=RequestMethod.GET)
+	public String updateFaq(@RequestParam int num,
+			@RequestParam int qnaCode,
+			Model model) throws Exception {
+
+		Faq dto = service.readFaq(num);
+		if(dto==null) {
+			return "redirect:/admin.faq.list";
+		}
+		model.addAttribute("mode", "update");
+		model.addAttribute("dto", dto);
+
+		return ".admin4.menu3.faq.faqcreated";
+	}
+
+	@RequestMapping(value="/admin/faq/update", method=RequestMethod.POST)
+	public String updateSubmit(Faq dto) throws Exception {
+
+		service.updateFaq(dto);
+		
+		return "redirect:/admin/faq/list?qnaCode="+dto.getQnaCode();
+	}
+	@RequestMapping(value="/admin/faq/delete", method=RequestMethod.GET)
+	public String deleteFaq(@RequestParam int num) throws Exception {
+
+		service.deleteFaq(num);
+
+		return "redirect:/admin/faq/list";
+	}
 }

@@ -7,28 +7,37 @@
 %>
 <script type="text/javascript">
 	$(function() {
-
+		
+		$(".nav-tabs li:first").attr("class","active");
+		
 		var expand = 'expanded';
 		var content = $('.faq-content');
 		//FAQ Accordion
-		$('.faq-accordion > li > a').click(function(e) {
+		$('.faq-accordion > li > div > a').click(function(e) {
 			e.preventDefault();
 			if ($(this).hasClass(expand)) {
 				$(this).removeClass(expand);
 				//	          $('.faq-accordion > li > a > div').not(this).css('opacity', '1');//returns li back to normal state
-				$(this).parent().children('ul').stop(true, true).slideUp();
+				$(this).parent().parent().children('ul').stop(true, true).slideUp();
 			} else {
 				//	            $('.faq-accordion > li > a > div').not(this).css('opacity', '0.5');//dims inactive li
-				$('.faq-accordion > li > a.expanded').removeClass(expand);
+				$('.faq-accordion > li > div > a.expanded').removeClass(expand);
 				$(this).addClass(expand);
 				content.filter(":visible").slideUp();
-				$(this).parent().children('ul').stop(true, true).slideDown();
+				$(this).parent().parent().children('ul').stop(true, true).slideDown();
 			}
 		}); //accordion function
 
 		content.hide();
-
+	
+		
 	});
+function deleteOk(num) {
+	if(confirm("삭제하시겠습니까?")){
+	location.href='<%=cp%>/admin/faq/delete?num='+num;
+	}
+
+}
 </script>
 <style type="text/css">
 .faq-accordion {
@@ -47,7 +56,7 @@
 	padding: 1.125em 0
 }
 
-.faq-accordion li a {
+.faq-accordion li div a {
 	color: #666;
 	padding: 1.125em;
 }
@@ -56,13 +65,13 @@
 	border-bottom: 1px solid rgba(198, 198, 198, 0.4);
 }
 
-.faq-accordion>li>a:before {
+.faq-accordion>li>div>a:before {
 	content: 'Q.';
 	padding-right: 0.313em
 }
 
 
-.faq-accordion>li>a.expanded {
+.faq-accordion>li>div>a.expanded {
 	font-weight: 700;
 	opacity: 1 !important
 }
@@ -120,94 +129,65 @@
 			<!-- Nav tabs -->
 		   <div id="qnaCode">
 			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active">
-					<a href="#reserve" data-qnacode="1" aria-controls="reserve" role="tab" data-toggle="tab">예약/결제</a>
+				<c:forEach items="${qlist}" var="qdto">
+				<li role="presentation" ${qdto.qnaCode==qnaCode?"class='active'":""}>
+					<a href="#reserve${qdto.qnaCode}" data-qnacode="${qdto.qnaCode}" aria-controls="reserve${qdto.qnaCode}" role="tab" data-toggle="tab">${qdto.qnaName}</a>
 				</li>
-				<li role="presentation">
-					<a href="#ticket" data-qnacode="2" aria-controls="profile" role="tab" data-toggle="tab">이용권</a>
-				</li>
-				<li role="presentation">
-					<a href="#cafe" data-qnacode="3" aria-controls="settings" role="tab" data-toggle="tab">카페</a>
-				</li>
-				<li role="presentation">
-					<a href="#book" data-qnacode="4" aria-controls="settings" role="tab" data-toggle="tab">대여</a>
-				</li>
-				<li role="presentation">
-					<a href="#member" data-qnacode="5" aria-controls="messages" role="tab" data-toggle="tab">회원가입/로그인</a>
-				</li>
-				<li role="presentation">
-					<a href="#others" data-qnacode="6" aria-controls="settings" role="tab" data-toggle="tab">기타문의</a>
-				</li>
+				</c:forEach>
 			</ul>
 		   </div>
 
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="reserve">
-
+			
+			
+			
+	<c:forEach var="vo" items="${qlist}">
+				<div role="tabpanel" class="tab-pane active" id="reserve${vo.qnaCode}">
 					<!-- 아코디언 -->
 					<div id="faq-wrapper" class="about-service" style="margin-top: 50px">
 						<div class="slide-left">
 							<div class="faq">
 								<ul class="faq-accordion" style="list-style: none;">
-									<li><a href="#">질문1</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여</p>
-												</div>
+									<c:forEach var="dto" items="${list}">
+									  <c:if test="${not empty dto.subject}">
+										<c:if test="${dto.qnaCode==vo.qnaCode}">
+											<li><div><a href="#">${dto.subject}</a>
+											<div style="margin-left: 50px;text-align: right; float: right;" >
+											<button type="button" class="btn btn-warning btn-xs" onclick="javascript:location.href='<%=cp%>/admin/faq/update?num=${dto.num}&qnaCode=${dto.qnaCode}'">수정</button>
+											<button type="button" class="btn btn-danger btn-xs" onclick="deleteOk('${dto.num}');">삭제</button>
+											</div>
+											</div>
+											<ul class="faq-content">
+												<li>
+													<div>
+														<p>${dto.content}</p>
+													</div>
+												</li>
+											</ul>
 											</li>
-										</ul></li>
-									<!--Bacon ipsum-->
-									<li><a href="#" style="width: 100px">질문2</a>
-									<span style="margin-left: 80%;">
-									<button type="button" class="btn btn-warning btn-xs">수정</button>
-									<button type="button" class="btn btn-danger btn-xs">삭제</button>
-									</span>
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여.</p>
-												</div>
-											</li>
-										</ul></li>
-										
-									<!--Beer ipsum-->
-									<li><a href="#">질문3</a> 
-										<ul class="faq-content">
-											<li>
-												<div>
-													<p>아코디언 답이구여baxtrry.</p>
-												</div>
-											</li>
-										</ul></li>
-									<!--Carey ipsum-->
-									
+										  </c:if>
+										</c:if>
+										<c:if test="${empty dto.num}">
+										</c:if>
+									</c:forEach>	
 								</ul>
 							</div>
 						</div>
 					</div>
-					
-	<!-- 아코디언끝 -->				
 				</div>
-				
-				
-				
-				<div role="tabpanel" class="tab-pane" id="ticket">이용권아코디언</div>
-				<div role="tabpanel" class="tab-pane" id="member">회원가입아코디언</div>
-				<div role="tabpanel" class="tab-pane" id="cafe">카페이용아코디언</div>
-				<div role="tabpanel" class="tab-pane" id="book">책대여</div>
-				<div role="tabpanel" class="tab-pane" id="others">기타문의</div>
+	</c:forEach>
+			
 			</div>
+			
+			
+		<input type="hidden" name="qnaCode">
+		<button type="button" style="margin-top: 30px;"  class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/faq/created';">등록</button>
+
+			
 		</div>
 	
-	
-		<button type="button" style="margin-top: 30px;"  class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/faq/created'">등록</button>
-
+		
 		</div>
 	</div>
 

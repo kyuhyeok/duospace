@@ -35,6 +35,18 @@
     <tiles:insertAttribute name="body"/>
 </div>
 
+
+    <tiles:insertAttribute name="fReq"/>
+
+
+
+    <tiles:insertAttribute name="fMess"/>
+
+
+
+    <tiles:insertAttribute name="fch"/>
+
+
 <script type="text/javascript" src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>

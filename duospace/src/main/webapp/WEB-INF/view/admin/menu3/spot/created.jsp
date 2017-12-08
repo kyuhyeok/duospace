@@ -64,53 +64,60 @@ function sample4_execDaumPostcode() {
 }
 
     function check() {
+    	alert
         var f = document.boardForm;
 
-    	var str = f.spotname.value;
+    	var str = f.spotName.value;
         if(!str) {
             alert("지점을 입력하세요. ");
-            f.subject.focus();
-            return false;
+            f.spotName.focus();
+            return;
         }
 
+    	str = f.region.value;
+    		if(str.length==0){
+    			var tex="지역을 선택해 주세요";
+    			$("#message").text(tex);
+    			return;
+    		}
     	str = f.tel.value;
         if(!str || str=="/^\d{2,3}-\d{3,4}-\d{4}$/") {
             alert("잘못된 지점 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
-            f.content.focus();
-            return false;
+            f.tel.focus();
+            return;
         }
 		
-        str=f.spotaddrnum.value;
+        str=f.spotAddrNum.value;
         if(!str){
         	alert("우편번호를 입력하세요. ")
         	f.spotaddrnum.focus();
-        	return false;
+        	return;
         }
         
-        str=f.spotaddr1.value;
+        str=f.spotAddr1.value;
         if(!str){
         	alert("주소를 입력하세요. ")
         	f.spotaddr1.focus();
-        	return false;
+        	return;
         }
         
-        str=f.spotaddr2.value;
+        str=f.spotAddr2.value;
         if(!str){
         	alert("주소를 입력하세요. ")
         	f.spotaddr2.focus();
-        	return false;
+        	return;
         }
         
         str=f.manager.value;
         if(!str || str=="/^[가-힣]+$/"){
         	alert("매니저 이름을 입력하세요. 매니저 이름은 한글만 가능합니다.")
-        	
+        	f.manager.focus();
+        	return;
         }
    		f.action="<%=cp%>/admin/spot/${mode}";
-
-   		return true;
+		f.submit();
     }
-
+    
 </script>
 
 <div class="body-container">
@@ -125,6 +132,31 @@ function sample4_execDaumPostcode() {
 			      <td style="padding-left:10px;"> 
 			        듀오스페이스 - <input type="text" name="spotName" class="boxTF" style="width: 10%;" value="${dto.spotName}">
 			      </td>
+			  </tr>
+			  <tr>
+			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지역명</td>
+			  	<td style="padding-left:10px;">
+			  		<select name="region" id="sdbox">
+			  			<option selected="selected" value="">시/도 선택</option>
+			  			<option value="서울특별시" ${dto.region=='서울특별시'?"selected='selected'":""}>서울특별시</option>
+			  			<option value="인천광역시" ${dto.region=='인천광역시'?"selected='selected'":""}>인천광역시</option>
+			  			<option value="대전광역시" ${dto.region=='대전광역시'?"selected='selected'":""}>대전광역시</option>
+			  			<option value="광주광역시" ${dto.region=='광주광역시'?"selected='selected'":""}>광주광역시</option>
+			  			<option value="대구광역시" ${dto.region=='대구광역시'?"selected='selected'":""}>대구광역시</option>
+			  			<option value="울산광역시" ${dto.region=='울산광역시'?"selected='selected'":""}>울산광역시</option>
+			  			<option value="부산광역시" ${dto.region=='부산광역시'?"selected='selected'":""}>부산광역시</option>
+			  			<option value="경기도" ${dto.region=='경기도'?"selected='selected'":""}>경기도</option>
+			  			<option value="강원도" ${dto.region=='강원도'?"selected='selected'":""}>강원도</option>
+			  			<option value="충청북도" ${dto.region=='충청북도'?"selected='selected'":""}>충청북도</option>
+			  			<option value="충청남도" ${dto.region=='충청남도'?"selected='selected'":""}>충청남도</option>
+			  			<option value="전라북도" ${dto.region=='전라북도'?"selected='selected'":""}>전라북도</option>
+			  			<option value="전라남도" ${dto.region=='전라남도'?"selected='selected'":""}>전라남도</option>
+			  			<option value="경상북도" ${dto.region=='경상북도'?"selected='selected'":""}>경상북도</option>
+			  			<option value="경상남도" ${dto.region=='경상남도'?"selected='selected'":""}>경상남도</option>
+			  			<option value="제주도" ${dto.region=='제주도'?"selected='selected'":""}>제주도</option>
+			  		</select>
+			  		<span id="message" style="color: red;"></span>
+			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지점주소</td>
@@ -160,13 +192,18 @@ function sample4_execDaumPostcode() {
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
 			      <td align="center" >
-			        <button type="submit" class="btn btn-success btn-sm" onclick="check();">${mode=='update'?'수정완료':'등록하기'}</button>
+			      <c:if test="${mode=='update'}">
+			      <input type="hidden" name="page" value="${page}">
+			      <input type="hidden" name="spotCode" value="${dto.spotCode}">
+			      </c:if>
+			        <button type="button" class="btn btn-success btn-sm" onclick="check();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
 			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spotlist'">${mode=='update'?'수정취소':'등록취소'}</button>
 			      </td>
 			    </tr>
 			  </table>
 			</form>
+			
 
     </div>
 </div>

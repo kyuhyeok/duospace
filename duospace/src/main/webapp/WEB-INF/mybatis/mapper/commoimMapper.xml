@@ -2,8 +2,27 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commoim">
+
+	<!-- 글쓰기 -->
 	<insert id="insertCommoim" parameterType="com.duospace.community.commoim.Commoim">
 		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,regcode,membernum)
 			VALUES(seq_commoim.NEXTVAL,#{comname},#{isopen},#{catecode},#{regcode},#{memberNum})
 	</insert>
+	
+	<!-- 글 리스트 -->
+	<select id="listCommoim" parameterType="map" 
+		resultType="com.duospace.community.commoim.Commoim">
+        SELECT c.cmoimCode, comname, isopen, created, c.catecode, c.regcode, 
+        	c.memberNum,NVL(moimcount, 0) moimcount
+        	FROM commoim c 
+        	JOIN member2 m ON c.membernum = m.membernum
+        	LEFT OUTER JOIN (
+            	SELECT cmoimcode,COUNT(*) moimcount 
+            	FROM moimmember 
+            	GROUP BY cmoimcode
+       	 	) cnt ON c.cmoimCode = cnt.cmoimCode
+     	WHERE c.memberNum=#{memberNum}
+      	ORDER BY cmoimcode DESC
+	</select>
+
 </mapper>

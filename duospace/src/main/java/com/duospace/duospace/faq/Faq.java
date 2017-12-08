@@ -1,4 +1,4 @@
-package com.duospace.admin.faq;
+package com.duospace.duospace.faq;
 
 public class Faq {
 

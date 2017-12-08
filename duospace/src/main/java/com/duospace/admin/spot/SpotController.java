@@ -2,6 +2,7 @@ package com.duospace.admin.spot;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,21 +79,16 @@ public class SpotController {
 			map.put("end", end);
 			List<Spot> list=service.listSpot(map);
 			
-			String query="";
-			String listUrl;
-			String articleUrl;
+			String query ="rows="+rows;
+			String listUrl= cp+"/duospace/spot/list";
+			
 			if(searchValue.length()!=0){
 				query = "searchKey="+searchKey + "&searchValue="+URLEncoder.encode(searchValue,"UTF-8");
 			}
 			
-			listUrl = cp+"spot/list";
-			articleUrl = cp+"spot/article?page="+current_page;
+			listUrl=cp+"/admin/spotlist?"+query; //컨트롤러 RequestMapping Value list 값, 페이지 이동시 필요
 			
-			if(query.length()!=0) {
-				listUrl = listUrl + "?" + query;
-				articleUrl = articleUrl+"&"+query;
-			}
-			
+		
 			String paging = myUtil.paging2Method(current_page, total_page, listUrl);
 			
 			model.addAttribute("paging", paging);
@@ -100,7 +96,6 @@ public class SpotController {
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("listUrl", listUrl);
 			model.addAttribute("query", query);
-			model.addAttribute("articleUrl", articleUrl);
 			model.addAttribute("searchKey", searchKey);
 			model.addAttribute("searchValue", searchValue);
 			model.addAttribute("dataCount", dataCount);
@@ -134,7 +129,7 @@ public class SpotController {
 			Model model
 			) throws Exception{
 		service.updateSpot(dto);
-		
+	
 		return"redirect:/admin/spotlist?page="+page;
 	}
 	
@@ -142,17 +137,30 @@ public class SpotController {
 	public String deleteSpot(
 			@RequestParam int spotCode,
 			@RequestParam String page,
-			@RequestParam int rows,
 			HttpSession session
 			) throws Exception{
-		System.out.println(spotCode+"190283910384230957023495673849");
+		
 		Spot dto = service.readSpot(spotCode);
-		System.out.println(spotCode+"19028sldakf3910384230957023495673849");
+		
 		if(dto==null)
 			return "redirect:/admin/spotlist?page="+page;
 		
 		service.deleteSpot(dto.getSpotCode());
 
+		return "redirect:/admin/spotlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/spot/deleteList", method=RequestMethod.POST)
+	public String deleteList(
+			@RequestParam Integer[] spotCodes,
+			@RequestParam String page,
+			@RequestParam String rows,
+			HttpSession session
+			) throws Exception{
+
+		List<Integer> list = Arrays.asList(spotCodes);
+		service.deleteListSpot(list);
+		
 		return "redirect:/admin/spotlist?page="+page+"&rows="+rows;
 	}
 }

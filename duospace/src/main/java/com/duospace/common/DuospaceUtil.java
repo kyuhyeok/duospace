@@ -34,7 +34,7 @@ public class DuospaceUtil {
 	public String pagingMethod(int current_page, int total_page, String list_url) {
 		StringBuffer sb = new StringBuffer();
 		
-		int numPerBlock = 1;
+		int numPerBlock = 10;
 		int currentPageSetup;
 		int n, page;
 		
