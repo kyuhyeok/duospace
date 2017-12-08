@@ -49,7 +49,7 @@
 
 
 
-<div style="margin-top: 50px;"></div>
+<div style="margin-top: 100px;"></div>
 <div style="font-weight: bold; font-size: 25px; margin-bottom: 50px;">공지사항</div>
 
 

@@ -147,13 +147,34 @@ public class NoticeController {
 		return ".community.notice.article";
 	}
 	
+	@RequestMapping(value="/community/notice/update", method=RequestMethod.GET)
+	public String updateForm(@RequestParam int noticenum, @RequestParam String page, Model model) throws Exception{
+		
+		Notice dto= service.readNotice(noticenum);
+		if(dto==null) {
+			return "redirect:/community/notice/list?page="+page;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		
+		return ".community.notice.created";
+	}
+	
 	@RequestMapping(value="/community/notice/update", method=RequestMethod.POST)
 	public String updateSubmit(Notice dto, @RequestParam String page) throws Exception{
-		
 		service.updateNotice(dto);
 		
-		return "redirect:/notice/list?page="+page;
+		return "redirect:/community/notice/list?page="+page;
 	}
-}
 
+@RequestMapping(value="/community/notice/deletenotice")
+public String deletenotice(@RequestParam int noticenum, @RequestParam String page, Model model) 
+throws Exception {
+	service.deleteNotice(noticenum);
+	
+	return "redirect:/community/notice/list?page="+page;
+}
+}
 
