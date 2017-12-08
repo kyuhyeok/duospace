@@ -8,21 +8,29 @@
        	 	VALUES(SEQ_FREEBOARD.NEXTVAL,#{content},#{writer},#{cmoimCode})
 	</insert>
 	<!-- 글갯수 -->
-	<select id="dataCount" resultType="Integer">
-		SELECT NVL(COUNT(*), 0) FROM freeboard
+	<!-- 서비스에서 맵을던지면 파라미터타입 맵을받는다. -->
+	<select id="dataCountFreeboard" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*), 0) FROM freeboard WHERE cmoimCode = #{cmoimCode}
 	</select>
+	
 	<!-- 글 리스트 -->
-	<select id="listFreeboard" parameterType="com.duospace.community.freeboard.Freeboard">
+	<select id="listFreeboard" resultType="com.duospace.community.freeboard.Freeboard" parameterType="map" >
+<!-- 
 		SELECT * FROM(
 		    SELECT ROWNUM rnum, tb.*FROM(
-		        SELECT  boardnum, content, f.created, hitcount, writer, f.cmoimcode
+ -->
+		        SELECT  boardnum, content, f.created, hitcount, writer, f.cmoimcode,m.name
 		            FROM freeboard f 
 		            JOIN commoim c ON f.cmoimcode = c.cmoimcode
+		            JOIN member2 m ON c.membernum = m.membernum
+		            WHERE f.cmoimCode = #{cmoimCode}
 		            ORDER BY boardnum DESC 
+		            <!-- 
 <![CDATA[	
 		    ) tb WHERE ROWNUM <= #{end}
 		)WHERE rnum >= #{start}
 ]]>
+		             -->
 	</select>
 	
 	

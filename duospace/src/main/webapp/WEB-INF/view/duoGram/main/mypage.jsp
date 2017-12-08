@@ -173,10 +173,17 @@ function printDuogram(data) {
 <!-- left -->
 <!-- mid -->
 <div>
+<!-- 마이페이지 프로필 -->
+<div style="width: 100%; height: 350px; background: black">
+<div style="margin-top: 230px; margin-right: auto; margin-left: auto; width: 300px; height: 300px; background:white; border: 1px solid auto">
+</div>
+</div>
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
 		</div>
+		
+		
 		<!-- 왼쪽 글쓰는곳 -->
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">

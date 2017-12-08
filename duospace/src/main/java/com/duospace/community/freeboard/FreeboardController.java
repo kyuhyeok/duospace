@@ -47,7 +47,7 @@ public class FreeboardController {
 		if(info==null) {
 			state="loginFail";
 		}else {
-			dto.setWriter(info.getUserId());
+			dto.setWriter(info.getMemberNum());
 			service.insertFreeboard(dto);
 			state="true";
 		}
@@ -58,22 +58,25 @@ public class FreeboardController {
 	}	
 	
 	@RequestMapping(value="/freeboard/list")
-	@ResponseBody
-	public Map<String, Object> list(
-			@RequestParam(value="pageNo",defaultValue="1") int current_page
+	public String list(
+			@RequestParam(value="cmoimCode") int cmoimCode,
+			@RequestParam(value="pageNo",defaultValue="1") int current_page,
+			Model model
 			)throws Exception{
-		int rows=10;
-		int dataCount;
-		int total_page;
+		int rows=5;
+		int dataCount=0;
+		int total_page=0;
 		
-		dataCount=service.dataCount();
+		Map<String, Object> map = new HashMap<>();
+		map.put("cmoimCode", cmoimCode);
+		
+		dataCount=service.dataCount(map);
 		total_page = util.pageCount(rows,dataCount);
 		if(current_page>total_page)
 			current_page=total_page;
 		int start = (current_page-1)*rows+1;
 		int end = current_page*rows;
-		
-		Map<String, Object> map = new HashMap<>();
+
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -88,13 +91,11 @@ public class FreeboardController {
 			n++;
 		}
 		
+		model.addAttribute("list", list);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("total_page", total_page);
 		
-		Map<String, Object> model=new HashMap<>();
-		model.put("list", list);
-		model.put("dataCount", dataCount);
-		model.put("total_page", total_page);
-		
-		return model;
+		return "community/mymoim/listFreeboard";
 		
 	}
 }

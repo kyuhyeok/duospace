@@ -13,7 +13,7 @@
 <div style="background: #eef0f3; "> 
 	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
   		<div style="width: 100%;height: 40px;">
-	  		<h3>내 모임/1</h3>
+	  		<h1>내 모임/${dataCount}</h1>
   		</div>
  			<div style="float: left;">
 			<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">

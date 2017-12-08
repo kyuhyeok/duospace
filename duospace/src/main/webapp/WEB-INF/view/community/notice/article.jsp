@@ -46,8 +46,8 @@
 
 
 
-<div style="margin-top: 50px;"></div>
-<div style="font-weight: bold; font-size: 25px; margin-bottom: 50px;">공지사항</div>
+<div style="margin-top: 100px;"></div>
+<div style="font-weight: bold; margin:10px auto; font-size: 25px; margin-bottom: 50px;">공지사항</div>
 
 
 
@@ -79,8 +79,12 @@
 			</tr>
 			<tr height="60">
 			    <td align="left" colspan="2" valign="top" style="padding-top: 5px;">
-			        <button type="button" class="btn" onclick="javascript:location.href=<%=cp%>/duospace/community/notice/list">리스트</button>
+			   
+			        <button type="button"  onclick="javascript:location.href='<%=cp%>/community/notice/list';">리스트</button>
+			        <button type="button"  onclick="javascript:location.href='<%=cp%>/community/notice/update?noticenum=${dto.noticenum}&page=${page}';">수정</button>  
+			         <button type="button"  onclick="javascript:location.href='<%=cp%>/community/notice/deletenotice?noticenum=${dto.noticenum}&page=${page}';">삭제</button>
 			    </td>
+			    
 			</tr>
 			
 			
@@ -108,14 +112,7 @@
 			</tr>
 			</table>
     </div>
-    
-
-
-
-
-
-
-	</div>
+		</div>
 
 	<script type="text/javascript"
 		src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>

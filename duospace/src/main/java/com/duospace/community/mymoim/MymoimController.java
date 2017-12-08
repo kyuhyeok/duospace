@@ -1,4 +1,4 @@
-package com.duospace.community.main;
+package com.duospace.community.mymoim;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +18,12 @@ import com.duospace.community.commoim.Commoim;
 import com.duospace.community.commoim.CommoimService;
 import com.duospace.member.SessionInfo;
 
-@Controller("community.mainController")
-public class MainController {
+@Controller("community.mymoimController")
+public class MymoimController {
 	@Autowired
 	private CommoimService service;
 	
-	@RequestMapping(value="/community/{memberNum}",method=RequestMethod.GET)
+	@RequestMapping(value="/mymoim/{memberNum}",method=RequestMethod.GET)
 	public String list(
 			@PathVariable int memberNum,
 			HttpServletRequest req,
@@ -48,7 +48,8 @@ public class MainController {
 		model.addAttribute("memberNum",memberNum);
 		model.addAttribute("list",list);
 		
-		return ".communityLayout";
+		return ".communit.mymoim.moimlist";
 	}	
-	
 }
+
+
