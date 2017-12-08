@@ -6,7 +6,6 @@
    String cp = request.getContextPath();
 %>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -26,7 +25,7 @@
 					<a title=홈 href="<%=cp%>/main" style="font-family: '나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/home.png" style="width: 60px; height: 60px;">
 					</a>
-					<a href="<%=cp%>/community" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">|  Community</a>
+					<a href="<%=cp%>/community/{memberNum}" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">|  Community</a>
 				</td>
 				
 				<td align="center"> 
@@ -37,14 +36,14 @@
 					<!-- 친구 -->
 					<div style="float: right">
 					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;">
+    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;" id="dgFReq">
     	  			</a>
     	  			</div>
     	  			
     	  			<!-- 메신저 -->
     	  			<div style="float: right">
     	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;">
+    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">
     	  			</a>
     	  			</div>
     	  			
@@ -67,7 +66,7 @@
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
 					</div>
-					</td>
+				</td>
 			</tr>
 		</table>
 	</div>
