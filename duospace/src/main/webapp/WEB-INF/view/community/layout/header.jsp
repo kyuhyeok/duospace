@@ -11,22 +11,24 @@
 }
 </style>
 <div style="background: #172A40; width:100%; position: fixed; left: 0px; top:0px; margin: 0px; border-bottom: 20px solid #D9383A;" >
-	<div class="container" style="vertical-align: middle;">	
+	<div class="container" style="vertical-align: middle; width: 1140px;height: 60px;">	
 		<div style="float: left;vertical-align: middle;">
 			<a href="<%=cp%>/community/${sessionScope.user.memberNum}" class="logo" style="color: white; font-size: 33px;">
 				Duo moim
 			</a>
-			<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요" style="border-radius: 20px; width: 250px;">
+			<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요" style="border-radius: 20px; width: 200px;">
 		</div>
 	
 		<div style="float: right;vertical-align: middle;">
 		
-			<button class="btn" style="margin-right: 30px; color: #ffffff; font-size: x-large;" >
+			<button class="btn" style="margin-right: 20px; color: #ffffff; font-size: large;" >
 				커뮤니티
 			</button>
-			
-			<a style="margin-right: 30px; color: #ffffff; font-size: x-large;" href="<%=cp%>/community/${sessionScope.user.memberNum}">
-				모임
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/community">
+				인기모임
+			</a>
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/community/${sessionScope.user.memberNum}">
+				나의모임
 			</a>
 			
 			<a href="<%=cp%>/space_main" style="color: #ffffff;">
