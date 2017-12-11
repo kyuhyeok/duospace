@@ -26,6 +26,6 @@ $(function(){
        <div class="list-group-item lefthead" style="background-color: #D7DADB;color: #2C3E50;font-weight: bold;"><i></i> 고객센터</div>
        <a href="<%=cp%>/duospace/notice/list" class="list-group-item">공지사항</a>
        <a href="<%=cp%>/duospace/faq" class="list-group-item">자주묻는질문</a>
-       <a href="#" class="list-group-item">1:1 문의</a>
+       <a href="<%=cp%>/duospace/qna/list" class="list-group-item">1:1 문의</a>
        
 </div>

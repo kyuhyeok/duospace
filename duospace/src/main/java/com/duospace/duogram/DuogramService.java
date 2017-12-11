@@ -7,6 +7,6 @@ public interface DuogramService {
 	public int insertAccept(int memberNum);
 	public int countAccept(int memberNum);
 	public int insertBoard(Duogram dto);
-	public int dataCount();
+	public int dataCount(Map<String, Object> map);
 	public List<Duogram> listDuogram(Map<String, Object> map);
 }

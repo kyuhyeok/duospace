@@ -101,13 +101,6 @@ function sample4_execDaumPostcode() {
         	return;
         }
         
-        str=f.spotAddr2.value;
-        if(!str){
-        	alert("주소를 입력하세요. ")
-        	f.spotaddr2.focus();
-        	return;
-        }
-        
         str=f.manager.value;
         if(!str || str=="/^[가-힣]+$/"){
         	alert("매니저 이름을 입력하세요. 매니저 이름은 한글만 가능합니다.")

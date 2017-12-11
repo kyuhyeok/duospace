@@ -102,14 +102,29 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public int updateNotice(Notice dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.updateData("community.notice.updateNotice", dto);
+			
+		} catch (Exception e) {
+		
+		}
+		
+		return result;
 	}
 
 	@Override
 	public int deleteNotice(int noticenum) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		
+		try {
+			result=dao.deleteData("community.notice.deleteNotice", noticenum);
+			
+		} catch (Exception e) {
+			
+		}
+		
+		return result;
 	}
 }
 	

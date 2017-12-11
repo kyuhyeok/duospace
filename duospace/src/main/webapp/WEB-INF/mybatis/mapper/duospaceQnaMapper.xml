@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.qna">
+
+	<insert id="insert" parameterType="com.duospace.duospace.qna.Qna">
+		INSERT INTO sc (num,subject,content,membernum,answer,qnacode)
+		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},0,#{qnaCode})
+	</insert>
+
+	<sql id="where-list">
+	  <if test="searchKey=='subject'">
+	  	INSTR (subject,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='content'">
+	    DBMS_LOB.INSTR(content,#{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='created'">
+	    TO_CHAR(created,'YYYY-MM-DD') = #{searchValue} 
+	    OR TO_CHAR(created,'YYYYMMDD') = #{searchValue}
+	  </if>
+	  <if test="searchKey=='email'">
+	  	email=#{searchValue}
+	  </if>
+	  <if test="searchKey=='name'">
+	  	name=#{searchValue}
+	  </if>
+	</sql>
+
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM sc
+		<where>
+		
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>			 
+			 </where>
+	</select>
+	
+	
+	<select id="list" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
+		SELECT * FROM(
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT num,content,subject,created,answer,qnacode,m2.membernum,
+				        name,email
+				FROM sc
+				JOIN member2 m2 ON sc.memberNum=m2.memberNum
+				<where>
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>			 
+			 </where>
+				ORDER BY num DESC
+			)tb
+<![CDATA[			
+			WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+	</select>
+	
+	
+	
+	
+</mapper>

@@ -16,7 +16,7 @@ function dialogNewWord() {
     $("#modalContent").focus();
 }
 
-<!-- 자유글 쓰기 -->
+//<!-- 자유글 쓰기 -->
 function sendFreeboard(){
 	var uid="${sessionScope.user.memberNum}";
 	
@@ -44,7 +44,7 @@ function sendFreeboard(){
 	});
 }
 
-<!-- list 페이지처리 -->
+//<!-- list 페이지처리 -->
 var pageNo=1;
 var totalPage=1;
 
@@ -57,7 +57,7 @@ function checkScrollBar() {
     }
     return false;
 }
-
+//페이지 바로출력.
 $(function(){
 	listPage(1);
 });
@@ -75,22 +75,43 @@ $(function(){
 });
 
 function listPage(page) {
-	var url="<%=cp%>/guest/list";
-	$.post(url, {pageNo:page}, function(data){
-		printFreeboard(data);
-	}, "json");
+	var url="<%=cp%>/freeboard/list";
+	var cmoimCode="${cmoimCode}";//값설정..
+	var query="cmoimCode="+cmoimCode;
+		query+="&pageNo="+page;
+	//ajax:text
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$("#listFreeboard").html(data);
+		}
+		,error:function(e){
+			consloe.log(e.responseText);
+		}
+	});
 }
-
-function printFreeboard(data){
-	var uid="${sessionScope.user.memberNum}";
-	var total_page=data.total_page;
-	var dataCount=data.dataCount;
-	
-	var out="<h3>아아아</h3>";
-	
-	$("#listFreeboard").html(out);
-}
-
+//댓글버튼
+/*
+$(function(){
+	$("body").on("click", ".btnReplyAnswerLayout", function(){
+		var replyNum = $(this).attr("data-replyNum");
+		
+		var $trReplyAnswer = $(this).parent().parent().next();
+		var isVisible = $trReplyAnswer.is(":visible");
+		
+		if(isVisible) {
+			$trReplyAnswer.hide();
+		} else {
+			$trReplyAnswer.show();
+			
+			listAnswer(replyNum);
+		}
+			
+	});
+});
+*/
 </script>
 
 <header>
@@ -98,7 +119,7 @@ function printFreeboard(data){
 		<table>
 			<tr>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimfreeboardlist">
+					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/mymoim/moim?cmoimCode=${cmoimCode}">
 						전체글<!-- freeboardNum -->
 					</a>
 				</td>
@@ -121,11 +142,11 @@ function printFreeboard(data){
 		</table>
 	</div>
 </header>
+
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
 	<div style="width: 1050px;min-height: 800px; margin: auto;">
-			
 			<!-- 프로필 -->
-			<div style="vertical-align: top;margin-right: 20px;float: left;">
+			<div style="vertical-align: top;margin-right: 20px;float: left; width: 180px;">
 				<div>
 					<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:180px;height: 100px; ">
 					<h3>자바</h3>
@@ -134,89 +155,14 @@ function printFreeboard(data){
 				</div>
 			</div>
 			<!-- 가운데 글리스트 -->
-			<!-- 전체글 -->
-			<div style="float: left ">
-				<!-- 검색 -->
-				<div style="width: 550px; height:30px; margin-bottom: 12px; background: #ffffff; vertical-align: middle; border-radius: 10px;">
-					<input type="text" placeholder="글 내용,#태그,@작성자 검색" style="width: 500px;margin-left: 20px; border: none;">
-				</div>
-				<!-- 글쓰기 -->				
-				<div style="width: 550px; margin-bottom: 12px; background: #ffffff; border-radius: 10px; padding: 35px;">					
-					<a  href="javascript:dialogNewWord();" style="display: block; width: 100%;height: 100%;">
-							멤버들에게 전할소식을 남겨주세요
-					</a>
-				</div>
-				<!-- 새글 올라올곳.. -->
-				<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
-					<div style="border-radius: 10px;">
-						<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
-							<a class="profileInner">
-								<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px;">
-							</a>
-							<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
-								윤숭열
-							</span>
-							올린시간...
-						</div>
-						<!-- 글 리스트.. -->
-						<div style="margin: 15px;">
-							asdfasdfasdfsadfasdfas<br>
-							basdfdsafas<br>
-							sadfasdfa<br>
-							sdafasdf<br>
-						</div>
-						<!-- 댓글 및 표정이모티콘 -->
-						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
-							<div style="margin: 15px; float: left; padding-left: 50px;">
-								<button type="button">
-									표정짓기
-								</button>
-							</div>
-							<div style="margin: 15px; float: right; padding-right: 50px;">
-								<button type="button">
-									댓글쓰기
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div style="float: left; width: 550px; min-height: 800px;" >
+				<!-- 전체글 -->
+				<!-- 새글 올라올곳.. -->		
 				<div id="listFreeboard"></div>
-				<!-- 여기서부터 새로운글 -->
-				<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
-					<div style="border-radius: 10px;">
-						<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
-							<a class="profileInner">
-								<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px;">
-							</a>
-							<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
-								윤숭열
-							</span>
-							올린시간...
-						</div>
-						<!-- 글 리스트.. -->
-						<div style="margin: 15px;">
-							...
-						</div>
-						<!-- 댓글 및 표정이모티콘 -->
-						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
-							<div style="margin: 15px; float: left; padding-left: 50px;">
-								<button type="button">
-									표정짓기
-								</button>
-							</div>
-							<div style="margin: 15px; float: right; padding-right: 50px;">
-								<button type="button" class="btn btnReplyAnswerLayout">
-									댓글쓰기
-								</button>
-							</div>
-						</div>
-						<!-- 리플 리스트 -->
-						<!-- 
-						 <div id="listReply"></div>
-						 -->
-					</div>
-				</div>
-				<!-- 여기까지 -->
+					<!-- 리플 리스트 -->
+					<!-- 
+					 <div id="listReply"></div>
+					 -->
 			</div>
 			
 			<!-- 사이드. -->

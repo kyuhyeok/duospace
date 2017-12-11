@@ -26,7 +26,7 @@ function sendOk() {
         return;
     }
 
-	f.action="<%=cp%>/community/notice/created";
+	f.action="<%=cp%>/community/notice/${mode}";
     f.submit();
 }
 </script>
@@ -53,7 +53,7 @@ function sendOk() {
         제 목
     </td>
     <td>
-       <input type="text" name="subject" class="boxTF" style="width: 500px;">
+       <input type="text" name="subject" class="boxTF" style="width: 500px;" value="${dto.subject}">
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -69,7 +69,7 @@ function sendOk() {
      내용
     </td>
     <td>
-      <textarea rows="10" cols="80" name="content" class="boxTF"></textarea>
+      <textarea rows="10" cols="80" name="content" class="boxTF">${dto.content}</textarea>
     </td>
   </tr>
  <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -82,6 +82,10 @@ function sendOk() {
   </tr>
   <tr>
     <td colspan="2" align="center">
+      <c:if test="${mode=='update'}">
+         <input type="hidden" name="noticenum" value="${dto.noticenum}">
+         <input type="hidden" name="page" value="${page}">
+      </c:if>
       <button type="button" onclick="sendOk();">등록완료</button>
       <button type="reset">다시입력</button>
       <button type="button">등록취소</button>

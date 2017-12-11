@@ -2,8 +2,8 @@ package com.duospace.community.freeboard;
 
 public class Freeboard {
 	private int boardnum,listNum;//자유게시판코드
-	private String content,writer,created;//내용,작성자,작성일
-	private int hitCount,cmoimCode;//조회수,코뮤니티코드
+	private String content,created,name;//내용,작성일
+	private int hitCount,cmoimCode,writer;//조회수,코뮤니티코드,작성자
 	
 	
 	public int getBoardnum() {
@@ -31,11 +31,17 @@ public class Freeboard {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getHitCount() {
 		return hitCount;

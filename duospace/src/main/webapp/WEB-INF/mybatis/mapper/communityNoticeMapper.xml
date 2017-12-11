@@ -93,9 +93,13 @@
 				ORDER BY noticenum DESC
 		) tb WHERE ROWNUM=1
 		</select>
-		
+			
 		<update id="updateNotice" parameterType="com.duospace.community.notice.Notice">
 			UPDATE communitymainnotice SET subject=#{subject}, content=#{content} WHERE noticenum =#{noticenum}
 		</update>
+		
+		<delete id="deleteNotice" parameterType="Integer">
+			DELETE FROM communitymainnotice WHERE noticenum =#{noticenum}
+		</delete>
 	
 </mapper>

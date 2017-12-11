@@ -22,28 +22,28 @@
 			<tr>
 				<td align="left" width="311px" style="padding-left: 10px">
     	  			<a href="<%=cp%>/space_main" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">DuoSpace  |</a>
-					<a title=홈 href="<%=cp%>/main" style="font-family: '나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">
+					<a title=Home href="<%=cp%>/main" style="font-family: '나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/home.png" style="width: 60px; height: 60px;">
 					</a>
 					<a href="<%=cp%>/community/{memberNum}" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">|  Community</a>
 				</td>
 				
 				<td align="center"> 
-					<a href="<%=cp%>/duogram" class="logo" style="font-size: 46px; text-decoration:none; color: white;">Duo Gram</a>			
+					<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" class="logo" style="font-size: 46px; text-decoration:none; color: white;">Duo Gram</a>			
 				</td>
 			
 				<td align="right" width="311px" style="padding-right: 10px;">
 				
 					<!-- 마이페이지 -->
 					<div style="float: right">
-					<a title=마이페이지 href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=Mypage href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
 					</div>
 					
 					<!-- 드롭다운 기록 -->
     	  			<div class="dropdown" style="float: right">
-					<a title=기록 aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=Record aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<span style="background: red;"class="badge"><img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">3</span>
 					</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -56,15 +56,22 @@
 					
 					<!-- 메신저 -->
     	  			<div style="float: right">
-    	  			<a title=메신저 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">
+    	  			<a title=Messenger href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  				<img src="<%=cp%>/resource/images/duogram/talk.png" style="width: 40px; height: 40px;" id="dgMess">&nbsp;
     	  			</a>
     	  			</div>
 					
 					<!-- 친구 -->
 					<div style="float: right">
-					<a title=친구 href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;" id="dgFReq">
+					<a title=Friend href="#" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  				<img src="<%=cp%>/resource/images/duogram/friend.png" style="width: 40px; height: 40px;" id="dgFReq">&nbsp;
+    	  			</a>
+    	  			</div>
+    	  			
+    	  			<!-- 타임라인 -->
+					<div style="float: right">
+					<a title=Timeline href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+    	  				<img src="<%=cp%>/resource/images/duogram/timeline.png" style="width: 42px; height: 45px;">&nbsp;
     	  			</a>
     	  			</div>
 				</td>
