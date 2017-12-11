@@ -31,7 +31,7 @@ public class FreeboardController {
 	@ResponseBody
 	public String list(Model model) {
 		
-		return ".community.mymoim.freeboard";
+		return ".community.moim.freeboard";
 	}
 	
 	
@@ -95,7 +95,7 @@ public class FreeboardController {
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("total_page", total_page);
 		
-		return "community/mymoim/listFreeboard";
+		return "community/moim/listFreeboard";
 		
 	}
 }

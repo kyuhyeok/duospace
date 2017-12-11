@@ -36,7 +36,7 @@ function sendFreeboard(){
 		,success:function(data){
 			$("#modalContent").val("");
 			
-			location.href="<%=cp%>/community/mymoim/moim?cmoimCode=${cmoimCode}";
+			location.href="<%=cp%>/community/moim/moim?cmoimCode=${cmoimCode}";
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -119,7 +119,7 @@ $(function(){
 		<table>
 			<tr>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/mymoim/moim?cmoimCode=${cmoimCode}">
+					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/moim/moim?cmoimCode=${cmoimCode}">
 						전체글<!-- freeboardNum -->
 					</a>
 				</td>

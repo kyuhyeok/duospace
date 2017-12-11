@@ -13,7 +13,7 @@ public class MoimController {
 
 	//방안에 쿼리 다여기서..
 	
-	@RequestMapping(value="/community/mymoim/moim",method=RequestMethod.GET)
+	@RequestMapping(value="/community/moim/moim",method=RequestMethod.GET)
 	public String moimpage(
 			HttpSession session,
 			@RequestParam int cmoimCode,
@@ -22,7 +22,7 @@ public class MoimController {
 		
 		model.addAttribute("cmoimCode",cmoimCode);
 		
-		return ".community.mymoim.moim";
+		return ".community.moim.moim";
 	}
 	
 	

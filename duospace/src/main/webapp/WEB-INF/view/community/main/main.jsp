@@ -11,54 +11,184 @@
  
 </script>
 <div style="background: #eef0f3; "> 
-	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
+	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px; min-height: 800px;">
   		<div style="width: 100%;height: 40px;">
-	  		<h1>내 모임/${dataCount}</h1>
+	  		<h1>커뮤니티/1</h1>
   		</div>
- 			<div style="float: left;">
-			<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-		  		<a href="<%=cp%>/community/commoim/commoim" style="background-color: #ffffff; ">
-		  			<span style=" padding-top: 55px; padding-left: 65px;">
-		  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
-		  			</span>
-		  			<br>
-		  			<span style="height: 85px;padding-top: 10px;padding-left: 53px;">
-		  				<span style="padding: auto;">모임 만들기</span>
-		  			</span>
-		  		</a>
+  		<!-- 분류  -->
+		<div style="float: left;">
+			<div style=" background-color: #ffffff; width: 300px;height: 400px; margin: 30px;">
+		  		<!-- 분류 제목.. -->
+		  		<div style="padding:30px; width:300px; height:81px; border-bottom: 1px solid #efefef;">
+		  			<a href="<%=cp%>/community/list?cateGoryNum="${dto.cateGoryNum}>
+		  				<span style="margin: 10px; font-size: large;">제목 :</span>
+		  				<span style="font-size: large;">자바</span>
+		  			</a>
+		  		</div>
+		  		<div style="width: 300px; height: 319px;">
+		  		<!-- 제목 for문으로 돌리기. 5개만 나오게...-->
+		  			<div style="margin-bottom: 15px;">
+			  			<a href="<%=cp%>/community/list">
+			  				<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<!-- 밑에 나중에 삭제... -->
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>		  		
+		  		</div>
 			</div>
 		</div>
-		
-		<!-- 나의 모임 리스트 -->
-		<c:forEach var="dto" items="${list}">
-			<c:if test="${cmoimcode!=0}">
-				<div style="float: left;">
-					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
-				  		<a href="<%=cp%>/community/mymoim/moim?cmoimCode=${dto.cmoimCode}" style=" background-color: #ffffff;">
-				  			<span style=" padding-top: 55px;text-align: center;">
-				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
-				  			</span>
-				  			<br>
-				  			<span style="display:table ;height: 85px; margin-left: 25px;">
-				  				<span style="display:table; margin-top: 20px; ">제목:${dto.comname}</span>
-				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.moimcount}</span>
-				  			</span>
-				  		</a>
-					</div>
-				</div>
-			</c:if>
-			<c:if test="${cmoimcode==0}">
-				<div style="float: left;">
-					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
-				  		
-				  		<div style="margin: auto;">
-					  		<h1>
-					  			가입된 모임이 없습니다.
-					  		</h1>
-				  		</div>
-					</div>
-				</div>
-			</c:if>
-		</c:forEach>
+		<div style="float: left;">
+			<div style=" background-color: #ffffff; width: 300px;height: 400px; margin: 30px;">
+		  		<!-- 분류 제목.. -->
+		  		<div style="padding:30px; width:300px; height:81px; border-bottom: 1px solid #efefef;">
+		  			<a href="<%=cp%>/community/list">
+		  				<span style="margin: 10px; font-size: large;">제목 :</span>
+		  				<span style="font-size: large;">자바</span>
+		  			</a>
+		  		</div>
+		  		<div style="width: 300px; height: 319px;">
+		  		<!-- 제목 for문으로 돌리기. 5개만 나오게...-->
+		  			<div style="margin-bottom: 15px;">
+			  			<a href="<%=cp%>/community/list">
+			  				<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<!-- 밑에 나중에 삭제... -->
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>		  		
+		  		</div>
+			</div>
+		</div>
+		<div style="float: left;">
+			<div style=" background-color: #ffffff; width: 300px;height: 400px; margin: 30px;">
+		  		<!-- 분류 제목.. -->
+		  		<div style="padding:30px; width:300px; height:81px; border-bottom: 1px solid #efefef;">
+		  			<span>분류 : 자바</span>
+		  		</div>
+		  		<div style="width: 300px; height: 319px;">
+		  		<!-- 제목 for문으로 돌리기. 5개만 나오게...-->
+		  			<div style="margin-bottom: 15px;">
+			  			<a href="<%=cp%>/community/list">
+			  				<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<!-- 밑에 나중에 삭제... -->
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>		  		
+		  		</div>
+			</div>
+		</div>
+		<div style="float: left;">
+			<div style=" background-color: #ffffff; width: 300px;height: 400px; margin: 30px;">
+		  		<!-- 분류 제목.. -->
+		  		<div style="padding:30px; width:300px; height:81px; border-bottom: 1px solid #efefef;">
+		  			<span>분류 : 자바</span>
+		  		</div>
+		  		<div style="width: 300px; height: 319px;">
+		  		<!-- 제목 for문으로 돌리기. 5개만 나오게...-->
+		  			<div style="margin-bottom: 15px;">
+			  			<a href="<%=cp%>/community/list">
+			  				<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<!-- 밑에 나중에 삭제... -->
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>
+		  			<div style="margin-bottom: 15px;">
+		  				<a>
+		  					<span style="margin: 10px; font-size: large;">제목 :</span>
+			  				<span style="font-size: large;">일이삼사오육칠팔구십십일</span>
+			  			</a><br>
+		  			</div>		  		
+		  		</div>
+			</div>
+		</div>
 	</div>
 </div>
