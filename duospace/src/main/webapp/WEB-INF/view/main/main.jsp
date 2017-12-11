@@ -10,44 +10,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-
-function modalSendAgree() {
-	var f=document.modalLoginForm;
-	
-    if(f.memberNum.value==0) {
-    	f.memberNum.focus();
-    	return false;
-    }
-    
-    if(f.memberNum.value==1) {
-    	f.memberNum.focus();
-    	return true;
-    }
-
-   f.action="<%=cp%>/main/main";
-		f.submit();
-	}
-	
-</script>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow: hidden;
+}
+#view div{
+	display: flex;
+    justify-content: center;
+	float: left;
+	width: 33.33vw;
+	height: 100%;
+	overflow: hidden;
+}
+img{
+	flex-shrink: 0;
+	height: 100vh;
+}
+</style>
 </head>
-<body style="height: 100%; margin:0px;">
-
-<div style="margin:0px; padding:0px; height:100%; resize: none;" align="left">
-	<div style="max-width: 33%; float:left">
-	<a href="<%=cp%>/space_main" style="text-decoration: none;">
-		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram/duospace.jpg">
-	</a>
+<body>
+<div id="view">
+	<div>
+		<a href="<%=cp%>/space_main">
+			<img src="<%=cp%>/resource/images/duogram/duospace.jpg">
+		</a>
 	</div>
-	<div style="max-width: 33%; float:left;">
-	<a href="<%=cp%>/community/${sessionScope.user.memberNum}" style="text-decoration: none;">
-		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram/community.jpg">
-	</a>
+	<div>
+		<a href="<%=cp%>/community">
+			<img src="<%=cp%>/resource/images/duogram/community.jpg">
+		</a>
 	</div>
-	<div style="max-width: 33%; float:left">
-	<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="text-decoration: none;">
-		<img style="height:940px; overflow: hidden;"src="<%=cp%>/resource/images/duogram/duogram 1.jpg">
-	</a>
+	<div>
+		<a href="<%=cp%>/duogram">
+			<img src="<%=cp%>/resource/images/duogram/duogram 1.jpg">
+		</a>
 	</div>
 </div>
 </body>
