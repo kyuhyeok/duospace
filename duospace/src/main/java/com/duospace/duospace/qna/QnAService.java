@@ -12,6 +12,7 @@ public interface QnAService {
 	public int dataCount(Map<String, Object> map);
 	public int updateQna(Qna dto);
 	public int deleteQna(int num);
+	public int deleteList(List<Integer> list);
 	public Qna preReadQna(Map<String, Object> map);
 	public Qna nextReadQna(Map<String, Object> map);
 	

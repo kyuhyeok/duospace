@@ -9,6 +9,7 @@ public class Qna {
 	private int answer;
 	private int qnaCode;
 	private String qnaName;
+	private int groupNum;
 
 	private int listNum;
 	
@@ -19,6 +20,12 @@ public class Qna {
 	private String name;
 	
 	
+	public int getGroupNum() {
+		return groupNum;
+	}
+	public void setGroupNum(int groupNum) {
+		this.groupNum = groupNum;
+	}
 	public String getQnaName() {
 		return qnaName;
 	}
