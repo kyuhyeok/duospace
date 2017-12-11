@@ -3,15 +3,28 @@ package com.duospace.admin.room;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Room {
-	private int roomCode, floorNum, price;
-	private String roomName, rcontent, saveFilename;
+	private int roomCode, floorNum, price, spotCode;
+	private String roomName, rcontent, saveFileName, spotName, floorName;
+	public int getSpotCode() {
+		return spotCode;
+	}
+	public void setSpotCode(int spotCode) {
+		this.spotCode = spotCode;
+	}
+	public String getSpotName() {
+		return spotName;
+	}
+	public void setSpotName(String spotName) {
+		this.spotName = spotName;
+	}
+	public String getFloorName() {
+		return floorName;
+	}
+	public void setFloorName(String floorName) {
+		this.floorName = floorName;
+	}
 	private MultipartFile upload;
-	public String getSaveFilename() {
-		return saveFilename;
-	}
-	public void setSaveFilename(String saveFilename) {
-		this.saveFilename = saveFilename;
-	}
+	
 	public MultipartFile getUpload() {
 		return upload;
 	}
@@ -47,5 +60,11 @@ public class Room {
 	}
 	public void setRcontent(String rcontent) {
 		this.rcontent = rcontent;
+	}
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 }

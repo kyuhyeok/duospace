@@ -20,29 +20,80 @@
     function check() {
     	alert
         var f = document.boardForm;
-
+		
+    	var str = f.spotCode.value;
+    	if(!str){
+    		alert("지점을 선택 하세요.");
+    		f.spotCode.focus();
+    		return;
+    	}
     	var str = f.roomName.value;
         if(!str) {
             alert("룸 이름을 입력하세요. ");
             f.roomName.focus();
             return;
         }
-
-    	str = f.floorNum.value;
-    		if(str.length==0){
-    			var tex="층을 선택해 주세요";
-    			$("#message").text(tex);
-    			return;
-    		}
-		
+    	
+    	var str = f.rcontent.value;
+    	if(!str){
+    		alert("룸 내용을 입력하세요.");
+    		f.rcontent.focus();
+    		return;
+    	}
+    	
+    	var str = f.price.value;
+    	if(!str){
+    		alert("룸 가격을 입력하세요.");
+    		f.price.focus();
+    		return;
     		
-   		f.action="<%=cp%>/admin/spot/${mode}";
+    	}
+   		f.action="<%=cp%>/admin/room/${mode}";
 		f.submit();
     }
+    
+function floorList() {
+	var spotCode=$("#shop").val();
+	if(spotCode==""){
+		$("#floor option").each(function(){
+			$("#floor option:eq(0)").remove();
+		});
+		
+		$("#floor").append("<option value=''>층 선택</option>");
+		return false;
+	}
+	var url="<%=cp%>/admin/floorList";
+	var params="spotCode="+spotCode;
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:params
+		,dataType:"json"
+		,success:function(data){
+			$("#floor option").each(function () {
+				$("#floor option:eq(0)").remove();
+			});
+			
+			$("#floor").append("<option value=''>층 선택</option>");
+			
+			for(var idx=0; idx<data.list.length; idx++){
+				$("#floor").append("<option value='"+data.list[idx].floorNum+"'>"+data.list[idx].floorName+"</option>");
+			}
+		}
+		,error:function(e){
+			alert(e.responseText);
+		}
+	});
+}
+
+
     
 $(function(){
 	$("[placeholder]").css("color","red");
 });
+
+
     
 </script>
 <style type="text/css">
@@ -58,27 +109,22 @@ $(function(){
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
-			  		<select name="floorNum" id="sdbox">
+			  		<select name="spotCode" id="shop" onchange="floorList();">
 			  			<option selected="selected" value="">지점 선택</option>
-			  			
+			  			<c:forEach var="dto" items="${slist}">
+			  				<option value="${dto.spotCode}">${dto.spotName}</option>
+			  			</c:forEach>
 			  		</select>
-			  		<input type="text" name="floor" value="1층" readonly="readonly">
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
 			  	<td style="padding-left:10px;">
-			  		<select name="floorNum" id="sdbox">
+			  		<select name="floorNum" id="floor">
 			  			<option selected="selected" value="">층 선택</option>
-			  			<option value="B1">B1층</option>
-			  			<option value="1">1층</option>
-			  			<option value="2">2층</option>
-			  			<option value="3">3층</option>
-			  			<option value="4">4층</option>
-			  			<option value="">Other</option>
 			  		</select>
-			  		<input type="text" name="floor" value="1층" readonly="readonly">
+			  		
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>

@@ -28,6 +28,7 @@
 	  	INSTR (region,#{searchValue}) &gt; 0
 	  </if>
 	</sql>
+	
 	<select id="spotSeq" resultType="Integer">
 		SELECT seq_spot.NEXTVAL FROM DUAL
 	</select>
