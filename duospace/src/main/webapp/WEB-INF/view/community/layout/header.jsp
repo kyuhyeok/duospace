@@ -20,14 +20,13 @@
 		</div>
 	
 		<div style="float: right;vertical-align: middle;">
-		
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/community">
-				커뮤니티
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/commaincate/admin">
+				임시 관리자
 			</a>
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist">
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist/${sessionScope.user.memberNum}">
 				인기모임
 			</a>
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/mymoim/${sessionScope.user.memberNum}">
+			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/mymoimlist/${sessionScope.user.memberNum}">
 				나의모임
 			</a>
 			

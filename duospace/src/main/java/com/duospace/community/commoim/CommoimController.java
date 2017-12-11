@@ -21,7 +21,7 @@ public class CommoimController {
 	
 	
 	@RequestMapping(value="/community/commoim/commoim",method=RequestMethod.GET)
-	public String list(Model model) {
+	public String commoimForm(Model model) {
 		
 		return ".community.commoim.commoim";
 	}
