@@ -39,7 +39,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 					uri="?"+queryString;
 				
 				
-				session.setAttribute("preLoginURI", uri); //로그인 전 주소   ex. uri : /bbs/list
+				//session.setAttribute("preLoginURI", uri); //로그인 전 주소   ex. uri : /bbs/list
 				
 				response.sendRedirect(cp+"/member/login");
 				
