@@ -20,7 +20,18 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
+<script type="text/css">
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
 
+Portrait {
+	max-height: 350px;
+	max-width: 935px;
+	overflow: hidden
+}
+</script>
 <script>
     $(document).ready(function() {
       $('.wrap').on( 'keyup', 'textarea', function (e){
@@ -143,7 +154,7 @@ function printDuogram(data) {
 			out+="<div style='margin-top: 5px;'>";
 			out+="<a href='#'><div style='float:left; font-size: 14px; font-weight: bold font-family: '나눔고딕';'>"+"좋아요x개　"+"</div></a>";
 			out+="<div style='float:left; font-size: 14px;'>";
-			out+="<a href='#' style='text-decoration:none; color: #999; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
+			out+="<a href='javascript:dialogNewWord();' style='text-decoration:none; color: #999; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
 			out+="</div>";
 			out+="</div>";
 			out+="</div>";
@@ -165,7 +176,7 @@ function printDuogram(data) {
 <body style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
 
 <!-- 오른쪽 구석 친구 창 -->
-<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px" >
+<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px; z-index: 2">
 </div>
 <!-- 윗칸 띄우기 -->
 <div style="height: 110px"></div>
@@ -174,10 +185,34 @@ function printDuogram(data) {
 <!-- mid -->
 <div>
 <!-- 마이페이지 프로필 -->
-<div style="width: 100%; height: 350px; background: black">
-<div style="margin-top: 230px; margin-right: auto; margin-left: auto; width: 300px; height: 300px; background:white; border: 1px solid auto">
+<div style="width: 935px; height: 350px; background: black; margin: auto">
+<div style="class: Portrait; background: black">
+	<img src="<%=cp%>/resource/images/duogram/profile3.jpg">
+</div>
+<!-- 마이프로필 프사 -->
+<div style="border-radius: 4px; position: relative; left: 30px; top: 120px ;border: 1px solid rgba(0,0,0,.0975); padding-top: 200px; width: 160px; height: 160px; background:white; border: 1px solid auto">
+	<div style="border-radius: 4px; position: relative; bottom: 250px; background: #ccc; margin: auto; width: 150px; height: 150px; border: 1px solid rgba(0,0,0,.0975);">
+	</div>
+</div>
+<!-- 마이프로필 정보 -->
+<div style="position: relative; top: 130px; width: 935px; height: 50px; background: white; border: 1px solid #ccc; margin: auto;">
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">마이페이지</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">정보</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">친구</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">타임라인</a>
+	</div>
 </div>
 </div>
+
+
+
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 		<div style="height: 60px">
@@ -189,7 +224,7 @@ function printDuogram(data) {
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
 				<!-- 게시글 등록 및 동영상 추가 -->
 				<form name="boardForm" method="post">
-				<div style="height: 30px;background: #e9ebee; border-bottom: 1px solid #dddfe2;">
+				<div style="height: 30px; background: #e9ebee; border-bottom: 1px solid #dddfe2;">
 					<div align="left" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
 					</div>
 				</div>
