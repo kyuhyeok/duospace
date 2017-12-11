@@ -8,6 +8,8 @@ public class Qna {
 	private String created;
 	private int answer;
 	private int qnaCode;
+	private String qnaName;
+
 	private int listNum;
 	
 	private long gap;
@@ -17,7 +19,12 @@ public class Qna {
 	private String name;
 	
 	
-
+	public String getQnaName() {
+		return qnaName;
+	}
+	public void setQnaName(String qnaName) {
+		this.qnaName = qnaName;
+	}
 	public long getGap() {
 		return gap;
 	}

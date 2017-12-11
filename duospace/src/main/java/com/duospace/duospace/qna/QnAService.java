@@ -6,6 +6,7 @@ import java.util.Map;
 public interface QnAService {
 
 	public int insertQna(Qna dto);
+	public int insertQna(Qna dto,String mode);
 	public List<Qna> listQna(Map<String, Object> map);
 	public Qna readQna(int num);
 	public int dataCount(Map<String, Object> map);
