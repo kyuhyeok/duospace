@@ -55,7 +55,7 @@ public class MemberController {
 		
 		session.removeAttribute("preLoginURI");
 		
-		return uri;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/member/logout")

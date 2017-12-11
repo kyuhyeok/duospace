@@ -173,7 +173,6 @@ function sendLogin() {
     <input type="button" name="signup_submit" onclick="sendLogin()" value="LOG IN" style="margin-left: 50px;"/>
     
     <div style="margin-top: 30px;" class="login-bottom">
-    <a href="<%=cp%>/member/member">회원가입</a> |
     <a href="#">비밀번호찾기</a> |
     <a href="#">아이디찾기</a>
     
