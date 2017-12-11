@@ -51,18 +51,6 @@ public class FMessServiceImpl implements FMessService{
 	}
 
 	@Override
-	public FMess readFMess(Map<String, Object> map) {
-		FMess fm=null;
-		
-		try {
-			fm=dao.selectOne("duoGramFM.readFMess", map);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return fm;
-	}
-
-	@Override
 	public int insertFMess(FMess dto) {
 		int result=0;
 		
@@ -74,6 +62,18 @@ public class FMessServiceImpl implements FMessService{
 		return result;
 	}
 	
+	@Override
+	public FMess readFMess(Map<String, Object> map) {
+		FMess fm=null;
+		
+		try {
+			fm=dao.selectOne("duoGramFM.insertFMess", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return fm;
+	}
+
 	@Override
 	public List<FMess> listFMessContent(Map<String, Object> map) {
 		List<FMess> list=null;

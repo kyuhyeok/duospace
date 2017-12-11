@@ -2,11 +2,17 @@ package com.duospace.duogram.fmess;
 
 public class FMess {
 	private int memberNum, friendNum;
-	private String name;
+	private String name, friendId;
 	private String num, sendDate, readDate, content, deleteStatus; 
 	private int unReadCnt;
 	
 	
+	public String getFriendId() {
+		return friendId;
+	}
+	public void setFriendId(String friendId) {
+		this.friendId = friendId;
+	}
 	public String getDeleteStatus() {
 		return deleteStatus;
 	}
