@@ -20,18 +20,6 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
 
-<script type="text/css">
-img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-Portrait {
-	max-height: 350px;
-	max-width: 935px;
-	overflow: hidden
-}
-</script>
 <script>
     $(document).ready(function() {
       $('.wrap').on( 'keyup', 'textarea', function (e){
@@ -42,9 +30,7 @@ Portrait {
     });
 </script>
 
-
 <script type="text/javascript">
-
 var pageNo=1;
 var totalPage=1;
 
@@ -88,9 +74,6 @@ function sendBoard() {
 	    }
 	});
 }
-
-
-
 // 무한스크롤
 $(function(){
 	$(window).scroll(function() {
@@ -103,6 +86,7 @@ $(function(){
 	});
 });
 
+// 타임라인 페이징처리
 function listPage(page) {
 	var url="<%=cp%>/duogram/list";
 	var blogNum="${blogNum}";
@@ -113,6 +97,7 @@ function listPage(page) {
 	}, "json");
 }
 
+// 타임라인 글 리스트
 function printDuogram(data) {
 	// console.log(data);
 	var uid="${sessionScope.user.memberNum}";
@@ -129,7 +114,7 @@ function printDuogram(data) {
 			var created=data.list[idx].created;
 			var name=data.list[idx].name;
 			
-			out+="<div style='margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
+			out+="<div style='min-height: 220px; margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 30px; padding-left: 15px; padding-right: 15px; margin-top:20px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 5px;'>";
 			out+="<div style='float: left;margin-right: 8px;'>";
@@ -150,19 +135,17 @@ function printDuogram(data) {
 			out+="</div>";
 			out+="<div style='padding-left: 15px; padding-right: 15px;'>";
 			out+="</div>";
-			out+="<div style='height: 15px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;'>";
-			out+="<div style='margin-top: 5px;'>";
-			out+="<a href='#'><div style='float:left; font-size: 14px; font-weight: bold font-family: '나눔고딕';'>"+"좋아요x개　"+"</div></a>";
-			out+="<div style='float:left; font-size: 14px;'>";
-			out+="<a href='javascript:dialogNewWord();' style='text-decoration:none; color: #999; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
-			out+="</div>";
-			out+="</div>";
-			out+="</div>";
 			out+="<div style='padding-top: 10px; margin-left: 15px; margin-right: 15px; margin-bottom: 15px; width: 584px; font-weight: normal; font-size: 15px; line-height: 1.5em;'>"+content+"</div>";
 			out+="<div style='margin: 20px'></div>";
-			out+="<div style='color: #ccc; padding-bottom: 7px; padding-left: 15px; padding-right: 15px; font-family: '나눔고딕'; font-size: 12px'>"+created+"</div>";
+			out+="<div style='float: left; height: 23px; color: #ccc; padding-top: 7px; padding-left: 15px; font-family: '나눔고딕'; font-size: 12px'>"+created+"</div>";
+			out+="<div style='float: right; height: 23px; font-size: 14px; padding-top: 7px; padding-right: 15px;'>";
+			out+="<a href='#' style='text-decoration:none; color: #999; font-weight: blod; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
+			out+="</div>";
+			out+="<div style='float: right; height: 23px; font-size: 14px; padding-top: 7px; padding-right: 5px;'>";
+			out+="<a href='#' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요x개　"+"</a>";
+			out+="</div>";
 			out+="<div style='height: 50px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);'>";
-			out+="<input type='text' style='border-radius: 4px; margin-top: 10px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
+			out+="<input type='text' style='border-radius: 4px; margin-top: 17px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
 			out+="</div>";
 			out+="</div>";
 		}
@@ -170,6 +153,43 @@ function printDuogram(data) {
 	}	
 }
 
+// 답글달기
+function sendReply() {
+	var uid="${sessionScope.user.memberNum}";
+	if(! uid) {
+		location.href='<%=cp%>/member/login';
+		return;
+	}
+	
+	var content=$.trim($("#replyContent").val());
+	if(! content){
+		$("#replyContent").focus();
+		return;
+	}
+	
+	var blogNum="${blogNum}";
+	var q="content="+encodeURIComponent(content)+"&blogNum="+blogNum;
+	q+="&num=${dto.num}";
+	q+="&answer=0";
+		
+	var url="<%=cp%>/duogram/insertReply";
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data) {
+			var s=data.state;
+
+			$("#replyContent").val("");
+			listPage(1);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+		
+	});
+}
 </script>
 
 </head>
@@ -186,9 +206,12 @@ function printDuogram(data) {
 <div>
 <!-- 마이페이지 프로필 -->
 <div style="width: 935px; height: 350px; background: black; margin: auto">
-<div style="class: Portrait; background: black">
-	<img src="<%=cp%>/resource/images/duogram/profile3.jpg">
+<!-- 커버사진 -->
+<div align="center" style="background: black; overflow: hidden; max-width: 935px; max-height: 350px;">
+	<img  style="vertical-align: middle" src="<%=cp%>/resource/images/duogram/profile3.jpg">
 </div>
+<!-- 커버사진이 있을 때 -->
+<c:if test="">
 <!-- 마이프로필 프사 -->
 <div style="border-radius: 4px; position: relative; left: 30px; top: 120px ;border: 1px solid rgba(0,0,0,.0975); padding-top: 200px; width: 160px; height: 160px; background:white; border: 1px solid auto">
 	<div style="border-radius: 4px; position: relative; bottom: 250px; background: #ccc; margin: auto; width: 150px; height: 150px; border: 1px solid rgba(0,0,0,.0975);">
@@ -209,6 +232,30 @@ function printDuogram(data) {
 		<a href="#" style="text-decoration:none;">타임라인</a>
 	</div>
 </div>
+</c:if>
+<!-- 커버사진이 없을 때 -->
+<c:if test="">
+<!-- 마이프로필 프사 -->
+<div style="border-radius: 4px; position: relative; left: 30px; top: 120px ;border: 1px solid rgba(0,0,0,.0975); padding-top: 200px; width: 160px; height: 160px; background:white; border: 1px solid auto">
+	<div style="border-radius: 4px; position: relative; bottom: 250px; background: #ccc; margin: auto; width: 150px; height: 150px; border: 1px solid rgba(0,0,0,.0975);">
+	</div>
+</div>
+<!-- 마이프로필 정보 -->
+<div style="position: relative; top: 130px; width: 935px; height: 50px; background: white; border: 1px solid #ccc; margin: auto;">
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">마이페이지</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">정보</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">친구</a>
+	</div>
+	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+		<a href="#" style="text-decoration:none;">타임라인</a>
+	</div>
+</div>
+</c:if>
 </div>
 
 
@@ -322,7 +369,6 @@ function printDuogram(data) {
 </div>
 </div>
 <!-- right -->
-
 <!-- /mid -->
 
 </body>
