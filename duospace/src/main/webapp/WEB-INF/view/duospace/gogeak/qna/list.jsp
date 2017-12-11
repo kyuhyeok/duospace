@@ -95,7 +95,11 @@ $(function(){
 	     </c:if>
     	  <td>${dto.listNum}</td>
     	  <td style="text-align: left">
-    	  <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a></td>
+    	   <span style="font-size: 12px; color: gray">[${dto.qnaName}]</span> <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a>
+    	   <c:if test="${dto.gap<1}">
+    	   	<img src="<%=cp%>/resource/images/duospace/icon/new.gif">
+    	   </c:if>
+    	   </td>
     	  <td>${dto.name}</td>
     	  <td>${dto.created}</td>
 

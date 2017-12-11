@@ -5,7 +5,7 @@
 <%
 	String cp=request.getContextPath();
 %>
-<input type="hidden" id="fReqCount" value="${fReqCount}">
+
 <c:forEach var="fRC" items="${listFR}">
 	<li id="frc${fRC.friendNum}" class="objectListItem" style="padding: 6px 12px;border-top: none;border-width: 0;border-bottom: solid 1px #dddfe2;">
 		<div style="zoom: 1;">

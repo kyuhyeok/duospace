@@ -2,6 +2,8 @@ package com.duospace.duospace.qna;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -54,6 +56,8 @@ public class QnAController {
 		int dataCount=service.dataCount(map);  //데이터갯수
 		int total_page=myUtil.pageCount(rows, dataCount);  //전체페이지수
 		
+		if(current_page>total_page)
+			current_page=total_page;
 		
 		int start=(current_page-1)*rows+1;
 		int end=current_page*rows;
@@ -66,6 +70,10 @@ public class QnAController {
 		
 		
 		
+		//new 이미지 넣기
+		long gap;
+		Date endDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		int listNum, n=0;
 		while(it.hasNext()) {
@@ -73,6 +81,12 @@ public class QnAController {
 			listNum=dataCount-(start+n-1);
 			dto.setListNum(listNum);
 			n++;
+			
+			Date beginDate = sdf.parse(dto.getCreated());
+			//날짜시간차이
+			gap=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+			dto.setGap(gap);
+			dto.setCreated(dto.getCreated().substring(0, 10));
 		}
 		
 		
@@ -80,7 +94,7 @@ public class QnAController {
 		if(qnaCode.length()!=0) {
 			query="searchCode="+qnaCode;
 			if(searchValue.length()!=0)
-				query +="searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue,"utf-8");
+				query +="&searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue,"utf-8");
 		}else {
 			if(searchValue.length()!=0)
 				query +="searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue,"utf-8");
@@ -130,4 +144,151 @@ public class QnAController {
 		return "redirect:/duospace/qna/list";
 	}
 	
+	@RequestMapping(value="/duospace/qna/article", method=RequestMethod.GET)
+	public String readInquery(
+			@RequestParam(value="searchCode",defaultValue="") String qnaCode,
+			@RequestParam(value="searchKey", defaultValue="subject")String searchKey,			
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam int num,
+			@RequestParam String page,
+			Model model,
+			HttpServletRequest req
+			) throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("searchCode", qnaCode);
+		map.put("searchKey", searchKey);
+		map.put("searchValue", searchValue);
+		
+		
+		Qna dto= service.readQna(num);
+		
+		if(dto==null)
+			return "redirect:/duospace/qna/list?page="+page;
+		
+		map.put("num", dto.getNum());
+		Qna preDto=service.preReadQna(map);
+		Qna nextDto=service.nextReadQna(map);
+		
+		
+		
+		String query="page="+page;
+		if(qnaCode.length()!=0) {
+			query+="&searchCode="+qnaCode;
+			if(searchValue.length()!=0) {
+				query+="&searchValue="+searchValue+"&searchKey="+searchKey;
+			}	
+		}else {
+			if(searchValue.length()!=0) {
+				query+="&searchValue="+searchValue+"&searchKey="+searchKey;
+			}
+		}
+		
+		model.addAttribute("nextDto", nextDto);
+		model.addAttribute("preDto", preDto);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("searchCode", qnaCode);
+		model.addAttribute("searchKey", searchKey);
+		model.addAttribute("searchValue", searchValue);
+		model.addAttribute("query", query);
+		
+		return ".four.duospace.gogeak.qna.article";
+	}
+	
+	@RequestMapping(value="/duospace/qna/update", method=RequestMethod.GET)
+	public String updateInquery(
+			@RequestParam(value="searchCode",defaultValue="") String qnaCode,
+			@RequestParam(value="searchKey", defaultValue="subject")String searchKey,			
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam int num,
+			@RequestParam String page,
+			Model model) throws Exception{
+		
+		Qna dto = service.readQna(num);
+		if(dto==null)
+			return "redirce:/duospace/qna/list?page="+page;
+	
+		
+		model.addAttribute("mode", "update");
+		model.addAttribute("dto", dto);
+		model.addAttribute("searchKey", searchKey);
+		model.addAttribute("searchValue", searchValue);
+		model.addAttribute("searchCode", qnaCode);
+		model.addAttribute("page", page);
+		
+		return ".four.duospace.gogeak.qna.created";
+	}
+	
+	@RequestMapping(value="/duospace/qna/update", method=RequestMethod.POST)
+	public String updateSubmit(Qna dto,
+			@RequestParam(value="searchCode",defaultValue="") String searchCode,
+			@RequestParam(value="searchKey", defaultValue="subject")String searchKey,			
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam String page
+			) throws Exception{
+		
+		service.updateQna(dto);
+		
+		String query="page="+page;
+		if(searchCode.length()!=0) {
+			query+="&searchCode="+searchCode;
+		}
+		if(searchValue.length()!=0) {
+			query+="&searchKey="+searchKey+"&searchValue="+searchValue;
+		}
+		
+		return "redirect:/duospace/qna/list?"+query;
+	}
+	
+	@RequestMapping(value="/duospace/qna/delete", method=RequestMethod.GET)
+	public String delete(int num, @RequestParam String page)throws Exception{
+		service.deleteQna(num);
+		return "redirect:/duospace/qna/list?page="+page;
+	}
+	
+	
+	@RequestMapping(value="/duospace/qna/reply", method=RequestMethod.GET)
+	public String reply(
+			@RequestParam int num,
+			@RequestParam String page,
+			Model model
+			) throws Exception{
+		
+		Qna dto = service.readQna(num);
+		if(dto==null)
+			return "redirect:/duospace/qna/list?page="+page;
+		
+		String str = "["+dto.getSubject()+"]에 대한 답변입니다.";
+		dto.setContent(str);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "reply");
+		model.addAttribute("page", page);
+			
+		return  ".four.duospace.gogeak.qna.created";
+	}
+	
+	@RequestMapping(value="/duospace/qna/reply", method=RequestMethod.POST)
+	public String replySubmit(
+			Qna dto,
+			@RequestParam String page,
+			Model model
+			) throws Exception{
+		
+		service.insertQna(dto);
+		
+		return "redirect:/duospace/qna/list?page="+page;
+	}
+	
 }
+
+
+
+
+
+
+
+
+

@@ -30,8 +30,7 @@
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*),0) FROM sc
-		<where>
-		
+			<where>
 				<if test="searchValue!=null and searchValue !=''">
 				  <include refid="where-list"/>
 				  <if test="searchCode!=null and searchCode !=''">
@@ -44,26 +43,28 @@
 				  </if>
 				</if>			 
 			 </where>
+			 
 	</select>
 	
 	
 	<select id="list" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb.* FROM(
-				SELECT num,content,subject,created,answer,qnacode,m2.membernum,
+				SELECT num,content,subject,created,answer,sc.qnacode, qnaname ,m2.membernum,
 				        name,email
 				FROM sc
 				JOIN member2 m2 ON sc.memberNum=m2.memberNum
+				JOIN qnacate q ON sc.qnacode=q.qnacode
 				<where>
 				<if test="searchValue!=null and searchValue !=''">
 				  <include refid="where-list"/>
 				  <if test="searchCode!=null and searchCode !=''">
-					AND qnaCode=#{searchCode}
+					AND sc.qnaCode=#{searchCode}
 				  </if>
 				</if>
 				<if test="searchValue ==null or searchValue ==''">
 				  <if test="searchCode!=null and searchCode !=''">
-					 qnaCode=#{searchCode}
+					 sc.qnaCode=#{searchCode}
 				  </if>
 				</if>			 
 			 </where>
@@ -75,7 +76,82 @@
 ]]>
 	</select>
 	
+	<select id="readQna" parameterType="Integer" resultType="com.duospace.duospace.qna.Qna">
+		SELECT num,content,subject,created,answer,sc.qnacode, m2.membernum,
+       		 name,email
+		FROM sc
+		JOIN member2 m2 ON sc.memberNum=m2.memberNum
+		
+		WHERE num=#{num}
+	</select>
 	
+	<select id="preReadQna" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
+		SELECT ROWNUM, tb.* FROM(
+			SELECT num, subject
+			FROM sc
+			<where>
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>	
+				AND	num &gt; #{num}		 
+			 </where>
+			ORDER BY num
+			)tb
+		WHERE ROWNUM=1
+	</select>
 	
+	<select id="nextReadQna" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
+		SELECT ROWNUM, tb.* FROM(
+			SELECT num, subject
+			FROM sc
+			<where>
+				<if test="searchValue!=null and searchValue !=''">
+				  <include refid="where-list"/>
+				  <if test="searchCode!=null and searchCode !=''">
+					AND qnaCode=#{searchCode}
+				  </if>
+				</if>
+				<if test="searchValue ==null or searchValue ==''">
+				  <if test="searchCode!=null and searchCode !=''">
+					 qnaCode=#{searchCode}
+				  </if>
+				</if>	
+				AND	num &lt; #{num}		 
+			 </where>
+			ORDER BY num DESC
+			)tb
+		WHERE ROWNUM=1
+	</select>
+
+	<update id="update" parameterType="com.duospace.duospace.qna.Qna">
+		UPDATE sc SET subject=#{subject}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM sc WHERE num=#{num}
+	</delete>
+	
+	<insert id="insertReply" parameterType="com.duospace.duospace.qna.Qna">
+		INSERT INTO sc (num,subject,content,membernum,answer,qnacode)
+		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},#{answer},#{qnaCode})
+	</insert>
 	
 </mapper>
+
+
+
+
+
+
+
+
+

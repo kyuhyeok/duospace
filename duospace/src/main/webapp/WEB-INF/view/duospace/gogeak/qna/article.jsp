@@ -11,7 +11,7 @@
 <script type="text/javascript">
 function deleteNotice() {
 	if(confirm("삭제하시겠습니까?")){
-		location.href='<%=cp%>/duospace/notice/delete?page=${page}&num=${dto.num}&rows=${rows}';
+		location.href='<%=cp%>/duospace/qna/delete?num=${dto.num}&${query}';
 	}
 }
 </script>
@@ -32,28 +32,20 @@ function deleteNotice() {
 
  <div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="center" style="background: #e4e4e4;">
+			<tr height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			    <td colspan="2" align="center">
 				  ${dto.subject}
 			    </td>
 			</tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 :관리자
+			       이름 :${dto.name}
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
-			      ${dto.created} | 조회 ${dto.hitCount}
+			      ${dto.created} 
 			    </td>
 			</tr>
-			<c:if test="${not empty dto.saveFilename}">
-			<tr height="35">
-			    <td colspan="2" align="right" style="padding-left: 5px;">
-			       첨부파일 :
-		           <a href="<%=cp%>/duospace/download?num=${dto.num}">${dto.originalFilename}</a>
-			    </td>
-			</tr>
-			</c:if>
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
 			  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
@@ -62,15 +54,18 @@ function deleteNotice() {
 			</tr>
 			<tr height="60">
 				<td align="left">
-				<c:if test="${sessionScope.user.userId=='admin'}">
-			     	<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/notice/update?num=${dto.num}&page=${page}';">수정</button>
+				<c:if test="${sessionScope.user.userId=='admin' || sessionScope.user.userId==dto.email }">
+			     	<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/update?num=${dto.num}&${query}';">수정</button>
 				    <button type="button" class="btn" onclick="deleteNotice();">삭제</button>
 				</c:if>
 				</td>
 			    <td align="right" >
-			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/notice/list?${query}';">리스트</button>
+			    	<c:if test="${sessionScope.user.userId=='admin'}">
+			    		<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/reply?num='${dto.num}&${query};">답글</button>
+			    	</c:if>
+			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/list?${query}';">리스트</button>
 			    </td>
-			</tr>
+			</tr>	
 			
 			
 			</table>
@@ -80,7 +75,7 @@ function deleteNotice() {
 			<c:if test="${not empty preDto}">
 			  <tr height="35" style="border-bottom: 1px dashed #cccccc;border-top: 1px solid #cccccc;">
 			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       이전글 : <a href="<%=cp%>/duospace/notice/article?${query}&num=${preDto.num}">${preDto.subject}</a>
+			       이전글 : <a href="<%=cp%>/duospace/qna/article?${query}&num=${preDto.num}">${preDto.subject}</a>
 			         
 			    </td>
 			</tr>
@@ -88,8 +83,7 @@ function deleteNotice() {
 			<c:if test="${not empty nextDto}">
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       다음글 :<a href="<%=cp%>/duospace/notice/article?${query}&num=${nextDto.num}">${nextDto.subject}</a>
-			         
+			       다음글 :	<a href="<%=cp%>/duospace/qna/article?${query}&num=${nextDto.num}">${nextDto.subject}</a>
 			    </td>
 			</tr>
 			</c:if>

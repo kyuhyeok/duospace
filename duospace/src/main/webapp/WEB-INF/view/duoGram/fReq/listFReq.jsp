@@ -236,8 +236,10 @@ $(function() {
 	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
-	readaCnt();
-	setInterval("readaCnt()",10000);
+	//readaFReqCnt();
+	readaFMessCnt()
+	//setInterval("readaFReqCnt()",10000);
+	//setInterval("readaFMessCnt()",10000);
 	
 	$("body").on("click", "#dgFReq", function(event){
 		event.stopPropagation();
@@ -253,10 +255,10 @@ $(function() {
 			listFRPage(1);
 		}
 	});
-	$("body").on("click", "#dgFReqlistview", function(event){//메신저 클릭
+	$("body").on("click", "#dgFReqlistview", function(event){
 		event.stopPropagation();
 	});
-	$("body").on("click", "#dgMess", function(event){//메신저 클릭
+	$("body").on("click", "#dgMess", function(event){
 		event.stopPropagation();
 		var isVisible=$("#dgfmessengers").is(":visible");
 		
@@ -267,13 +269,13 @@ $(function() {
 		}else {
 			$('#dgfmessengers').show();
 			$('#dgFReqlistview').hide();
-			listFMCard(page);
+			listFMC(1);
 		}
 	});
-	$("body").on("click", "#dgfmessengers", function(event){//메신저 클릭
+	$("body").on("click", "#dgfmessengers", function(event){
 		event.stopPropagation();
 	});
-	$("body").on("click", ".objectListItem messegeContainer", function(){//채팅할 친구 클릭
+	$("body").on("click", ".objectListItem messegeContainer", function(){
 		var fNum=$(this).attr("data-fmnum");
 		var fName=$(this).attr("data-fmname");
 		var fPS=$(this).attr("data-fmPS");
@@ -292,7 +294,7 @@ $(function() {
 		}
 	});
 });
-function readaCnt() {
+function readaFReqCnt() {
 	var url="<%=cp%>/duogram/readFReqCnt";
 	//AJAX:JSON
 	$.ajax({
@@ -302,10 +304,13 @@ function readaCnt() {
 		,success:function(data){
 			var cnt=data.count;
 			if(cnt!=0){
-				$("#reqalim").css("display","inline-block");
-				$("#reqalim").html(cnt);
+				$("#reqalimFReq").css("display","inline-block");
+				$("#reqalimFReq").html(cnt);
+				var freqcnt="("+cnt+")";
+				$("#fReqCnt").html(freqcnt);
 			}else{
-				$("#reqalim").css("display","none");
+				$("#reqalimFReq").css("display","none");
+				$("#fReqCnt").html('');
 			}
 		}
 		,beforeSend:function(e){
@@ -334,13 +339,7 @@ function listFRPage(page) {
 		,data:q
 		,success:function(data){
 			$("#friendRequestList").html(data);
-			var cnt=$("#fReqCount");
-			if(cnt.val()!=0){
-				var freqcnt="("+cnt.val()+")";
-				$("#reqalim").css("display","inline-block");
-				$("#reqalim").html(cnt.val());
-				$("#fReqCnt").html(freqcnt);
-			}
+			readaFReqCnt();
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -486,5 +485,5 @@ function insFReq(friendNum) {
 	    	</li>
 	    </ul>
 	</div>
-	<div class="alim" id="reqalim"></div>
+	<div class="alim" id="reqalimFReq"></div>
 </div>

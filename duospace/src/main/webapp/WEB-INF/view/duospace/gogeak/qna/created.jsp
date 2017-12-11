@@ -21,12 +21,12 @@ function check() {
 	
 	str = f.content.value;
     if(! str) {
-        alert("내용을 입력하세요d... ");
+        alert("내용을 입력하세요... ");
         f.content.focus();
         return false;
     }
 	
-    f.action="<%=cp%>/duospace/qna/created";
+    f.action="<%=cp%>/duospace/qna/${mode}";
     return true;
 	
 }
@@ -72,8 +72,14 @@ function check() {
         제 목
     </td>
     <td>
-  		<input type="text" name="subject" class="boxTF" style="width: 100%;" value="${dto.subject}">
+    	<c:if test="${mode!='reply'}">
+  			<input type="text" name="subject" class="boxTF" style="width: 100%;" value="${dto.subject}">
+      	</c:if>
       	
+      	<c:if test="${mode=='reply'}">
+      		&nbsp;&nbsp;<img src="<%=cp%>/resource/images/duospace/icon/re.gif">&nbsp;
+  			<input type="text" name="subject" class="boxTF" style="width: 100%;" value="${dto.subject}">
+      	</c:if>
     </td>
   </tr>
   <tr style="border-bottom: 1px solid #e4e4e4" height="40px;">
@@ -90,17 +96,27 @@ function check() {
      내용
     </td>
     <td>
-        <textarea name="content" id="content" style="width: 95%; height: 270px;"></textarea>
+        <textarea name="content" id="content" style="width: 95%; height: 270px;">${dto.content}</textarea>
     </td>
   </tr>
 
   
   <tr>
     <td colspan="2" align="center">
-      
+      <c:if test="${mode=='update'}">
+      	<input type="hidden" name="searchKey" value="${searchKey}">
+      	<input type="hidden" name="searchValue" value="${searchValue}">
+      	<input type="hidden" name="page" value="${page}">
+      	<input type="hidden" name="searchCode" value="${searchCode}">
+      	<input type="hidden" name="num" value="${dto.num}">
+      </c:if>
+      <c:if test="${mode=='reply'}">
+      	<input type="hidden" name="answer" value="${dto.num}">  
+      	<input type="hidden" name="page" value="${page}">
+      </c:if>
       <button type="submit" onclick="sendOk();">${mode=='update'?"수정완료":"등록완료"}</button>
       <button type="reset">다시입력</button>
-      <button type="button">등록취소</button>
+      <button type="button" onclick="javascript:location.href='<%=cp%>/duospace/qna/list';">${mode=='update'?"수정취소":"수정완료"}</button>
     </td>
   </tr>
 </table>

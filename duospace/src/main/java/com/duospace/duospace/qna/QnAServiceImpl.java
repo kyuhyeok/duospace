@@ -38,8 +38,14 @@ public class QnAServiceImpl implements QnAService{
 
 	@Override
 	public Qna readQna(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		Qna dto=null;
+		try {
+			dto=dao.selectOne("duospace.qna.readQna", num);
+		} catch (Exception e) {
+			e.toString();
+		}
+		
+		return dto;
 	}
 
 	@Override
@@ -55,26 +61,53 @@ public class QnAServiceImpl implements QnAService{
 
 	@Override
 	public int updateQna(Qna dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.updateData("duospace.qna.update",dto);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteQna(int num) {
-		// TODO Auto-generated method stub
+		int result=0;
+		
+		try {
+			result=dao.deleteData("duospace.qna.delete", num);
+		} catch (Exception e) {
+			e.toString();
+		}
 		return 0;
 	}
 
 	@Override
 	public Qna preReadQna(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Qna dto=null;
+		try {
+			dto=dao.selectOne("duospace.qna.preReadQna", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
 	@Override
 	public Qna nextReadQna(Map<String, Object> map) {
+		Qna dto=null;
+		try {
+			dto=dao.selectOne("duospace.qna.nextReadQna", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
+	}
+
+	@Override
+	public int insertQna(Qna dto, String mode) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 }
