@@ -57,7 +57,6 @@
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="<%=cp%>/admin/spotlist">지점 리스트</a></li>
 								<li><a href="<%=cp%>/admin/spot/created">지점 등록</a></li>
-								<li><a href="<%=cp%>/admin/floor/created">층 등록</a></li>
 								<li><a href="#">좌석 배치도 리스트</a></li>
 								<li><a href="#">좌석 배치도 등록</a></li>
 								<li><a href="#">룸 정보 리스트</a></li>

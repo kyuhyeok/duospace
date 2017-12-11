@@ -10,14 +10,14 @@
 $(function(){
 	$('#ck_main').click(function(){
 		if($(this).prop('checked')){
-			$('input[name=spotCodes]').prop('checked',true);
+			$('input[name=roomCodes]').prop('checked',true);
 		}else{
-			$('input[name=spotCodes]').prop('checked', false);
+			$('input[name=roomCodes]').prop('checked', false);
 		}
 	});
 		$("#deletelistBtn").click(function(){
 			
-			var cnt = $("input[name=spotCodes]:checkbox:checked").length;
+			var cnt = $("input[name=roomCodes]:checkbox:checked").length;
 			
 			if(cnt==0){
 				alert("선택된 항목이 없습니다!");
@@ -26,7 +26,7 @@ $(function(){
 			
 			if(confirm("선택한 항목을 삭제하시겠습니까?")){
 				var f=document.deleteList;
-				f.action="<%=cp%>/admin/spot/deleteList";
+				f.action="<%=cp%>/admin/room/deleteList";
 				f.submit();
 			}
 			
@@ -35,7 +35,7 @@ $(function(){
 });
 
 function search2(f) {
-	f.action="<%=cp%>/admin/spotlist";
+	f.action="<%=cp%>/admin/roomlist";
 	if($("#searchform option:selected").val().length==0){
 		var tex="검색목록을 선택해 주세요";
 		$("#message").text(tex);
@@ -44,11 +44,11 @@ function search2(f) {
 	f.submit();
 }
 function search3(f) {
-	f.action="<%=cp%>/admin/spotlist";
+	f.action="<%=cp%>/admin/roomlist";
 	f.submit();
 }
 
-function deleteSpot(spotCode, page) {
+function deleteRoom(roomCode, page) {
 	  
 	var uid="${sessionScope.user.userId}";
 	if(! uid){
@@ -56,8 +56,8 @@ function deleteSpot(spotCode, page) {
 		return;
 	}
 	if(confirm("게시물을 삭제하시겠습니까?"))
-	var query = "?spotCode="+spotCode+"&page="+page;
-	location.href = "<%=cp%>/admin/spot/deleteSpot" + query;
+	var query = "?roomCode="+roomCode+"&page="+page;
+	location.href = "<%=cp%>/admin/room/deleteRoom" + query;
 		return;
 }
 
@@ -172,12 +172,12 @@ function deleteSpot(spotCode, page) {
 												<th style="text-align: center;"><input class="flat" id="ck_main" type="checkbox" />
 												</th>
 												<th style="text-align: center;">룸 코드</th>
+												<th style="text-align: center;">이미지</th>
 												<th style="text-align: center;">룸 이름</th>
 												<th style="text-align: center;">층 번호</th>
-												<th style="text-align: center;">지점 명</th>
-												<th style="text-align: center;">매니저</th>
-												<th style="text-align: center;">전화번호</th>
-												<th style="text-align: center;">지역</th>
+												<th style="text-align: center;">룸 가격</th>
+												<th style="text-align: center;">룸 내용</th>
+												<th style="text-align: center;">지점 이름</th>
 												<th style="text-align: center;">관리</th>
 											</tr>
 										</thead>
@@ -185,22 +185,21 @@ function deleteSpot(spotCode, page) {
 
 										<c:forEach var="dto" items="${list}">
 											<tr style="text-align: center">
-												<td><input class="flat" name="spotCodes" type="checkbox"
-													value="${dto.spotCode}" /></td>
-												<td>${dto.spotCode}</td>
-												<td>듀오 스페이스 -${dto.spotName}</td>
-												<td>${dto.spotAddrNum}</td>
-												<td>${dto.spotAddr1}</td>
-												<td>${dto.spotAddr2}</td>
-												<td>${dto.manager}</td>
-												<td>${dto.tel}</td>
-												<td>${dto.region}</td>
+												<td><input class="flat" name="roomCodes" type="checkbox"
+													value="${dto.roomCode}" /></td>
+												<td>${dto.roomCode}</td>
+												<td>${dto.saveFileName}</td>
+												<td>${dto.roomName}</td>
+												<td>${dto.floorName}</td>
+												<td>${dto.price}</td>
+												<td>${dto.rcontent}</td>
+												<td>${dto.spotName}</td>
 												<td>
-												<button type="button" class="btn btn-warning btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/update?spotCode=${dto.spotCode}&page=${page}';">
+												<button type="button" class="btn btn-warning btn-sm" onclick="javascript:location.href='<%=cp%>/admin/room/update?roomCode=${dto.roomCode}&page=${page}';">
 												수정
 												</button>
 												<button type="button" class="btn btn-danger btn-sm"
-													onclick="deleteSpot(${dto.spotCode}, ${page});">
+													onclick="deleteSpot(${dto.roomCode}, ${page});">
 													<i class="fa fa-check-square-o"></i> 삭제
 												</button>
 												</td>

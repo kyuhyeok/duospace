@@ -28,13 +28,41 @@
 	  	INSTR (region,#{searchValue}) &gt; 0
 	  </if>
 	</sql>
-
+	<select id="spotSeq" resultType="Integer">
+		SELECT seq_spot.NEXTVAL FROM DUAL
+	</select>
+	
 	<insert id="insert" parameterType="com.duospace.admin.spot.Spot">
 		INSERT INTO spot (spotCode, spotName, spotAddrNum,
 		 spotAddr1, spotAddr2, manager, tel, region) 
-		 VALUES(SEQ_SPOT.NEXTVAL, #{spotName}, #{spotAddrNum},
-		  #{spotAddr1}, #{spotAddr2}, #{manager}, #{tel}, #{region})
+		 VALUES(#{spotCode}, #{spotName}, #{spotAddrNum},
+		  #{spotAddr1}, #{spotAddr2, jdbcType=VARCHAR}, #{manager}, #{tel}, #{region})
 	</insert>
+	<insert id="insert2" parameterType="com.duospace.admin.spot.Spot">
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, '1층', #{spotCode})
+	</insert>
+	<insert id="insert3" parameterType="com.duospace.admin.spot.Spot">
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, '2층', #{spotCode})
+	</insert>
+	<insert id="insert4" parameterType="com.duospace.admin.spot.Spot">	
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, '3층', #{spotCode})
+	</insert>
+	<insert id="insert5" parameterType="com.duospace.admin.spot.Spot">	
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, '4층', #{spotCode})
+	</insert>
+	<insert id="insert6" parameterType="com.duospace.admin.spot.Spot">	
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, 'B1층', #{spotCode})
+	</insert>
+	<insert id="insert7" parameterType="com.duospace.admin.spot.Spot">	
+		INSERT INTO floor(floorNum, floorName, spotCode)
+		VALUES(SEQ_FLOOR.NEXTVAL, 'Other', #{spotCode})
+	</insert>
+		
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*),0) FROM spot

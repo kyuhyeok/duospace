@@ -119,6 +119,7 @@ function sample4_execDaumPostcode() {
     </div>
     <div>
 			<form name="boardForm" method="post">
+			
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">지 점 명</td>

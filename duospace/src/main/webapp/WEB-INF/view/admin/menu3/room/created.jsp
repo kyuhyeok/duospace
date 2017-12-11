@@ -53,17 +53,14 @@ $(function(){
         <h3><span style="font-family: Webdings">2</span> 룸 등록 </h3>
     </div>
     <div>
-			<form name="boardForm" method="post">
+			<form name="boardForm" method="post" enctype="multipart/form-data">
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
 			  		<select name="floorNum" id="sdbox">
 			  			<option selected="selected" value="">지점 선택</option>
-			  			<option value="1">1층</option>
-			  			<option value="2">2층</option>
-			  			<option value="3">3층</option>
-			  			<option value="">Other</option>
+			  			
 			  		</select>
 			  		<input type="text" name="floor" value="1층" readonly="readonly">
 			  		<span id="message" style="color: red;"></span>
@@ -74,9 +71,11 @@ $(function(){
 			  	<td style="padding-left:10px;">
 			  		<select name="floorNum" id="sdbox">
 			  			<option selected="selected" value="">층 선택</option>
+			  			<option value="B1">B1층</option>
 			  			<option value="1">1층</option>
 			  			<option value="2">2층</option>
 			  			<option value="3">3층</option>
+			  			<option value="4">4층</option>
 			  			<option value="">Other</option>
 			  		</select>
 			  		<input type="text" name="floor" value="1층" readonly="readonly">
@@ -89,12 +88,6 @@ $(function(){
 			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="" placeholder="룸 이름">
 			      </td>
 			  </tr>
-			   <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
-			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
-			      <td style="padding-left:10px;"> 
-			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
-			       </td>
-			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 설명</td>
 			      <td style="padding-left:10px;">
@@ -106,6 +99,12 @@ $(function(){
 			      <td style="padding-left:10px;">
 			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" placeholder="룸 가격">
 			      </td>
+			  </tr>
+			   <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+			      <td style="padding-left:10px;"> 
+			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
+			       </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>

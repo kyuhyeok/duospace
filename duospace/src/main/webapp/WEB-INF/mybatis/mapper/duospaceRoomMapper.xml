@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.room">
+	<insert id="insert" parameterType="com.duospace.admin.room.Room">
+		INSERT INTO room(roomCode, roomName, floorNum,
+						 price, rcontent, saveFileName) 
+		VALUES(SEQ_ROOM.NEXTVAL, #{roomName}, #{floorNum},
+			 #{price}, #{rcontent}, #{saveFileName, jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

@@ -1,8 +1,20 @@
 package com.duospace.admin.spot;
 
 public class Spot {
-	private int spotCode;
-	private String spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel, region;
+	private int spotCode, floorNum;
+	private String spotName, spotAddrNum, spotAddr1, spotAddr2, manager, tel, region, floorName;
+	public int getFloorNum() {
+		return floorNum;
+	}
+	public void setFloorNum(int floorNum) {
+		this.floorNum = floorNum;
+	}
+	public String getFloorName() {
+		return floorName;
+	}
+	public void setFloorName(String floorName) {
+		this.floorName = floorName;
+	}
 	public String getRegion() {
 		return region;
 	}

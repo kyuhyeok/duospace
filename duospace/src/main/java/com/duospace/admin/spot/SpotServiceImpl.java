@@ -18,7 +18,19 @@ public class SpotServiceImpl implements SpotService{
 	public int insertSpot(Spot dto) {
 		int result=0;
 		try {
+			int seq=dao.selectOne("duospace.spot.spotSeq");
+			dto.setSpotCode(seq);
+
 			result=dao.insertData("duospace.spot.insert", dto);
+			result=dao.insertData("duospace.spot.insert2", dto);
+			result=dao.insertData("duospace.spot.insert3", dto);
+			result=dao.insertData("duospace.spot.insert4", dto);
+			result=dao.insertData("duospace.spot.insert5", dto);
+			result=dao.insertData("duospace.spot.insert6", dto);
+			result=dao.insertData("duospace.spot.insert7", dto);
+
+			
+			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
