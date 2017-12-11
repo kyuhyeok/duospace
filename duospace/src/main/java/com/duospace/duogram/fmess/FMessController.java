@@ -1,5 +1,6 @@
 package com.duospace.duogram.fmess;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,11 +55,11 @@ public class FMessController {
 		List<FMess> list=service.listFMC(map);
 		
 		//포워딩할 jsp에 넘길 데이터
-		model.addAttribute("listFM", list);
+		model.addAttribute("list", list);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("pageNo", current_page);
 		
-		return "duoGram/fMCard";
+		return "duoGram/fMess/fMCard";
 	}
 	
 	//안읽은 메세지 tot : AJAX(JSON)

@@ -236,10 +236,10 @@ $(function() {
 	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
-	readaFReqCnt();
+	//readaFReqCnt();
 	readaFMessCnt()
-	setInterval("readaFReqCnt()",10000);
-	setInterval("readaFMessCnt()",10000);
+	//setInterval("readaFReqCnt()",10000);
+	//setInterval("readaFMessCnt()",10000);
 	
 	$("body").on("click", "#dgFReq", function(event){
 		event.stopPropagation();
@@ -306,8 +306,11 @@ function readaFReqCnt() {
 			if(cnt!=0){
 				$("#reqalimFReq").css("display","inline-block");
 				$("#reqalimFReq").html(cnt);
+				var freqcnt="("+cnt+")";
+				$("#fReqCnt").html(freqcnt);
 			}else{
 				$("#reqalimFReq").css("display","none");
+				$("#fReqCnt").html('');
 			}
 		}
 		,beforeSend:function(e){
@@ -336,13 +339,7 @@ function listFRPage(page) {
 		,data:q
 		,success:function(data){
 			$("#friendRequestList").html(data);
-			var cnt=$("#fReqCount");
-			if(cnt.val()!=0){
-				var freqcnt="("+cnt.val()+")";
-				$("#reqalimFReq").css("display","inline-block");
-				$("#reqalimFReq").html(cnt.val());
-				$("#fReqCnt").html(freqcnt);
-			}
+			readaFReqCnt();
 		}
 		,error:function(e){
 			console.log(e.responseText);

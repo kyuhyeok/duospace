@@ -2,9 +2,9 @@ package com.duospace.duogram.fmess;
 
 public class FMess {
 	private int memberNum, friendNum;
-	private String friendId, friendName;
+	private String name;
 	private String num, sendDate, readDate, content, deleteStatus; 
-	private int fMURDataCount;
+	private int unReadCnt;
 	
 	
 	public String getDeleteStatus() {
@@ -25,17 +25,11 @@ public class FMess {
 	public void setFriendNum(int friendNum) {
 		this.friendNum = friendNum;
 	}
-	public String getFriendId() {
-		return friendId;
+	public String getName() {
+		return name;
 	}
-	public void setFriendId(String friendId) {
-		this.friendId = friendId;
-	}
-	public String getFriendName() {
-		return friendName;
-	}
-	public void setFriendName(String friendName) {
-		this.friendName = friendName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getNum() {
 		return num;
@@ -61,11 +55,11 @@ public class FMess {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getfMURDataCount() {
-		return fMURDataCount;
+	public int getUnReadCnt() {
+		return unReadCnt;
 	}
-	public void setfMURDataCount(int fMURDataCount) {
-		this.fMURDataCount = fMURDataCount;
+	public void setUnReadCnt(int unReadCnt) {
+		this.unReadCnt = unReadCnt;
 	}
 	
 }

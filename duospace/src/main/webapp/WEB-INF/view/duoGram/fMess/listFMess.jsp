@@ -289,8 +289,11 @@ function readaFMessCnt() {
 			if(cnt!=0){
 				$("#reqalimFMess").css("display","inline-block");
 				$("#reqalimFMess").html(cnt);
+				var fmurcnt="("+cnt+")";
+				$("#fMURCnt").html(fmurcnt);
 			}else{
 				$("#reqalimFMess").css("display","none");
+				$("#fMURCnt").html('');
 			}
 		}
 		,beforeSend:function(e){
@@ -318,6 +321,7 @@ function listFMC(page) {
 		,data:q
 		,success:function(data){
 			$('#fMCList').prepend(data);
+			readaFMessCnt();
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
@@ -341,7 +345,7 @@ function listFMC(page) {
 	    			<div class="uiScrollableArea" style="min-height:100px; max-height: 631px;">
 	    				<div class="messengerHeader">
 							<div class="clearfix" style="zoom:1;">
-								<h3 class="uiHeaderTitle" id="unReadMess">안읽은 메시지 (1)</h3>
+								<h3 class="uiHeaderTitle">안읽은 메시지 <span id="fMURCnt"></span></h3>
 							</div>
 	    				</div>
 	    				<div class="uiScrollableAreaWrap">
