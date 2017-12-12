@@ -13,6 +13,7 @@ public interface FMessService {
 	public List<FMess> listFMessContent(Map<String, Object> map);//해당 친구 메시지들
 	public int fMCListDataCount(Map<String, Object> map);//메시지 개수
 	public int ListFMUR(Map<String, Object> map);//안읽은 메시지들
-	public int updateFMess(Map<String, Object> map);//메시지 읽음
+	public int updateReadDate(Map<String, Object> map);//메시지 읽음
+	public int updateFMess(Map<String, Object> map);//메시지 삭제업데이트
 	public int deleteFMess(FMess dto);//메시지 삭제
 }

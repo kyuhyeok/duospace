@@ -1,9 +1,9 @@
 package com.duospace.duogram.fmess;
 
 public class FMess {
-	private int memberNum, friendNum, num;
+	private int memberNum, friendNum, num, deleteStatus;
 	private String name, friendId;
-	private String sendDate, readDate, content, deleteStatus, proFileSaveFileName; 
+	private String sendDate, readDate, content, proFileSaveFileName; 
 	private int unReadCnt;
 	
 	
@@ -19,10 +19,10 @@ public class FMess {
 	public void setFriendId(String friendId) {
 		this.friendId = friendId;
 	}
-	public String getDeleteStatus() {
+	public int getDeleteStatus() {
 		return deleteStatus;
 	}
-	public void setDeleteStatus(String deleteStatus) {
+	public void setDeleteStatus(int deleteStatus) {
 		this.deleteStatus = deleteStatus;
 	}
 	public int getMemberNum() {

@@ -16,13 +16,13 @@
 				<div class="friendProfile" id="dgchatPS">
 					<c:choose>
 						<c:when test="${empty vo.proFileSaveFileName}">
-							<a class="friendLink">
+							<a class="friendLink" href="<%=cp%>/duogram/${vo.friendNum}">
 								<img style="background-color: #eeeeee" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a class='friendLink' href='"+<%=cp%>+"/duogram/"+${vo.proFileSaveFileName}"'>
-								<img style='background-color: #eeeeee' src='"+imagePath+"'>
+							<a class='friendLink' href="<%=cp%>/duogram/${vo.friendNum}">
+								<img style='background-color: #eeeeee' src='"+imagePath+"${vo.proFileSaveFileName}'>
 							</a>
 						</c:otherwise>
 					</c:choose>

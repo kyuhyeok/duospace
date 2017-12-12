@@ -382,32 +382,6 @@ $(function() {
 		}
     	if($(this).val().length > 0) {
             $('._1p1t').html($('#chatinputstream').val().length+'/'+tot);
-            $("#chatinputstream").keydown(function (key) {
-        		if(key.keyCode == 13){
-    	    		var url="<%=cp%>/duogram/insertFMess";
-    	    		var content=$(this).val();
-    	    		var fNum=$(".dgfmtitlebarText").attr("data-fmnum");
-    	    		var q="friendNum="+fNum+"$content="+encodeURIComponent(content);
-    	    		$.ajax({
-    	    			type:"post"
-    	    			,url:url
-    	    			,data:q
-    	    			,success:function(data){
-    	    				listFMCon(1,fNum);
-    	    			}
-    	    			,beforeSend:function(e){
-    	    				e.setRequestHeader("AJAX", true);
-    	    			}
-    	    			,error:function(e){
-    	    				if(e.status==403){
-    	    					location.href='<%=cp%>/member/login';
-    	    					return;
-    	    				}
-    	    				console.log(e.responseText);
-    	    			}
-    	    		});
-    	        }
-            });
         }else{
 			$('._1p1t').html('');
 		}
@@ -417,8 +391,18 @@ $(function() {
 		$('#dgChatTabFlyout').hide();
 		dchatcl();
 	});
+	$("#chatinputstream").keydown(function (key) {
+		if(key.keyCode == 13 && $(this).val().length > 0){
+			var content=$.trim($(this).val());
+			if(! content){
+				$("#chatinputstream").focus();
+				return;
+			}
+			var fNum=$(".dgfmtitlebarText").attr("data-fmnum");
+			insertFMess(fNum, content);
+        }
+    });
 });
-
 function opchat(fNum,fName) {
 	//var fPs=$(this).attr("data-fmps");
 	
@@ -444,7 +428,6 @@ function readFM(fNum, fName){
 	$("#chatFlyoutTitle").html(out);
 }
 function listFMCon(page,fNum){
-	//var imagePath='';
 	var url="<%=cp%>/duogram/listFMess";
 	var q="page="+page+"&friendNum="+fNum;
 	$.ajax({
@@ -466,13 +449,39 @@ function listFMCon(page,fNum){
 		}
 	});
 }
-function dMess(num) {
-	var url="<%=cp%>/duogram/listFMess";
-	var q="page="+page+"&fNum="+fNum;
+function insertFMess(fNum, content){
+	var url="<%=cp%>/duogram/insertFMess";
+	var q="friendNum="+fNum+"&content="+encodeURIComponent(content);
 	$.ajax({
 		type:"post"
 		,url:url
 		,data:q
+		,dataType:"json"
+		,success:function(data){
+			listFMCon(1,fNum);
+			$("#chatinputstream").val('');
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true);
+		}
+		,error:function(e){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText);
+		}
+	});
+}
+function dMess(num) {
+	var url="<%=cp%>/duogram/deleteFMess";
+	var q="num="+num;
+	alert(q);
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
 		,success:function(data){
 			var time="#time"+num;
 			var mess="#mess"+num;
@@ -531,7 +540,7 @@ function dMess(num) {
 					<div class="_5rp7 _5rp8">
 						<div class="_5rpb">
 							<div class="_1p1t" style="white-space: pre-wrap;user-select: none" id="placeholder_chat"></div>
-							<textarea id="chatinputstream" placeholder="메시지를 입력하세요..." onKeyPress="javascript:if(event.keyCode==13)return false;"></textarea>
+							<textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
 						</div>
 					</div>
 				</div>

@@ -91,10 +91,10 @@ public class FMessController {
 	
 	//메시지 보내기 : AJAX(JSON)
 	@RequestMapping(value="/duogram/insertFMess", method=RequestMethod.POST)
-	public String insertFMess(
+	@ResponseBody
+	public Map<String, Object> insertFMess(
 			FMess dto,
-			HttpSession session,
-			Model model
+			HttpSession session
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
@@ -108,11 +108,10 @@ public class FMessController {
 			
 			state="true";
 		}
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
 		
-		model.addAttribute("state", state);
-		model.addAttribute("dto", dto);
-		
-		return "duoGram/fMess/messCon";
+		return model;
 	}
 	
 	//해당 친구 메시지들(AJAX:TEXT)
@@ -155,9 +154,9 @@ public class FMessController {
 	}
 	
 	//메시지 읽음 : AJAX(JSON)
-	@RequestMapping(value="/duogram/updateFMess", method=RequestMethod.POST)
+	@RequestMapping(value="/duogram/updateReadDate", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> updateFMess(
+	public Map<String, Object> updateReadDate(
 			@RequestParam int num,
 			HttpSession session
 			) {
@@ -168,9 +167,8 @@ public class FMessController {
 			state="loginFail";
 		}else {
 			Map<String, Object> map=new HashMap<>();
-			map.put("friendNum", info.getMemberNum());
 			map.put("num", num);
-			service.updateFMess(map);
+			service.updateReadDate(map);
 			
 			state="true";
 		}
