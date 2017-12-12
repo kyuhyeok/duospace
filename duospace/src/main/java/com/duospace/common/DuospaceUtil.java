@@ -136,9 +136,54 @@ public class DuospaceUtil {
 	
 	
 	  }
+	  
+	  public String checkNull(String str) {
+	         String strTmp;
+	         if (str == null)
+	             strTmp = "";
+	         else
+	             strTmp = str;
+	         return strTmp;
+	     }
+	  
+	  
+	  public String htmlToStr(String sText) {
+		  
+		  sText=checkNull(sText);
+		  
+		  sText=sText.replace("&lt;", "<");
+		  sText=sText.replace("&gt;", ">");
+		  sText=sText.replace("&amp;", "&");
+		  sText=sText.replace("&#37;", (char)37 + "");
+		  sText=sText.replace("&quot;", (char)34 + "");
+		  sText=sText.replace("&#39;", (char)39 + "");
+		  sText=sText.replace("&#35;","#");
+		  sText=sText.replace("<br>","\n");
+		  sText=sText.replace(" ","&nbsp;");
+		 
+		  
+		  return sText;
+	  }
+	  
+	  
+	  public String strToHtml(String str) {
+			if(str==null||str.length()==0)
+				return "";
+
+	    	 str=str.replaceAll("&", "&amp;");
+	    	 str=str.replaceAll("#", "&#35;");
+	    	 str=str.replaceAll("\"", "&quot;");
+	    	 str=str.replaceAll(">", "&gt;");
+	    	 str=str.replaceAll("<", "&lt;");
+	    	 str=str.replaceAll("%", "&#37;");
+	    	 str=str.replaceAll("'", "#39;");
+	    	 str=str.replaceAll(" ", "&nbsp;");
+	    	 str=str.replaceAll("\n", "<br>");
+	    	 
+	    	 return str;
+	     }
 	
-	
-	
+	  
 	
 	
 	
