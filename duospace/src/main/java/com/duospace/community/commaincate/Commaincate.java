@@ -2,9 +2,11 @@ package com.duospace.community.commaincate;
 
 public class Commaincate {
 	private int cateNum;//분류코드
-	private String boardName;//게시판
-	private int created,boardCount;//생성일,게시판수
+	private String boardName,created;//게시판,생성일
+	private int boardCount;//게시판수
 	
+	private int hitCount,boardNum;//조회수,게시판번호
+	private String subject;//제목
 	
 	public int getCateNum() {
 		return cateNum;
@@ -18,10 +20,10 @@ public class Commaincate {
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
-	public int getCreated() {
+	public String getCreated() {
 		return created;
 	}
-	public void setCreated(int created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 	public int getBoardCount() {
@@ -29,6 +31,24 @@ public class Commaincate {
 	}
 	public void setBoardCount(int boardCount) {
 		this.boardCount = boardCount;
+	}
+	public int getHitCount() {
+		return hitCount;
+	}
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
+	}
+	public int getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	
 	

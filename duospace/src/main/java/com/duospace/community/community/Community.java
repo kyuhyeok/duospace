@@ -1,11 +1,11 @@
 package com.duospace.community.community;
 
 public class Community {
-	private int boardNum;//게시글번호
+	private int boardNum,listNum;//게시글번호,리스트번호
 	private String subject,content,created;//제목,내용,작성일
 	private int hitCount;//조회수
 	
-	private int cateGoryNum,memberNum;//게시판분류코드,회원번호
+	private int cateNum,memberNum;//게시판분류코드,회원번호
 
 	public int getBoardNum() {
 		return boardNum;
@@ -13,6 +13,14 @@ public class Community {
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
+	}
+
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
 	}
 
 	public String getSubject() {
@@ -47,12 +55,12 @@ public class Community {
 		this.hitCount = hitCount;
 	}
 
-	public int getCateGoryNum() {
-		return cateGoryNum;
+	public int getCateNum() {
+		return cateNum;
 	}
 
-	public void setCateGoryNum(int cateGoryNum) {
-		this.cateGoryNum = cateGoryNum;
+	public void setCateNum(int cateNum) {
+		this.cateNum = cateNum;
 	}
 
 	public int getMemberNum() {

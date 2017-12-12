@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duoGramFM">
+	<sql id="flist">
+        SELECT m.friendNum FROM (
+            SELECT friendNum FROM gramfriend
+            WHERE memberNum=#{memberNum}
+		) m
+        JOIN (
+            SELECT memberNum friendNum FROM gramfriend
+            WHERE friendNum=#{memberNum}
+		) f ON m.friendNum=f.friendNum
+	</sql>
+	
+	<select id="listFMC" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
+		SELECT friendNum, name, sendDate, content, unReadCnt FROM(
+			SELECT ROWNUM rnum, friendNum, name, sendDate, content, unReadCnt FROM (
+				SELECT m.friendNum, name, sendDate, content, unReadCnt FROM (
+					SELECT memberNum, friendNum, sendDate, content FROM (
+						SELECT memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY friendNum ORDER BY sendDate DESC) RANK FROM (
+							SELECT memberNum, friendNum, sendDate, content FROM(
+								SELECT memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY friendNum ORDER BY sendDate DESC) RANK
+								FROM messenger
+								WHERE memberNum=#{memberNum} AND friendNum IN (
+									<include refid="flist"/>
+								) AND deleteStatus!=1
+							) WHERE rank=1
+							UNION ALL
+							SELECT memberNum, friendNum, sendDate, content FROM(
+								SELECT friendNum memberNum, memberNum friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY memberNum ORDER BY sendDate DESC) RANK
+								FROM messenger
+								WHERE friendNum=#{memberNum} AND memberNum IN (
+									<include refid="flist"/>
+								) AND deleteStatus!=2
+							) WHERE rank=1
+						)
+					) WHERE rank=1
+				) m
+				LEFT OUTER JOIN (
+					SELECT memberNum friendNum, NVL(COUNT(*),0) unReadCnt
+					FROM messenger
+					WHERE friendNum=#{memberNum} AND memberNum IN (
+						<include refid="flist"/>
+					) AND readDate IS NULL AND deleteStatus!=2
+					GROUP BY memberNum
+				) c ON m.friendNum=c.friendNum
+				JOIN member2 n ON n.memberNum=m.friendNum
+				ORDER BY sendDate DESC
+				<![CDATA[
+			) WHERE ROWNUM<=#{end}
+		) WHERE rnum>=#{start}
+		]]>
+	</select>
+	
+	<select id="listFMCDataCount" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*),0) FROM(
+		    SELECT friendNum FROM messenger
+		    WHERE memberNum=#{memberNum} AND friendNum IN (
+		        <include refid="flist"/>
+		    ) AND deleteStatus!=1
+		    GROUP BY friendNum
+		) m
+		FULL OUTER JOIN (
+		    SELECT memberNum friendNum FROM messenger
+		    WHERE friendNum=#{memberNum} AND memberNum IN (
+		        <include refid="flist"/>
+		    ) AND deleteStatus!=2
+		    GROUP BY memberNum
+		) f ON m.friendNum=f.friendNum
+	</select>
+	
+	<select id="fMURtDCnt" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*),0) totUnReadCnt
+		FROM messenger
+		WHERE friendNum=#{memberNum} AND readDate IS NULL AND deleteStatus!=1
+	</select>
+	
+	<select id="readFMess" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
+		SELECT num, memberNum, sendDate, readDate, deleteStatus, content
+		FROM messenger
+		WHERE num=#{num}
+	</select>
+	
+	<sql id="fMesslist">
+        SELECT num, friendNum, sendDate, content FROM messenger
+        WHERE memberNum=#{memberNum} AND friendNum=#{friendNum} AND deleteStatus!=1
+        UNION ALL
+        SELECT num, friendNum, sendDate, content FROM messenger
+        WHERE friendNum=#{memberNum} AND memberNum=#{friendNum} AND deleteStatus!=2
+	</sql>
+	
+	<insert id="insertFMess" parameterType="com.duospace.duogram.fmess.FMess">
+		insert INTO messenger (num, memberNum, friendNum, content)
+        VALUES(seq_messenger.NEXTVAL, #{memberNum}, #{friendNum}, #{content})
+	</insert>
+	
+	<select id="listFMessContent" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
+		SELECT num, friendNum, sendDate, content, proFileSaveFileName FROM (
+			SELECT ROWNUM rnum, tb.* FROM (
+				<include refid="fMesslist"/>
+				<![CDATA[
+			) tb WHERE ROWNUM<=#{end}
+		) m
+		LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
+		WHERE rnum>=#{start}
+		]]>
+		ORDER BY sendDate ASC
+	</select>
+	
+	<select id="fMListDataCount" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*),0) FROM (
+			SELECT num FROM messenger
+	        WHERE memberNum=#{memberNum} AND friendNum=#{friendNum} AND deleteStatus!=1
+	        UNION ALL
+	        SELECT num FROM messenger
+	        WHERE friendNum=#{memberNum} AND memberNum=#{friendNum} AND deleteStatus!=2
+		)
+	</select>
+	
+	<update id="updateReadDate" parameterType="com.duospace.duogram.fmess.FMess">
+		UPDATE messenger SET readDate=SYSDATE WHERE num=#{num}
+	</update>
+	
+	<update id="updateFMess" parameterType="map">
+		UPDATE messenger SET deleteStatus=#{deleteStatus} WHERE num=#{num}
+	</update>
+	
+	<delete id="deleteFMess" parameterType="map">
+		DELETE FROM messenger
+		WHERE num=#{num}
+	</delete>
+</mapper>

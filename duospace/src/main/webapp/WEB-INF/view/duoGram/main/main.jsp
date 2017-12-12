@@ -118,15 +118,17 @@ function printDuogram(data) {
 			var created=data.list[idx].created;
 			var name=data.list[idx].name;
 			
-			out+="<div style='margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
-			out+="<div style='height: 30px; padding-left: 15px; padding-right: 15px; margin-top:20px; font-weight: bold; font-size: 16px;'>";
-			out+="<div style='margin-top: 5px;'>";
-			out+="<div style='float: left;margin-right: 8px;'>";
+			out+="<div style='min-height: 220px; margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
+			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
+			out+="<div style='margin-top: 10px;'>";
+			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
 			out+="<a href='#' style='text-decoration:none; color: black;'>";
-			out+="<img src='#' style='font-family: '나눔고딕';'>";
+			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
-			out+="<div style='float:left;'><a href='#' style='text-decoration:none; color: black; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<div style='float:left; height: '><a href='#' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<br>"
+			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div style='float:right;'><a href='#' style='text-decoration:none; color: #ccc; font-family: '나눔고딕';'>";
 			out+="<img src='<%=cp%>/resource/images/duogram/dot.PNG' style='width: 12px; height: 3px;'></a>";
 			out+="</div>";
@@ -139,19 +141,16 @@ function printDuogram(data) {
 			out+="</div>";
 			out+="<div style='padding-left: 15px; padding-right: 15px;'>";
 			out+="</div>";
-			out+="<div style='height: 15px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;'>";
-			out+="<div style='margin-top: 5px;'>";
-			out+="<a href='#'><div style='float:left; font-size: 14px; font-weight: bold font-family: '나눔고딕';'>"+"좋아요x개　"+"</div></a>";
-			out+="<div style='float:left; font-size: 14px;'>";
-			out+="<a href='#' style='text-decoration:none; color: #999; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
-			out+="</div>";
-			out+="</div>";
-			out+="</div>";
 			out+="<div style='padding-top: 10px; margin-left: 15px; margin-right: 15px; margin-bottom: 15px; width: 584px; font-weight: normal; font-size: 15px; line-height: 1.5em;'>"+content+"</div>";
 			out+="<div style='margin: 20px'></div>";
-			out+="<div style='color: #ccc; padding-bottom: 7px; padding-left: 15px; padding-right: 15px; font-family: '나눔고딕'; font-size: 12px'>"+created+"</div>";
+			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
+			out+="<a href='#' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요x개　"+"</a>";
+			out+="</div>";
+			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
+			out+="<a onclick='sendReply();' style='text-decoration:none; font-weight: blod; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
+			out+="</div>";
 			out+="<div style='height: 50px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);'>";
-			out+="<input type='text' style='border-radius: 4px; margin-top: 10px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
+			out+="<input type='text' style='border-radius: 4px; margin-top: 17px; margin-bottom: 7.5px; border: none; width: 584px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
 			out+="</div>";
 			out+="</div>";
 		}

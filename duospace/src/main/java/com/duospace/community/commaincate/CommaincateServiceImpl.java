@@ -30,7 +30,7 @@ public class CommaincateServiceImpl implements CommaincateService{
 	public List<Commaincate> listCommaincate(Map<String, Object> map) {
 		List<Commaincate> list=null;
 		try {
-			list=dao.selectList("commaincate.listCommaincate",map);
+			list=dao.selectList("commaincate.listcommaincate",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

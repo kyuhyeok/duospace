@@ -22,23 +22,17 @@ function sendOk() {
         f.content.focus();
         return;
     }
-
-	f.action="<%=cp%>/community/created";
+	f.action="<%=cp%>/community/created?cateNum=${cateNum}";
 
     f.submit();
 }
+
 </script>
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
 	<div style="width: 800px; margin: 10px auto 0px;">
 		<div>
-			<form name="boardForm" method="post" enctype="multipart/form-data">
+			<form name="boardForm" method="post">
 				<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-					<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-						<td width="100" bgcolor="#eeeeee" style="text-align: center;">게시판${dto.boardName}</td>
-						<td style="padding-left:10px;"> 
-							<input type="text" name="subject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.subject}">
-						</td>
-					</tr>
 					<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 						<td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 						<td style="padding-left:10px;"> 
@@ -63,10 +57,11 @@ function sendOk() {
 				<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 					<tr height="45"> 
 						<td align="center" >
-							<input type="hidden" name="cateGoryNum" value="${dto.cateGoryNum}">
-							<button type="button" class="btn" style="background: #ffffff; border: 1px solid #cccccc;" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+							<input type="hidden" name="cateNum" value="${cateNum}">
+							<input type="hidden" name="memberNum" value="${sessionScope.user.memberNum}">
+							<button type="button" class="btn" style="background: #ffffff; border: 1px solid #cccccc;" onclick="sendOk();">등록하기</button>
 							<button type="reset" class="btn" style="background: #ffffff; border: 1px solid #cccccc;">다시입력</button>
-							<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list';" style="background: #ffffff; border: 1px solid #cccccc;">${mode=='update'?'수정취소':'등록취소'}</button>
+							<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list';" style="background: #ffffff; border: 1px solid #cccccc;">등록취소</button>
 						</td>
 					</tr>
 				</table>
