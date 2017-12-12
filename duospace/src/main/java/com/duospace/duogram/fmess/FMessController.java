@@ -91,10 +91,10 @@ public class FMessController {
 	
 	//메시지 보내기 : AJAX(JSON)
 	@RequestMapping(value="/duogram/insertFMess", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> insertFMess(
+	public String insertFMess(
 			FMess dto,
-			HttpSession session
+			HttpSession session,
+			Model model
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
@@ -109,16 +109,17 @@ public class FMessController {
 			state="true";
 		}
 		
-		Map<String, Object> model=new HashMap<>();
-		model.put("state", state);
+		model.addAttribute("state", state);
+		model.addAttribute("dto", dto);
 		
-		return model;
+		return "duoGram/fMess/messCon";
 	}
 	
 	//해당 친구 메시지들(AJAX:TEXT)
 	@RequestMapping(value="/duogram/listFMess", method=RequestMethod.POST)
 	public String listFMessContent(
 			@RequestParam(value="page", defaultValue="1") int current_page,
+			@RequestParam int friendNum,
 			HttpSession session,
 			Model model
 			) {
@@ -130,6 +131,7 @@ public class FMessController {
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
+		map.put("friendNum", friendNum);
 		
 		dataCount=service.fMCListDataCount(map);
 		total_page=myUtil.pageCount(rows, dataCount);
@@ -144,18 +146,18 @@ public class FMessController {
 		List<FMess> list=service.listFMessContent(map);
 		
 		//포워딩할 jsp에 넘길 데이터
-		model.addAttribute("listFMC", list);
-		model.addAttribute("fMCLDC", dataCount);
+		model.addAttribute("list", list);
+		model.addAttribute("fMDC", dataCount);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("page", current_page);
 		
-		return "duoGram/listFMess";
+		return "duoGram/fMess/messCon";
 	}
 	
-	//메시지 삭제 : AJAX(JSON)
+	//메시지 읽음 : AJAX(JSON)
 	@RequestMapping(value="/duogram/updateFMess", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> deleteFMess(
+	public Map<String, Object> updateFMess(
 			@RequestParam int num,
 			HttpSession session
 			) {
@@ -166,6 +168,7 @@ public class FMessController {
 			state="loginFail";
 		}else {
 			Map<String, Object> map=new HashMap<>();
+			map.put("friendNum", info.getMemberNum());
 			map.put("num", num);
 			service.updateFMess(map);
 			

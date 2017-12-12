@@ -67,7 +67,7 @@ public class FMessServiceImpl implements FMessService{
 		FMess fm=null;
 		
 		try {
-			fm=dao.selectOne("duoGramFM.insertFMess", map);
+			fm=dao.selectOne("duoGramFM.readFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
