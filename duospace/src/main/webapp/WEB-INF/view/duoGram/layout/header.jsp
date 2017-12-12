@@ -17,7 +17,7 @@
 
 <!-- header -->
 <form>
-	<div style="z-index: 2; background: #172A40; border-bottom: 1px solid black; position: fixed; top:0px; margin: 0px; width: 100%; height:80px;" align="center">
+	<div style="z-index: 3; background: #172A40; border-bottom: 1px solid black; position: fixed; top:0px; margin: 0px; width: 100%; height:80px;" align="center">
 		<table style="height: 80px; width: 935px; margin: auto;">
 			<tr>
 				<td align="left" width="311px" style="padding-left: 10px">
@@ -43,9 +43,9 @@
 					
 					<!-- 드롭다운 기록 -->
     	  			<div class="dropdown" style="float: right">
-					<a title=Record aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" href="#" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-						<span style="background: red;"class="badge"><img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">3</span>
-					</a>
+					<button title=Record aria-expanded="true" data-toggle="dropdown" id="dropdownMenu1" class="dropdown-toggle" type="button" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+						<span style="background:none" class="badge"><img src="<%=cp%>/resource/images/duogram/record.png" style="width: 35px; height: 35px;">3</span>
+					</button>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">김종기님께서 게시물에 좋아요를 하셨습니다.</a></li>
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">윤숭열님께서 김종기님 타임라인에 글을 게시하였습니다.</a></li>
@@ -69,9 +69,9 @@
     	  			</div>
     	  			
     	  			<!-- 타임라인 -->
-					<div style="float: right">
+					<div style="float: right" id="hello">
 					<a title=Timeline href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
-    	  				<img src="<%=cp%>/resource/images/duogram/timeline.png" style="width: 42px; height: 45px;">&nbsp;
+    	  				<img onclick="change_background_color()" src="<%=cp%>/resource/images/duogram/timeline.png" style="width: 42px; height: 45px;">&nbsp;
     	  			</a>
     	  			</div>
 				</td>
@@ -92,7 +92,7 @@
 		</table>
 	</div>
 </form>
-	<div style="z-index: 1; position: fixed; width: 100%; background: white; border-bottom: 1px solid #ccc; margin-top: 80px; height: 37px;" align="center">
+	<div style="z-index: 2; position: fixed; width: 100%; background: white; border-bottom: 1px solid #ccc; margin-top: 80px; height: 37px;" align="center">
 		<table style="width: 935px; margin: 0px;">
 			<tr>
 				<td align="left">

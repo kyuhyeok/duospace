@@ -9,4 +9,11 @@ public interface DuogramService {
 	public int insertBoard(Duogram dto);
 	public int dataCount(Map<String, Object> map);
 	public List<Duogram> listDuogram(Map<String, Object> map);
+	public Duogram readGram(int membernum);
+	public int updateGram(Duogram dto, String pathname);
+	public int deleteGram(int membernum, String pathname, String name);
+	
+	// 리플
+	public int insertReply(Reply dto);
+	public int replyCountAnswer(int answer);
 }
