@@ -2,8 +2,31 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commaincate">
+	<!-- 분류 생성 -->
 	<insert id="insertcommaincate" parameterType="com.duospace.community.commaincate.Commaincate">
 		INSERT INTO comMainCate(cateNum,BoardName)
 	   	 	VALUES(seq_comMainCate.NEXTVAL, #{boardName})
 	</insert>
+	
+	
+	<!-- 분류 개수 -->
+	<select id="dataCountCommaincate" parameterType="map" resultType="Integer">
+	 SELECT NVL(COUNT(*), 0) FROM commaincate 
+	</select>
+	
+	
+	<!-- 분류 리스트 -->
+	<select id="listcommaincate" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
+		SELECT cm.catenum,boardname, cm.created, boardNum, subject, hitCount
+		FROM commaincate cm
+		LEFT OUTER JOIN commainboard cb ON cm.cateNum=cb.catenum
+		ORDER BY cb.CREATED ASC ,cm.created DESC
+	</select>
+	<!-- 분류생성 분류개수 분류or게시글 리스트   -->
+	<!-- 생성 리스트 수정 삭제.... -->
+	
+	
+	
+	
+	
 </mapper>

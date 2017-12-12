@@ -1,22 +1,28 @@
 package com.duospace.duogram.fmess;
 
 public class FMess {
-	private int memberNum, friendNum;
+	private int memberNum, friendNum, num, deleteStatus;
 	private String name, friendId;
-	private String num, sendDate, readDate, content, deleteStatus; 
+	private String sendDate, readDate, content, proFileSaveFileName; 
 	private int unReadCnt;
 	
 	
+	public String getProFileSaveFileName() {
+		return proFileSaveFileName;
+	}
+	public void setProFileSaveFileName(String proFileSaveFileName) {
+		this.proFileSaveFileName = proFileSaveFileName;
+	}
 	public String getFriendId() {
 		return friendId;
 	}
 	public void setFriendId(String friendId) {
 		this.friendId = friendId;
 	}
-	public String getDeleteStatus() {
+	public int getDeleteStatus() {
 		return deleteStatus;
 	}
-	public void setDeleteStatus(String deleteStatus) {
+	public void setDeleteStatus(int deleteStatus) {
 		this.deleteStatus = deleteStatus;
 	}
 	public int getMemberNum() {
@@ -37,10 +43,10 @@ public class FMess {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getNum() {
+	public int getNum() {
 		return num;
 	}
-	public void setNum(String num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 	public String getSendDate() {

@@ -1,5 +1,6 @@
 package com.duospace.duogram;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -130,6 +131,99 @@ public class DuogramController {
 		model.put("dataCount", dataCount);
 		model.put("total_page", total_page);
 		
+		return model;
+	}
+	
+	
+	@RequestMapping(value="/bbs/update", 
+			method=RequestMethod.GET)
+	public String updateForm(
+			@RequestParam int num,
+			@RequestParam String page,
+			HttpSession session,
+			Model model) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Duogram dto = service.readGram(num);
+		if(dto==null) {
+			return "redirect:/bbs/list?page="+page;
+		}
+			
+		if(! info.getUserName().equals(dto.getName())) {
+			return "redirect:/bbs/list?page="+page;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		
+		return ".bbs.created";
+	}
+
+	@RequestMapping(value="/bbs/update", 
+			method=RequestMethod.POST)
+	public String updateSubmit(
+			Duogram dto, 
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + File.separator + "uploads" + File.separator + "bbs";		
+	
+		// 수정 하기
+		service.updateGram(dto, pathname);		
+		
+		return "redirect:/bbs/list?page="+page;
+	}
+	
+	
+	// 삭제
+	@RequestMapping(value="/duogram/deleteFile", 
+			method=RequestMethod.GET)
+	public String deleteFile(
+			@RequestParam int num,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		Duogram dto = service.readGram(num);
+		if(dto==null) {
+			return "redirect:/duogram/list?page="+page;
+		}
+			
+		if(! info.getUserName().equals(dto.getName())) {
+			return "redirect:/duogram/list?page="+page;
+		}
+		
+		return "redirect:/duogram/update?num="+num+"&page="+page;
+	}
+	
+	// 리플
+	@RequestMapping(value="/duogram/insertReply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		int count=0;		
+		if(info==null) {
+			state="loginFail";
+		} else {
+			dto.setUserName(info.getUserName());
+			service.insertReply(dto);
+			
+			if(dto.getAnswer()!=0)
+				count=service.replyCountAnswer(dto.getReplyNum());
+			
+			state="true";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		model.put("count", count);
 		return model;
 	}
 }

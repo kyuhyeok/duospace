@@ -120,6 +120,9 @@ h3{
     padding-bottom: 8px;
     padding-top: 8px;
 }
+.objectListItem>*{
+	cursor: default;
+}
 
 .messegeContainer{
 	border-bottom: 1px solid #dddfe2;

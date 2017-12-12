@@ -37,14 +37,37 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public int updateRoom(Room dto, String pathname) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			if(dto.getUpload()!=null && !dto.getUpload().isEmpty()) {
+				String newFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
+		
+				if (newFilename != null) {
+					// 이전 파일 지우기
+					if(dto.getSaveFileName().length()!=0 && dto.getSaveFileName()!=null) {
+						fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+					}
+					dto.setSaveFileName(newFilename);
+				}
+			}
+				
+			dao.updateData("duospace.room.update", dto);
+			result=1;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteRoom(int roomCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.room.delete", roomCode);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
@@ -71,25 +94,24 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteListSpot(List<Integer> list) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Room> slistRoom() {
-		List<Room> slist=null;
+		int result=0;
 		try {
-			slist=dao.selectList("duospace.room.slist");
+			result=dao.selectOne("duospace.room.dataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return slist;
+		return result;
+	}
+
+	@Override
+	public int deleteListRoom(List<Integer> list) {
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.room.deleteList", list);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
@@ -113,6 +135,26 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return list;
 	}
-	
+	@Override
+	public List<Room> slistRoom() {
+		List<Room> slist=null;
+		try {
+			slist=dao.selectList("duospace.room.slist");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return slist;
+	}
+
+	@Override
+	public List<Room> regionRoom() {
+		List<Room> rlist=null;
+		try {
+			rlist=dao.selectList("duospace.room.region");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return rlist;
+	}
 	
 }

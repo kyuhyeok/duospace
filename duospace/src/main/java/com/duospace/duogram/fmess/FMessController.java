@@ -108,7 +108,6 @@ public class FMessController {
 			
 			state="true";
 		}
-		
 		Map<String, Object> model=new HashMap<>();
 		model.put("state", state);
 		
@@ -119,6 +118,7 @@ public class FMessController {
 	@RequestMapping(value="/duogram/listFMess", method=RequestMethod.POST)
 	public String listFMessContent(
 			@RequestParam(value="page", defaultValue="1") int current_page,
+			@RequestParam int friendNum,
 			HttpSession session,
 			Model model
 			) {
@@ -130,6 +130,7 @@ public class FMessController {
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
+		map.put("friendNum", friendNum);
 		
 		dataCount=service.fMCListDataCount(map);
 		total_page=myUtil.pageCount(rows, dataCount);
@@ -144,18 +145,18 @@ public class FMessController {
 		List<FMess> list=service.listFMessContent(map);
 		
 		//포워딩할 jsp에 넘길 데이터
-		model.addAttribute("listFMC", list);
-		model.addAttribute("fMCLDC", dataCount);
+		model.addAttribute("list", list);
+		model.addAttribute("fMDC", dataCount);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("page", current_page);
 		
-		return "duoGram/listFMess";
+		return "duoGram/fMess/messCon";
 	}
 	
-	//메시지 삭제 : AJAX(JSON)
-	@RequestMapping(value="/duogram/updateFMess", method=RequestMethod.POST)
+	//메시지 읽음 : AJAX(JSON)
+	@RequestMapping(value="/duogram/updateReadDate", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> deleteFMess(
+	public Map<String, Object> updateReadDate(
 			@RequestParam int num,
 			HttpSession session
 			) {
@@ -167,7 +168,7 @@ public class FMessController {
 		}else {
 			Map<String, Object> map=new HashMap<>();
 			map.put("num", num);
-			service.updateFMess(map);
+			service.updateReadDate(map);
 			
 			state="true";
 		}

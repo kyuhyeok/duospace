@@ -276,24 +276,6 @@ $(function() {
 			dReqcl();
 		}
 	});
-	$("body").on("click", ".objectListItem messegeContainer", function(){
-		var fNum=$(this).attr("data-fmnum");
-		var fName=$(this).attr("data-fmname");
-		var fPS=$(this).attr("data-fmPS");
-		
-		var isVisible=$("#dgChatTabFlyout").is(":visible");
-		
-		if(isVisible){
-			dchatcl();
-			$('#dgChatTabFlyout').show();
-			readFM(fNum, fName);
-			listFMCon();
-		}else {
-			$('#dgChatTabFlyout').show();
-			readFM(fNum, fName);
-			listFMCon();
-		}
-	});
 });
 function readaFReqCnt() {
 	var url="<%=cp%>/duogram/readFReqCnt";
@@ -327,8 +309,7 @@ function readaFReqCnt() {
 	});
 }
 function dReqcl() {
-	$('.dgfmtitlebarText').remove();
-	$('#dgchatcontent').html('');
+	$('#friendRequestList').html('');
 }
 function listFRPage(page) {
 	var url="<%=cp%>/duogram/listFReq";

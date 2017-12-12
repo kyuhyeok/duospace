@@ -2,9 +2,31 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="community">
+	<!-- 게시판 글쓰기 -->
 	<insert id="insertCommunity" parameterType="com.duospace.community.community.Community">
-		 INSERT INTO commainboard (boardnum,subject, content, CATEGORYNUM, membernum)
-			VALUES(seq_commainboard.NEXTVAL, #{subject} , #{content} , #{categorynum} ,#{membernum});
+		 INSERT INTO commainboard (boardNum,subject, content, cateNum, membernum)
+			VALUES(seq_commainboard.NEXTVAL, #{subject} , #{content} , #{cateNum} ,#{memberNum})
 	</insert>
+	
+	<!-- 글갯수 -->
+	<!-- 서비스에서 맵을던지면 파라미터타입 맵을받는다. -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM commainboard
+	</select>
+	
+	<select id="listCommunity" resultType="com.duospace.community.community.Community" parameterType="map">
+
+	 SELECT * FROM (
+    	SELECT ROWNUM rnum, tb.* FROM (
+       	 	SELECT boardnum,subject,content,created,hitCount,cateNum,c.memberNum
+       	 	FROM commainboard c
+	       	JOIN member2 m ON m.membernum=c.membernum
+	        WHERE cateNum=#{cateNum}
+	        ORDER BY boardnum DESC
+<![CDATA[
+    	) tb WHERE ROWNUM <= #{end}
+	) WHERE rnum >= #{start}
+]]>
+	</select>
 	
 </mapper>

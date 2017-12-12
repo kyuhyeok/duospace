@@ -4,7 +4,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Room {
 	private int roomCode, floorNum, price, spotCode;
-	private String roomName, rcontent, saveFileName, spotName, floorName;
+	private String roomName, rcontent, saveFileName, spotName, floorName, region;
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
 	public int getSpotCode() {
 		return spotCode;
 	}

@@ -67,7 +67,7 @@ public class FMessServiceImpl implements FMessService{
 		FMess fm=null;
 		
 		try {
-			fm=dao.selectOne("duoGramFM.insertFMess", map);
+			fm=dao.selectOne("duoGramFM.readFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -109,13 +109,25 @@ public class FMessServiceImpl implements FMessService{
 		}
 		return result;
 	}
+	
+	@Override
+	public int updateReadDate(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("duoGramFM.updateFMess", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
 
 	@Override
 	public int updateFMess(Map<String, Object> map) {
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.fMListDataCount", map);
+			result=dao.selectOne("duoGramFM.updateFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -129,12 +141,30 @@ public class FMessServiceImpl implements FMessService{
 		try {
 			Map<String, Object> map=new HashMap<>();
 			map.put("num", dto.getNum());
-			String ds=readFMess(map).getDeleteStatus();
+			int my=dto.getMemberNum();
 			
-			switch(ds) {
-			case "1":return result;
-			case "2":result=dao.deleteData("duoGramFM.deleteFMess", map);break;
-			default:map.put("deleteStatus", "1");result=dao.updateData("duoGramFM.updateFMess", map);break;
+			dto=null;
+			dto=readFMess(map);
+			int ds=dto.getDeleteStatus();
+			int from=dto.getMemberNum();
+			String readDate=dto.getReadDate();
+			
+			if(my==from) {
+				if(readDate!=null) {
+					switch(ds) {
+					case 1:return result;
+					case 2:result=dao.deleteData("duoGramFM.deleteFMess", map);break;
+					default:map.put("deleteStatus", "1");result=dao.updateData("duoGramFM.updateFMess", map);break;
+					}
+				}else {
+					result=dao.deleteData("duoGramFM.deleteFMess", map);
+				}
+			}else {
+				switch(ds) {
+				case 1:result=dao.deleteData("duoGramFM.deleteFMess", map);break;
+				case 2:return result;
+				default:map.put("deleteStatus", "2");result=dao.updateData("duoGramFM.updateFMess", map);break;
+				}
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());

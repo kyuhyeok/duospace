@@ -16,10 +16,6 @@
 	margin: 0 auto;
 }
 
-nav {
-	background-color: #D9383A;
-}
-
 nav ul {
 	padding: 0;
 	margin: 0;
@@ -29,20 +25,22 @@ nav ul {
 
 nav ul li {
 	display: inline-block;
-	background-color: #D9383A;
+
 }
 
 nav a {
+	color: #000000;
 	display: block;
 	padding: 0 10px;
-	color: #FFF;
-	font-size: 20px;
+	font-size: 14px;
 	line-height: 60px;
 	text-decoration: none;
 }
 
-nav a:hover {
-	background-color: #000000;
+nav a:hover { 
+	color: #ffffff;
+	text-decoration:none;
+	background-color: #333333;
 }
 
 /* Hide Dropdowns by Default */
@@ -55,7 +53,6 @@ nav ul ul {
 /* Display Dropdowns on Hover */
 nav ul li:hover>ul {
 	display: inherit;
-	
 }
 nav ul li:hover>ul li {
 	display: inherit;
@@ -63,7 +60,7 @@ nav ul li:hover>ul li {
 }
 /* Fisrt Tier Dropdown */
 nav ul ul li {
-	width: 170px;
+	width: 90px;
 	float: none;
 	display: list-item;
 	position: relative;
@@ -73,7 +70,6 @@ nav ul ul li {
 nav ul ul ul li {
 	position: relative;
 	top: -60px;
-	left: 170px;
 }
 .container-fluid{
 	padding: 0px;
@@ -133,29 +129,19 @@ nav ul ul ul li {
 </head>
 <body>
 <div>
-				<nav>
+	<nav>
+			<ul>
+	<c:forEach var="dto" items="${rlist}">
+				<li><a href="#">${dto.region}</a>
 					<ul>
-						<li><a href="#">서울</a> <!-- First Tier Drop Down -->
-							<ul>
-								<li><a href="#">Duo강남</a></li>
-								<li><a href="#">Duo당산</a></li>
-								<li><a href="#">Duo목동</a></li>
-							</ul></li>
-
-						<li><a href="#">경기</a> <!-- Second Tier Drop Down -->
-							<ul>
-								<li><a href="#">Duo몰라d</a></li>
-								<li><a href="#">Duo어쩔</a></li>
-								<li><a href="#">Duo응응</a></li>
-							</ul></li>
-
-						<li><a href="#">인천</a> <!-- Third Tier Drop Down -->
-							<ul>
-								<li><a href="#">Duo그래</a></li>
-								<li><a href="#">Duo이응</a></li>
-								<li><a href="#">Duo오키</a></li>
-							</ul></li>
-					</ul>
+						<c:forEach var="vo" items="${slist}">
+						<c:if test="${dto.region==vo.region}">
+							<li style="text-align: center;"><a href="#">${vo.spotName}</a></li>
+						</c:if>
+						</c:forEach>
+					</ul></li>
+	</c:forEach>
+			</ul>
 				</nav>
 			</div>
 
@@ -165,21 +151,23 @@ nav ul ul ul li {
     <h4 style="margin-bottom: 5%;"> 독립된 공간으로 마음껏 대화를 나눠 보세요!</h4>
   </div>
   <div class="row">
+   <c:forEach var="dto" items="${list}">
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
-          <h1>Project Room</h1> 
+          <h1>${dto.roomName}</h1> 
         </div>
         <div class="panel-body-img" style="width: 100%">
-          <img src="<%=cp%>/resource/images/duospace/IMG_0006.jpg">
+          <img src="<%=cp%>/resource/images/duospace/Room/${dto.saveFileName}">
         </div>
         <div class="panel-footer">
-          <h3>13만원/1개월</h3>
-          <h4>Project Room은 어쩌고 저쩌고 살아가면서 대화를 나누고 함께 나아갈 수 있습니다.하하하</h4>
+          <h3>\<fmt:formatNumber value="${dto.price}" pattern="#,###"/>/1월</h3>
+          <h4>${dto.rcontent}</h4>
           <button class="btn btn-lg">예약하기</button>
         </div>
       </div>      
-    </div>     
+    </div>   
+    </c:forEach>  
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">

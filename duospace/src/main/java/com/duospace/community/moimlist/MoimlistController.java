@@ -32,20 +32,22 @@ public class MoimlistController {
 			Model model
 			)throws Exception{
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
 		String me="true";
 		if(info.getMemberNum()!=memberNum)
 			me="false";
 		model.addAttribute("me", me);
-		model.addAttribute("moimNum", memberNum);
+		model.addAttribute("moimNum", memberNum);//
+		
 		//데이터 개수
 		int dataCount;
 		Map<String, Object> map = new HashMap<>();
-		map.put("memberNum", memberNum);
+		map.put("memberNum", memberNum);//
 		dataCount=dto.getMoimcount();
 		
 		List<Commoim> list=service.listCommoim(map);
 		model.addAttribute("dataCount",dataCount);
-		model.addAttribute("memberNum",memberNum);
+		model.addAttribute("memberNum",memberNum);//
 		model.addAttribute("list",list);
 		
 		return ".community.moim.moimlist";
