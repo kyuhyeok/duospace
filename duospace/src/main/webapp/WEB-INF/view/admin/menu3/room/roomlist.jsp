@@ -57,7 +57,7 @@ function deleteRoom(roomCode, page) {
 	}
 	if(confirm("게시물을 삭제하시겠습니까?"))
 	var query = "?roomCode="+roomCode+"&page="+page;
-	location.href = "<%=cp%>/admin/room/deleteRoom" + query;
+	location.href = "<%=cp%>/admin/room/delete" + query;
 		return;
 }
 
@@ -200,7 +200,7 @@ function deleteRoom(roomCode, page) {
 												수정
 												</button>
 												<button type="button" class="btn btn-danger btn-sm"
-													onclick="deleteSpot(${dto.roomCode}, ${page});">
+													onclick="deleteRoom(${dto.roomCode}, ${page});">
 													<i class="fa fa-check-square-o"></i> 삭제
 												</button>
 												</td>

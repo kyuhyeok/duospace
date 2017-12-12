@@ -77,8 +77,17 @@
 	<update id="update">
 		UPDATE room SET roomName=#{roomName}, 
 		floorNum=#{floorNum}, price=#{price}, rcontent=#{rcontent}, 
-		saveFileName=#{saveFilename, jdbcType=VARCHAR}
+		saveFileName=#{saveFileName, jdbcType=VARCHAR}
 		WHERE roomCode=#{roomCode}
 	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM room WHERE roomCode=#{roomCode}
+	</delete>
+	<delete id="deleteList" parameterType="java.util.List">
+		DELETE FROM room WHERE roomCode IN 
+		  <foreach collection="list" item="roomCode" index="index" open="(" separator="," close=")">
+		  	#{roomCode}
+		  </foreach>
+	</delete>
 	
 </mapper>

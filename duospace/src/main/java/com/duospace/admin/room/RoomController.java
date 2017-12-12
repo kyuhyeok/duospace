@@ -3,6 +3,7 @@ package com.duospace.admin.room;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.admin.floor.Floor;
 import com.duospace.common.DuospaceUtil;
 import com.duospace.common.FileManager;
+import com.duospace.duospace.notice.Notice;
 
 
 @Controller("admin.room.RoomController")
@@ -166,5 +168,53 @@ public class RoomController {
 		service.updateRoom(dto, pathname);
 		
 		return "redirect:/admin/roomlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/room/delete")
+	public String Delete(
+			@RequestParam int roomCode,
+			@RequestParam String page,
+			HttpSession session
+			)throws Exception {
+		
+		Room dto = service.readRoom(roomCode);
+		
+		if(dto==null)
+			return "redirect:/admin/roomlist?page="+page;
+		if(dto.getSaveFileName()!=null && dto.getSaveFileName().length() !=0) {
+			//서버에서 첨부파일 삭제
+			String root = session.getServletContext().getRealPath("/");
+			String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+			fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+		}
+		service.deleteRoom(roomCode);
+		
+		return "redirect:/admin/roomlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/room/deleteList", method=RequestMethod.POST)
+	public String DeleteList(
+			@RequestParam Integer[] roomCodes,
+			@RequestParam String page,
+			@RequestParam String rows,
+			HttpSession session
+			)throws Exception{
+		List<Integer> list= Arrays.asList(roomCodes);
+		
+		String root=session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+		
+		for(Integer roomCode:list) {
+			Room dto=service.readRoom(roomCode);
+			if(dto!=null&&dto.getSaveFileName()!=null&&dto.getSaveFileName().length() !=0) {
+
+					fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+			}
+		}
+		
+		service.deleteListRoom(list);
+		
+		
+		return "redirect:/admin/roomlist?page="+page+"&rows="+rows;
 	}
 }

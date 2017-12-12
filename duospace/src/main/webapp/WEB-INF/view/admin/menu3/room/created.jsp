@@ -18,15 +18,10 @@
 </style>
 <script type="text/javascript">
     function check() {
-    	alert
+    	
         var f = document.boardForm;
 		
-    	var str = f.spotCode.value;
-    	if(!str){
-    		alert("지점을 선택 하세요.");
-    		f.spotCode.focus();
-    		return;
-    	}
+    	
     	var str = f.roomName.value;
         if(!str) {
             alert("룸 이름을 입력하세요. ");
@@ -109,22 +104,31 @@ $(function(){
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
+			  	<c:if test="${mode=='created'}">
 			  		<select name="spotCode" id="shop" onchange="floorList();">
 			  			<option selected="selected" value="">지점 선택</option>
 			  			<c:forEach var="vo" items="${slist}">
-			  				<option value="${vo.spotCode}" ${dto.spotCode==vo.spotCode?"selected='selected'":""}>${vo.spotName}</option>
+			  				<option value="${vo.spotCode}" ${dto.spotName==vo.spotName?"selected='selected'":""}>${vo.spotName}</option>
 			  			</c:forEach>
 			  		</select>
+			  	</c:if>
+			  	<c:if test="${mode=='update'}">
+			  		${dto.spotName} 
+			  	</c:if>
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
 			  	<td style="padding-left:10px;">
+			  	<c:if test="${mode=='created'}">
 			  		<select name="floorNum" id="floor">
 			  			<option selected="selected" value="">층 선택</option>
 			  		</select>
-			  		
+			  	</c:if>
+			  	<c:if test="${mode=='update'}">
+			  		${dto.floorName}
+			  	</c:if>
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>

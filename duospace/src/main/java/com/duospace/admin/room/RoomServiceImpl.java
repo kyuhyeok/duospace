@@ -61,8 +61,13 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public int deleteRoom(int roomCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.room.delete", roomCode);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
@@ -99,9 +104,14 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public int deleteListSpot(List<Integer> list) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteListRoom(List<Integer> list) {
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.room.deleteList", list);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override
