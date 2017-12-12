@@ -199,7 +199,7 @@ function sendReply() {
 <div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px; z-index: 2">
 </div>
 <!-- 윗칸 띄우기 -->
-<div style="height: 110px"></div>
+<div style="height: 115px"></div>
 
 <!-- left -->
 <!-- mid -->
@@ -211,28 +211,15 @@ function sendReply() {
 	<img  style="vertical-align: middle" src="<%=cp%>/resource/images/duogram/profile3.jpg">
 </div>
 <!-- 커버사진이 있을 때 -->
-<c:if test="">
+
 <!-- 마이프로필 프사 -->
 <div style="border-radius: 4px; position: relative; left: 30px; top: 120px ;border: 1px solid rgba(0,0,0,.0975); padding-top: 200px; width: 160px; height: 160px; background:white; border: 1px solid auto">
 	<div style="border-radius: 4px; position: relative; bottom: 250px; background: #ccc; margin: auto; width: 150px; height: 150px; border: 1px solid rgba(0,0,0,.0975);">
 	</div>
 </div>
 <!-- 마이프로필 정보 -->
-<div style="position: relative; top: 130px; width: 935px; height: 50px; background: white; border: 1px solid #ccc; margin: auto;">
-	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-		<a href="#" style="text-decoration:none;">마이페이지</a>
-	</div>
-	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-		<a href="#" style="text-decoration:none;">정보</a>
-	</div>
-	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-		<a href="#" style="text-decoration:none;">친구</a>
-	</div>
-	<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-		<a href="#" style="text-decoration:none;">타임라인</a>
-	</div>
-</div>
-</c:if>
+
+
 <!-- 커버사진이 없을 때 -->
 <c:if test="">
 <!-- 마이프로필 프사 -->
@@ -262,6 +249,20 @@ function sendReply() {
 
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
+		<div style="width: 935px; height: 50px; background: white; border: 1px solid #ccc; margin: auto;">
+		<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+			<a href="#" style="text-decoration:none;">마이페이지</a>
+		</div>
+		<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+			<a href="#" style="text-decoration:none;">정보</a>
+		</div>
+		<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+			<a href="#" style="text-decoration:none;">친구</a>
+		</div>
+		<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
+			<a href="#" style="text-decoration:none;">타임라인</a>
+		</div>
+	</div>
 		<div style="height: 60px">
 		</div>
 		
