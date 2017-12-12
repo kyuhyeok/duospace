@@ -27,7 +27,7 @@
 			 #{price}, #{rcontent}, #{saveFileName, jdbcType=VARCHAR})
 	</insert>
 	<select id="readroom" parameterType="map" resultType="com.duospace.admin.room.Room">
-		SELECT r.roomCode, r.roomName, r.floorNum, price, rcontent, saveFileName, f.floorName, f.spotCode, s.spotName
+		SELECT r.roomCode, r.roomName, r.floorNum, price, rcontent, saveFileName, f.floorName, f.spotCode, s.spotName, s.region,s.spotaddrnum, s.spotaddr1, s.manager, s.tel
 		FROM ROOM r
         JOIN floor f ON r.floorNum = f.floorNum
         JOIN spot s ON f.spotCode=s.spotCode
@@ -55,9 +55,14 @@
 ]]>					
 	</select>
 	
-	<select id="slist" parameterType="map" resultType="com.duospace.admin.room.Room">
-		SELECT spotCode, spotName FROM spot	
+	<select id="region" parameterType="map" resultType="com.duospace.admin.room.Room">
+		SELECT distinct region FROM spot
 	</select>
+	
+	<select id="slist" parameterType="map" resultType="com.duospace.admin.room.Room">
+		SELECT spotCode, spotName, region FROM spot
+	</select>
+	
 	<select id="flist" parameterType="map" resultType="com.duospace.admin.room.Room">
 		SELECT floorNum, floorName FROM floor
 	</select>
@@ -74,7 +79,7 @@
 		  </if>
 		</where>
 	</select>
-	<update id="update">
+	<update id="update" parameterType="com.duospace.admin.room.Room">
 		UPDATE room SET roomName=#{roomName}, 
 		floorNum=#{floorNum}, price=#{price}, rcontent=#{rcontent}, 
 		saveFileName=#{saveFileName, jdbcType=VARCHAR}

@@ -64,6 +64,7 @@ function deleteRoom(roomCode, page) {
 </script>
 </head>
 <body>
+
 	<div class="right_col" role="main">
 
 		<div class="container" style="background: #ffffff;">

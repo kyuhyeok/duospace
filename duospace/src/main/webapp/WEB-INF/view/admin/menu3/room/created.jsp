@@ -82,13 +82,6 @@ function floorList() {
 	});
 }
 
-
-    
-$(function(){
-	$("[placeholder]").css("color","red");
-});
-
-
     
 </script>
 <style type="text/css">
@@ -101,7 +94,7 @@ $(function(){
     <div>
 			<form name="boardForm" method="post" enctype="multipart/form-data">
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  <tr align="left" height="40">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
 			  	<c:if test="${mode=='created'}">
@@ -118,7 +111,7 @@ $(function(){
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
-			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  <tr align="left" height="40">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
 			  	<td style="padding-left:10px;">
 			  	<c:if test="${mode=='created'}">
@@ -132,31 +125,31 @@ $(function(){
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
-			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			  <tr align="left" height="40"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">룸 이름</td>
 			      <td style="padding-left:10px;"> 
 			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="${dto.roomName}" placeholder="룸 이름">
 			      </td>
 			  </tr>
-			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			  <tr align="left" height="40"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 설명</td>
 			      <td style="padding-left:10px;">
 			        <input type="text" name="rcontent" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.rcontent}" placeholder="룸 설명">
 			      </td>
 			  </tr>
-			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			  <tr align="left" height="40"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 가격</td>
 			      <td style="padding-left:10px;">
 			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.price}"  placeholder="룸 가격">
 			      </td>
 			  </tr>
-			   <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+			   <tr align="left" height="40">
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 			      <td style="padding-left:10px;"> 
 			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
 			       </td>
 			  </tr>
-			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
+			  <tr align="left" height="40"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>
 			      <td style="padding-left:10px;"> 
 			          ${sessionScope.user.userName}

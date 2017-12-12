@@ -115,17 +115,6 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public List<Room> slistRoom() {
-		List<Room> slist=null;
-		try {
-			slist=dao.selectList("duospace.room.slist");
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return slist;
-	}
-
-	@Override
 	public List<Room> flistRoom() {
 		List<Room> flist=null;
 		try {
@@ -145,6 +134,27 @@ public class RoomServiceImpl implements RoomService{
 			System.out.println(e.toString());
 		}
 		return list;
+	}
+	@Override
+	public List<Room> slistRoom() {
+		List<Room> slist=null;
+		try {
+			slist=dao.selectList("duospace.room.slist");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return slist;
+	}
+
+	@Override
+	public List<Room> regionRoom() {
+		List<Room> rlist=null;
+		try {
+			rlist=dao.selectList("duospace.room.region");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return rlist;
 	}
 	
 }
