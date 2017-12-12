@@ -12,7 +12,7 @@ public interface RoomService {
 	public List<Room> listRoom(Map<String, Object> map);
 	public Room readRoom (int roomCode);
 	public int dataCount(Map<String, Object> map);
-	public int deleteListSpot(List<Integer> list);
+	public int deleteListRoom(List<Integer> list);
 	public List<Room> slistRoom();
 	public List<Room> flistRoom();
 	public List<Floor> listFloor(int spotCode);

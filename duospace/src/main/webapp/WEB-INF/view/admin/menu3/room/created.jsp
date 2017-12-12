@@ -18,15 +18,10 @@
 </style>
 <script type="text/javascript">
     function check() {
-    	alert
+    	
         var f = document.boardForm;
 		
-    	var str = f.spotCode.value;
-    	if(!str){
-    		alert("지점을 선택 하세요.");
-    		f.spotCode.focus();
-    		return;
-    	}
+    	
     	var str = f.roomName.value;
         if(!str) {
             alert("룸 이름을 입력하세요. ");
@@ -101,7 +96,7 @@ $(function(){
 
 <div class="body-container">
     <div class="body-title">
-        <h3><span style="font-family: Webdings">2</span> 룸 등록 </h3>
+        <h3><span style="font-family: Webdings">2</span> ${mode=='update'? '룸 수정':'룸 등록'}</h3>
     </div>
     <div>
 			<form name="boardForm" method="post" enctype="multipart/form-data">
@@ -109,41 +104,50 @@ $(function(){
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
+			  	<c:if test="${mode=='created'}">
 			  		<select name="spotCode" id="shop" onchange="floorList();">
 			  			<option selected="selected" value="">지점 선택</option>
-			  			<c:forEach var="dto" items="${slist}">
-			  				<option value="${dto.spotCode}">${dto.spotName}</option>
+			  			<c:forEach var="vo" items="${slist}">
+			  				<option value="${vo.spotCode}" ${dto.spotName==vo.spotName?"selected='selected'":""}>${vo.spotName}</option>
 			  			</c:forEach>
 			  		</select>
+			  	</c:if>
+			  	<c:if test="${mode=='update'}">
+			  		${dto.spotName} 
+			  	</c:if>
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
 			  	<td style="padding-left:10px;">
+			  	<c:if test="${mode=='created'}">
 			  		<select name="floorNum" id="floor">
 			  			<option selected="selected" value="">층 선택</option>
 			  		</select>
-			  		
+			  	</c:if>
+			  	<c:if test="${mode=='update'}">
+			  		${dto.floorName}
+			  	</c:if>
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">룸 이름</td>
 			      <td style="padding-left:10px;"> 
-			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="" placeholder="룸 이름">
+			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="${dto.roomName}" placeholder="룸 이름">
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 설명</td>
 			      <td style="padding-left:10px;">
-			        <input type="text" name="rcontent" maxlength="100" class="boxTF" style="width: 95%;" placeholder="룸 설명">
+			        <input type="text" name="rcontent" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.rcontent}" placeholder="룸 설명">
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 가격</td>
 			      <td style="padding-left:10px;">
-			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" placeholder="룸 가격">
+			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.price}"  placeholder="룸 가격">
 			      </td>
 			  </tr>
 			   <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
@@ -164,12 +168,19 @@ $(function(){
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
 			      <td align="center" >
-			        <button type="button" class="btn btn-success btn-sm" onclick="check();">등록하기</button>
+			        <button type="button" class="btn btn-success btn-sm" onclick="check();">${mode=='update'? '수정완료': '등록하기' }</button>
 			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
-			        <button type="button" class="btn btn-danger btn-sm">등록취소</button>
+			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/roomlist?page=${page}'">${mode=='update'?'수정취소':'등록취소'}</button>
 			      </td>
 			    </tr>
 			  </table>
+			  <c:if test="${mode=='update'}">
+			         	 <input type="hidden" name="spotCode" value="${dto.spotCode}">
+			        	 <input type="hidden" name="page" value="${page}">
+			         	 <input type="hidden" name="saveFileName" value="${dto.saveFileName}">
+			         	 <input type="hidden" name="roomCode" value="${dto.roomCode}">
+			  </c:if>
+			  
 			</form>
 			
 

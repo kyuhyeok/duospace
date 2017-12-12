@@ -15,6 +15,9 @@
 	  <if test="searchKey=='spotName'">
 	    INSTR(spotName,#{searchValue}) &gt; 0
 	  </if>
+	  <if test="searchKey=='floorName'">
+	    INSTR(floorName,#{searchValue}) &gt; 0
+	  </if>
 	</sql>
 	
 	<insert id="insert" parameterType="com.duospace.admin.room.Room">
@@ -24,8 +27,10 @@
 			 #{price}, #{rcontent}, #{saveFileName, jdbcType=VARCHAR})
 	</insert>
 	<select id="readroom" parameterType="map" resultType="com.duospace.admin.room.Room">
-		SELECT roomCode, roomName, floorNum, price, rcontent, saveFileName
-		FROM ROOM
+		SELECT r.roomCode, r.roomName, r.floorNum, price, rcontent, saveFileName, f.floorName, f.spotCode, s.spotName
+		FROM ROOM r
+        JOIN floor f ON r.floorNum = f.floorNum
+        JOIN spot s ON f.spotCode=s.spotCode
 		WHERE
 		roomCode=#{roomCode}
 	</select>
@@ -69,6 +74,20 @@
 		  </if>
 		</where>
 	</select>
-	
+	<update id="update">
+		UPDATE room SET roomName=#{roomName}, 
+		floorNum=#{floorNum}, price=#{price}, rcontent=#{rcontent}, 
+		saveFileName=#{saveFileName, jdbcType=VARCHAR}
+		WHERE roomCode=#{roomCode}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM room WHERE roomCode=#{roomCode}
+	</delete>
+	<delete id="deleteList" parameterType="java.util.List">
+		DELETE FROM room WHERE roomCode IN 
+		  <foreach collection="list" item="roomCode" index="index" open="(" separator="," close=")">
+		  	#{roomCode}
+		  </foreach>
+	</delete>
 	
 </mapper>

@@ -3,6 +3,7 @@ package com.duospace.admin.room;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.admin.floor.Floor;
 import com.duospace.common.DuospaceUtil;
 import com.duospace.common.FileManager;
-import com.duospace.common.MyUtil;
+import com.duospace.duospace.notice.Notice;
 
 
 @Controller("admin.room.RoomController")
@@ -55,8 +56,9 @@ public class RoomController {
 			@RequestParam(value="searchValue", defaultValue="")String searchValue,
 			Model model
 			) throws Exception{
-		String cp= req.getContextPath();
 		
+		String cp= req.getContextPath();
+
 		int total_page=0;
 		int dataCount=0;
 		
@@ -130,4 +132,89 @@ public class RoomController {
 		return "redirect:/admin/roomlist";
 	}
 	
+	@RequestMapping(value="/admin/room/update", method=RequestMethod.GET)
+	public String updateForm(
+			@RequestParam(value="roomCode") int roomCode,
+			@RequestParam(value="page")String page,
+			@RequestParam(value="spotCode",defaultValue="0")int spotCode,
+			Model model
+			) throws Exception{
+		List<Room> slist =service.slistRoom();
+		List<Room> flist =service.flistRoom();
+		Room dto =service.readRoom(roomCode);
+		if(dto==null)
+			return "redirect:/admin/roomlist?page="+page+"&spotCode="+spotCode;
+		model.addAttribute("flist", flist);
+		model.addAttribute("slist", slist);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+		
+		return ".admin4.menu3.room.created";
+	}
+	
+	@RequestMapping(value="/admin/room/update", method=RequestMethod.POST)
+	public String updateSubmit(
+			Room dto,
+			@RequestParam String page,
+			HttpSession session
+			) throws Exception{
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+		
+		
+		
+		service.updateRoom(dto, pathname);
+		
+		return "redirect:/admin/roomlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/room/delete")
+	public String Delete(
+			@RequestParam int roomCode,
+			@RequestParam String page,
+			HttpSession session
+			)throws Exception {
+		
+		Room dto = service.readRoom(roomCode);
+		
+		if(dto==null)
+			return "redirect:/admin/roomlist?page="+page;
+		if(dto.getSaveFileName()!=null && dto.getSaveFileName().length() !=0) {
+			//서버에서 첨부파일 삭제
+			String root = session.getServletContext().getRealPath("/");
+			String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+			fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+		}
+		service.deleteRoom(roomCode);
+		
+		return "redirect:/admin/roomlist?page="+page;
+	}
+	
+	@RequestMapping(value="/admin/room/deleteList", method=RequestMethod.POST)
+	public String DeleteList(
+			@RequestParam Integer[] roomCodes,
+			@RequestParam String page,
+			@RequestParam String rows,
+			HttpSession session
+			)throws Exception{
+		List<Integer> list= Arrays.asList(roomCodes);
+		
+		String root=session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+		
+		for(Integer roomCode:list) {
+			Room dto=service.readRoom(roomCode);
+			if(dto!=null&&dto.getSaveFileName()!=null&&dto.getSaveFileName().length() !=0) {
+
+					fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+			}
+		}
+		
+		service.deleteListRoom(list);
+		
+		
+		return "redirect:/admin/roomlist?page="+page+"&rows="+rows;
+	}
 }
