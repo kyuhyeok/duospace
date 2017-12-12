@@ -116,9 +116,10 @@ function deleteRoom(roomCode, page) {
 									<div class="col-sm-2 col-xs-12">
 										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
+											<option value="spotName">지점 이름</option>
 											<option value="roomCode">룸코드</option>
 											<option value="roomName">룸 이름</option>
-											<option value="floorNum">층 번호</option>
+											<option value="floorName">층 번호</option>
 										</select>										
 									</div>
 									<div class="col-sm-2 col-xs-12">
@@ -188,7 +189,7 @@ function deleteRoom(roomCode, page) {
 												<td><input class="flat" name="roomCodes" type="checkbox"
 													value="${dto.roomCode}" /></td>
 												<td>${dto.roomCode}</td>
-												<td>${dto.saveFileName}</td>
+												<td><img src="<%=cp%>/resource/images/duospace/Room/${dto.saveFileName}" style="width: 80px; height: 80px;"></td>
 												<td>${dto.roomName}</td>
 												<td>${dto.floorName}</td>
 												<td>${dto.price}</td>
@@ -233,7 +234,7 @@ function deleteRoom(roomCode, page) {
 
 								<div class="form-group">
 									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/created';">
+										<button type="button" class="btn btn-success btn-sm" onclick="javascript:location.href='<%=cp%>/admin/room/created';">
 											<i class="fa fa-plus"></i> 등록
 										</button>
 									</div>

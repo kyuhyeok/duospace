@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.admin.floor.Floor;
 import com.duospace.common.DuospaceUtil;
 import com.duospace.common.FileManager;
-import com.duospace.common.MyUtil;
 
 
 @Controller("admin.room.RoomController")
@@ -55,8 +54,9 @@ public class RoomController {
 			@RequestParam(value="searchValue", defaultValue="")String searchValue,
 			Model model
 			) throws Exception{
-		String cp= req.getContextPath();
 		
+		String cp= req.getContextPath();
+
 		int total_page=0;
 		int dataCount=0;
 		
@@ -130,4 +130,41 @@ public class RoomController {
 		return "redirect:/admin/roomlist";
 	}
 	
+	@RequestMapping(value="/admin/room/update", method=RequestMethod.GET)
+	public String updateForm(
+			@RequestParam(value="roomCode") int roomCode,
+			@RequestParam(value="page")String page,
+			@RequestParam(value="spotCode",defaultValue="0")int spotCode,
+			Model model
+			) throws Exception{
+		List<Room> slist =service.slistRoom();
+		List<Room> flist =service.flistRoom();
+		Room dto =service.readRoom(roomCode);
+		if(dto==null)
+			return "redirect:/admin/roomlist?page="+page+"&spotCode="+spotCode;
+		model.addAttribute("flist", flist);
+		model.addAttribute("slist", slist);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+		
+		return ".admin4.menu3.room.created";
+	}
+	
+	@RequestMapping(value="/admin/room/update", method=RequestMethod.POST)
+	public String updateSubmit(
+			Room dto,
+			@RequestParam String page,
+			HttpSession session
+			) throws Exception{
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname= root+File.separator+"resource"+File.separator+"images"+File.separator+"duospace"+File.separator+"Room";
+		
+		
+		
+		service.updateRoom(dto, pathname);
+		
+		return "redirect:/admin/roomlist?page="+page;
+	}
 }
