@@ -217,6 +217,8 @@ text-align:center;
 $(document).click(function(){
 	$('#dgFReqlistview').hide();
 	$('#dgfmessengers').hide();
+	dReqcl();
+	dMcl();
 });
 $(window).resize(function() {
 	var xp=5;
@@ -237,7 +239,7 @@ $(function() {
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
 	//readaFReqCnt();
-	readaFMessCnt()
+	//readaFMessCnt()
 	//setInterval("readaFReqCnt()",10000);
 	//setInterval("readaFMessCnt()",10000);
 	
@@ -253,6 +255,7 @@ $(function() {
 			$('#dgFReqlistview').show();
 			$('#dgfmessengers').hide();
 			listFRPage(1);
+			dMcl();
 		}
 	});
 	$("body").on("click", "#dgFReqlistview", function(event){
@@ -270,10 +273,8 @@ $(function() {
 			$('#dgfmessengers').show();
 			$('#dgFReqlistview').hide();
 			listFMC(1);
+			dReqcl();
 		}
-	});
-	$("body").on("click", "#dgfmessengers", function(event){
-		event.stopPropagation();
 	});
 	$("body").on("click", ".objectListItem messegeContainer", function(){
 		var fNum=$(this).attr("data-fmnum");
@@ -284,13 +285,13 @@ $(function() {
 		
 		if(isVisible){
 			dchatcl();
-			//readFM(fNum, fName);
-			//listfMC(fNum, 1);
+			$('#dgChatTabFlyout').show();
+			readFM(fNum, fName);
+			listFMCon();
 		}else {
 			$('#dgChatTabFlyout').show();
 			readFM(fNum, fName);
-			//listFMCon(fNum, page);
-			//psIn(fNum, imagePath);
+			listFMCon();
 		}
 	});
 });

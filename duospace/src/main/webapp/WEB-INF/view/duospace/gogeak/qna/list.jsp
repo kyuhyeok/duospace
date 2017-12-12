@@ -36,7 +36,7 @@ $(function(){
 		
 		if(confirm("선택한 항목을 삭제하시겠습니까?")){
 		var f=document.deleteList;
-		f.action="<%=cp%>/duospace/notice/deleteList";
+		f.action="<%=cp%>/duospace/qna/deleteList";
 		f.submit();
 		}
 		
@@ -72,6 +72,7 @@ $(function(){
 	<div>
 
     <form name="deleteList" method="post">
+    	<button type="button" id="deletelistBtn">삭제</button>
  	  <table class="noticeList" style="margin:10px auto 0px;border-spacing: 0px; border-collapse: collapse; width: 100%">
  	    <tr style="background: #eeeeee; border-top: 1px solid black; border-bottom: 1px solid black;" height="35px;">
     	 <c:if test="${sessionScope.user.userId=='admin'}">
@@ -80,7 +81,8 @@ $(function(){
 	      </th>
 	      </c:if>
     	  <th>번호</th>
-    	  <th width="40%">제목</th>
+    	  <th width="8%">구분</th>
+    	  <th width="50%">제목</th>
     	  <th>작성자</th>
     	  <th>작성일</th>
     	</tr>
@@ -94,10 +96,14 @@ $(function(){
 	      </td>
 	     </c:if>
     	  <td>${dto.listNum}</td>
-    	  <td style="text-align: left">
-    	   <span style="font-size: 12px; color: gray">[${dto.qnaName}]</span> <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a>
+    	  <td><span style="font-size: 12px; color: gray">[${dto.qnaName}]</span></td>
+    	  <td style="text-align: left; padding-left: 20px;">
+    	  <c:if test="${dto.answer!='0'}">
+      		&nbsp;&nbsp;<img src="<%=cp%>/resource/images/duospace/icon/re.gif">&nbsp;
+  		  </c:if> 
+    	   <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a>
     	   <c:if test="${dto.gap<1}">
-    	   	<img src="<%=cp%>/resource/images/duospace/icon/new.gif">
+    	   	<img src="<%=cp%>/resource/images/duospace/icon/new.gif" style="max-height: 10px;">
     	   </c:if>
     	   </td>
     	  <td>${dto.name}</td>

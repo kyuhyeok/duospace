@@ -3,6 +3,7 @@ package com.duospace.duospace.qna;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,12 +106,12 @@ public class QnAController {
 		
 		if(query.length()!=0) {
 			list_url+="?"+query;
-			article_url+="?"+query+"&page="+current_page;
 		}else {
 			article_url+="?page="+current_page;
 		}
 		
 		String paging=myUtil.pagingMethod(current_page, total_page, list_url);
+		
 		
 		model.addAttribute("articleUrl", article_url);
 		model.addAttribute("paging", paging);
@@ -139,7 +140,7 @@ public class QnAController {
 		SessionInfo info = (SessionInfo)session.getAttribute("user");
 		dto.setMemberNum(info.getMemberNum());
 		
-		service.insertQna(dto);
+		service.insertQna(dto,"created");
 		
 		return "redirect:/duospace/qna/list";
 	}
@@ -168,6 +169,9 @@ public class QnAController {
 			return "redirect:/duospace/qna/list?page="+page;
 		
 		map.put("num", dto.getNum());
+		map.put("groupNum", dto.getGroupNum());
+		map.put("answer", dto.getAnswer());
+	
 		Qna preDto=service.preReadQna(map);
 		Qna nextDto=service.nextReadQna(map);
 		
@@ -274,14 +278,39 @@ public class QnAController {
 	public String replySubmit(
 			Qna dto,
 			@RequestParam String page,
-			Model model
+			Model model,
+			HttpSession session
 			) throws Exception{
 		
-		service.insertQna(dto);
+		SessionInfo info = (SessionInfo)session.getAttribute("user");
+		dto.setMemberNum(info.getMemberNum());
+		
+		service.insertQna(dto,"reply");
 		
 		return "redirect:/duospace/qna/list?page="+page;
 	}
 	
+	@RequestMapping(value="/duospace/qna/deleteList", method=RequestMethod.POST)
+	public String deleteList(
+			@RequestParam Integer [] nums,
+			@RequestParam String page,
+			@RequestParam(value="searchCode",defaultValue="") String searchCode,
+			@RequestParam(value="searchKey", defaultValue="subject")String searchKey,			
+			@RequestParam(value="searchValue", defaultValue="") String searchValue
+			)throws Exception{
+		
+		List<Integer> list = Arrays.asList(nums);
+		service.deleteList(list);
+		
+		String query="page="+page;
+		if(searchValue.length()!=0) {
+			query+="&searchKey="+searchKey+"&searchValue="+searchValue;
+		}
+		if(searchCode.length()!=0)
+			query+="&searchCode="+searchCode;
+		
+		return "redirect:/duospace/qna/list?"+query;
+	}
 }
 
 

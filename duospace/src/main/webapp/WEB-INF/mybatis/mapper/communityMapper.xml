@@ -7,4 +7,5 @@
 			VALUES(seq_commainboard.NEXTVAL, #{subject} , #{content} , #{categorynum} ,#{membernum});
 	</insert>
 	
+	
 </mapper>

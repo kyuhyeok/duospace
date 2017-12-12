@@ -77,8 +77,7 @@ function check() {
       	</c:if>
       	
       	<c:if test="${mode=='reply'}">
-      		&nbsp;&nbsp;<img src="<%=cp%>/resource/images/duospace/icon/re.gif">&nbsp;
-  			<input type="text" name="subject" class="boxTF" style="width: 100%;" value="${dto.subject}">
+  			<input type="text" name="subject" class="boxTF" style="width: 100%;" value="답변입니다 :) ">
       	</c:if>
     </td>
   </tr>
@@ -111,7 +110,7 @@ function check() {
       	<input type="hidden" name="num" value="${dto.num}">
       </c:if>
       <c:if test="${mode=='reply'}">
-      	<input type="hidden" name="answer" value="${dto.num}">  
+      	<input type="hidden" name="num" value="${dto.num}">  
       	<input type="hidden" name="page" value="${page}">
       </c:if>
       <button type="submit" onclick="sendOk();">${mode=='update'?"수정완료":"등록완료"}</button>

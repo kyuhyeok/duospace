@@ -3,9 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.qna">
 
+	<select id="maxNum" resultType="Integer">
+		SELECT NVL(MAX(num),0) FROM sc
+	</select>
+
 	<insert id="insert" parameterType="com.duospace.duospace.qna.Qna">
-		INSERT INTO sc (num,subject,content,membernum,answer,qnacode)
-		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},0,#{qnaCode})
+		INSERT INTO sc (num,subject,content,membernum,answer,qnacode,groupNum)
+		VALUES (#{num},#{subject},#{content},#{memberNum},#{answer},#{qnaCode},#{groupNum})
 	</insert>
 
 	<sql id="where-list">
@@ -50,7 +54,7 @@
 	<select id="list" parameterType="map" resultType="com.duospace.duospace.qna.Qna">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb.* FROM(
-				SELECT num,content,subject,created,answer,sc.qnacode, qnaname ,m2.membernum,
+				SELECT num,groupNum,content,subject,created,answer,sc.qnacode, qnaname ,m2.membernum,
 				        name,email
 				FROM sc
 				JOIN member2 m2 ON sc.memberNum=m2.memberNum
@@ -68,7 +72,7 @@
 				  </if>
 				</if>			 
 			 </where>
-				ORDER BY num DESC
+				ORDER BY groupNum DESC, num ASC
 			)tb
 <![CDATA[			
 			WHERE ROWNUM <= #{end}
@@ -77,7 +81,7 @@
 	</select>
 	
 	<select id="readQna" parameterType="Integer" resultType="com.duospace.duospace.qna.Qna">
-		SELECT num,content,subject,created,answer,sc.qnacode, m2.membernum,
+		SELECT num,content,subject,created,answer,sc.qnacode, m2.membernum,groupNum,
        		 name,email
 		FROM sc
 		JOIN member2 m2 ON sc.memberNum=m2.memberNum
@@ -101,9 +105,12 @@
 					 qnaCode=#{searchCode}
 				  </if>
 				</if>	
-				AND	num &gt; #{num}		 
+				
+				<![CDATA[
+				 AND (groupNum=#{groupNum} AND ANSWER<#{answer}) OR (groupNum > #{groupNum})
+				]]>	 
 			 </where>
-			ORDER BY num
+			ORDER BY groupNum asc, answer desc
 			)tb
 		WHERE ROWNUM=1
 	</select>
@@ -124,9 +131,11 @@
 					 qnaCode=#{searchCode}
 				  </if>
 				</if>	
-				AND	num &lt; #{num}		 
+				<![CDATA[
+				 AND (groupNum=#{groupNum} AND ANSWER > #{answer}) OR (groupNum < #{groupNum})
+				]]>		 
 			 </where>
-			ORDER BY num DESC
+			ORDER BY groupNum desc, answer ASC
 			)tb
 		WHERE ROWNUM=1
 	</select>
@@ -140,10 +149,12 @@
 		DELETE FROM sc WHERE num=#{num}
 	</delete>
 	
-	<insert id="insertReply" parameterType="com.duospace.duospace.qna.Qna">
-		INSERT INTO sc (num,subject,content,membernum,answer,qnacode)
-		VALUES (SEQ_SC.NEXTVAL,#{subject},#{content},#{memberNum},#{answer},#{qnaCode})
-	</insert>
+	<delete id="deleteList" parameterType="java.util.List">
+		DELETE FROM sc WHERE num IN
+		<foreach collection="list" item="num" index="index" open="(" separator="," close=")">
+			#{num}
+		</foreach>
+	</delete>
 	
 </mapper>
 

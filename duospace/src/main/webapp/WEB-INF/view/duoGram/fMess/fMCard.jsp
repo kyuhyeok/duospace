@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,7 +17,8 @@
 			<div style="margin: -1px 0;">
 				<div class="clearfix" style="overflow: hidden;zoom: 1;">
 					<div class="author">
-						<strong data-fmname="${vo.name}">${vo.name}&nbsp;<c:if test="${vo.unReadCnt!=0}">(${vo.unReadCnt})</c:if></strong>											
+						<strong data-fmname="${vo.name}">${vo.name}&nbsp;<c:if test="${vo.unReadCnt!=0}">(${vo.unReadCnt})</c:if></strong>
+						<span hidden="">${vo.friendId}</span>											
 					</div>
 					<div class="messegeContent1">
 						<div class="messegeContent2">

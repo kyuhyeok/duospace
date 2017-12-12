@@ -53,15 +53,17 @@ function deleteNotice() {
 			   </td>
 			</tr>
 			<tr height="60">
-				<td align="left">
-				<c:if test="${sessionScope.user.userId=='admin' || sessionScope.user.userId==dto.email }">
+			 	<td align="left">
+			 	<c:if test="${sessionScope.user.userId==dto.email}">
 			     	<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/update?num=${dto.num}&${query}';">수정</button>
+				</c:if>
+				<c:if test="${sessionScope.user.userId=='admin' || sessionScope.user.userId==dto.email }">
 				    <button type="button" class="btn" onclick="deleteNotice();">삭제</button>
 				</c:if>
 				</td>
 			    <td align="right" >
 			    	<c:if test="${sessionScope.user.userId=='admin'}">
-			    		<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/reply?num='${dto.num}&${query};">답글</button>
+			    		<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/reply?num=${dto.num}&${query}';">답글</button>
 			    	</c:if>
 			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/qna/list?${query}';">리스트</button>
 			    </td>

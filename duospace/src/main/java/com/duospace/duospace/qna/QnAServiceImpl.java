@@ -26,6 +26,29 @@ public class QnAServiceImpl implements QnAService{
 	}
 
 	@Override
+	public int insertQna(Qna dto, String mode) {
+		int result=0;
+		try {
+			if(mode.equals("created")) {
+				int maxNum= dao.selectOne("duospace.qna.maxNum");
+				dto.setNum(maxNum+1);
+				dto.setGroupNum(dto.getNum());
+				dto.setAnswer(0);
+			}else {
+				dto.setGroupNum(dto.getNum());
+				int maxNum= dao.selectOne("duospace.qna.maxNum");
+				dto.setNum(maxNum+1);
+				dto.setAnswer(1);
+			}
+			result=dao.insertData("duospace.qna.insert", dto);
+			
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
+	}
+	
+	@Override
 	public List<Qna> listQna(Map<String, Object> map) {
 		List<Qna> list=null;
 		try {
@@ -105,9 +128,16 @@ public class QnAServiceImpl implements QnAService{
 	}
 
 	@Override
-	public int insertQna(Qna dto, String mode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteList(List<Integer> list) {
+		int result=0;
+		try {
+			result=dao.deleteData("duospace.qna.deleteList", list);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
+
+	
 
 }
