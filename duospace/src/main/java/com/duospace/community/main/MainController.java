@@ -25,14 +25,15 @@ public class MainController {
 			)throws Exception{
 		//데이터 개수
 		int dataCount;
+		
 		dataCount = dto.getBoardCount();
 		
-		Map<String, Object> map = new HashMap<>();//맵 선언.
+		Map<String, Object> map = new HashMap<>();
 		List<Commaincate> list = service.listCommaincate(map);
-		
+
 		model.addAttribute("dataCount",dataCount);
 		model.addAttribute("list",list);
-		
+	
 		
 		return ".communityLayout";
 	}	

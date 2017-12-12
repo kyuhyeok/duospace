@@ -17,9 +17,9 @@
 	
 	<!-- 분류 리스트 -->
 	<select id="listcommaincate" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
-		SELECT catenum,boardname, cm.created, BOARDNUM, SUBJECT, HITCOUNT
+		SELECT cm.catenum,boardname, cm.created, boardNum, subject, hitCount
 		FROM commaincate cm
-		JOIN commainboard cb ON cm.cateNum=cb.categorynum
+		LEFT OUTER JOIN commainboard cb ON cm.cateNum=cb.catenum
 		ORDER BY cb.CREATED ASC ,cm.created DESC
 	</select>
 	<!-- 분류생성 분류개수 분류or게시글 리스트   -->
