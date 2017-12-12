@@ -26,12 +26,13 @@ public class CommunityController {
 	@RequestMapping(value="/community/created",method=RequestMethod.GET)
 	public String createdForm(
 			@RequestParam int cateGoryNum,
+			@RequestParam String boardName,
 			HttpSession session,
 			Model model)throws Exception {
 		
 		
-
 		model.addAttribute("cateGoryNum",cateGoryNum);
+		model.addAttribute("boardName",boardName);
 		model.addAttribute("mode","created");
 		
 		return ".community.community.created";

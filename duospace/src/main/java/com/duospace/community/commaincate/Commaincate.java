@@ -3,7 +3,7 @@ package com.duospace.community.commaincate;
 public class Commaincate {
 	private int cateNum;//분류코드
 	private String boardName;//게시판
-	private int created;//생성일
+	private int created,boardCount;//생성일,게시판수
 	
 	
 	public int getCateNum() {
@@ -23,6 +23,12 @@ public class Commaincate {
 	}
 	public void setCreated(int created) {
 		this.created = created;
+	}
+	public int getBoardCount() {
+		return boardCount;
+	}
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
 	}
 	
 	
