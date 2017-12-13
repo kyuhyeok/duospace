@@ -124,7 +124,7 @@
 	</definition>
 	
 	<!-- 듀오그램 마이페이지 2.3단 -->
-	<definition name=".userGramLayout" template="/WEB-INF/view/duoGram/layout/layout3.jsp">
+	<definition name=".userGramLayout" template="/WEB-INF/view/duoGram/layout/layout4.jsp">
 	    <put-attribute name="title" value="duoGram" />
 	  	<put-attribute name="header" value="/WEB-INF/view/duoGram/layout/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/main.jsp" />
@@ -133,15 +133,15 @@
 		<put-attribute name="fMess" value="/WEB-INF/view/duoGram/fMess/listFMess.jsp" />
 		<put-attribute name="fch" value="/WEB-INF/view/duoGram/fMess/fMess.jsp" />
 	</definition>
-	<definition name=".duoGram.*.*.*" extends=".duoGramLayout">
+	<definition name=".duoGram.*.*.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}/{3}.jsp"/>
 		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}/{2}/{3}.jsp" />
 	</definition>
-	<definition name=".duoGram.*.*" extends=".duoGramLayout">
+	<definition name=".duoGram.*.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}.jsp"/>
 		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}/{2}.jsp" />
 	</definition>
-	<definition name=".duoGram.*" extends=".duoGramLayout">
+	<definition name=".duoGram.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}.jsp"/>
 		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}.jsp" />
 	</definition>
