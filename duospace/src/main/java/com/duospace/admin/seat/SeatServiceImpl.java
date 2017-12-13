@@ -82,11 +82,27 @@ public class SeatServiceImpl implements SeatService{
 	}
 
 	@Override
-	public Seat readPlacement() {
-		// TODO Auto-generated method stub
-		return null;
+	public Seat readSpot(int spotCode) {
+		Seat dto = null;
+		try {
+			dto=dao.selectOne("duospace.seat.readSpot", spotCode);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
 	}
 
+	@Override
+	public Seat readPlacement(int placeCode) {
+		Seat dto = null;
+		try {
+			dto=dao.selectOne("duospace.seat.readPlacement", placeCode);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
+	}
+	
 	@Override
 	public int updatePlacement() {
 		// TODO Auto-generated method stub
@@ -98,6 +114,9 @@ public class SeatServiceImpl implements SeatService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
 
 
 	
