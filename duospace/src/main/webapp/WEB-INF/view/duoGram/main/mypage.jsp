@@ -178,7 +178,7 @@ function printDuogram(data) {
 			var created=data.list[idx].created;
 			var name=data.list[idx].name;
 			
-			out+="<div style='min-height: 220px; margin-bottom: 80px; width: 614px; border: 1px solid rgba(0,0,0,.0975); float:left; background-color: white; border-radius: 3px;'>";
+			out+="<div style='min-height: 220px; margin-bottom: 80px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
@@ -214,7 +214,7 @@ function printDuogram(data) {
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
 			out+="<a href='#' style='text-decoration:none; font-weight: blod; font-family: '나눔고딕';'>"+"댓글x개"+"</a>";
 			out+="</div>";
-			out+="<div style='height: 30px; margin-left: 15px; margin-right: 15px; border-top: 1px solid rgba(0,0,0,.0975);'>";
+			out+="<div style='height: 30px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
 			out+="<input type='text' style='border-radius: 4px; margin-top: 17px; border: none; width: 500px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
 			out+="<button type='button' onclick='sendReply();' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
 			out+="</div>";
@@ -238,62 +238,28 @@ function deleteGram() {
 </script>
 
 </head>
-<body style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
+<body style="margin: 0px; height: 100%; width: 100%; background: #e9ebee;">
 
-<!-- 오른쪽 구석 친구 창 -->
-<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px; z-index: 1">
-</div>
 <!-- 윗칸 띄우기 -->
 <div style="height: 115px"></div>
 
 <!-- left -->
 <!-- mid -->
 <div>
-<!-- 마이페이지 프로필 -->
-<div style="width: 935px; height: 350px; background: black; margin: auto">
-<!-- 커버사진 -->
-<div align="center" style="background: black; overflow: hidden; max-width: 935px; max-height: 350px;">
-	<img  style="vertical-align: middle" src="<%=cp%>/resource/images/duogram/profile2.jpg">
-</div>
-</div>
-
-
-
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
 	
-		<!-- 마이프로필 정보 -->
-		<div style="width: 935px; height: 50px; background: white; border: 1px solid #ccc; margin: auto;">
-			<div style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none;">마이페이지</a>
-			</div>
-			<div class="duo_01" style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none;">정보</a>
-			</div>
-			<div class="duo_01" style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none;">친구</a>
-			</div>
-			<div class="duo_01" style="padding-right: 50px; float: right; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none;">타임라인</a>
-			</div>
-		<!-- 프로필 사진 -->
-		<div style="border-radius: 2px; position: relative; left: 30px; bottom: 130px;border: 1px solid rgba(0,0,0,.0975); padding-top: 20px; width: 160px; height: 160px; background:white; border: 1px solid auto">
-			<div style="border-radius: 2px; position: relative; bottom: 15px; background: #ccc; margin: auto; width: 150px; height: 150px; border: 1px solid rgba(0,0,0,.0975);">
-			
-			</div>
-		</div>
-		</div>
 		<div style="height: 60px">
 		</div>
 		
 		
 		<!-- 왼쪽 글쓰는곳 -->
 		<div class="wrap" style="width: 614px; float: left;">
-			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
+			<div style="margin-bottom: 60px; width: 614px; border: 1px solid #dddfe2; background-color: white; border-radius: 4px;">
 				<!-- 게시글 등록 및 동영상 추가 -->
 				<form name="boardForm" method="post">
-				<div style="height: 30px; background: #e9ebee; border-bottom: 1px solid #dddfe2;">
-					<div align="left" class="duo_01" style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
+				<div style="height: 30px; background: #172A40; border-bottom: 1px solid #dddfe2;">
+					<div align="left" class="duo_01" style="margin-left: 15px; color: white; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
 					</div>
 				</div>
 				
@@ -306,7 +272,7 @@ function deleteGram() {
 				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
 					<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
 						<a href="#">
-							<button type="button" style="border-radius: 4px; border: 1px solid rgba(0,0,0,.0975); width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
+							<button type="button" style="border-radius: 4px; border: 1px solid #dddfe2; width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
 						</a>
 						<!-- 글 및 동영상 등록 -->
 						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px; font-weight: bold; text-align: center;">등록하기</button>
@@ -324,7 +290,7 @@ function deleteGram() {
 	<!-- 오른쪽 커뮤니티? -->
 	<div style="width: 308px; float: right;">
 	
-	<div style="width: 293px; padding: 10px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">
+	<div style="width: 293px; padding: 10px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">
 		<a href="#" style="float: left;">
 			<img src="">사진
 		</a>
@@ -334,28 +300,28 @@ function deleteGram() {
 			<div style="display: table-cell; vertical-align: middle; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
 	</div>
 	
-    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
+    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			친구생일 
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
-    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
+    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			예약일정
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
-    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
+    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			나의 커뮤니티
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
 		</div>
     </div>
     
-    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	
+    <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			인기 커뮤니티
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
@@ -371,7 +337,7 @@ function deleteGram() {
 			<br>
     		
     </div>
-    <div style="border-top: 1px solid rgba(0,0,0,.0975); width: 293px; padding-left: 5px; padding-right: 5px; padding-top: 2px; float: right; color: #ccc; font-size: 11px;">
+    <div style="border-top: 1px solid #dddfe2; width: 293px; padding-left: 5px; padding-right: 5px; padding-top: 2px; float: right; color: #ccc; font-size: 11px;">
     	<span><a href="#" style="text-decoration:none; color: #8a8a8a; font-family: '나눔고딕';"> 회사 소개 </a></span>
 		<span>|</span>
 		<span><a href="#" style="text-decoration:none; color: #8a8a8a; font-family: '나눔고딕';"> 정책 및 약관 </a></span>
