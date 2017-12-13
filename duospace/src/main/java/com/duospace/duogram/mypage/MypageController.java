@@ -50,7 +50,7 @@ public class MypageController {
 		model.addAttribute("me", me);
 		model.addAttribute("blogNum", blogNum);
 		
-		return ".duoGram.main.mypage";
+		return ".userGramLayout";
 	}
 	
 	// 글쓰기
@@ -121,4 +121,6 @@ public class MypageController {
 		
 		return model;
 	}
+	
+	
 }
