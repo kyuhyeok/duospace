@@ -37,6 +37,11 @@ public class MypageController {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
+		int cnt = service.countAccept(info.getMemberNum());
+		if(cnt==0) {
+			return "redirect:/duogram/"+blogNum;
+		}
+		
 		String me="true";
 		if(info.getMemberNum()!=blogNum)
 			me="false";
