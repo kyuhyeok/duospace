@@ -37,6 +37,11 @@ public class MypageController {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
+		int cnt = service.countAccept(info.getMemberNum());
+		if(cnt==0) {
+			return "redirect:/duogram/"+blogNum;
+		}
+		
 		String me="true";
 		if(info.getMemberNum()!=blogNum)
 			me="false";
@@ -45,7 +50,7 @@ public class MypageController {
 		model.addAttribute("me", me);
 		model.addAttribute("blogNum", blogNum);
 		
-		return ".duoGram.main.mypage";
+		return ".userGramLayout";
 	}
 	
 	// 글쓰기
@@ -116,4 +121,6 @@ public class MypageController {
 		
 		return model;
 	}
+	
+	
 }

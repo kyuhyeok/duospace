@@ -163,9 +163,6 @@ function printDuogram(data) {
 </head>
 <body style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
 
-<!-- 오른쪽 구석 친구 창 -->
-<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px" >
-</div>
 <!-- 윗칸 띄우기 -->
 <div style="height: 110px"></div>
 
@@ -174,9 +171,9 @@ function printDuogram(data) {
 <div>
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
-		<div style="height: 60px">
-		</div>
 		<!-- 왼쪽 글쓰는곳 -->
+		<div style="height: 100px;">
+		</div>
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0,0,0,.0975); background-color: white; border-radius: 4px;">
 				<!-- 게시글 등록 및 동영상 추가 -->
@@ -213,14 +210,17 @@ function printDuogram(data) {
 	<!-- 오른쪽 커뮤니티? -->
 	<div style="width: 308px; float: right;">
 	
-	<div style="width: 293px; padding: 10px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">
-		<a href="#" style="float: left;">
-			<img src="">사진
+	<div style="width: 293px; padding: 10px; height: 65px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">
+		<div style="overflow: hidden; float: left; border-radius : 22.5px; max-width: 45px; max-height: 45px;">
+		<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}">
+			<img style="width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/dong.png">
 		</a>
-			<div style="display: table-cell; vertical-align: middle">
-				<a href="#" style="text-decoration:none; color: black; font-size: 14px; font-family: '나눔고딕';">Hajimemasitda</a>
-			</div>
-			<div style="display: table-cell; vertical-align: middle; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
+		</div>
+		<div style="display: table-cell;">
+			<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="padding-left: 10px; text-decoration:none; color: black; font-size: 14px; font-family: '나눔고딕';">${dto.userId}</a>
+		</div>
+		<div style="padding-left: 10px; display: table-cell;color: #999; font-size: 13px; font-family: '나눔고딕';">${dto.name}</div>
+		<br>
 	</div>
 	
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0,0,0,.0975); float:right; margin-bottom: 20px">	

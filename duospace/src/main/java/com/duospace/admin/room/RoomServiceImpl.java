@@ -148,9 +148,20 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public List<Room> regionRoom() {
+		List<Room> region=null;
+		try {
+			region=dao.selectList("duospace.room.region");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return region;
+	}
+
+	@Override
+	public List<Room> rlistRoom(int spotCode) {
 		List<Room> rlist=null;
 		try {
-			rlist=dao.selectList("duospace.room.region");
+			rlist=dao.selectList("duospace.room.rlist", spotCode);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
