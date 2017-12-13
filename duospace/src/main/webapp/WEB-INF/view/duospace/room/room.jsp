@@ -215,8 +215,8 @@ $(function() {
   </div>
   <div class="row">
   <c:forEach var="dto" items="${slist}">
-   <c:forEach var="vo" items="${list}">
-  <c:if test="${vo.spotCode==dto.spotCode}">
+  	<c:forEach var="vo" items="${rlist}">
+  	<c:if test="${dto.spotCode==vo.spotCode}">
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
@@ -232,8 +232,8 @@ $(function() {
         </div>
       </div>      
     </div>   
-  </c:if>
-    </c:forEach>  
+    </c:if>
+  </c:forEach>
     </c:forEach>
   </div>
 </div>
@@ -250,10 +250,11 @@ $(function() {
          <div class="modal-body">
 					<div id="newmodal" style="padding: 5px 20px;">
 						<form class="form-horizontal calender" id="modal-frm" name="modal-frm" role="form">
+						<c:forEach var="dto" items="${rlist}">
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">룸 이름</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" type="text" readonly="readonly" value="">
+									<input class="form-control" type="text" readonly="readonly" value="${dto.roomName}">
 								</div>
 							</div>
 							<div class="form-group">
@@ -302,6 +303,7 @@ $(function() {
 									<input class="form-control" id="rs_email" name="rs_email" type="text" value=""/>
 								</div>
 							</div>
+							</c:forEach>
 						</form>
 					</div>
 				</div>

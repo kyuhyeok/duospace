@@ -220,63 +220,22 @@ public class RoomController {
 	@RequestMapping(value="/room")
 	public String reserve(
 			HttpServletRequest req,
-			@RequestParam(value="spotCode",defaultValue="0")int spotCode,
+			@RequestParam(value="spotCode",defaultValue="3") int spotCode,
 			@RequestParam(value="roomCode", defaultValue="0") int roomCode,
-			@RequestParam(value="page", defaultValue="1") int current_page,
-			@RequestParam(value="rows", defaultValue="10") int rows,
-			@RequestParam(value="searchKey", defaultValue="roomCode") String searchKey,
-			@RequestParam(value="searchValue", defaultValue="")String searchValue,
 			Model model) throws Exception {
 		String cp= req.getContextPath();
-
-		int total_page=0;
-		int dataCount=0;
 		
-		if(req.getMethod().equalsIgnoreCase("GET")) {
-			searchValue = URLDecoder.decode(searchValue, "UTF-8");
-		}
-		
-		Map<String, Object> map=new HashMap<>();
-		map.put("searchKey", searchKey);
-		map.put("searchValue", searchValue);
-		
-		dataCount=service.dataCount(map);
-		
-		if(dataCount!=0) 
-			total_page=myUtil.pageCount(rows, dataCount);
-		
-		if(total_page<current_page) 
-			current_page=total_page;
-		
-		int start= (current_page-1)*rows +1;
-		int end= current_page*rows;
-		map.put("start", start);
-		map.put("end", end);
 		List<Room> flist =service.flistRoom();
 		List<Room> slist =service.slistRoom();
-		List<Room> list =service.listRoom(map);
 		List<Room> region=service.regionRoom();
-		List<Room> rlist=service.rlistRoom();
+		List<Room> rlist=service.rlistRoom(spotCode);
 				
-		String query="rows="+rows;
 		String listUrl=cp+"/duospace/room/list";
-		if(searchValue.length()!=0){
-			query = "searchKey="+searchKey + "&searchValue="+URLEncoder.encode(searchValue,"UTF-8");
-		}
 		
-		listUrl=cp+"/admin/roomlist?"+query;
-		String paging = myUtil.paging2Method(current_page, total_page, listUrl);
 		Room dto =service.readRoom(roomCode);
 		
-		model.addAttribute("paging", paging);
-		model.addAttribute("page", current_page);
-		model.addAttribute("total_page", total_page);
 		model.addAttribute("listUrl", listUrl);
-		model.addAttribute("searchKey", searchKey);
-		model.addAttribute("searchValue", searchValue);
-		model.addAttribute("dataCount", dataCount);
-		model.addAttribute("list", list);
-		model.addAttribute("rows", rows);
+		
 		model.addAttribute("flist", flist);
 		model.addAttribute("slist", slist);
 		model.addAttribute("region", region);

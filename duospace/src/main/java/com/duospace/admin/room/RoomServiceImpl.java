@@ -158,10 +158,10 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public List<Room> rlistRoom() {
+	public List<Room> rlistRoom(int spotCode) {
 		List<Room> rlist=null;
 		try {
-			rlist=dao.selectList("duospace.room.rlist");
+			rlist=dao.selectList("duospace.room.rlist", spotCode);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

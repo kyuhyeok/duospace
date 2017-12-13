@@ -63,8 +63,10 @@
 		SELECT spotCode, spotName, region FROM spot
 	</select>
 	
-	<select id="rlist" parameterType="map" resultType="com.duospace.admin.room.Room">
-		SELECT roomCode, roomName, price, rcontent, saveFileName, floorNum FROM room
+	<select id="rlist" parameterType="Integer" resultType="com.duospace.admin.room.Room">
+		SELECT roomName, floorName, rcontent, saveFileName, s.spotCode, s.region, s.SPOTNAME, r.PRICE FROM room r
+		JOIN floor f on r.FLOORNUM = f.FLOORNUM JOIN spot s ON f.SPOTCODE = s.SPOTCODE
+		WHERE s.spotCode=#{spotCode}
 	</select>
 	
 	<select id="flist" parameterType="map" resultType="com.duospace.admin.room.Room">
