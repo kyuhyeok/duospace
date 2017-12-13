@@ -163,9 +163,6 @@ function printDuogram(data) {
 </head>
 <body style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
 
-<!-- 오른쪽 구석 친구 창 -->
-<div style="height: 100%; width: 250px; background: white; border-left: 1px solid #ccc; position: fixed; right: 0px" >
-</div>
 <!-- 윗칸 띄우기 -->
 <div style="height: 110px"></div>
 
