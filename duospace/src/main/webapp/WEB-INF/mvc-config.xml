@@ -74,6 +74,11 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<websocket:handlers>
+ 		<websocket:mapping handler="mySocketHandler" path="/echo.msg"/>
+ 	</websocket:handlers>
+ 	<bean id="mySocketHandler" class="com.duospace.duogram.socket.MySocketHandler" init-method="init" />
 
 	<!-- 파일 업로드 -->
     <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
