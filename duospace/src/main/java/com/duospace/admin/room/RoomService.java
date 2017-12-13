@@ -17,5 +17,5 @@ public interface RoomService {
 	public List<Room> flistRoom();
 	public List<Floor> listFloor(int spotCode);
 	public List<Room> regionRoom();
-	
+	public List<Room> rlistRoom();
 }

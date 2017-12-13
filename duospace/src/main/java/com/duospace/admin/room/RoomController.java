@@ -255,7 +255,8 @@ public class RoomController {
 		List<Room> flist =service.flistRoom();
 		List<Room> slist =service.slistRoom();
 		List<Room> list =service.listRoom(map);
-		List<Room> rlist=service.regionRoom();
+		List<Room> region=service.regionRoom();
+		List<Room> rlist=service.rlistRoom();
 				
 		String query="rows="+rows;
 		String listUrl=cp+"/duospace/room/list";
@@ -278,6 +279,7 @@ public class RoomController {
 		model.addAttribute("rows", rows);
 		model.addAttribute("flist", flist);
 		model.addAttribute("slist", slist);
+		model.addAttribute("region", region);
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("dto", dto);
 		

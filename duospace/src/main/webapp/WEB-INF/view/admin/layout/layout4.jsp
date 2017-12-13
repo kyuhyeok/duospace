@@ -15,7 +15,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Duo Space: Administrator</title> 
+
+<title>DuoSpace-관리자</title>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css" type="text/css"/>
 <link href="<%=cp%>/resource/gentelella/css/custom.css" rel="stylesheet" />
@@ -23,7 +24,6 @@
 <script src="<%=cp%>/resource/js/soledot.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
-<title>DuoSpace-관리자</title>
 </head>
 <body>
 <div>
