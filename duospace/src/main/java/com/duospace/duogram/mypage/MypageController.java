@@ -32,6 +32,7 @@ public class MypageController {
 	@RequestMapping(value="/duogram/mypage/{blogNum}")
 	public String duogram(
 			@PathVariable int blogNum,
+			Mypage dto,
 			HttpSession session,
 			Model model) throws Exception {
 		
@@ -48,6 +49,7 @@ public class MypageController {
 		
 		// sns 타임라인 불러오기
 		model.addAttribute("me", me);
+		model.addAttribute("dto", dto);
 		model.addAttribute("blogNum", blogNum);
 		
 		return ".userGramLayout";
@@ -103,7 +105,7 @@ public class MypageController {
 		map.put("end", end);
 		
 		int listNum, n=0;
-		List<Mypage> list=service.listDuogram(map);
+		List<Mypage> list=service.listMypage(map);
 		Iterator<Mypage> it=list.iterator();
 		while (it.hasNext()) {
 			Mypage dto=it.next();
@@ -125,13 +127,14 @@ public class MypageController {
 	@RequestMapping(value="/duogram/mypage/delete")
 	public String delete(
 			@RequestParam int num,
+			@RequestParam int blogNum,
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
-		service.deleteBoard(num, info.getUserName());
+		service.deleteBoard(num, info.getMemberNum());
 		
-		return "redirect:/bbs/list?page="+page;
+		return "redirect:/duogram/mypage/"+blogNum;
 	}
 	
 }

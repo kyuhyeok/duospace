@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
 
-	<insert id="insertAccept" parameterType="Integer">
+	<insert id="mypageInsertAccept" parameterType="Integer">
 		INSERT INTO duogram (memberNum) VALUES (#{memberNum})
 	</insert>
 	
@@ -14,11 +14,11 @@
 			, #{saveFilename, jdbcType=VARCHAR}, #{originalFilename, jdbcType=VARCHAR})
 	</insert>
 	
-	<select id="countAccept" parameterType="Integer" resultType="Integer">
+	<select id="mypageCountAccept" parameterType="Integer" resultType="Integer">
 	   SELECT COUNT(*) FROM duogram WHERE memberNum = #{memberNum}
 	</select>
 	
-	<select id="dataCount" parameterType="map" resultType="Integer">
+	<select id="mypageDataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM gramtimeline g
 		JOIN member2 m2 ON g.memberNum=m2.memberNum
@@ -43,5 +43,13 @@
 	<!-- 삭제 -->
 	<delete id="deleteMypage" parameterType="Integer">
             DELETE FROM gramtimeline WHERE num = #{num}
-      </delete>
+    </delete>
+      
+    <!-- 글보기 -->
+	<select id="readBoard" resultType="com.duospace.duogram.mypage.Mypage" parameterType="Integer">
+		SELECT num, m2.name, g.memberNum, blogNum, content, created
+		FROM gramtimeline g 
+		JOIN member2 m2 ON g.memberNum=m2.memberNum
+		WHERE num = #{num}
+	</select>
 </mapper>

@@ -18,7 +18,7 @@ public class MypageServiceImpl implements MypageService {
 	public int insertAccept(int memberNum) {
 		int result=0;
 		try {
-			result=dao.insertData("mypage.insertAccept", memberNum);
+			result=dao.insertData("mypage.mypageInsertAccept", memberNum);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -29,7 +29,7 @@ public class MypageServiceImpl implements MypageService {
 	public int countAccept(int memberNum) {
 		int result=0;
 		try {
-			result=dao.selectOne("mypage.countAccept", memberNum);
+			result=dao.selectOne("mypage.mypageCountAccept", memberNum);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -40,7 +40,7 @@ public class MypageServiceImpl implements MypageService {
 	public int insertBoard(Mypage dto) {
 		int result=0;
 		try {
-			result=dao.insertData("mypage.insertBoard", dto);
+			result=dao.insertData("mypage.mypageInsertBoard", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -51,7 +51,7 @@ public class MypageServiceImpl implements MypageService {
 	public int dataCount(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.selectOne("mypage.dataCount", map);
+			result=dao.selectOne("mypage.mypageDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -59,10 +59,10 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Mypage> listDuogram(Map<String, Object> map) {
+	public List<Mypage> listMypage(Map<String, Object> map) {
 		List<Mypage> list=null;
 		try {
-			list=dao.selectList("mypage.listBoard", map);
+			list=dao.selectList("mypage.mypageListBoard", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -70,16 +70,16 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int deleteBoard(int num, String userName) {
+	public int deleteBoard(int num, int memberNum) {
 		int result=0;
 		
 		try {
 			Mypage dto=readBoard(num);
 			if(dto!=null) {
-				if(! dto.getName().equals(userName) && ! userName.equals("admin"))
+				if(dto.getMemberNum()!=memberNum && memberNum!=1)
 					return result;
 			}
-			dao.deleteData("mypage.deleteBoard", num);
+			dao.deleteData("mypage.deleteMypage", num);
 			result=1;
 		} catch (Exception e) {
 		}

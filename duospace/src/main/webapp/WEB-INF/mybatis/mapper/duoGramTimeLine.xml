@@ -32,7 +32,6 @@
 				SELECT num, m2.name, g.memberNum, blogNum, content, created
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
-				WHERE g.blogNum=#{blogNum}
 				ORDER BY num DESC
 		<![CDATA[
 			) tb WHERE ROWNUM <= #{end}
