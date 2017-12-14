@@ -52,6 +52,9 @@
 						<li>
 							<a href="<%=cp%>/member/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
 						</li>
+						<li>
+							<a href="<%=cp%>/main"><i class="fa fa-sign-out pull-right"></i>main</a>
+						</li>
 					</ul>
 				</li>
 				</ul>

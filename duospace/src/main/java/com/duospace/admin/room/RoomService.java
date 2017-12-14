@@ -18,4 +18,5 @@ public interface RoomService {
 	public List<Floor> listFloor(int spotCode);
 	public List<Room> regionRoom();
 	public List<Room> rlistRoom(int spotCode);
+	public List<Room> rlistRoom2(int roomCode);
 }

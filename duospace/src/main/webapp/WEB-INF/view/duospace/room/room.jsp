@@ -133,61 +133,79 @@
 }
 </style>
 <script type="text/javascript">
-function autoDate() {
-	var strDate1= "2017-12-13";
-	var strDate2= "2017-12-13";
+function selectDate(obj) {
+	rangeDate(obj.value);
+}
+
+function inputChange(obj) {
+	if(! obj.value) return;
+	
+	rangeDate($("#rs_daterange").val());
+}
+
+function rangeDate(data) {
+	
+	var strDate1= $("#rs_date").val();
+	if(! strDate1) return;
 	
 	var arr1 = strDate1.split('-');
-	var arr2 = strDate2.split('-');
+	if(arr1.length<3) return;
 	
-	var date1 = new Date(arr1[0], arr1[1], arr1[2]);
-	var date2 = new Date(arr1[0], arr1[1], arr1[2]);
-	
-	$("#rs_date").val(strDate1);
-    $("#rs_date2").val(date2.getFullYear()+"-"+ (date2.getMonth()+1) + "-" + date2.getDate());
-    var diff = date2 - date1;
-    var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
-    var currMonth = currDay * 30;// 월 만듬
-    var currYear = currMonth * 12; // 년 만듬
-
-    
-};
-
-function mDate(obj) {
-	
-	var strDate1= "2017-12-13";
-	var strDate2= "2017-12-13";
-	
-	var arr1 = strDate1.split('-');
-	var arr2 = strDate2.split('-');
-	
-	var date1 = new Date(arr1[0], arr1[1], arr1[2]);
-	var date2 = new Date(arr1[0], arr1[1], arr1[2]);
-	if(obj.value==1){
-		$("#rs_date").val(strDate1);
-	    $("#rs_date2").val(date2.getFullYear()+"-"+ (date2.getMonth()+1) + "-" + date2.getDate());
-	}
-	if(obj.value==2){
-		$("#rs_date").val(strDate1);
-		$("#rs_date2").val(date2.getFullYear()+"-"+ (date2.getMonth()+6) + "-" + date2.getDate());
-	}
-	if(obj.value==3){
-		$("#rs_date").val(strDate1);
-		$("#rs_date2").val(date2.getFullYear()+"-"+ (date2.getMonth()+12) + "-" + date2.getDate());
+	if(data==1){
+		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1]), parseInt(arr1[2]));
+	    $("#rs_date2").val(strDate(date2));
+	} else if(data==2){
+		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1])+5, parseInt(arr1[2]));
+	    $("#rs_date2").val(strDate(date2));
+	} else if(data==3){
+		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1])+11, parseInt(arr1[2]));
+	    $("#rs_date2").val(strDate(date2));
 	}
 }
 
 $(function() {
-	
 	$("#rs_date").datepicker({minDate: 0,
 		altFormat: "yyyy-mm-dd"
 	});
-
-	
-
 });
 
 
+function Dialog(roomCode, roomName, floorName) {
+	$("#modal-frm input[name=roomCode]").val(roomCode);
+	$("#modal-frm input[name=roomName]").val(roomName);
+	$("#modal-frm input[name=floorName]").val(floorName);
+	var date = new Date();
+	$("#modal-frm input[name=rs_date]").val(strDate(date));
+	$("#modal-frm input[name=rs_date2]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
+	
+
+	$('#myRoomModal').modal('show');
+}
+
+function Dialogcancel() {
+	$('#myRoomModal').modal('hide');
+}
+
+function strDate(date) {
+	var y=date.getFullYear();
+	var m=date.getMonth()+1;
+	if(m<10) m="0"+m;
+	var d=date.getDate();
+	if(d<10) d="0"+d;
+	
+	return y+"-"+m+"-"+d;
+}
+
+function SendOk() {
+	var f=document.modal-frm;
+	
+	${dto.signSpot}=$("#modal-frm input[name=rs_reserve]:checked").val();
+	
+	f.action="<%=cp%>/rmres";
+	f.submit();
+	
+	
+}
 </script>
 </head>
 <body>
@@ -219,16 +237,17 @@ $(function() {
   	<c:if test="${dto.spotCode==vo.spotCode}">
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h1>${vo.roomName}</h1> 
+        <div class="panel-heading" style="height: 100%; width: 100%;">
+          <h1 style="height: 100%;">${vo.roomName}</h1>
         </div>
         <div class="panel-body-img" style="width: 100%">
-          <img src="<%=cp%>/resource/images/duospace/Room/${vo.saveFileName}">
+          <img src="<%=cp%>/resource/images/duospace/Room/${vo.saveFileName}" style="width: 100%">
         </div>
         <div class="panel-footer">
           <h3>\<fmt:formatNumber value="${vo.price}" pattern="#,###"/>/1월</h3>
+          <h2>${vo.floorName}</h2>
           <h4>${vo.rcontent}</h4>
-          <button  type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal" onclick="autoDate();">예약하기</button>
+         	 <a id="reserve" class="btn btn-lg" href="javascript:Dialog('${vo.roomCode}', '${vo.roomName}', '${vo.floorName}')">예약하기</a>
         </div>
       </div>      
     </div>   
@@ -237,7 +256,7 @@ $(function() {
     </c:forEach>
   </div>
 </div>
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="myRoomModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -250,23 +269,29 @@ $(function() {
          <div class="modal-body">
 					<div id="newmodal" style="padding: 5px 20px;">
 						<form class="form-horizontal calender" id="modal-frm" name="modal-frm" role="form">
-						<c:forEach var="dto" items="${rlist}">
+							<input type="hidden" name="roomCode">
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">룸 이름</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" type="text" readonly="readonly" value="${dto.roomName}">
+									<input class="form-control" type="text" readonly="readonly" name="roomName">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-xs-12 control-label"> 층 </label>
+								<div class="col-sm-9 col-xs-12">
+									<input class="form-control" type="text" readonly="readonly" name="floorName">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">시작일</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_date" name="rs_date" type="text"/>
+									<input class="form-control" id="rs_date" name="rs_date" type="text" onchange="inputChange(this)" value="${dto.startDate}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">이용기간</label>
 								<div class="col-sm-9 col-xs-12">
-									<select class="form-control" id="rs_daterange" name="rs_daterange" onchange="javascript:mDate(this);">
+									<select class="form-control" id="rs_daterange" name="rs_daterange" onchange="javascript:selectDate(this);">
 										<option value="1">1개월</option>
 										<option value="2">6개월</option>
 										<option value="3">1년</option>
@@ -276,40 +301,41 @@ $(function() {
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">종료일</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_date2" name="rs_date" type="text" readonly="readonly"/>
+									<input class="form-control" id="rs_date2" name="rs_date2" type="text" readonly="readonly" value="${dto.endDate}"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">인원</label>
+								<label class="col-sm-3 col-xs-12 control-label">인원수</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_people" name="rs_people" type="text" value=""/>
+									<input class="form-control" id="rs_people" name="rs_people" type="text" value="${dto.people}"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">예약자명*</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_name" name="rs_name" type="text" value=""/>
+									<input class="form-control" id="rs_name" name="rs_name" type="text" value="${dto.userName}"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">연락처*</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_phone" name="rs_phone" type="text" value=""/>
+									<input class="form-control" id="rs_phone" name="rs_phone" type="text" value="${dto.tel}"/>
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">이메일</label>
+								<label class="col-sm-3 col-xs-12 control-label">예약구분</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_email" name="rs_email" type="text" value=""/>
-								</div>
+									<input id="rs_web" name="rs_reserve" type="radio" value="0" ${dto.signSpot}/>웹
+									<input id="rs_scene" name="rs_reserve" type="radio" value="1" ${dto.signSpot}/>현장
 							</div>
-							</c:forEach>
+							</div>
 						</form>
 					</div>
 				</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary antosubmit" data-dismiss="modal">예약</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
         </div>
       </div>
     </div>

@@ -221,7 +221,7 @@ public class RoomController {
 	public String reserve(
 			HttpServletRequest req,
 			@RequestParam(value="spotCode",defaultValue="3") int spotCode,
-			@RequestParam(value="roomCode", defaultValue="0") int roomCode,
+			@RequestParam(value="roomCode", defaultValue="3") int roomCode,
 			Model model) throws Exception {
 		String cp= req.getContextPath();
 		
@@ -229,18 +229,32 @@ public class RoomController {
 		List<Room> slist =service.slistRoom();
 		List<Room> region=service.regionRoom();
 		List<Room> rlist=service.rlistRoom(spotCode);
-				
+		List<Room> rlist2=service.rlistRoom2(roomCode);
+		
 		String listUrl=cp+"/duospace/room/list";
 		
 		Room dto =service.readRoom(roomCode);
 		
 		model.addAttribute("listUrl", listUrl);
 		
+		model.addAttribute("rlist2", rlist2);
 		model.addAttribute("flist", flist);
 		model.addAttribute("slist", slist);
 		model.addAttribute("region", region);
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("dto", dto);
+		
+		return ".room.room";
+	}
+	
+	@RequestMapping(value="/room", method=RequestMethod.POST)
+	@ResponseBody
+	public String ajax(int roomCode, Model model) throws Exception{
+		
+		
+		List<Room> rlist=service.rlistRoom2(roomCode);
+		
+		model.addAttribute("rlist", rlist);
 		
 		return ".room.room";
 	}
