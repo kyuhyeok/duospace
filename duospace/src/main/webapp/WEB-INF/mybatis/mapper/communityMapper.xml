@@ -8,25 +8,119 @@
 			VALUES(seq_commainboard.NEXTVAL, #{subject} , #{content} , #{cateNum} ,#{memberNum})
 	</insert>
 	
+	<!-- sql 태그 -->
+	<!--
+       * LIKE 대신 INSTR() 함수를 사용하는 경우
+          INSTR(content, #{searchValue}) &gt; 0
+       * CLOB인 경우 검색(CLOB는 LIKE를 사용하면 성능 저하)
+          DBMS_LOB.INSTR(content, #{searchValue}) &gt; 0 
+	-->
+	
+	<sql id="where-list">
+	  <if test="searchKey=='userName'">
+	      userName=#{searchValue}
+	  </if>
+	  <if test="searchKey=='subject'">
+	      INSTR(subject, #{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='content'">
+	      DBMS_LOB.INSTR(content, #{searchValue}) &gt; 0 
+	  </if>
+	  <if test="searchKey=='created'">
+	      TO_CHAR(b.created, 'YYYY-MM-DD') = #{searchValue}
+	      OR TO_CHAR(b.created, 'YYYYMMDD') = #{searchValue}
+	  </if>
+	</sql>
+	
+	
 	<!-- 글갯수 -->
 	<!-- 서비스에서 맵을던지면 파라미터타입 맵을받는다. -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0) FROM commainboard
+		SELECT NVL(COUNT(*), 0) 
+		FROM commainboard
+		WHERE cateNum = #{cateNum}
 	</select>
 	
 	<select id="listCommunity" resultType="com.duospace.community.community.Community" parameterType="map">
 
 	 SELECT * FROM (
     	SELECT ROWNUM rnum, tb.* FROM (
-       	 	SELECT boardnum,subject,content,created,hitCount,cateNum,c.memberNum
+       	 	SELECT boardnum, subject, content, TO_CHAR(c.created,'YYYY-MM-DD') created,boardName
+       	 		,hitCount, c.cateNum, c.memberNum, m.name
        	 	FROM commainboard c
-	       	JOIN member2 m ON m.membernum=c.membernum
-	        WHERE cateNum=#{cateNum}
+	       	JOIN member2 m ON m.membernum = c.membernum
+            JOIN commaincate mc ON c.cateNum = mc.cateNum
+	        WHERE c.cateNum =#{cateNum}
 	        ORDER BY boardnum DESC
 <![CDATA[
     	) tb WHERE ROWNUM <= #{end}
 	) WHERE rnum >= #{start}
 ]]>
 	</select>
+	
+	<!-- 글보기 -->
+	<select id="readCommunity" resultType="com.duospace.community.community.Community" parameterType="Integer">
+		SELECT boardNum,subject,content,TO_CHAR(b.created,'YYYY-MM-DD') created,
+			hitCount,m.NAME,cateNum,email
+	    FROM commainboard b
+	    JOIN member2 m ON b.memberNum=m.membernum
+	    WHERE boardNum=#{boardNum}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE commainboard SET hitCount=hitCount+1 WHERE boardNum = #{boardNum}
+	</update>
+	
+	 <!-- 수정 -->
+	<update id="updateCommunity" parameterType="com.duospace.community.community.Community">
+	  UPDATE commainboard SET subject=#{subject}, content=#{content}
+	               WHERE boardNum = #{boardNum}
+	</update>
+	 
+	 <!-- 삭제 -->
+	<delete id="deleteCommunity" parameterType="Integer">
+	     DELETE FROM commainboard WHERE boardNum = #{boardNum}
+	</delete>
+	
+	<!-- AND 가 필요 없는 경우 자동으로 제거 됨 -->
+	<!-- 이전글 -->
+	<select id="preReadBoard" resultType="com.duospace.community.community.Community" 
+				parameterType="map">			
+		SELECT tb.* FROM (
+			SELECT boardnum, subject
+				FROM commainboard b
+				JOIN member2 m ON b.membernum=m.membernum
+					<where>
+						<if test="searchValue != null and searchValue != '' ">
+							<include refid="where-list"/>
+						</if>
+						<![CDATA[
+							AND (boardNum > #{boardNum})
+						]]>
+					</where>
+				ORDER BY boardNum ASC
+		) tb WHERE ROWNUM=1
+	</select>
+	<!-- 다음글 -->
+	<select id="nextReadBoard" resultType="com.duospace.community.community.Community" 
+				parameterType="map">			
+		SELECT tb.* FROM (
+			SELECT boardnum, subject
+				FROM commainboard b
+				JOIN member2 m ON b.membernum=m.membernum
+					<where>
+						<if test="searchValue != null and searchValue != '' ">
+							<include refid="where-list"/>
+						</if>
+						<![CDATA[
+							AND (boardNum < #{boardNum})
+						]]>
+					</where>
+				ORDER BY boardNum DESC
+		) tb WHERE ROWNUM=1
+	</select>
+	
+	
 	
 </mapper>

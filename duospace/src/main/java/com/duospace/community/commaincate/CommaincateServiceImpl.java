@@ -28,15 +28,25 @@ public class CommaincateServiceImpl implements CommaincateService{
 
 	@Override
 	public List<Commaincate> listCommaincate(Map<String, Object> map) {
-		List<Commaincate> list=null;
+		List<Commaincate> cateList=null;
 		try {
-			list=dao.selectList("commaincate.listcommaincate",map);
+			cateList=dao.selectList("commaincate.listcommaincate",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return list;
+		return cateList;
 	}
 
+	@Override
+	public List<Commaincate> listCommainboard(Map<String, Object> map) {
+		List<Commaincate> boardList=null;
+		try {
+			boardList = dao.selectList("commaincate.listcommainboard",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return boardList;
+	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
@@ -48,5 +58,46 @@ public class CommaincateServiceImpl implements CommaincateService{
 		}
 		return result;
 	}
+
+
+	@Override
+	public int deleteCommaincate(int num) {
+		int result =0;
+		try {
+			result = dao.deleteData("commaincate.deleteCommaincate",num);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+
+	@Override
+	public Commaincate readCommaincate(int num) {
+		Commaincate dto = null;
+		try {
+			dto=dao.selectOne("commaincate.readCommaincate",num);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return dto;
+	}
+
+
+
+	@Override
+	public int updateCommaincate(Commaincate dto) {
+		int result =0;
+		try {
+			result = dao.updateData("commaincate.updateCommaincate",dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+
+
+
 
 }
