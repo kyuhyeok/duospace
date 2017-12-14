@@ -98,4 +98,16 @@ public class MypageServiceImpl implements MypageService {
 		return dto;
 	}
 
+	@Override
+	public int updateBoard(Mypage dto) {
+		int result=0;
+		
+		try {
+			dao.updateData("mypage.updateBoard", dto);
+			result=1;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
 }

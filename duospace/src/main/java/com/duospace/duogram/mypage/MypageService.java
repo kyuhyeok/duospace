@@ -11,4 +11,5 @@ public interface MypageService {
 	public List<Mypage> listMypage(Map<String, Object> map);
 	public int deleteBoard(int num, int memberNum);
 	public Mypage readBoard(int num);
+	public int updateBoard(Mypage dto);
 }

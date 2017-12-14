@@ -35,7 +35,7 @@
 				<a href="#" style="text-decoration:none; font-size: 17px; font-weight: bold">친구</a>
 			</div>
 			<div class="duo_01" style="margin-left: 50px; float: left; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none; font-size: 17px; font-weight: bold">타임라인</a>
+				<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">타임라인</a>
 			</div>
 
 		</div>

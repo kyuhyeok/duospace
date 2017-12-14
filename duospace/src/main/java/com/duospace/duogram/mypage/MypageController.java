@@ -78,6 +78,20 @@ public class MypageController {
 		return model;	
 	}
 	
+	@RequestMapping(value="/duogram/mypage/update", 
+			method=RequestMethod.POST)
+	public String updateSubmit(
+			Mypage dto, 
+			@RequestParam int blogNum,
+			@RequestParam String page,
+			HttpSession session) throws Exception {	
+		// 수정 하기
+		service.updateBoard(dto);		
+		
+		return "redirect:/duogram/mypage/"+blogNum;
+	}
+	
+	
 	// 리스트
 	@RequestMapping(value="/duogram/mypage/list")
 	@ResponseBody
@@ -124,6 +138,7 @@ public class MypageController {
 		return model;
 	}
 	
+	// 글 삭제
 	@RequestMapping(value="/duogram/mypage/delete")
 	public String delete(
 			@RequestParam int num,

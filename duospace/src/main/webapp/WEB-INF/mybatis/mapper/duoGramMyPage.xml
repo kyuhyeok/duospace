@@ -7,8 +7,9 @@
 		INSERT INTO duogram (memberNum) VALUES (#{memberNum})
 	</insert>
 	
+	<!-- 글쓰기 -->
 	<insert id="mypageInsertBoard" parameterType="com.duospace.duogram.mypage.Mypage">
-		INSERT INTO gramTimeLine (num, memberNum, content,blogNum,
+		INSERT INTO gramTimeLine (num, memberNum, content, blogNum,
 			saveFilename, originalFilename)
 			VALUES (seq_gramtimeline.NEXTVAL, #{memberNum}, #{content}, #{blogNum}
 			, #{saveFilename, jdbcType=VARCHAR}, #{originalFilename, jdbcType=VARCHAR})
@@ -25,6 +26,12 @@
 		WHERE g.blogNum=#{blogNum}
 	</select>
 	
+	<!-- 글 수정 -->
+    <update id="updateBoard" parameterType="com.duospace.duogram.mypage.Mypage">
+         UPDATE gramTimeLine SET content=#{content} WHERE num = #{num}
+    </update>
+      
+	<!-- 리스트 -->
 	<select id="mypageListBoard" parameterType="map"
 				resultType="com.duospace.duogram.mypage.Mypage">
 		SELECT * FROM(
