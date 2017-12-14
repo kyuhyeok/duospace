@@ -178,7 +178,7 @@ function deleteRoom(roomCode, page) {
 												<th style="text-align: center;">룸 이름</th>
 												<th style="text-align: center;">층 번호</th>
 												<th style="text-align: center;">룸 가격</th>
-												<th style="text-align: center;">룸 내용</th>
+												<th style="text-align: center; width: 600px;">룸 내용</th>
 												<th style="text-align: center;">지점 이름</th>
 												<th style="text-align: center;">관리</th>
 											</tr>

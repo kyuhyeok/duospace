@@ -159,7 +159,7 @@ public class DuospaceUtil {
 		  sText=sText.replace("&#39;", (char)39 + "");
 		  sText=sText.replace("&#35;","#");
 		  sText=sText.replace("<br>","\n");
-		  sText=sText.replace(" ","&nbsp;");
+		  sText=sText.replace("&nbsp;"," ");
 		 
 		  
 		  return sText;

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.common.MyUtil;
 import com.duospace.member.SessionInfo;
 
-@Controller("duogram.mypageController")
+@Controller("mypage.mypageController")
 public class MypageController {
 	
 	@Autowired
@@ -50,7 +50,7 @@ public class MypageController {
 		model.addAttribute("me", me);
 		model.addAttribute("blogNum", blogNum);
 		
-		return ".duoGram.main.mypage";
+		return ".userGramLayout";
 	}
 	
 	// 글쓰기
@@ -121,4 +121,17 @@ public class MypageController {
 		
 		return model;
 	}
+	
+	@RequestMapping(value="/duogram/mypage/delete")
+	public String delete(
+			@RequestParam int num,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		service.deleteBoard(num, info.getUserName());
+		
+		return "redirect:/bbs/list?page="+page;
+	}
+	
 }

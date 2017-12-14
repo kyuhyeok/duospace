@@ -127,8 +127,8 @@
 	<definition name=".userGramLayout" template="/WEB-INF/view/duoGram/layout/layout4.jsp">
 	    <put-attribute name="title" value="duoGram" />
 	  	<put-attribute name="header" value="/WEB-INF/view/duoGram/layout/header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/main.jsp" />
-		<put-attribute name="body1" value="/WEB-INF/view/duoGram/main/mypagebody.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/mypage.jsp" />
+		<put-attribute name="body1" value="/WEB-INF/view/duoGram/layout/mypagebody.jsp" />
 		<put-attribute name="fReq" value="/WEB-INF/view/duoGram/fReq/listFReq.jsp" />
 		<put-attribute name="fMess" value="/WEB-INF/view/duoGram/fMess/listFMess.jsp" />
 		<put-attribute name="fch" value="/WEB-INF/view/duoGram/fMess/fMess.jsp" />

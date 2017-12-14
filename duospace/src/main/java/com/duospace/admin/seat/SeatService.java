@@ -11,9 +11,10 @@ public interface SeatService {
 	
 	public int insertPlacement(Map<String, Object> map); //배치도 등록
 	public int insertSeats();   //좌석테이블에 좌석 등록
-	public Seat readPlacement();
+	public Seat readSpot(int spotCode);
 	public int updatePlacement();
 	public int deletePlacement();
+	public Seat readPlacement(int placeCode);
 
 	
 }

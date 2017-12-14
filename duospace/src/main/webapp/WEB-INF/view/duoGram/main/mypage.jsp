@@ -178,7 +178,7 @@ function printDuogram(data) {
 			var created=data.list[idx].created;
 			var name=data.list[idx].name;
 			
-			out+="<div style='min-height: 220px; margin-bottom: 80px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
+			out+="<div style='min-height: 220px; margin-bottom: 30px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
@@ -224,35 +224,33 @@ function printDuogram(data) {
 	}
 }
 
-function deleteGram() {
+function deleteBoard() {
+	<c:if test="${sessionScope.user.name=='admin' || sessionScope.user.num==dto.num}">
 	  var num = "${dto.num}";
 	  var page = "${page}";
 	  var query = "num="+num+"&page="+page;
-	  var url = "<%=cp%>/duogram/delete?" + query;
+	  var url = "<%=cp%>/bbs/delete?" + query;
 
 	  if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
 	  	location.href=url;
-
-	}
+	</c:if> 
+	
+	<c:if test="${sessionScope.member.userId!='admin' && sessionScope.user.num!=dto.num}">
+	  alert("게시물을 삭제할 수  없습니다.");
+	</c:if>
+}
 
 </script>
 
 </head>
 <body style="margin: 0px; height: 100%; width: 100%; background: #e9ebee;">
 
-<!-- 윗칸 띄우기 -->
-<div style="height: 115px"></div>
-
 <!-- left -->
 <!-- mid -->
-<div>
+	<div style="height: 32px;">
+	</div>
 	<div style="width: 935px; margin: auto;">
 	<div style="width: 627px;">
-	
-		<div style="height: 60px">
-		</div>
-		
-		
 		<!-- 왼쪽 글쓰는곳 -->
 		<div class="wrap" style="width: 614px; float: left;">
 			<div style="margin-bottom: 60px; width: 614px; border: 1px solid #dddfe2; background-color: white; border-radius: 4px;">
@@ -275,8 +273,8 @@ function deleteGram() {
 							<button type="button" style="border-radius: 4px; border: 1px solid #dddfe2; width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
 						</a>
 						<!-- 글 및 동영상 등록 -->
-						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px; font-weight: bold; text-align: center;">등록하기</button>
-						<button type="button" class="btn pull-right" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; font-weight: bold; text-align: center;">동영상추가</button>
+						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px;  border-radius: 3px; margin-left: 8px; text-align: center;">등록하기</button>
+						<button type="button" class="btn pull-right" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; border-radius: 3px; text-align: center;">동영상추가</button>
 					</div>
 					</form>
 				</div>
@@ -288,18 +286,9 @@ function deleteGram() {
 	<!-- /왼쪽 게시글들 -->
 	
 	<!-- 오른쪽 커뮤니티? -->
-	<div style="width: 308px; float: right;">
-	
-	<div style="width: 293px; padding: 10px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">
-		<a href="#" style="float: left;">
-			<img src="">사진
-		</a>
-			<div style="display: table-cell; vertical-align: middle">
-				<a href="#" style="text-decoration:none; color: black; font-size: 14px; font-family: '나눔고딕';">Hajimemasitda</a>
-			</div>
-			<div style="display: table-cell; vertical-align: middle; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
-	</div>
-	
+	<div style="background: white;">
+	<div style="marign-left: 10px; width: 293px; float: right;">
+
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
 		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			친구생일 
@@ -337,7 +326,7 @@ function deleteGram() {
 			<br>
     		
     </div>
-    <div style="border-top: 1px solid #dddfe2; width: 293px; padding-left: 5px; padding-right: 5px; padding-top: 2px; float: right; color: #ccc; font-size: 11px;">
+    <div style="margin-bottom: 20px; border-top: 1px solid #dddfe2; width: 293px; padding-left: 5px; padding-right: 5px; padding-top: 2px; float: right; color: #ccc; font-size: 11px;">
     	<span><a href="#" style="text-decoration:none; color: #8a8a8a; font-family: '나눔고딕';"> 회사 소개 </a></span>
 		<span>|</span>
 		<span><a href="#" style="text-decoration:none; color: #8a8a8a; font-family: '나눔고딕';"> 정책 및 약관 </a></span>
