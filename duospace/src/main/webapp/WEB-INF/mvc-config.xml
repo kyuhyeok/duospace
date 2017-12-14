@@ -78,7 +78,7 @@
 	<websocket:handlers>
  		<websocket:mapping handler="mySocketHandler" path="/echo.msg"/>
  	</websocket:handlers>
- 	<bean id="mySocketHandler" class="com.duospace.duogram.socket.MySocketHandler" init-method="init" />
+ 	<bean id="mySocketHandler" class="com.duospace.duogram.socket.MySocketHandler"/>
 
 	<!-- 파일 업로드 -->
     <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

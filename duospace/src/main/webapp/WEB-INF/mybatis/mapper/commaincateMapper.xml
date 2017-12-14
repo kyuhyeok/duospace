@@ -17,11 +17,41 @@
 	
 	<!-- 분류 리스트 -->
 	<select id="listcommaincate" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
-		SELECT cm.catenum,boardname, cm.created, boardNum, subject, hitCount
-		FROM commaincate cm
-		LEFT OUTER JOIN commainboard cb ON cm.cateNum=cb.catenum
-		ORDER BY cb.CREATED ASC ,cm.created DESC
+		SELECT cateNum,BoardName
+		FROM commaincate
+		ORDER BY boardName ASC
 	</select>
+	
+	<!-- 분류안에 제목리스트 -->
+	<!-- 
+	<select id="listcommainboard" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM (
+				SELECT catenum, created, boardNum, subject, hitCount
+				FROM commainboard 
+				WHERE cateNum = #{cateNum}
+				ORDER BY created DESC
+				
+<![CDATA[
+			) tb WHERE ROWNUM <=5
+		) WHERE rnum >=1
+]]>
+	</select>
+	 -->
+	<select id="listcommainboard" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
+		SELECT ROW_NUMBER () OVER (PARTITION BY tb.cateNum ORDER BY tb.rank DESC) rank2, tb.* FROM (
+		    SELECT * FROM (
+		        SELECT c.catenum, c.created, boardNum, subject, hitCount, ROW_NUMBER () OVER (PARTITION BY c.cateNum ORDER BY c.created DESC) rank,boardName
+		        FROM COMMAINBOARD b
+		        RIGHT OUTER JOIN commaincate c ON b.cateNum=c.cateNum
+<![CDATA[
+		    ) where rank<=5
+]]>
+		) tb ORDER BY tb.boardName ASC , tb.rank ASC
+	</select>
+		
+	
+	
 	<!-- 분류생성 분류개수 분류or게시글 리스트   -->
 	<!-- 생성 리스트 수정 삭제.... -->
 	

@@ -16,13 +16,14 @@ function sendOk() {
         return;
     }
 
+    
 	str = f.content.value;
     if(!str) {
         alert("내용을 입력하세요. ");
         f.content.focus();
         return;
     }
-	f.action="<%=cp%>/community/created?cateNum=${cateNum}";
+	f.action="<%=cp%>/community/${mode}";
 
     f.submit();
 }
@@ -51,17 +52,20 @@ function sendOk() {
 						<td valign="top" style="padding:5px 0px 5px 10px;"> 
 							<textarea name="content" id="content" style="width: 95%; height: 270px;">${dto.content}</textarea>
 						</td>
-					</tr>					
+					</tr>
 				</table>
 				
 				<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 					<tr height="45"> 
 						<td align="center" >
 							<input type="hidden" name="cateNum" value="${cateNum}">
-							<input type="hidden" name="memberNum" value="${sessionScope.user.memberNum}">
-							<button type="button" class="btn" style="background: #ffffff; border: 1px solid #cccccc;" onclick="sendOk();">등록하기</button>
+							<input type="hidden" name="page" value="${page}"><!-- 수정할때 page,boardNum c:if사용. -->
+							<c:if test="${mode=='update'}">
+								<input type="hidden" name="boardNum" value="${boardNum}">
+							</c:if>
+							<button type="button" class="btn" style="background: #ffffff; border: 1px solid #cccccc;" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 							<button type="reset" class="btn" style="background: #ffffff; border: 1px solid #cccccc;">다시입력</button>
-							<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list';" style="background: #ffffff; border: 1px solid #cccccc;">등록취소</button>
+							<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list?cateNum=${cateNum}';" style="background: #ffffff; border: 1px solid #cccccc;">${mode=='update'?'수정취소':'등록취소'}</button>
 						</td>
 					</tr>
 				</table>

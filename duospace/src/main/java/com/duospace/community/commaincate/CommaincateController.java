@@ -36,4 +36,11 @@ public class CommaincateController {
 		return "redirect:/commaincate/admin";
 	}
 	
+	@RequestMapping(value="/commaincate/delete",method=RequestMethod.GET)
+	public String deleteCommaincate() {
+		
+		
+		return "redirect:/commaincate/admin";
+	}
+	
 }

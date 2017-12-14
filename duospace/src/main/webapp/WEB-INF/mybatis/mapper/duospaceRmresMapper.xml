@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.rmres">
+	
+	<insert id="insert" parameterType="com.duospace.duospace.rmres.Rmres">
+		INSERT INTO rmres(rmresNum, startDate, endDate, 
+		roomCode, reservNum, people, userName, tel) 
+		VALUES(SEQ_RMRES.NEXTVAL,#{startDate},#{endDate},
+		#{roomCode},#{reservNum},#{people},#{userName},#{tel})
+	</insert>
+	
+	<insert id="insert2" parameterType="com.duospace.duospace.rmres.Rmres">
+		INSERT INTO reserv (reservNum, memberNum, signSpot) 
+		VALUES(SEQ_RESERV.NEXTVAL, #{memberNum}, #{signSpot})
+	</insert>
+</mapper>

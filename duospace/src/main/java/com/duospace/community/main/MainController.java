@@ -20,19 +20,18 @@ public class MainController {
 	
 	@RequestMapping(value="/community",method=RequestMethod.GET)
 	public String list(
-			Commaincate dto,
 			Model model
 			)throws Exception{
 		//데이터 개수
-		int dataCount;
 		
-		dataCount = dto.getBoardCount();
 		
 		Map<String, Object> map = new HashMap<>();
-		List<Commaincate> list = service.listCommaincate(map);
-
-		model.addAttribute("dataCount",dataCount);
-		model.addAttribute("list",list);
+		
+		List<Commaincate> cateList = service.listCommaincate(map);
+		List<Commaincate> boardList = service.listCommainboard(map);
+		
+		model.addAttribute("cateList",cateList);
+		model.addAttribute("boardList",boardList);
 	
 		
 		return ".communityLayout";

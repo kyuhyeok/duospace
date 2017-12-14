@@ -5,6 +5,7 @@ public class Community {
 	private String subject,content,created;//제목,내용,작성일
 	private int hitCount;//조회수
 	
+	private String name,email,boardName;
 	private int cateNum,memberNum;//게시판분류코드,회원번호
 
 	public int getBoardNum() {
@@ -55,6 +56,22 @@ public class Community {
 		this.hitCount = hitCount;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public int getCateNum() {
 		return cateNum;
 	}
@@ -69,6 +86,14 @@ public class Community {
 
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
+	}
+
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 	
 	

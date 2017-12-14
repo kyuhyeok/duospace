@@ -32,23 +32,11 @@
 				SELECT num, m2.name, g.memberNum, blogNum, content, created
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
-				WHERE g.blogNum=#{blogNum}
 				ORDER BY num DESC
 		<![CDATA[
 			) tb WHERE ROWNUM <= #{end}
 		) WHERE rnum >= #{start}
 			]]>
 	</select>
-	
-	<!-- 삭제 -->
-	<delete id="deleteGram" parameterType="Integer">
-            DELETE FROM gramtimeline WHERE num = #{num}
-      </delete>
-	
-	<!-- 댓글 -->
-	<insert id="gramReply" parameterType="com.duospace.duogram.Reply">
-      		INSERT INTO gramReply(replyNum, num, content, answer)
-      			VALUES(gramReply_seq.NEXTVAL, #{num}, #{content}, #{answer})   
-    </insert>
 	
 </mapper>

@@ -167,5 +167,16 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return rlist;
 	}
+
+	@Override
+	public List<Room> rlistRoom2(int roomCode) {
+		List<Room> rlist2=null;
+		try {
+			rlist2=dao.selectList("duospace.room.rlist2", roomCode);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return rlist2;
+	}
 	
 }

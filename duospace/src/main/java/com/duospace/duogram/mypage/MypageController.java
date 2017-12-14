@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.common.MyUtil;
 import com.duospace.member.SessionInfo;
 
-@Controller("duogram.mypageController")
+@Controller("mypage.mypageController")
 public class MypageController {
 	
 	@Autowired
@@ -32,6 +32,7 @@ public class MypageController {
 	@RequestMapping(value="/duogram/mypage/{blogNum}")
 	public String duogram(
 			@PathVariable int blogNum,
+			Mypage dto,
 			HttpSession session,
 			Model model) throws Exception {
 		
@@ -48,6 +49,7 @@ public class MypageController {
 		
 		// sns 타임라인 불러오기
 		model.addAttribute("me", me);
+		model.addAttribute("dto", dto);
 		model.addAttribute("blogNum", blogNum);
 		
 		return ".userGramLayout";
@@ -76,6 +78,20 @@ public class MypageController {
 		return model;	
 	}
 	
+	@RequestMapping(value="/duogram/mypage/update", 
+			method=RequestMethod.POST)
+	public String updateSubmit(
+			Mypage dto, 
+			@RequestParam int blogNum,
+			@RequestParam String page,
+			HttpSession session) throws Exception {	
+		// 수정 하기
+		service.updateBoard(dto);		
+		
+		return "redirect:/duogram/mypage/"+blogNum;
+	}
+	
+	
 	// 리스트
 	@RequestMapping(value="/duogram/mypage/list")
 	@ResponseBody
@@ -103,7 +119,7 @@ public class MypageController {
 		map.put("end", end);
 		
 		int listNum, n=0;
-		List<Mypage> list=service.listDuogram(map);
+		List<Mypage> list=service.listMypage(map);
 		Iterator<Mypage> it=list.iterator();
 		while (it.hasNext()) {
 			Mypage dto=it.next();
@@ -122,5 +138,18 @@ public class MypageController {
 		return model;
 	}
 	
+	// 글 삭제
+	@RequestMapping(value="/duogram/mypage/delete")
+	public String delete(
+			@RequestParam int num,
+			@RequestParam int blogNum,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		service.deleteBoard(num, info.getMemberNum());
+		
+		return "redirect:/duogram/mypage/"+blogNum;
+	}
 	
 }
