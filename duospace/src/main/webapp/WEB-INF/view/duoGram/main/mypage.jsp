@@ -224,16 +224,21 @@ function printDuogram(data) {
 	}
 }
 
-function deleteGram() {
+function deleteBoard() {
+	<c:if test="${sessionScope.user.name=='admin' || sessionScope.user.num==dto.num}">
 	  var num = "${dto.num}";
 	  var page = "${page}";
 	  var query = "num="+num+"&page="+page;
-	  var url = "<%=cp%>/duogram/delete?" + query;
+	  var url = "<%=cp%>/bbs/delete?" + query;
 
 	  if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
 	  	location.href=url;
-
-	}
+	</c:if> 
+	
+	<c:if test="${sessionScope.member.userId!='admin' && sessionScope.user.num!=dto.num}">
+	  alert("게시물을 삭제할 수  없습니다.");
+	</c:if>
+}
 
 </script>
 

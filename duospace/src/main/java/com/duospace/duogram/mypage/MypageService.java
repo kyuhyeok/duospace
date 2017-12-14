@@ -9,4 +9,6 @@ public interface MypageService {
 	public int insertBoard(Mypage dto);
 	public int dataCount(Map<String, Object> map);
 	public List<Mypage> listDuogram(Map<String, Object> map);
+	public int deleteBoard(int num, String userName);
+	public Mypage readBoard(int num);
 }

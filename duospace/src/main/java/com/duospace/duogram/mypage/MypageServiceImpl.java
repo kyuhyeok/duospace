@@ -69,4 +69,33 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
+	@Override
+	public int deleteBoard(int num, String userName) {
+		int result=0;
+		
+		try {
+			Mypage dto=readBoard(num);
+			if(dto!=null) {
+				if(! dto.getName().equals(userName) && ! userName.equals("admin"))
+					return result;
+			}
+			dao.deleteData("mypage.deleteBoard", num);
+			result=1;
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
+	@Override
+	public Mypage readBoard(int num) {
+		Mypage dto=null;
+		
+		try {
+			dto=dao.selectOne("mypage.readBoard", num);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return dto;
+	}
+
 }
