@@ -5,28 +5,66 @@
 <%
 	String cp=request.getContextPath();
 %>
+
+<script type="text/javascript">
+//게시글 업데이트
+function updateBoard(){
+	<c:if test="${sessionScope.user.userId==dto.email}">
+	  var cateNum = "${dto.cateNum}";
+	  var boardNum = "${dto.boardNum}";
+	  var page = "${page}";
+	  var query = "cateNum="+cateNum+"&boardNum="+boardNum+"&page="+page;
+	  var url = "<%=cp%>/community/update?" + query;
+
+	  location.href=url;
+	</c:if>
+
+	<c:if test="${sessionScope.user.userId!=dto.email}">
+	 alert("게시물을 수정할 수  없습니다.");
+	</c:if>
+}
+//게시글 삭제
+function deleteBoard() {
+	<c:if test="${sessionScope.user.userId=='admin' || sessionScope.user.userId==dto.email}">
+	  var cateNum = "${dto.cateNum}";
+	  var boardNum = "${dto.boardNum}";
+	  var page = "${page}";
+	  var query = "cateNum="+cateNum+"&boardNum="+boardNum+"&page="+page;
+	  var url = "<%=cp%>/community/delete?" + query;
+
+	  if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
+	  	location.href=url;
+	</c:if>    
+	<c:if test="${sessionScope.user.userId!='admin' && sessionScope.user.userId!=dto.email}">
+	  alert("게시물을 삭제할 수  없습니다.");
+	</c:if>
+}
+
+
+</script>
+
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
-	<div style="width: 800px; margin: 10px auto 0px;">
+	<div style="width: 800px; margin: 10px auto 0px; background: #fff0f0;">
 		<div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 				<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 					<td colspan="2" align="center">
-						제목
+						${dto.subject}
 					</td>
 				</tr>
 				
 				<tr height="35" style="border-bottom: 1px solid #cccccc;">
 					<td width="50%" align="left" style="padding-left: 5px;">
-						이름 : 홍길동
+						이름 : ${dto.name}
 					</td>
 					<td width="50%" align="right" style="padding-right: 5px;">
-						2017-12-11 | 조회 1
+						${dto.created} | 조회 ${dto.hitCount}
 					</td>
 				</tr>
 				
 				<tr style="border-bottom: 1px solid #cccccc;">
 					<td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
-						내용
+						${dto.content}
 					</td>
 				</tr>
 				
@@ -34,7 +72,7 @@
 					<td colspan="2" align="left" style="padding-left: 5px;">
 						이전글 :
 						<c:if test="${not empty preReadDto}">
-							<a href="<%=cp%>/community/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
+							<a href="<%=cp%>/community/article?${query}&boardNum=${preReadDto.boardNum}">${preReadDto.subject}</a>
 						</c:if>
 					</td>
 				</tr>
@@ -43,7 +81,7 @@
 					<td colspan="2" align="left" style="padding-left: 5px;">
 						다음글 :
 						<c:if test="${not empty nextReadDto}">
-							<a href="<%=cp%>/community/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
+							<a href="<%=cp%>/community/article?${query}&boardNum=${nextReadDto.boardNum}">${nextReadDto.subject}</a>
 						</c:if>
 					</td>
 				</tr>
@@ -52,16 +90,16 @@
 			<table style="width: 100%; margin: 0px auto 20px; border-spacing: 0px;">
 				<tr height="45">
 					<td width="300" align="left">
-						<c:if test="${sessionScope.member.userId==dto.userId}">				    
-							<button type="button" class="btn" onclick="updateBoard();" style="background: #ffffff; border: 1px solid #cccccc;">수정</button>
-						</c:if>
-						<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">				    
-							<button type="button" class="btn" onclick="deleteBoard();" style="background: #ffffff; border: 1px solid #cccccc;">삭제</button>
-						</c:if>
+					<c:if test="${sessionScope.user.userId==dto.email}">		    
+						<button type="button" class="btn" onclick="updateBoard();" style="background: #ffffff; border: 1px solid #cccccc;">수정</button>
+					</c:if>
+					<c:if test="${sessionScope.user.userId==dto.email || sessionScope.user.userId=='admin'}">
+						<button type="button" class="btn" onclick="deleteBoard();" style="background: #ffffff; border: 1px solid #cccccc;">삭제</button>
+					</c:if>
 					</td>
 					
 					<td align="right">
-						<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list?${query}';" style="background: #ffffff; border: 1px solid #cccccc;">리스트</button>
+						<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list?cateNum=${cateNum}';" style="background: #ffffff; border: 1px solid #cccccc;">리스트</button>
 					</td>
 				</tr>
 			</table>

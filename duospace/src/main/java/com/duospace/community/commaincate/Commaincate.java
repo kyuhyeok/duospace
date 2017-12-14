@@ -6,7 +6,7 @@ public class Commaincate {
 	private int boardCount;//게시판수
 	
 	private int hitCount,boardNum;//조회수,게시판번호
-	private String subject;//제목
+	private String subject,rank,rank2;//제목
 	
 	public int getCateNum() {
 		return cateNum;
@@ -49,6 +49,18 @@ public class Commaincate {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public String getRank2() {
+		return rank2;
+	}
+	public void setRank2(String rank2) {
+		this.rank2 = rank2;
 	}
 	
 	

@@ -18,6 +18,7 @@
   		</div>
   		<div>
 	  		<table>
+	  		<!-- 생성 -->
 	  			<tr style="margin: 1px;">
 	  				<td style="margin: 1px">
 	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>/community/commaincate';">분류 생성</button>
@@ -27,6 +28,30 @@
 	  				</td>
 	  				<td style="margin: 1px">
 	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">커뮤니티 카테고리 생성</button>
+	  				</td>
+	  			</tr>
+	  			<!-- 수정 -->
+	  			<tr style="margin: 1px;">
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">분류 수정</button>
+	  				</td>
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">지역 수정</button>
+	  				</td>
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">커뮤니티 카테고리 수정</button>
+	  				</td>
+	  			</tr>
+	  			<!-- 삭제 -->
+	  			<tr style="margin: 1px;">
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>/community/commaincate';">분류 삭제</button>
+	  				</td>
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">지역 삭제</button>
+	  				</td>
+	  				<td style="margin: 1px">
+	  					<button type="button" class="btn" style="background: #fff; border: 1px solid #cccccc;" onclick="javascript:location.href='<%=cp%>';">커뮤니티 카테고리 삭제</button>
 	  				</td>
 	  			</tr>
 	  		</table>

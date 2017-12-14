@@ -16,8 +16,15 @@
 		SELECT spotCode, spotName, region FROM spot
 	</select>
 
-	<select id="floorList" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
-		SELECT floorNum, floorName,spotCode FROM floor WHERE spotCode=#{spotCode}
+	<select id="floorList" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">       
+		SELECT tb.* FROM(
+			SELECT ROW_NUMBER() OVER (PARTITION BY f.floorNum ORDER BY created desc) rnum, 
+			f.floorNum fnum, floorName,spotCode,NVL(placecode,0) placeCode,created
+			FROM floor f
+			LEFT OUTER JOIN placement p ON f.floornum=p.floornum
+			WHERE spotCode=#{spotCode}
+			)tb 
+			WHERE rnum=1
 	</select>
 	
 	<insert id="insertPlacement" parameterType="map">
@@ -35,24 +42,42 @@
 		FROM placement
 	</select>
 	
+	
 	<select id="placementList" parameterType="map" resultType="com.duospace.admin.seat.Seat">
-		SELECT * FROM(
-		    SELECT ROWNUM rnum, tb.* FROM(
-		        SELECT p.placecode, placement, p.floornum, created,floorName,s.spotcode,spotname,region
-		        FROM placement p
-		        JOIN floor f ON p.floornum=f.floornum
-		        JOIN spot s ON f.spotcode=s.spotcode
-		        <where>
-		        	<if test="searchValue !=null and searchValue !=''">
-		        		<include refid="where-list"/>
-		        	</if>
-		        </where>
-		        ORDER BY p.placecode desc
-		    )tb
-	<![CDATA[
-		    WHERE ROWNUM <=#{end}
-		)WHERE rnum >= #{start}
-	]]>
+		SELECT distinct s.spotCode, spotName,region 
+ 		FROM placement p
+        JOIN floor f ON p.floornum=f.floornum
+        JOIN spot s ON f.spotcode=s.spotcode
 	</select>
 	
+	<select id="readSpot" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
+		SELECT distinct s.spotCode, spotName,region 
+ 		FROM placement p
+        JOIN floor f ON p.floornum=f.floornum
+        JOIN spot s ON f.spotcode=s.spotcode
+        WHERE s.spotcode=#{spotCode}
+	</select>
+	
+	<select id="readPlacement" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
+		SELECT ROWNUM,placecode,placement,floornum,created
+		FROM placement 
+		WHERE ROWNUM=1 AND placeCode=#{placeCode}
+		ORDER BY created DESC
+	</select>
+	
+	
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

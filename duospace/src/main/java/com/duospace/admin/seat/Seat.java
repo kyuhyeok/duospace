@@ -14,10 +14,18 @@ public class Seat {
 	private int placeCode; //배치도코드
 	private String placeMent; //배치도
 	
+	private String created; // 생성일
+	
 	private int listNum;
 	
 	
 	
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
+	}
 	public int getListNum() {
 		return listNum;
 	}

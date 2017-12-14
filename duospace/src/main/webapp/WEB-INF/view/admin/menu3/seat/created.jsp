@@ -5,22 +5,43 @@
 <%
 	String cp = request.getContextPath();
 %>
+
+
 <script type="text/javascript">
 	$(function() {
 		
+		 //$("<style type='text/css' id='dynamic'    />").appendTo("head");
+		 /*
+		 
+		 $(".color").change(function () {
+		     
+		      var color = $(this).val();
+		       $('.selected').css('background-color',color); 
+		      $("#dynamic").append("input[type=color]:after{background-color:"+color+";}");
+		   });
 		
+		*/
+		
+		
+		///////////////////
+		
+		
+		//가로
 		$(".colNum").on("click",function(){
 	
 			var num=$(this).text();
 			//alert(num);  
 			
+			var color=$(".color").val();
+			
 			$(".make-Seat-Tb tr").eq(num).find("td").toggleClass("selected");
+			$(".make-Seat-Tb tr").eq(num).find("td").css('background-color','');
 			
 			/*
 			$(".make-Seat-Tb tr").eq(num).addClass("selected"); 
 			//$(".make-Seat-Tb tr").eq(num).siblings().removeClass("selected");
 			
-			 var cal=$(".make-Seat-Tb tr").eq(num).attr("class");
+			 var cal=$(".make-Seat-Tb tr").eq(num).attr("class"); 
 			
 			if(cal.equal("selected")){
 				$(".make-Seat-Tb tr").eq(num).removeClass("selected");
@@ -30,18 +51,43 @@
 		});
 	
 		
+		//세로
 		$(".rowNum").on("click",function(){   
 			var num=$(this).text(); 
 			//alert(num);
 		
+			var color=$(".color").val();
+			
 			$(".make-Seat-Tb tr").each(function(index){
 				$(".make-Seat-Tb tr").eq(index).children().eq(num).toggleClass("selected");
+				$(".make-Seat-Tb tr").eq(index).children().eq(num).css('background-color','');
+				
 			})
+			
+			$(".make-Seat-Tb tr").each(function(index){
+				if($(this).children().eq(num).attr("class")=="selected"){
+					$(this).children().eq(num).css('background-color',color);
+				}
+				
+			})
+			
+			
+			
 			
 		}); 
 		
 		$(".make-Seat-Tb tr td").on("click",function(){
+			
 			$(this).toggleClass("selected");
+			$(this).css('background-color','');
+			
+			if($(this).attr("class")=="selected"){
+				var color=$(".color").val();
+				//$("[class='selected']").css('background-color',color);
+				$(this).css('background-color',color);
+			}
+			
+			
 			//var n=$(this).attr("data-num");
 			//alert(n);
 		});
@@ -83,11 +129,7 @@
 				
 			});
 		
-		/*
-			$("select[name=spotCode]").on("change",function(){
-				//에이작스~~
-			})
-		*/
+	
 	});     
 	
 function floorList() {
@@ -131,8 +173,9 @@ function floorList() {
 	text-align: center;
 }
 .selected{
-	background: red;
+	background: red; 
 }
+
 </style>
 
 
@@ -151,6 +194,9 @@ function floorList() {
 			</div>
 			<div class="clearfix"></div>
 
+	<input type="color" name="favcolor" class="color" value="#478ad1">
+	
+	
 	
 		<div style="margin-top: 50px;"></div>
 

@@ -7,13 +7,16 @@
 %>
 
 <script type="text/javascript">
-
+	function searchList() {
+		var f=document.searchForm;
+		f.submit();
+	}
 </script>
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
 	<div style="width: 800px; margin: 10px auto 0px;">
 		<div>
 		<div>
-			<h3><span style="font-family: Webdings">2</span> ${cateName}게시판 </h3>
+			<h3><span style="font-family: Webdings">2</span> ${boardName}게시판 </h3>
 		</div>
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
 			
@@ -27,30 +30,42 @@
 				</tr>
 				
 			<!-- for문 돌리기. -->
-				<c:forEach var="dto" items="${list}">
+			<c:forEach var="dto" items="${list}">
 					<c:if test="${dto.boardNum !=0 }">
 						<tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
-							<td>번호</td>
+							<td>${dto.listNum}</td>
 							<td align="left" style="padding-left: 10px;">
-								<a href="<%=cp%>/community/article">
+								<a href="${articleUrl}&boardNum=${dto.boardNum}">
 									${dto.subject}
 								</a>
 							</td>
-							<td>이름${name}</td>
-							<td>${dto.content}</td>
-							<td>1</td>
+							<td>${dto.name}</td>
+							<td>${dto.created}</td>
+							<td>${dto.hitCount}</td>
 							<td><a>첨부</a></td>
 						</tr>
 					</c:if>
-				</c:forEach>
+			</c:forEach>
+			</table>
+			<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+				<tr height="35">
+					<td align="center">
+						<c:if test="${dataCount==0 }">
+							등록된 게시물이 없습니다.
+						</c:if>
+						<c:if test="${dataCount!=0 }">
+							${paging}
+						</c:if>
+					</td>
+				</tr>
 			</table>
 			<table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
 				<tr height="40">
 					<td align="left" width="100">
-						<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list';" style="background: #fff; border: 1px solid #cccccc;">새로고침</button>
+						<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/community/list?cateNum=${cateNum}';" style="background: #fff; border: 1px solid #cccccc;">새로고침</button>
 					</td>
 					<td align="center">
-						<form name="searchForm" action="<%=cp%>/community/list" method="post">
+						<form name="searchForm" action="<%=cp%>/community/list?cateNum=${cateNum}" method="post">
 							<input type="hidden" name="cateNum" value="${dto.cateNum}">
 							<select name="searchKey" class="selectField">
 								<option value="subject">제목</option>

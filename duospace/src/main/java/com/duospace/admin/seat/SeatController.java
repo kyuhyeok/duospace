@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,7 +74,7 @@ public class SeatController {
 			n++;
 		}
 		
-		String query="page="+current_page;
+		String query="page="+current_page+"&rows="+rows;
 		
 		if(searchValue.length()!=0) {
 			query+="&searchKey="+searchKey+"&searchValue="+URLEncoder.encode(searchValue, "utf-8");
@@ -141,8 +142,7 @@ public class SeatController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		String seat_Html=myUtil.htmlToStr(seatHtml);
-		//System.out.println(seat_Html);
+		String seat_Html=myUtil.strToHtml(seatHtml);
 		
 		map.put("placeMent", seat_Html);
 		map.put("floorNum", floorNum);
@@ -152,8 +152,65 @@ public class SeatController {
 		return "redirect:/admin/seat/list";
 	}
 	
+	@RequestMapping(value="/admin/seat/article", method=RequestMethod.GET)
+	public String article(
+			@RequestParam(value="searchKey", defaultValue="spotName") String searchKey,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam String page,
+			@RequestParam int spotCode,
+			@RequestParam String rows,
+			Model model
+			) throws Exception{
+		
+		
+	
+		Seat dto = service.readSpot(spotCode);
+		
+		String query="&rows="+rows;
+		if(searchValue.length()!=0)
+			query="&searchKey="+searchKey+"&searchValue="+searchValue;
+		
+		if(dto==null)
+			return "redirect:/admin/seat/list?page="+page+query;
+		
+		//System.out.println("spotCode:"+spotCode);
+		
+		
+		List<Seat> fList = service.listFloor(spotCode);
+		
+		for(Seat d:fList) {
+			System.out.println(d.getPlaceCode());
+		}
+		
+		//dto.setPlaceMent(myUtil.htmlToStr(dto.getPlaceMent()));
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+		model.addAttribute("floorList", fList);  //지점의 층 리스트
+		
+		
+		
+		return ".admin4.menu3.seat.article";
+	}
 	
 	
+	@RequestMapping(value="/admin/seat/readPlacement", method=RequestMethod.POST)
+	public String placementShow(@RequestParam int placeCode,Model model)throws Exception{
+		
+		Seat dto = service.readPlacement(placeCode);
+		
+		
+		
+		if(dto!=null)
+			dto.setPlaceMent(myUtil.htmlToStr(dto.getPlaceMent()));
+		
+		//System.out.println(dto.getPlaceMent());
+		
+		model.addAttribute("dto", dto);
+
+		return "admin/menu3/seat/placeMent";
+	}
 	
 }
 
