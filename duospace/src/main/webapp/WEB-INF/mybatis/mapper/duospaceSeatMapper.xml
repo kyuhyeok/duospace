@@ -2,6 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.seat">
+
 	<sql id="where-list">
 		<if test="searchKey=='spotName'">
 			INSTR(spotName,#{searchValue}) &gt; 0
@@ -11,45 +12,98 @@
 		</if>
 	</sql>
 
-
+	<!-- 총 지점리스트 -->
 	<select id="spot_list" resultType="com.duospace.admin.seat.Seat">
 		SELECT spotCode, spotName, region FROM spot
 	</select>
+	
+	<!--created 선택한 지점의 총 리스트 -->
+	<select id="totalFloorList" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
+		SELECT f.floorNum, floorName,f.spotCode,spotName
+		FROM floor f
+		LEFT OUTER JOIN spot s ON f.spotCode=s.spotCode
+		WHERE f.spotCode=#{spotCode}
+	</select>
 
+	<!--article 선택한 지점의 층리스트,배치도(관련된 배치도는 최신것만) -->
 	<select id="floorList" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">       
 		SELECT tb.* FROM(
-			SELECT ROW_NUMBER() OVER (PARTITION BY f.floorNum ORDER BY created desc) rnum, 
+			SELECT ROW_NUMBER() OVER (PARTITION BY f.floorNum ORDER BY created desc) rnum,isPlaceUsed, 
 			f.floorNum fnum, floorName,spotCode,NVL(placecode,0) placeCode,created
 			FROM floor f
 			LEFT OUTER JOIN placement p ON f.floornum=p.floornum
-			WHERE spotCode=#{spotCode}
+			WHERE spotCode=#{spotCode} 
 			)tb 
-			WHERE rnum=1
+		WHERE rnum=1
 	</select>
 	
+	<!-- 가장큰 배치도번호 가져오기 -->
+	<select id="maxPlacementNum" resultType="Integer">
+		SELECT MAX(placeCode) as placeCode FROM placement
+	</select>
+	
+	<!-- 배치도 입력하기 -->
 	<insert id="insertPlacement" parameterType="map">
-		INSERT INTO placeMent (placeCode, placeMent, floorNum) VALUES (seq_placeMent.NEXTVAL,#{placeMent},#{floorNum})
+		INSERT INTO placeMent (placeCode, placeMent, floorNum,isPlaceUsed) 
+					VALUES (seq_placeMent.NEXTVAL,#{placeMent},#{floorNum},1)
+	</insert>
+	
+	<!-- 배치도에 맞춰 좌석 입력하기 -->
+	<insert id="insertSeat" parameterType="com.duospace.admin.seat.Seat">
+		INSERT INTO seat (seatCode,seatName,placeCode,isUsed) 
+			   VALUES (seq_seat.NEXTVAL,#{seatName},#{placeCode},1)
 	</insert>
 	
 	
+	<!-- 배치도리스트 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*),0) 
-		<where>
-			<if test="searchValue !=null and searchValue !=''">
-				<include refid="where-list"/>
-			</if>
-		</where>
-		FROM placement
+		 SELECT NVL(COUNT(*),0) FROM(
+		         SELECT tb.* FROM(
+		                    SELECT s.spotCode, spotName, region, placeCode,
+		                            ROW_NUMBER () OVER (PARTITION BY s.spotCode ORDER BY spotName DESC) rnum
+		                    FROM spot s
+		                    LEFT OUTER JOIN floor f on f.spotcode=s.spotcode
+		                    JOIN placeMent p ON p.floornum=f.floornum
+		                    <where>
+						        <if test="searchValue !=null and searchValue !=''">
+						        	<include refid="where-list"/>
+						        </if>
+						        AND isPlaceUsed !=0
+					        </where>  
+		        )tb
+		        WHERE rnum=1
+		)
+		
 	</select>
 	
+	<!-- 배치도가 존재하는 지점의 리스트만 보여주기 -->
+	<select id="spotList_Ok" parameterType="map" resultType="com.duospace.admin.seat.Seat">
+		SELECT * FROM(
+			    SELECT ROWNUM r_num, t2.* FROM(
+				        SELECT tb.* FROM(
+					        SELECT s.spotCode, spotName, region, placeCode,
+					                ROW_NUMBER () OVER (PARTITION BY s.spotCode ORDER BY spotName DESC) rnum
+					        FROM spot s
+					        LEFT OUTER JOIN floor f on f.spotcode=s.spotcode
+					        JOIN placeMent p ON p.floornum=f.floornum
+					        <where>
+						        <if test="searchValue !=null and searchValue !=''">
+						        	<include refid="where-list"/>
+						        </if>
+						        AND isPlaceUsed !=0
+					        </where>
+					        )tb
+					        WHERE rnum=1
+			    )t2
+	<![CDATA[
+			    WHERE ROWNUM <= #{end}
+		)
+		WHERE r_num >=#{start}
+	]]>
 	
-	<select id="placementList" parameterType="map" resultType="com.duospace.admin.seat.Seat">
-		SELECT distinct s.spotCode, spotName,region 
- 		FROM placement p
-        JOIN floor f ON p.floornum=f.floornum
-        JOIN spot s ON f.spotcode=s.spotcode
 	</select>
 	
+	<!-- 선택한 지점의 지점코드/이름/지역 정보 -->
 	<select id="readSpot" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
 		SELECT distinct s.spotCode, spotName,region 
  		FROM placement p
@@ -58,16 +112,31 @@
         WHERE s.spotcode=#{spotCode}
 	</select>
 	
+	<!-- 배치도 가져오기 -->
 	<select id="readPlacement" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
-		SELECT ROWNUM,placecode,placement,floornum,created
-		FROM placement 
-		WHERE ROWNUM=1 AND placeCode=#{placeCode}
+		SELECT ROWNUM,placecode,placement,f.floornum,created,floorname
+		FROM placement p
+		JOIN floor f on f.floornum=p.floornum
+		WHERE ROWNUM=1 AND placeCode=#{placeCode} AND isPlaceUsed!=0
 		ORDER BY created DESC
 	</select>
 	
+	<!-- 좌석번호가져오기 -->
+	<select id="seatList" parameterType="Integer" resultType="com.duospace.admin.seat.Seat">
+		SELECT seatCode, seatName, placeCode, isUsed 
+		FROM seat
+		WHERE isUsed=1 AND placeCode=#{placeCode}
+	</select>
 	
+	<!-- 좌석의 사용여부 0으로 수정하기 -->
+	<update id="updateSeat" parameterType="Integer">
+		UPDATE seat SET isUsed=0 WHERE placeCode=#{placeCode}
+	</update>
 	
-	
+	<!-- 배치도 사용여부 0으로 수정 -->
+	<update id="updatePlacement" parameterType="Integer">
+		UPDATE placement SET isPlaceUsed=0 where placeCode=#{placeCode}
+	</update>
 	
 </mapper>
 

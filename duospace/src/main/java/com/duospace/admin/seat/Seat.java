@@ -10,6 +10,9 @@ public class Seat {
 	
 	private int seatCode;	//좌석번호
 	private String seatName;  //좌석명
+	private int isUsed; //좌석사용여부
+	
+	private int isPlaceUsed; //배치도 사용여부
 	
 	private int placeCode; //배치도코드
 	private String placeMent; //배치도
@@ -20,6 +23,18 @@ public class Seat {
 	
 	
 	
+	public int getIsPlaceUsed() {
+		return isPlaceUsed;
+	}
+	public void setIsPlaceUsed(int isPlaceUsed) {
+		this.isPlaceUsed = isPlaceUsed;
+	}
+	public int getIsUsed() {
+		return isUsed;
+	}
+	public void setIsUsed(int isUsed) {
+		this.isUsed = isUsed;
+	}
 	public String getCreated() {
 		return created;
 	}

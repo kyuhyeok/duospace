@@ -35,9 +35,11 @@
 			var color=$(".color").val();
 			
 			$(".make-Seat-Tb tr").eq(num).find("td").toggleClass("selected");
-			$(".make-Seat-Tb tr").eq(num).find("td").css('background-color','');
 			
-			/*
+			$(".make-Seat-Tb tr").eq(num).find("td").css('background-color','');
+			 
+			 
+			/*       
 			$(".make-Seat-Tb tr").eq(num).addClass("selected"); 
 			//$(".make-Seat-Tb tr").eq(num).siblings().removeClass("selected");
 			
@@ -48,21 +50,32 @@
 				return;   
 			} 
 			*/
+			
+			$(".make-Seat-Tb tr").eq(num).find("td").each(function(index){
+				if($(this).attr("class")=="selected"){
+					$(this).css('background-color',color);
+				} 
+				
+			});
+			
+			
+			
 		});
 	
-		
+		 	
 		//세로
 		$(".rowNum").on("click",function(){   
 			var num=$(this).text(); 
 			//alert(num);
-		
+		   
 			var color=$(".color").val();
 			
 			$(".make-Seat-Tb tr").each(function(index){
-				$(".make-Seat-Tb tr").eq(index).children().eq(num).toggleClass("selected");
-				$(".make-Seat-Tb tr").eq(index).children().eq(num).css('background-color','');
-				
-			})
+			
+					$(".make-Seat-Tb tr").eq(index).children().eq(num).toggleClass("selected");
+					$(".make-Seat-Tb tr").eq(index).children().eq(num).css('background-color','white');
+			
+			});
 			
 			$(".make-Seat-Tb tr").each(function(index){
 				if($(this).children().eq(num).attr("class")=="selected"){
@@ -70,17 +83,16 @@
 				}
 				
 			})
+
 			
-			
-			
-			
-		}); 
+		});    
 		
 		$(".make-Seat-Tb tr td").on("click",function(){
 			
 			$(this).toggleClass("selected");
 			$(this).css('background-color','');
 			
+				
 			if($(this).attr("class")=="selected"){
 				var color=$(".color").val();
 				//$("[class='selected']").css('background-color',color);
@@ -129,6 +141,17 @@
 				
 			});
 		
+		
+		
+			$("button[type='reset']").click(function(){
+				$(".make-Seat-Tb tr").find("td").each(function(index){
+					if($(this).attr("class")=="selected"){
+						$(this).css("background-color",'');
+						$(this).removeClass("selected");
+					}	
+					
+				});
+			});
 	
 	});     
 	
@@ -158,7 +181,8 @@ function floorList() {
 	});
 	
 }
-	 
+
+
 
 </script>
 <style type="text/css">
@@ -172,9 +196,7 @@ function floorList() {
 	width: 20px;
 	text-align: center;
 }
-.selected{
-	background: red; 
-}
+  
 
 </style>
 
@@ -202,6 +224,7 @@ function floorList() {
 
 	<form name="seatForm" method="post">
 		<input type="hidden" name="seatHtml" id="seatHtml">
+	
 		<table>
 		
 		<tr>
@@ -224,20 +247,20 @@ function floorList() {
 			</td>
 		</tr>
 		</table>
-	
-<div class="seatTb">
-		<table class="make-Seat-Tb" style="width: 1000px; height: 700px;margin-top: 80px;cursor: pointer;">
+		
+<div class="seatTb" align="center">
+		<table class="make-Seat-Tb" style="width: 1000px; height: 700px;cursor: pointer;">
 			
-		<tr>
+		<tr style="border-bottom: 2px solid;border-top: 2px solid;">
 			<td></td>
 			<c:forEach var="j" begin="1" end="23" step="1">
-					<td class="rowNum" style="background: #e4e4e4;">${j}</td>
-			</c:forEach>
+					<td class="rowNum">${j}</td>
+			</c:forEach>   
 		</tr>
 		
 		<c:forEach var="i" begin="1" end="13" step="1">
 			<tr>
-				<td class="colNum" style="background: #e4e4e4;">${i}</td>
+				<td class="colNum" style="border-left: 2px solid; border-right: 2px solid;">${i}</td>
 			 	<c:forEach var="j" begin="1" end="23" step="1">
 					<td>${i}-${j}</td>
 				</c:forEach>
@@ -246,7 +269,11 @@ function floorList() {
 
 		</table>  
 </div> 
-		<button type="button" id="sub">저장하기</button>
+		<div align="center" style="margin-top: 50px; text-align: center;">
+			<button type="reset">다시입력</button>
+			<button type="button" id="sub">저장하기</button>
+			<button type="button" onclick="javascript:location.href='<%=cp%>/admin/seat/list'">등록취소</button>
+		</div>
 	</form>
 
 	</div>

@@ -199,7 +199,7 @@ $(function() {
 					<ul>
 						<c:forEach var="vo" items="${slist}">
 						<c:if test="${dto.region==vo.region}">
-							<li style="text-align: center;"><a href="<%=cp%>/room?spotCode=${vo.spotCode}">${vo.spotName}</a></li>
+							<li style="text-align: center;"><a href="<%=cp%>/room?spotCode=${vo.spotCode}&roomCode=${vo.roomCode}">${vo.spotName}</a></li>
 						</c:if>
 						</c:forEach>
 					</ul></li>

@@ -2,6 +2,7 @@ package com.duospace.admin.seat;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -102,12 +103,12 @@ public class SeatController {
 	//지점선택이후 층리스트 
 	@RequestMapping(value="/admin/seat/floorList", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> listFloor(int spotCode) throws Exception{
+	public Map<String, Object> listTotalFloor(int spotCode) throws Exception{
 		Map<String, Object> model = new HashMap<>();
 		
 		//서비스에서 층리스트 가져오기
 		
-		List<Seat> fList = service.listFloor(spotCode);
+		List<Seat> fList = service.listTotalFloor(spotCode);
 		
 		model.put("fList", fList);
 		
@@ -122,6 +123,7 @@ public class SeatController {
 
 		List<Seat> spotList=service.listSpot();
 	
+		model.addAttribute("mode", "created");
 		model.addAttribute("spotList", spotList);
 		return ".admin4.menu3.seat.created";
 	}
@@ -135,19 +137,41 @@ public class SeatController {
 			@RequestParam String seatHtml
 			) throws Exception{
 		
+		
+		//배열-> List
 		List<String> seatList = Arrays.asList(seatNums);
 		
-		String li = seatList.toString();
+		//String li = seatList.toString();
 		//System.out.println(li);   //[1-4, 2-4, 3-4] 로 배치도에 저장됨.
 		
+		
+		List<Seat> sList=new ArrayList<>();
+
 		Map<String, Object> map = new HashMap<>();
 		
 		String seat_Html=myUtil.strToHtml(seatHtml);
 		
+		
 		map.put("placeMent", seat_Html);
 		map.put("floorNum", floorNum);
 		
-		service.insertPlacement(map);
+		int result=service.insertPlacement(map);
+		
+		if(result!=0) {
+			int placementCode=service.maxPlacementNum();
+			System.out.println("좌석갯수:"+seatList.size());
+			for(String name: seatList) {
+				System.out.println(name);
+				Seat dto = new Seat();
+				dto.setPlaceCode(placementCode);
+				dto.setSeatName(name);
+				sList.add(dto);
+			}
+		}
+		
+		service.insertSeats(sList);
+		
+		
 		
 		return "redirect:/admin/seat/list";
 	}
@@ -159,6 +183,7 @@ public class SeatController {
 			@RequestParam String page,
 			@RequestParam int spotCode,
 			@RequestParam String rows,
+			@RequestParam int placeCode,
 			Model model
 			) throws Exception{
 		
@@ -178,12 +203,15 @@ public class SeatController {
 		
 		List<Seat> fList = service.listFloor(spotCode);
 		
+		/*
 		for(Seat d:fList) {
 			System.out.println(d.getPlaceCode());
 		}
+		*/
 		
 		//dto.setPlaceMent(myUtil.htmlToStr(dto.getPlaceMent()));
 		
+		model.addAttribute("placeCode", placeCode);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
@@ -210,6 +238,80 @@ public class SeatController {
 		model.addAttribute("dto", dto);
 
 		return "admin/menu3/seat/placeMent";
+	}
+	
+	@RequestMapping(value="/admin/seat/update", method=RequestMethod.GET)
+	public String updatePlacement(
+			@RequestParam int placeCode,
+			@RequestParam int spotCode,
+			Model model
+			) throws Exception{
+		
+		
+		Seat s = service.readSpot(spotCode);
+		Seat dto = service.readPlacement(placeCode);
+		
+		if(dto!=null) {
+			dto.setPlaceMent(myUtil.htmlToStr(dto.getPlaceMent()));
+			dto.setSpotName(s.getSpotName());
+			dto.setSpotCode(s.getSpotCode());
+		}
+		
+		List<Seat> list= service.seatList(placeCode);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("seatList", list);
+		model.addAttribute("mode", "update");
+		
+		return ".admin4.menu3.seat.update";
+	}
+	
+	@RequestMapping(value="/admin/seat/update", method=RequestMethod.POST)
+	public String updateSubmit(
+			@RequestParam String[] seatNums,
+			@RequestParam String floorNum,
+			@RequestParam int placeCode,
+			@RequestParam String seatHtml
+			)throws Exception{
+
+		//배열-> List
+		List<String> seatList = Arrays.asList(seatNums);
+		
+		//String li = seatList.toString();
+		//System.out.println(li);   //[1-4, 2-4, 3-4] 로 배치도에 저장됨.
+		
+		
+		List<Seat> sList=new ArrayList<>();
+
+		for(String name: seatList) {
+			System.out.println(name);
+			Seat dto = new Seat();
+			dto.setSeatName(name);
+			sList.add(dto);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		String seat_Html=myUtil.strToHtml(seatHtml);
+		
+		map.put("placeCode", placeCode);
+		map.put("placeMent", seat_Html);
+		map.put("floorNum", floorNum);
+		map.put("sList", sList);//좌석name만 있음
+		
+		service.updatePlacement(map);
+
+		return "redirect:/admin/seat/list";
+	
+	}
+	
+	
+	@RequestMapping(value="/admin/seat/delete", method=RequestMethod.GET)
+	public String deletePlacement(@RequestParam int placeCode, Model model)throws Exception{
+		
+		service.deletePlacement(placeCode);
+		
+		return "redirect:/admin/seat/list";
 	}
 	
 }

@@ -184,7 +184,7 @@ function deleteSpot(spotCode, page) {
 												<td><input class="flat" name="spotCodes" type="checkbox"
 													value="${dto.spotCode}" /></td>
 												<td>${dto.spotCode}</td>
-												<td> <a href="${articleUrl}&spotCode=${dto.spotCode}">듀오 스페이스 -${dto.spotName}</a></td>
+												<td> <a href="${articleUrl}&spotCode=${dto.spotCode}&placeCode=${dto.placeCode}">듀오 스페이스 -${dto.spotName}</a></td>
 												<td>${dto.region}</td>
 												<td>
 												<button type="button" class="btn btn-warning btn-sm" onclick="javascript:location.href='<%=cp%>/admin/spot/update?spotCode=${dto.spotCode}&page=${page}';">
