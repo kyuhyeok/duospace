@@ -227,9 +227,7 @@ public class SeatController {
 	public String placementShow(@RequestParam int placeCode,Model model)throws Exception{
 		
 		Seat dto = service.readPlacement(placeCode);
-		
-		
-		
+
 		if(dto!=null)
 			dto.setPlaceMent(myUtil.htmlToStr(dto.getPlaceMent()));
 		

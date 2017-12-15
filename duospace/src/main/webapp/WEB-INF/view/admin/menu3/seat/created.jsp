@@ -249,9 +249,9 @@ function floorList() {
 		</table>
 		
 <div class="seatTb" align="center">
-		<table class="make-Seat-Tb" style="width: 1000px; height: 700px;cursor: pointer;">
+		<table class="make-Seat-Tb" style="width: 1000px; height: 700px;cursor: pointer;border-collapse: separate;border-spacing: 5px;">
 			
-		<tr style="border-bottom: 2px solid;border-top: 2px solid;">
+		<tr>
 			<td></td>
 			<c:forEach var="j" begin="1" end="23" step="1">
 					<td class="rowNum">${j}</td>
@@ -260,7 +260,7 @@ function floorList() {
 		
 		<c:forEach var="i" begin="1" end="13" step="1">
 			<tr>
-				<td class="colNum" style="border-left: 2px solid; border-right: 2px solid;">${i}</td>
+				<td class="colNum">${i}</td>
 			 	<c:forEach var="j" begin="1" end="23" step="1">
 					<td>${i}-${j}</td>
 				</c:forEach>

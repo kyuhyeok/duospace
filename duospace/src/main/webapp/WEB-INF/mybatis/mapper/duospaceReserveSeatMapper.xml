@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.reserveSeat">
+
+	<!-- 선택한 지점의 층리스트 -->
+	<select id="floorList" parameterType="Integer" resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT f.floorNum, floorName, f.spotCode, spotName
+		FROM floor f
+		JOIN spot s ON f.spotCode=s.spotCode
+		WHERE f.spotCode=#{spotCode}
+		ORDER BY f.floorNum
+	</select>
+	
+	<!-- 이용권 리스트 -->
+	<select id="passList" resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT passCode, passName,TO_CHAR(passdate,'YYYY-MM-DD hh24:mi') passDate, price
+		FROM pass
+	</select>
+	
+	<!-- 선택한 층의 배치도 -->
+	<select id="readPlacement" parameterType="Integer" resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT placeCode, placement, created, isPlaceUsed, p.floorNum,spotname,floorname
+		FROM placement p
+		join  floor f on f.FLOORNUM=p.floornum
+        join spot s on f.spotcode=s.spotcode
+		WHERE p.isPlaceUsed=1 and p.floorNum=#{floorNum}
+	</select>
+	
+	<!-- 배치도좌석 예약 내역 -->
+	<select id="reserveList" parameterType="map" resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT p.placecode,floornum,s.seatcode,TO_CHAR(enddate,'YYYY-MM-DD-hh24-mi') enddate,
+	        TO_CHAR(startdate,'YYYY-MM-DD-hh24-mi') startdate,stresnum,reservnum, seatname
+		FROM placement p
+		JOIN seat s on s.placecode=p.placecode
+		JOIN stres sr ON sr.seatcode=s.seatcode 
+		WHERE ISPLACEUSED=1 and isUsed=1 and floornum=#{floorNum}
+				AND (startdate BETWEEN TO_DATE('#{startTime}','YYYY-MM-DD hh24:mi') 
+								  AND  TO_DATE('#{endTime}','YYYY-MM-DD hh24:mi')  
+		        	OR  enddate  BETWEEN TO_DATE('#{startTime}','YYYY-MM-DD hh24:mi') 
+		        					AND  TO_DATE('#{endTime},'YYYY-MM-DD hh24:mi'))
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+

@@ -1,9 +1,10 @@
 package com.duospace.duospace.rmres;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
-
+@Service("ss")
 public class RmresServiceImpl implements RmresService{
 
 	@Autowired

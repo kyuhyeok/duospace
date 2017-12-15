@@ -164,7 +164,7 @@ li:hover ul.submenu {
 				<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<ul class="submenu">
 						<li><a href="<%=cp%>/room">룸 예약</a></li>
-						<li><a href="<%=cp%>/reserve">좌석 예약</a></li>
+						<li><a href="<%=cp%>/duospace/reserve">좌석 예약</a></li>
 					</ul>
 				</li>
 				<li><a href="#">Core/Cafe</a>
