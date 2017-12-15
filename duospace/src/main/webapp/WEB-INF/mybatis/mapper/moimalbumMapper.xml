@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moimalbum">
+	<insert id="insertMoimalbum"
+		     parameterType="com.duospace.community.moimalbum.Moimalbum">
+		INSERT INTO moimalbum(alnum, subject, imageFile, content, memberNum, cmoimCode)
+		VALUES (SEQ_MOIMALBUM.NEXTVAL, #{subject}, #{imageFile}, #{content}, #{memberNum}, #{cmoimCode})
+		</insert>
+		
+		<sql id="where-list">
+			<if test="searchKey=='name'">
+			name=#{searchValue}
+			</if>
+			<if test="searchKey=='subject'">
+			INSTR(subject, #{searchValue}) &gt; 0
+			</if>
+			<if test="searchKey=='content'">
+			INSTR(content, #{searchValue}) &gt; 0
+			</if>
+			<if test="searchKey=='created'">
+				TO_CHAR(p.created, 'YYYY-MM-DD') = #{searchValue}
+			</if>
+		</sql>
+		
+		<select id="dataCount" resultType="Integer" parameterType="map">
+			SELECT NVL(COUNT(*), 0) FROM moimalbum p
+			JOIN member2 m
+			ON p.memberNum=m.memberNum
+		<where>
+			<if test="searchValue!=null and searchValue!='' ">
+			<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+
+	<select id="listMoimalbum" parameterType="map"
+	resultType="com.duospace.community.moimalbum.Moimalbum">
+	SELECT * FROM(
+		SELECT ROWNUM rnum, tb.* FROM(
+			SELECT alnum, m.memberNum, subject, imageFile,name,
+			TO_CHAR(created, 'YYYY-MM-DD') created,hitCount
+			FROM moimalbum m JOIN member2 b
+			ON m.membernum = b.membernum
+			<where>
+				<if test="searchValue != null and searchValue != ''">
+				   <include refid="where-list"/>
+		                 </if>
+	                </where>
+		                ORDER BY alnum DESC
+		<![CDATA[
+		        ) tb WHERE ROWNUM <= #{end}
+		    ) WHERE rnum >= #{start}
+		]]>
+	</select>
+	
+	<select id="readMoimalbum" parameterType="Integer"
+	resultType="com.duospace.community.moimalbum.Moimalbum">
+	
+	SELECT alnum, m.memberNum, subject, imageFile,name,created,content
+			FROM moimalbum m JOIN member2 b
+			ON m.membernum = b.membernum
+			WHERE alnum=#{alnum}
+			</select>
+			
+	<select id="preReadMoimalbum" resultType="com.duospace.community.moimalbum.Moimalbum" parameterType="map">
+	
+		SELECT tb.* FROM(
+		SELECT alnum, subject
+		FROM moimalbum m
+		JOIN member2 b ON m.memberNum=b.memberNum
+		<where>
+			<if test="searchValue != null and searchValue != '' ">
+				<include refid="where-list"/>
+			</if>
+			
+			<![CDATA[
+			AND (alnum > #{alnum})
+			]]>
+			</where>
+		ORDER BY alnum ASC
+		) tb WHERE ROWNUM=1
+</select>
+
+<select id="nextReadMoimalbum" resultType="com.duospace.community.moimalbum.Moimalbum" parameterType="map">
+
+SELECT tb.* FROM(
+		SELECT alnum, subject
+		FROM moimalbum m
+		JOIN member2 b ON m.memberNum=b.memberNum
+		<where>
+			<if test="searchValue != null and searchValue != '' ">
+				<include refid="where-list"/>
+			</if>
+			
+			<![CDATA[
+			AND (alnum < #{alnum})
+			]]>
+			</where>
+		ORDER BY alnum DESC
+		) tb WHERE ROWNUM=1
+</select>
+
+<update id="updateMoimalbum" parameterType="com.duospace.community.moimalbum.Moimalbum">
+UPDATE moimalbum SET subject=#{subject}, imageFile=#{imageFile},
+content=#{content}
+WHERE alnum=#{alnum}
+</update>
+
+<delete id="deleteMoimalbum" parameterType="Integer">
+DELETE FROM moimalbum WHERE alnum=#{alnum}
+</delete>
+
+
+</mapper>
