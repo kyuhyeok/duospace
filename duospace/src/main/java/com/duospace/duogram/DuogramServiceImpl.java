@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
+import com.duospace.duogram.mypage.Mypage;
 
 @Service("duogram.duogramService")
 public class DuogramServiceImpl implements DuogramService {
@@ -67,5 +68,47 @@ public class DuogramServiceImpl implements DuogramService {
 			System.out.println(e.toString());
 		}
 		return list;
+	}
+
+	@Override
+	public int deleteBoard(int num, int memberNum) {
+		int result=0;
+		
+		try {
+			Duogram dto=readBoard(num);
+			if(dto!=null) {
+				if(dto.getMemberNum()!=memberNum && memberNum!=1)
+					return result;
+			}
+			dao.deleteData("duogram.deleteBoard", num);
+			result=1;
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
+	@Override
+	public Duogram readBoard(int num) {
+		Duogram dto=null;
+		
+		try {
+			dto=dao.selectOne("duogram.readBoard", num);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return dto;
+	}
+
+	@Override
+	public int updateBoard(Mypage dto) {
+		int result=0;
+		
+		try {
+			dao.updateData("duogram.updateBoard", dto);
+			result=1;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 }

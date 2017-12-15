@@ -12,4 +12,11 @@ public interface MypageService {
 	public int deleteBoard(int num, int memberNum);
 	public Mypage readBoard(int num);
 	public int updateBoard(Mypage dto);
+	
+	// 댓글
+	public int insertReply(Reply dto);
+	public List<Reply> listReply(Map<String, Object> map);
+	
+	
+	public int replyCountAnswer(int answer);
 }

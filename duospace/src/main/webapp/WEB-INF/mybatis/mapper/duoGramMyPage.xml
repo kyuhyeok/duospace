@@ -59,4 +59,10 @@
 		JOIN member2 m2 ON g.memberNum=m2.memberNum
 		WHERE num = #{num}
 	</select>
+	
+    <!-- 댓글 -->
+    <insert id="insertReply" parameterType="com.duospace.duogram.mypage.Mypage">
+    	INSERT INTO gramreply(replyNum, num, content, answer)
+     	VALUES(bbsReply_seq.NEXTVAL, #{num}, #{content}, #{answer})   
+    </insert>
 </mapper>
