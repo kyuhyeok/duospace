@@ -14,6 +14,11 @@
 			, #{saveFilename, jdbcType=VARCHAR}, #{originalFilename, jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 글 수정 -->
+    <update id="updateBoard" parameterType="com.duospace.duogram.Duogram">
+         UPDATE gramTimeLine SET content=#{content} WHERE num = #{num}
+    </update>
+	
 	<select id="countAccept" parameterType="Integer" resultType="Integer">
 	   SELECT COUNT(*) FROM duogram WHERE memberNum = #{memberNum}
 	</select>
@@ -37,6 +42,19 @@
 			) tb WHERE ROWNUM <= #{end}
 		) WHERE rnum >= #{start}
 			]]>
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBoard" parameterType="Integer">
+            DELETE FROM gramtimeline WHERE num = #{num}
+    </delete>
+    
+    <!-- 글보기 -->
+	<select id="readBoard" resultType="com.duospace.duogram.Duogram" parameterType="Integer">
+		SELECT num, m2.name, g.memberNum, blogNum, content, created
+		FROM gramtimeline g 
+		JOIN member2 m2 ON g.memberNum=m2.memberNum
+		WHERE num = #{num}
 	</select>
 	
 </mapper>

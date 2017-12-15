@@ -78,6 +78,7 @@ public class MypageController {
 		return model;	
 	}
 	
+	// 글 수정
 	@RequestMapping(value="/duogram/mypage/update", 
 			method=RequestMethod.POST)
 	public String updateSubmit(
@@ -152,4 +153,34 @@ public class MypageController {
 		return "redirect:/duogram/mypage/"+blogNum;
 	}
 	
+	// 댓글 달기
+	@RequestMapping(value="/duogram/mypage/insertReply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		int count=0;
+		if(info==null) {
+			state="loginFail";
+		} else {
+			dto.setMemberNum(info.getMemberNum());;
+			service.insertReply(dto);
+			
+			if(dto.getAnswer()!=0)
+				count=service.replyCountAnswer(dto.getReplyNum());
+			state="true";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		model.put("count", count);
+		return model;
+	}
+	
+	
 }
+
