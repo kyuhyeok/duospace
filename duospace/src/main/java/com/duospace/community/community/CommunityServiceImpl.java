@@ -90,6 +90,7 @@ public class CommunityServiceImpl implements CommunityService{
 	public int deleteCommunity(int num ,String userId) {
 		int result=0;
 		try {
+			dao.deleteData("community.deleteReply",num);
 			result = dao.deleteData("community.deleteCommunity",num);
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -105,7 +106,6 @@ public class CommunityServiceImpl implements CommunityService{
 			dto=dao.selectOne("community.preReadBoard",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
-			
 		}
 		return dto;
 	}
@@ -121,6 +121,67 @@ public class CommunityServiceImpl implements CommunityService{
 			
 		}
 		return dto;
+	}
+
+
+	@Override
+	public int insertReply(Reply dto) {
+		int result=0;
+		try {
+			result=dao.insertData("community.insertReply",dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("community.listReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+
+	@Override
+	public int replyDataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("community.replyDataCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+
+	@Override
+	public int deleteReply(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.deleteData("community.deleteReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+
+
+	@Override
+	public int replyCount(int num) {
+		int result=0;
+		try {
+			result=dao.selectOne("community.replyCount",num);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 }

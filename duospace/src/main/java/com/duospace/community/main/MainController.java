@@ -1,5 +1,6 @@
 package com.duospace.community.main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class MainController {
 	private CommaincateService service;
 	
 	@RequestMapping(value="/community",method=RequestMethod.GET)
-	public String list(
+	public String main(
 			Model model
 			)throws Exception{
 		//데이터 개수
@@ -28,13 +29,15 @@ public class MainController {
 		Map<String, Object> map = new HashMap<>();
 		
 		List<Commaincate> cateList = service.listCommaincate(map);
-		List<Commaincate> boardList = service.listCommainboard(map);
 		
-		model.addAttribute("cateList",cateList);
+		List<List<Commaincate>> boardList=new ArrayList<>();
+		for(Commaincate c : cateList) {
+			map.put("cateNum", c.getCateNum());
+			boardList.add(service.listCommainboard(map));
+		}
+		
 		model.addAttribute("boardList",boardList);
-	
-		
 		return ".communityLayout";
-	}	
+	}
 	
 }

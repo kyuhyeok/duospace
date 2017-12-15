@@ -16,7 +16,6 @@ function sendOk() {
         return;
     }
 
-    
 	str = f.content.value;
     if(!str) {
         alert("내용을 입력하세요. ");

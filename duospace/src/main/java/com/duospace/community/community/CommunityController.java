@@ -16,8 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.duospace.common.DuospaceUtil;
+import com.duospace.common.MyUtil;
 import com.duospace.community.commaincate.Commaincate;
 import com.duospace.member.SessionInfo;
 
@@ -26,8 +27,7 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service;
 	@Autowired
-	private DuospaceUtil myUtil;
-	
+	private MyUtil myUtil;
 	
 	@RequestMapping(value="/community/list")
 	public String list(
@@ -96,7 +96,7 @@ public class CommunityController {
 			articleUrl = cp+"community/article?cateNum="+cateNum+"&page="+current_page+"&"+query;
 		}
 		
-		String paging = myUtil.pagingMethod(current_page, total_page, listUrl);
+		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
 		model.addAttribute("cateNum",cateNum);
 		model.addAttribute("list",list);
@@ -138,7 +138,6 @@ public class CommunityController {
 		int memberNum = info.getMemberNum();
 		
 		model.addAttribute("memberNum",memberNum);
-		
 		model.addAttribute("cateNum",dto.getCateNum());
 		
 		return "redirect:/community/list";
@@ -173,10 +172,6 @@ public class CommunityController {
 		Community preReadDto = service.preReadBoard(map);
 		Community nextReadDto = service.nextReadBoard(map);
 		
-		
-		
-		
-		
 		String query = "cateNum="+cateNum+"&page="+page;
 		if(searchValue.length()!=0) {
 			query += "&searchKey="+searchKey +  
@@ -188,7 +183,6 @@ public class CommunityController {
 		model.addAttribute("dto",dto);
 		model.addAttribute("page",page);
 		model.addAttribute("query",query);
-		
 		
 		model.addAttribute("preReadDto",preReadDto);
 		model.addAttribute("nextReadDto",nextReadDto);
@@ -248,7 +242,7 @@ public class CommunityController {
 			Model model
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		
+	
 		service.deleteCommunity(boardNum,info.getUserId());
 
 		model.addAttribute("cateNum",cateNum);
@@ -256,9 +250,105 @@ public class CommunityController {
 		return "redirect:/community/list?page="+page;
 	}
 	
+	//AJAX ( JSON ) 
+	@RequestMapping(value="/community/insertReply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		int count=0;
+		
+		if(info==null) {
+			state="loginFail";
+		}else {
+			dto.setMemberNum(info.getMemberNum());
+			service.insertReply(dto);
+			state="true";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		model.put("count", count);
+		
+		return model;
+	}
 	
+	//TEXT방식.
+	@RequestMapping(value="/community/listReply")
+	public String listReply(
+			@RequestParam int boardNum,
+			@RequestParam(value="pageNo") int current_page,
+			Model model
+			) {
+		
+		
+		int rows=5; // 한화면 리스트 개수
+		int total_page=0;
+		int dataCount=0;
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("boardNum", boardNum);
+		
+		dataCount=service.replyDataCount(map);
+		total_page=myUtil.pageCount(rows, dataCount);
+		if(current_page>total_page)
+			current_page=total_page;
+		
+		int start=(current_page-1)*rows+1;
+		int end=current_page*rows;
+		map.put("start", start);
+		map.put("end", end);
+		
+		
 	
+		List<Reply> listReply=service.listReply(map);
+		
+		// 엔터를 <br>로
+		for(Reply dto : listReply) {
+			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		}
+		
+		// 페이징처리(인수 2개짜리, 자바스크립트 로 처리)
+		String paging=myUtil.paging(current_page, total_page);
+		
+		// 포워딩할 jsp에 넘길 데이터
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("paging", paging);
+		model.addAttribute("replyCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("pageNo", current_page);
+		
+		
+		return "community/community/listReply";
+	}
 	
+	@RequestMapping(value="/community/deleteReply",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam int boardrpNum,
+			HttpSession session
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		String state;
+		if(info==null) {
+			state="loginFail";
+		} else {
+			Map<String, Object> map=new HashMap<>();
+			map.put("boardrpNum", boardrpNum);
+			map.put("userId", info.getMemberNum());
+			service.deleteReply(map);
+			state="true";
+		}
+		Map<String, Object> model=new HashMap<>();
+		
+		model.put("state", state);
+		return model;
+		
+	}
 	
 	
 	

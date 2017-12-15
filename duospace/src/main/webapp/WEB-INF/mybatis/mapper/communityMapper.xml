@@ -82,7 +82,6 @@
 	<delete id="deleteCommunity" parameterType="Integer">
 	     DELETE FROM commainboard WHERE boardNum = #{boardNum}
 	</delete>
-	
 	<!-- AND 가 필요 없는 경우 자동으로 제거 됨 -->
 	<!-- 이전글 -->
 	<select id="preReadBoard" resultType="com.duospace.community.community.Community" 
@@ -121,6 +120,45 @@
 		) tb WHERE ROWNUM=1
 	</select>
 	
+	
+	<!-- 댓글 -->
+      <insert id="insertReply" parameterType="com.duospace.community.community.Reply">
+			INSERT INTO commainrp(boardrpNum, boardNum, content, memberNum)
+				VALUES(SEQ_COMMAINRP.NEXTVAL,#{boardNum}, #{content},#{memberNum})   
+      </insert>
+      
+      <select id="replyDataCount" resultType="Integer" parameterType="map">
+			SELECT NVL(COUNT(*), 0) FROM commainrp
+			WHERE boardNum=#{boardNum} 
+		</select>
+      
+      <select id="listReply" parameterType="map" resultType="com.duospace.community.community.Reply">
+			SELECT * FROM (
+				  SELECT ROWNUM rnum, tb.* FROM (
+				      SELECT boardrpNum, boardNum, name, p.memberNum, 
+				      	content,TO_CHAR(created,'YYYY-MM-DD') created
+				      FROM commainrp p 
+				      JOIN member2 m ON p.memberNum=m.memberNum
+				      WHERE boardNum=#{boardNum}
+				      ORDER BY boardrpNum DESC
+<![CDATA[
+			    ) tb WHERE ROWNUM <=#{end}
+			) WHERE rnum >=#{start}
+]]>
+			
+			</select>
+	
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM commainrp WHERE boardrpNum=#{boardrpNum}
+	</delete>
+	
+	
+	<select id="replyCount" resultType="Integer" 
+	           parameterType="Integer">
+		SELECT NVL(COUNT(*), 0)
+	        FROM commainrp WHERE boardnum=#{boardNum}
+	</select>
 	
 	
 </mapper>
