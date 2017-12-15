@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.common.MyUtil;
+import com.duospace.duogram.mypage.Mypage;
 import com.duospace.member.SessionInfo;
 
 @Controller("duogram.duogramController")
@@ -87,6 +88,20 @@ public class DuogramController {
 		return model;	
 	}
 	
+	// 글 수정
+		@RequestMapping(value="/duogram/update", 
+				method=RequestMethod.POST)
+		public String updateSubmit(
+				Mypage dto, 
+				@RequestParam int blogNum,
+				@RequestParam String page,
+				HttpSession session) throws Exception {	
+			// 수정 하기
+			service.updateBoard(dto);		
+			
+			return "redirect:/duogram/"+blogNum;
+		}
+	
 	// 리스트
 	@RequestMapping(value="/duogram/list")
 	@ResponseBody
@@ -131,6 +146,20 @@ public class DuogramController {
 		model.put("total_page", total_page);
 		
 		return model;
+	}
+	
+	// 글 삭제
+	@RequestMapping(value="/duogram/delete")
+	public String delete(
+			@RequestParam int num,
+			@RequestParam int blogNum,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+			
+		service.deleteBoard(num, info.getMemberNum());
+			
+		return "redirect:/duogram/"+blogNum;
 	}
 	
 }

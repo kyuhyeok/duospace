@@ -110,4 +110,26 @@ public class MypageServiceImpl implements MypageService {
 		}
 		return result;
 	}
+
+	@Override
+	public int insertReply(Reply dto) {
+		int result=0;
+		try {
+			result=dao.insertData("mypage.insertReply", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		return null;
+	}
+
+	@Override
+	public int replyCountAnswer(int answer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

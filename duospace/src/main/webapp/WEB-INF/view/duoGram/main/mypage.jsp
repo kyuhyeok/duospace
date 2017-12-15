@@ -77,20 +77,21 @@ function sendBoard() {
 }
 
 // 글 수정
-function updateModal(num, page) {
-<c:if test="${sessionScope.user.userId=='admin' || me=='true'}">	
-	var f=document.mypageUpdateForm;
-	f.num.value=num;
-	// f.content.value=content;
-	f.page.value=page;
-	
-	$("#updateModelDlg").modal("show");
-</c:if>
-	
-<c:if test="${sessionScope.user.userId!='admin' && me=='false'}">
-	 alert("게시물을 수정할 수  없습니다.");
-</c:if>	
-}
+$(function(){
+	$("body").on("click", ".updateModalBtn", function(){
+		var num = $(this).attr("data-num");
+		var page = $(this).attr("data-page");
+		var content=$(this).next("span").html();
+		
+		var f=document.mypageUpdateForm;
+		f.num.value=num;
+		f.content.value=content;
+		f.page.value=page;
+		
+		$("#updateModelDlg").modal("show");
+			
+	});
+});
 
 function updateBoard() {
 	var f=document.mypageUpdateForm;
@@ -122,19 +123,19 @@ function listPage(page) {
 }
 
 //답글달기
-function sendReply() {
+function sendReply(num) {
 	var uid="${sessionScope.user.memberNum}";
 	if(! uid) {
 		location.href='<%=cp%>/member/login';
 		return;
 	}
-	
+
 	var content=$.trim($("#replyContent").val());
 	if(! content){
 		$("#replyContent").focus();
 		return;
 	}
-	
+	var num="${dto.num}";
 	var blogNum="${blogNum}";
 	var q="content="+encodeURIComponent(content)+"&blogNum="+blogNum;
 	q+="&num=${dto.num}";
@@ -150,37 +151,19 @@ function sendReply() {
 			var s=data.state;
 
 			$("#replyContent").val("");
+
 			listPage(1);
 		}
 		,error:function(e){
 			console.log(e.responseText);
-		}
-		
+		}	
 	});
 }
-
-//답글버튼
-$(function(){
-	$("body").on("click", ".btnReplyAnswerLayout", function(){
-		var replyNum = $(this).attr("data-replyNum");
-		
-		var $trReplyAnswer = $(this).parent().parent().next();
-		var isVisible = $trReplyAnswer.is(":visible");
-		
-		if(isVisible) {
-			$trReplyAnswer.hide();
-		} else {
-			$trReplyAnswer.show();
-			
-			listAnswer(replyNum);
-		}
-			
-	});
-});
 
 // 타임라인 글 리스트
 function printDuogram(data) {
 	// console.log(data);
+	var me="${me}";
 	var uid="${sessionScope.user.memberNum}";
 	var dataCount=data.dataCount;
 	var page=pageNo;
@@ -211,8 +194,14 @@ function printDuogram(data) {
 			out+="<span><img src='<%=cp%>/resource/images/duogram/dot.PNG' style='width: 12px; height: 3px;'></span>";
 			out+="</button>"
 			out+="<ul class='dropdown-menu'>";
-			out+="<li style='margin-left: 20px; height: 20px;'><button class='button' onclick='updateModal("+num+","+page+");' tabindex='-1'>수정</button>";
-			out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
+			if(uid==memberNum)
+				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
+			else
+				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
+			if(uid==memberNum || uid=="admin" || uid=="true")
+				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
+			else
+				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
 			out+="</div>";
 			out+="</div>";
 			out+="</div>";
@@ -238,10 +227,14 @@ function printDuogram(data) {
 			out+="</div>";
 			out+="</div>";
 			
-			out+="<div style='min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'>"+name+"　댓글 최대 3개까지 나오게."+"</div>";
-			out+="<div style='height: 60px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<input type='text' style='border-radius: 4px; margin-top: 17px; border: none; width: 500px; height: 25px; font-family: '나눔고딕';' placeholder='　댓글 달기'>";
-			out+="<button type='button' onclick='sendReply();' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
+			// if(listReply==null)
+				out+="<div style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'>댓글이 작성되지 않았습니다.</div>";
+			// else
+				out+="<div id='listReply' style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'></div>";
+			
+			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
+			out+="<textarea id='replyContent' class='boxTA' type='text' style='border-radius: 2px; border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 30px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<button type='button' class='btn' onclick='sendReply(num);' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
 			out+="</div>";
 			out+="</div>";
 		}
@@ -249,8 +242,8 @@ function printDuogram(data) {
 	}
 }
 
+// 글 삭제
 function deleteBoard(num, page) {
-	<c:if test="${sessionScope.user.userId=='admin' || me=='true'}">
 	  var blogNum="${blogNum}";
 	  var query = "num="+num+"&blogNum="+blogNum+"&page="+page;
 
@@ -258,11 +251,6 @@ function deleteBoard(num, page) {
 	
 	  if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
 	  	location.href=url;
-	</c:if> 
-	
-	<c:if test="${sessionScope.user.userId!='admin' && me=='false'}">
-	  alert("게시물을 삭제할 수  없습니다.");
-	</c:if>
 }
 
 </script>
