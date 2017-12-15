@@ -5,12 +5,24 @@
 <%
 	String cp=request.getContextPath();
 %>
-<script type="text/javascript"> 
+<script type="text/javascript">
+
 $(function(){
 	
+
+	
 	$(".make-Seat-Tb tr td").each(function(index){
-		if($(this).attr("class")!="selected")
+		if($(this).attr("class")!="selected"){
 			$(this).empty();
+		}else{
+			var t=$(".make-Seat-Tb tr td").eq(index).text();
+			$("input[type=hidden]").each(function(snum){
+				var s=$("input[type=hidden]").eq(snum).val();
+				if(t==s)
+					console.log("같아");
+			});
+		}
+		
 	});
 	
 	
@@ -21,6 +33,8 @@ $(function(){
 	});
 	
 	$(".selected").css("border","1px solid black");
+	
+	
 	
 });
 </script>
@@ -40,6 +54,10 @@ $(function(){
 </style>
 
 	<div>
+		
+		<c:forEach items="${reserveList}" var="dto">
+			<input type="hidden" value="${dto.seatName}">
+		</c:forEach>
 	
 		<c:if test="${not empty dto}">
 			<h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2> ${dto.floorName} 배치도</h2>
@@ -49,5 +67,6 @@ $(function(){
 		<c:if test="${empty dto}">	
 			<p>해당하는 배치도가 존재하지 않습니다.</p>
 		</c:if>
-	
+		
+
 	</div>

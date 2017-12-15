@@ -62,7 +62,6 @@ $(function() {
 			var endTime=$(".reserve_total td:eq(0) > div:eq(2)").children().eq(1).text();	//종료시간
 			var floorNum=$("input[name=reserve_floor]:checked").val();  //선택한 층번호
 			
-			
 			if(startTime.length==0||endTime.length==0)
 				return;
 			
@@ -179,66 +178,72 @@ function changeEnd(){
 	margin: 0 auto;
 }
 
-nav {
-	margin: 50px 0;
-	background-color: #E64A19;
-}
-
-nav ul {
+.region-bar ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	position: relative;
+	border: 1px solid #D8D8D8;
+	border-style: outset;
+	border-left: 0px;
+	border-right: 0px;
 }
 
-nav ul li {
+.region-bar ul li {
 	display: inline-block;
-	background-color: #E64A19;
+
 }
 
-nav a {
+.region-bar a {
+	color: #000000;
 	display: block;
 	padding: 0 10px;
-	color: #FFF;
-	font-size: 20px;
+	font-size: 14px;
 	line-height: 60px;
 	text-decoration: none;
 }
 
-nav a:hover {
-	background-color: #000000;
+.region-bar a:hover { 
+	color: #ffffff;
+	text-decoration:none;
+	background-color: #333333;
 }
 
 /* Hide Dropdowns by Default */
-nav ul ul {
+.region-bar ul ul {
 	display: none;
 	position: absolute;
 	top: 60px; /* the height of the main nav */
 }
 
 /* Display Dropdowns on Hover */
-nav ul li:hover>ul {
+.region-bar ul li:hover>ul {
 	display: inherit;
-	
 }
-nav ul li:hover>ul li {
+.region-bar ul li:hover>ul li {
 	display: inherit;
 	float: left;
 }
 /* Fisrt Tier Dropdown */
-nav ul ul li {
-	width: 170px;
+.region-bar ul ul li {
+	width: 90px;
 	float: none;
 	display: list-item;
 	position: relative;
 }
 
 /* Second, Third and more Tiers	*/
-nav ul ul ul li {
+.region-bar ul ul ul li {
 	position: relative;
 	top: -60px;
-	left: 170px;
 }
+
+
+
+
+
+
+
 
 <!--
 -->
@@ -290,37 +295,27 @@ nav ul ul ul li {
 
 		<form name="reserve_seat_form">
 
-			<div>
-				<nav>
+	<div>
+		<nav class="region-bar">
+			<ul>
+			<c:forEach var="dto" items="${regionList}">
+				<li><a href="#">${dto.region}</a>
 					<ul>
-						<li><a href="#">서울</a> <!-- First Tier Drop Down -->
-							<ul>
-								<li><a href="<%=cp%>/duospace/reserve?spotCode=3">Duo강남</a></li>
-								<li><a href="<%=cp%>/duospace/reserve?spotCode=38">Duo당산</a></li>
-								<li><a href="#">Duo목동</a></li>
-							</ul></li>
-
-						<li><a href="#">경기</a> <!-- Second Tier Drop Down -->
-							<ul>
-								<li><a href="#">Duo몰라d</a></li>
-								<li><a href="#">Duo어쩔</a></li>
-								<li><a href="#">Duo응응</a></li>
-							</ul></li>
-
-						<li><a href="#">인천</a> <!-- Third Tier Drop Down -->
-							<ul>
-								<li><a href="#">Duo그래</a></li>
-								<li><a href="#">Duo이응</a></li>
-								<li><a href="#">Duo오키</a></li>
-							</ul></li>
-					</ul>
-				</nav>
-			</div>
-
+						<c:forEach var="vo" items="${spotList}">
+						<c:if test="${dto.region==vo.region}">
+							<li style="text-align: center;"><a href="<%=cp%>/duospace/reserve?spotCode=${vo.spotCode}">${vo.spotName}</a></li>
+						</c:if>
+						</c:forEach>
+					</ul></li>
+			</c:forEach>
+			</ul>
+		</nav>
+	</div>
+	
 			<div>
 				<table class="reserve_seat_tb" style="border: 2px solid #e4e4e4">
 					<tr height="50px;">
-						<td align="center" colspan="2">좌석 예매</td>
+						<td align="center" colspan="2">좌석 d예매</td>
 					</tr>
 					<tr>
 						<td>예약시간</td>

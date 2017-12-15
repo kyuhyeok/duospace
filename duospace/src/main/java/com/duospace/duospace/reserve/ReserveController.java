@@ -27,28 +27,6 @@ public class ReserveController {
 	@Autowired
 	DuospaceUtil myUtil;
 	
-	@RequestMapping(value="/reserve")
-	public String reserve_remove(
-			@RequestParam(value="spotCode", defaultValue="42") int spotCode,
-			Model model) throws Exception {
-		
-		List<Reserve> floorList = service.floorList(spotCode);
-		
-		
-		String floorMaching = "(^[0-9].*)";
-		Pattern pattern = Pattern.compile(floorMaching);
-		for(Reserve dto : floorList) {
-			Matcher match=pattern.matcher(dto.getFloorName());
-			if(! match.find()) {
-				floorList.remove(dto);
-			}
-		}
-		
-		model.addAttribute("floorList", floorList);
-		
-		return ".reserve.reserve-seat";
-	}
-	
 	@RequestMapping(value="/duospace/reserve")
 	public String reserve(
 			@RequestParam(value="spotCode", defaultValue="3") int spotCode,
@@ -62,6 +40,12 @@ public class ReserveController {
 			1111-11-12 00:00
 			1111-12-11 00:00
 		 */
+		
+		//지역리스트
+		List<Reserve> regionList = service.regionList();
+		
+		//총지점리스트
+		List<Reserve> spotList = service.spotList();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 		Date st =format.parse("1111-11-11 00:00");
@@ -101,6 +85,8 @@ public class ReserveController {
 		
 		model.addAttribute("passList", passList);
 		model.addAttribute("floorList", floorList);
+		model.addAttribute("regionList", regionList);
+		model.addAttribute("spotList", spotList);
 		
 		return ".reserve.reserve-seat";
 	}
@@ -114,6 +100,7 @@ public class ReserveController {
 			,Model model
 			)throws Exception{
 		
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("startTime", startTime);
@@ -121,14 +108,22 @@ public class ReserveController {
 		map.put("floorNum", floorNum);
 		
 		List<Reserve> list = service.reserveList(map);   // 해당 시간의 배치도의 예약좌석내역(list에 들어있는 좌석 x표시해야함)
-
+		
+		/*나중에 지울것*/
+		if(list==null)
+			System.out.println("list 는 null");
+		else
+			System.out.println("list size="+list.size());
+		
+		
+		
 		Reserve dto =service.readPlacement(floorNum);  //배치도
 		
 		if(dto!=null)
 			dto.setPlacement(myUtil.htmlToStr(dto.getPlacement()));
 		
-		
-		model.addAttribute("rList", list);
+
+		model.addAttribute("reserveList", list);
 		model.addAttribute("dto", dto);
 		
 		

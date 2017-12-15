@@ -14,6 +14,28 @@ public class ReserveServiceImpl implements ReserveService {
 	@Autowired
 	private CommonDAO dao;
 	
+	
+	@Override
+	public List<Reserve> regionList() {
+		List<Reserve> list=null;
+		try {
+			list=dao.selectList("duospace.reserveSeat.regionList");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Reserve> spotList() {
+		List<Reserve> list=null;
+		try {
+			list=dao.selectList("duospace.reserveSeat.spotList");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;	}
+	
 	@Override
 	public List<Reserve> floorList(int spotCode) {
 		List<Reserve> list=null;
@@ -68,5 +90,7 @@ public class ReserveServiceImpl implements ReserveService {
 		}
 		return list;
 	}
+
+	
 
 }

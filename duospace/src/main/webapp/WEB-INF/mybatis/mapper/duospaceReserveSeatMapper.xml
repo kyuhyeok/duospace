@@ -2,6 +2,18 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.reserveSeat">
+	
+	<!-- 지역리스트 -->
+	<select id="regionList"  resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT distinct region FROM spot
+	</select>
+	
+	<!-- 지역별 지점리스트 -->
+	<select id="spotList" resultType="com.duospace.duospace.reserve.Reserve">
+		SELECT spotCode, spotName,region
+		FROM spot
+	</select>
+
 
 	<!-- 선택한 지점의 층리스트 -->
 	<select id="floorList" parameterType="Integer" resultType="com.duospace.duospace.reserve.Reserve">
@@ -29,16 +41,16 @@
 	
 	<!-- 배치도좌석 예약 내역 -->
 	<select id="reserveList" parameterType="map" resultType="com.duospace.duospace.reserve.Reserve">
-		SELECT p.placecode,floornum,s.seatcode,TO_CHAR(enddate,'YYYY-MM-DD-hh24-mi') enddate,
-	        TO_CHAR(startdate,'YYYY-MM-DD-hh24-mi') startdate,stresnum,reservnum, seatname
+		SELECT p.placecode,floornum,s.seatcode,TO_DATE(enddate,'YYYY-MM-DD-hh24-mi') enddate,
+	        TO_DATE(startdate,'YYYY-MM-DD-hh24-mi') startdate,stresnum,reservnum, seatname
 		FROM placement p
 		JOIN seat s on s.placecode=p.placecode
 		JOIN stres sr ON sr.seatcode=s.seatcode 
 		WHERE ISPLACEUSED=1 and isUsed=1 and floornum=#{floorNum}
-				AND (startdate BETWEEN TO_DATE('#{startTime}','YYYY-MM-DD hh24:mi') 
-								  AND  TO_DATE('#{endTime}','YYYY-MM-DD hh24:mi')  
-		        	OR  enddate  BETWEEN TO_DATE('#{startTime}','YYYY-MM-DD hh24:mi') 
-		        					AND  TO_DATE('#{endTime},'YYYY-MM-DD hh24:mi'))
+				AND ((startdate BETWEEN TO_DATE(#{startTime},'YYYY/MM/DD hh24:mi') 
+								   AND  TO_DATE(#{endTime},'YYYY/MM/DD hh24:mi'))  
+		        	OR  (enddate  BETWEEN TO_DATE(#{startTime},'YYYY/MM/DD hh24:mi') 
+		        					AND  TO_DATE(#{endTime},'YYYY/MM/DD hh24:mi')))
 	</select>
 	
 	
