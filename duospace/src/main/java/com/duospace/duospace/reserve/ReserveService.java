@@ -11,4 +11,7 @@ public interface ReserveService {
 	public Reserve readPlacement(int floorNum); //선택한 층의 배치도
 	public List<Reserve> passList(); //이용권정보
 	public List<Reserve> reserveList(Map<String, Object> map); // 해당 좌석의 예약정보
+	public int insertReserve(Map<String, Object> map);//예약1 넣기
+	
+	
 }
