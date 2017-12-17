@@ -10,21 +10,35 @@
 $(function(){
 	
 
-	
+	//td안의 값 없애기
 	$(".make-Seat-Tb tr td").each(function(index){
 		if($(this).attr("class")!="selected"){
 			$(this).empty();
-		}else{
-			var t=$(".make-Seat-Tb tr td").eq(index).text();
-			$("input[type=hidden]").each(function(snum){
-				var s=$("input[type=hidden]").eq(snum).val();
-				if(t==s)
-					console.log("같아");
-			});
 		}
-		
 	});
 	
+	//선택한 시간의 이미 예약된내용들
+	var rlength=$(".reserveDone").length;
+	
+	var sp=new Array();
+	sp[0]=new Array();
+	sp[1]=new Array();
+	
+	
+	$(".reserveDone").each(function(index){
+		sp[index]=$(this).val().split("-");
+		console.log(sp[index][0]);
+		console.log(sp[index][1]);
+	});
+
+		for(var i=0;i<rlength;i++){
+
+			$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).removeClass("selected");
+			$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).addClass("can");	
+		}
+		
+	
+		
 	
 	$(".make-Seat-Tb tr").eq(0).remove();
 
@@ -32,11 +46,29 @@ $(function(){
 		$(this).children().eq(0).remove();
 	});
 	
-	$(".selected").css("border","1px solid black");
+	$(".selected,.can").css("border","1px solid black");
 	
+	/*고객이 좌석 선택시 이벤트*/
+	$(".make-Seat-Tb tr td").on("click",function(){
+		if($(this).hasClass("selected")){
+			var a= $(this).children().eq(0).val();
+			$(".resultTb>div>div:eq(2)").text(a);
+			$(".resultTb>div>div:eq(2)").append("<input type ='hidden' name='seatName' value='"+a+"'>");
+			
+		}else if($(this).hasClass("can")){
+			alert("해당좌석은 선택이 불가합니다.");
+			$(".resultTb>div>div:eq(2)").empty();
+		}
+		
+		
+	});
 	
 	
 });
+
+
+
+
 </script>
 <style type="text/css">
 .make-Seat-Tb{
@@ -49,15 +81,22 @@ $(function(){
 	width: 20px;
 	text-align: center;
 	color: black;
+
 }
+.can{
+	opacity : 0.7;
+	background-image: url('<%=cp%>/resource/images/duospace/icon/slash.png');
+	background-size: 100% 100%;
+}
+
 
 </style>
 
+	<c:forEach var="dto" items="${reserveList}" varStatus="status">
+		<input type="hidden" name="reserveDone" class="reserveDone" value="${dto.seatName}">
+	</c:forEach>
 	<div>
 		
-		<c:forEach items="${reserveList}" var="dto">
-			<input type="hidden" value="${dto.seatName}">
-		</c:forEach>
 	
 		<c:if test="${not empty dto}">
 			<h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2> ${dto.floorName} 배치도</h2>

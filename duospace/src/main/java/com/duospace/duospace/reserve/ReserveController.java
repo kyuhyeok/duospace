@@ -65,6 +65,10 @@ public class ReserveController {
 		//선택한 지점의 층리스트
 		List<Reserve> floorList = service.floorList(spotCode);
 		
+		String spotName="";
+		if(floorList!=null)
+			 spotName=floorList.get(0).getSpotName();
+		
 		//층 이름이 숫자로 시작하는 경우에만 list에 넣음
 		String floorMaching = "(^[0-9].*)";
 		Pattern pattern = Pattern.compile(floorMaching);
@@ -83,6 +87,7 @@ public class ReserveController {
 		
 		//model.addAttribute("dto", dto);
 		
+		model.addAttribute("spotName", spotName);
 		model.addAttribute("passList", passList);
 		model.addAttribute("floorList", floorList);
 		model.addAttribute("regionList", regionList);
@@ -129,4 +134,32 @@ public class ReserveController {
 		
 		return "duospace/reserve/placeMent";
 	}
+	
+	@RequestMapping(value="/duospace/reserve_com", method=RequestMethod.POST)
+	public String reserveSubmit(
+			@RequestParam int passCode,
+			@RequestParam String seatName,
+			@RequestParam String startTime[],
+			@RequestParam String endTime
+			) throws Exception{
+		
+		System.out.println(passCode);
+		System.out.println(seatName);
+		System.out.println(startTime[0]);
+		System.out.println(startTime[1]);
+		System.out.println(endTime);
+		
+		return "";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
