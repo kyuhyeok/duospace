@@ -31,6 +31,7 @@ public class FreeboardController {
 	@ResponseBody
 	public String list(Model model) {
 		
+		
 		return ".community.moim.freeboard";
 	}
 	

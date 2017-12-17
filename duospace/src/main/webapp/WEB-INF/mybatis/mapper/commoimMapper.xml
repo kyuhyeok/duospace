@@ -3,6 +3,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commoim">
 
+	<!-- 모임가입 -->
+	<insert id="insertAccept" parameterType="Integer">
+		INSERT INTO moimmember (memberNum,cmoimcode) VALUES (#{memberNum},#{cmoimcode})
+	</insert>
+	
+	<!-- 가입확인을위한. -->
+	<select id="countAccept" parameterType="Integer" resultType="Integer">
+	   SELECT COUNT(*) FROM moimmember WHERE memberNum = #{memberNum} and cmoimcode = #{cmoimCode}
+	</select>
+	
 	<!-- 글쓰기 -->
 	<insert id="insertCommoim" parameterType="com.duospace.community.commoim.Commoim">
 		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,regcode,membernum)

@@ -178,7 +178,7 @@ function sendCommoim(){
 			$("#catecode").val("");
 			
 			//입력 완료후 커뮤니티로 돌아간다.
-			location.href="<%=cp%>/community/${sessionScope.user.memberNum}";
+			location.href="<%=cp%>/mymoimlist/${sessionScope.user.memberNum}";
 			
 		}
 		,error:function(e){
@@ -198,14 +198,12 @@ function sendCommoim(){
 		      	  <!-- 지역 설정 -->
 		      	  <span>지역 설정: </span>
 		      	  <select id="regcode" name="regcode" style="border: none;">
-			      	  	<option value="1">당산</option>
-			      	  	<option value="2">영등포</option>
+			      	  	<option value="1">진주</option>
 		      	  </select>
 		      	  <!-- 카테고리설정 -->
 		      	  <span>카테고리 설정: </span>
 		      	  <select id="catecode" name="catecode" style="border: none;">
-			      	  <option value="2">스프링</option>
-			      	  <option value="5">자바</option>
+			      	  <option value="1">스프링</option>
 		      	  </select>
 		      </div>
 		      <div class="coverSelect">

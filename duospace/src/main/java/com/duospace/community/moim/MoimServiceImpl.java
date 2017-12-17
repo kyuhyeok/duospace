@@ -61,4 +61,26 @@ public class MoimServiceImpl implements MoimService{
 		return 0;
 	}
 
+	@Override
+	public int insertAccept(int memberNum) {
+		int result=0;
+		try {
+			result=dao.insertData("commoim.insertAccept",memberNum);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int countAccept(int memberNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.countAccept",memberNum);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 }

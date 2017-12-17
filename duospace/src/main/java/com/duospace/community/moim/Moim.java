@@ -5,6 +5,8 @@ public class Moim {
 	private String comname;//모임이름
 	private int isopen;//공개여부
 	
+	private int cmoimcode,permission;
+	private String joindate;
 	
 	public int getMoimnum() {
 		return moimnum;
@@ -23,6 +25,24 @@ public class Moim {
 	}
 	public void setIsopen(int isopen) {
 		this.isopen = isopen;
+	}
+	public int getCmoimcode() {
+		return cmoimcode;
+	}
+	public void setCmoimcode(int cmoimcode) {
+		this.cmoimcode = cmoimcode;
+	}
+	public int getPermission() {
+		return permission;
+	}
+	public void setPermission(int permission) {
+		this.permission = permission;
+	}
+	public String getJoindate() {
+		return joindate;
+	}
+	public void setJoindate(String joindate) {
+		this.joindate = joindate;
 	}
 		
 	

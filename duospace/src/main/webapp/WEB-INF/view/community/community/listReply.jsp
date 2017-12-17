@@ -5,7 +5,7 @@
 <%
 	String cp = request.getContextPath();
 %>
-<c:if test="${boardrpNum != 0}">
+<c:if test="${boardrpNum != 0 }">
 	<table style="width: 100%; margin: 10px auto 30px; border-spacing: 0">
 		<tr height="35">
 			<td colspan="2">
