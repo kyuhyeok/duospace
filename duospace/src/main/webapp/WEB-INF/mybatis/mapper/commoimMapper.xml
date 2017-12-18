@@ -4,12 +4,12 @@
 <mapper namespace="commoim">
 
 	<!-- 모임가입 -->
-	<insert id="insertAccept" parameterType="Integer">
-		INSERT INTO moimmember (memberNum,cmoimcode) VALUES (#{memberNum},#{cmoimcode})
+	<insert id="insertAccept" parameterType="map">
+		INSERT INTO moimmember (memberNum,cmoimCode) VALUES (#{memberNum},#{cmoimCode})
 	</insert>
 	
 	<!-- 가입확인을위한. -->
-	<select id="countAccept" parameterType="Integer" resultType="Integer">
+	<select id="countAccept" parameterType="map" resultType="Integer">
 	   SELECT COUNT(*) FROM moimmember WHERE memberNum = #{memberNum} and cmoimcode = #{cmoimCode}
 	</select>
 	
@@ -22,7 +22,7 @@
 	<!-- 글 리스트 -->
 	<select id="listCommoim" parameterType="map" 
 		resultType="com.duospace.community.commoim.Commoim">
-        SELECT c.cmoimCode, comname, isopen, created, c.catecode, c.regcode, 
+        SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
         	c.memberNum,NVL(moimcount, 0) moimcount
         	FROM commoim c 
         	JOIN member2 m ON c.membernum = m.membernum

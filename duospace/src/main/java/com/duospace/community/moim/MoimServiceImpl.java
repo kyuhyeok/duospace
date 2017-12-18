@@ -62,10 +62,10 @@ public class MoimServiceImpl implements MoimService{
 	}
 
 	@Override
-	public int insertAccept(int memberNum) {
+	public int insertAccept(Map<String, Object>map) {
 		int result=0;
 		try {
-			result=dao.insertData("commoim.insertAccept",memberNum);
+			result=dao.insertData("commoim.insertAccept",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -73,10 +73,10 @@ public class MoimServiceImpl implements MoimService{
 	}
 
 	@Override
-	public int countAccept(int memberNum) {
+	public int countAccept(Map<String, Object>map) {
 		int result=0;
 		try {
-			result=dao.selectOne("commoim.countAccept",memberNum);
+			result=dao.selectOne("commoim.countAccept",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

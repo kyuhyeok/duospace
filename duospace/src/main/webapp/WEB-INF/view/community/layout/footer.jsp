@@ -7,9 +7,9 @@
 %>
 
 
-<footer class="footer-tet">
-	<div style="width: 100%; height: 40px; border-top: 1px solid #eeeeee;"align="center">
-		<a href="#">공지사항</a>
+<footer class="footer">
+	<div style="width: 100%; height: 40px; border-top: 1px solid #eeeeee; padding:  10px auto 0px;"align="center" >
+		<a href="<%=cp%>/community/notice/list">공지사항</a>
 		<a href="#">파트너</a>
 		<a href="#">광고</a>
 		<a href="#">이용약관</a>
