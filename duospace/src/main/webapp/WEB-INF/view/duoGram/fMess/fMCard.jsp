@@ -1,6 +1,3 @@
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,11 +5,19 @@
 <%
 	String cp=request.getContextPath();
 %>
+<%--  --%>
 <c:forEach var="vo" items="${list}">
-	<li class="objectListItem messegeContainer" onclick="opchat('${vo.friendNum}','${vo.name}','${vo.proFileSaveFileName}')">
+	<li class="objectListItem messegeContainer" onclick="opchat('${vo.friendNum}','${vo.name}');" data-fnum='${vo.friendNum}' data-fname='${vo.name}'>
 		<div class="clearfix" style="zoom: 1;">
 			<div class="objectListItem_profile" style="float: left;margin-right: 8px;">
-				<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
+				<c:choose>
+					<c:when test="${empty vo.proFileSaveFileName}">
+						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
+					</c:when>
+					<c:otherwise>
+						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div style="margin: -1px 0;">
 				<div class="clearfix" style="overflow: hidden;zoom: 1;">
