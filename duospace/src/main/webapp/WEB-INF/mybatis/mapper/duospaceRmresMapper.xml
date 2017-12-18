@@ -2,7 +2,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duospace.rmres">
+	<!-- 예약번호 증가 -->
+	<select id="reservSeq" resultType="Integer">
+		SELECT SEQ_RESERV.NEXTVAL FROM dual
+	</select>
 	
+	<!-- 룸상세 등록 -->
 	<insert id="insert" parameterType="com.duospace.duospace.rmres.Rmres">
 		INSERT INTO rmres(rmresNum, startDate, endDate, 
 		roomCode, reservNum, people, userName, tel) 
@@ -10,12 +15,13 @@
 		#{roomCode},#{reservNum},#{people},#{userName},#{tel})
 	</insert>
 	
+	<!-- 예약 등록 -->
 	<insert id="insert2" parameterType="com.duospace.duospace.rmres.Rmres">
 		INSERT INTO reserv (reservNum, memberNum, signSpot) 
-		VALUES(SEQ_RESERV.NEXTVAL, #{memberNum}, #{signSpot})
+		VALUES(#{reservNum}, #{memberNum}, #{signSpot})
 	</insert>
 
-	
+	<!-- 룸상세 리스트 -->
 	<select id="rmlist" resultType="com.duospace.duospace.rmres.Rmres">
 	SELECT rmresNum, TO_CHAR(startDate,'YYYY-MM-DD')startDate, TO_CHAR(endDate,'YYYY-MM-DD')endDate, roomCode,
 	rm.reservNum, people, userName, tel 

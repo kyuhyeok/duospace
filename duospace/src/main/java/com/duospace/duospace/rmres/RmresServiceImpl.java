@@ -16,14 +16,17 @@ public class RmresServiceImpl implements RmresService{
 	@Override
 	public void insertRmres(Rmres dto) throws Exception{
 		try {
+			int num=dao.selectOne("duospace.rmres.reservSeq");
+			dto.setReservNum(num);
 			dao.insertData("duospace.rmres.insert2", dto);
 			dao.insertData("duospace.rmres.insert", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			throw e;
 		}
-		
 	}
+	
+	
 
 	@Override
 	public List<Rmres> listRmres() {
@@ -35,5 +38,9 @@ public class RmresServiceImpl implements RmresService{
 		}
 		return list;
 	}
+
+
+
+
 
 }
