@@ -7,6 +7,7 @@
 %>
 
 <style type="text/css">
+/* 
 body {
     background: #fff;
     color: #1d2129;
@@ -24,15 +25,15 @@ ul {
     padding: 0;
 }
 
-td {
-    text-align: left;
-    display: table-cell;
-}
-
 a{	
 	color: #365899;
 	cursor: pointer;
     text-decoration: none;
+}
+ */
+td {
+    text-align: left;
+    display: table-cell;
 }
 
 textarea{
@@ -338,11 +339,11 @@ time>span{
     height: inherit;
     text-align: initial;
 }
-	
+/* 	
 ._5rpu[contenteditable="true"] {
     -webkit-user-modify: read-write-plaintext-only;
-}
-	
+} 
+*/	
 
 ._5rp8 {
     left: 0;
@@ -370,72 +371,117 @@ time>span{
 	opacity:0.5;
 	margin: 2px 0px;
 	color: rgb(75, 79, 86);
+	clear: right;
+    float: right;
 }
 
 </style>
 <script type="text/javascript">
+var first=1;
+var fMNum=0;
+var lastData=0;
+var friendNum=0;
+var socket=''; 
+var host="";
+var uNum=0;
 $(function() {
-    $('#chatinputstream').on('keydown keyup', function(key) {
-    	var tot=100;
-		if($(this).val().length > tot) {
-			$(this).val($(this).val().substring(0, tot));
-		}
-    	if($(this).val().length > 0) {
-            $('._1p1t').html($('#chatinputstream').val().length+'/'+tot);
-        }else{
-			$('._1p1t').html('');
-		}
-    	$(this).height(1).height($(this).prop('scrollHeight')-6);
-    });
-	$('.chatclosebtn').on('click', function(){
-		$('#dgChatTabFlyout').hide();
-		dchatcl();
+	$("#dgchatcontent").scrollTop($("#dgchatcontent").prop("scrollHeight"));
+	$(".messegeContainer").on("click",function(){
+		opchat($(this).attr("data-fnum"),$(this).attr("data-fname"));
 	});
-	$("#chatinputstream").keydown(function (key) {
-		if(key.keyCode == 13 && $(this).val().length > 0){
-			var content=$.trim($(this).val());
-			if(! content){
-				$("#chatinputstream").focus();
-				return;
-			}
-			var fNum=$(".dgfmtitlebarText").attr("data-fmnum");
-			insertFMess(fNum, content);
-        }
-    });
 });
 function opchat(fNum,fName) {
 	//var fPs=$(this).attr("data-fmps");
-	
+	first=1;
 	var isVisible=$("#dgChatTabFlyout").is(":visible");
 	
+	console.log("채팅방 열기 로드");
 	if(isVisible){
 		dchatcl();
-		$('#dgChatTabFlyout').show();
-		readFM(fNum, fName);
-		listFMCon(1,fNum);
-	}else {
-		$('#dgChatTabFlyout').show();
-		readFM(fNum, fName);
-		listFMCon(1,fNum);
 	}
+	friendNum=fNum;
+	if(friendNum==0){
+		dchatcl();
+		return;
+	}
+	$("#dgChatTabFlyout").show();
+	sokectBoot(friendNum, fName);
+	listFMCon(friendNum, 0);
+	first=0;
+	$("#chatinputstream").focus();
+	//messScrollDown();
 }
 function dchatcl(){
-	$('.dgfmtitlebarText').remove();
-	$('#dgchatcontent').html('');
+	console.log("채팅방 닫기 로드 준비 완료");
+	conclose();
+	$('#dgChatTabFlyout').empty();
+	$('#dgChatTabFlyout').hide();
+	first=1;
+	fMNum=0;
+	lastData=0;
+	friendNum=0;
+	socket=null; 
+	host="";
+	uNum=0;
+	console.log("채팅방 삭제 로드");
 }
-function readFM(fNum, fName){
-	var out="<a class='dgfmtitlebarText' href='"+"<%=cp%>/duospace/duogram/"+fNum+"' data-fmnum='"+fNum+"'>"+fName+"</a>";
-	$("#chatFlyoutTitle").html(out);
+function conclose() {
+	var obj = {};
+    var jsonStr;
+    obj.type="close";
+    obj.message="";
+    jsonStr = JSON.stringify(obj);
+    socket.send(jsonStr);
+    console.log("연결 끊기 로드");
 }
-function listFMCon(page,fNum){
+function messScrollDown() {
+	<%--
+	$("#scrollmess").scrollTop($("#scrollmess")[0].scrollHeight);
+	$("#dgchatcontent").scrollTop($("#dgchatcontent").prop("scrollHeight"));
+	--%>
+	$("#scrollmess").scrollTop($("#scrollmess").prop("scrollHeight"));
+	console.log("스크롤 다운 로드");
+}
+function sokectBoot(fNum,fname){
+	var url="<%=cp%>/duogram/chat";
+	var q="friendNum="+fNum+"&name="+fname;
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,success:function(data){
+			$("#dgChatTabFlyout").html(data);
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true);
+		}
+		,error:function(e){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText);
+		}
+	});
+	console.log("소켓 부팅 로드");
+}
+function listFMCon(fNum,fmNum){
 	var url="<%=cp%>/duogram/listFMess";
-	var q="page="+page+"&friendNum="+fNum;
+		var q="friendNum="+fNum+"&num="+fmNum;
+	if(first==1)
+		q+="&first=1";
+	else{
+		q+="&first=0";
+	}
 	$.ajax({
 		type:"post"
 		,url:url
 		,data:q
 		,success:function(data){
-			$('#dgchatcontent').html(data);
+			$('#dgchatcontent').prepend(data);
+			fMNum=$('#dgchatcontent').find("div:first").attr("data-fmNum");
+			lastData=$('#lastmData').html();
+			$('#lastData').remove();
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
@@ -448,44 +494,23 @@ function listFMCon(page,fNum){
 			console.log(e.responseText);
 		}
 	});
-}
-function insertFMess(fNum, content){
-	var url="<%=cp%>/duogram/insertFMess";
-	var q="friendNum="+fNum+"&content="+encodeURIComponent(content);
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,dataType:"json"
-		,success:function(data){
-			listFMCon(1,fNum);
-			$("#chatinputstream").val('');
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true);
-		}
-		,error:function(e){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText);
-		}
-	});
+	console.log("메시지 리스트 로드");
 }
 function dMess(num) {
+	if(!confirm("삭제하시겠습니까?")){
+		return;
+	}
 	var url="<%=cp%>/duogram/deleteFMess";
 	var q="num="+num;
-	alert(q);
 	$.ajax({
 		type:"post"
 		,url:url
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			var time="#time"+num;
+			<%-- var time="#time"+num;
+			$(time).remove(); --%>
 			var mess="#mess"+num;
-			$(time).remove();
 			$(mess).remove();
 		}
 		,beforeSend:function(e){
@@ -500,53 +525,8 @@ function dMess(num) {
 		}
 	});
 }
+
 </script>
 <div class="dgChatTabFlyout" id="dgChatTabFlyout">
-	<div class="dgFlyoutInner">
-		<!-- Title bar -->
-		<div class="clearfix dgFlyoutTitlebar">
-			<div class="titlebarcontent">
-				<div class="chatFlyoutTitle" id="chatFlyoutTitle">유저
-				</div>
-				<ul class="dgChatTabClose">
-					<li>
-						<div class="chatclosebtn" aria-label="클릭하면 창이 닫힙니다.">X</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<!-- /Title bar -->
-		<!-- 바디 -->
-		<div class="haderAndchatListAndScroll">
-			<div style="display: flex;flex-grow: 1;flex-shrink: 1;background: #ffffff;overflow: hidden; border-bottom: 1px solid #dddddd">
-				<div class="scrollable">
-					<div class="haderAndchatcontent">
-						<table class="haderAndchatList">
-							<tbody>
-								<tr style="border: 0;border-collapse: collapse;border-spacing: 0;">
-									<td style="padding: 0;vertical-align: bottom;">
-										<div id="dgchatcontent" style="width:100%;height: 250px;">
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<!-- 입력 -->
-			<div class="dgFlaoutFooter">
-				<div class="_552h">
-					<div class="_5rp7 _5rp8">
-						<div class="_5rpb">
-							<div class="_1p1t" style="white-space: pre-wrap;user-select: none" id="placeholder_chat"></div>
-							<textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /입력 -->
-		</div>
-		<!-- /바디 -->
-	</div>
 </div>
+

@@ -5,8 +5,8 @@
 <%
 	String cp=request.getContextPath();
 %>
-
 <style type="text/css">
+/*
 body {
     direction: ltr;
     line-height: 1.34;
@@ -26,10 +26,6 @@ ul{
 li {
     display: list-item;
     text-align: -webkit-match-parent;
-}
-
-li:first-child{
-    border-top: none;
 }
 
 a {
@@ -53,6 +49,10 @@ h3{
     margin: 0;
     padding: 0;
 }
+*/
+li:first-child{
+    border-top: none;
+}
 
 .uiToggleFLayoutm{
 	display: none;
@@ -69,15 +69,16 @@ h3{
     z-index: -1;
 }
 
-.uiScrollableArea {
+.uiScrollableArealfm {
     direction: ltr;
     height: 100%;
     overflow: hidden;
     position: relative;
 }
 
-.uiScrollableAreaWrap {
-    height: 100%;
+.uiScrollableAreaWraplfm {
+    height: inherit;
+    max-height: inherit;
     outline: none;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -87,12 +88,12 @@ h3{
     padding-right: 30px;
 }
 
-.uiScrollableAreaBody {
+.uiScrollableAreaBodylfm {
     direction: ltr;
     position: relative;
 }
 
-.uiScrollableAreaContent {
+.uiScrollableAreaContentlfm {
     padding-bottom: 0;
 }
 
@@ -107,19 +108,19 @@ h3{
     z-index: 100;
 }
 
-._4ks>li {
+._4kslfm>li {
     border-color: #dddfe2;
     border-style: solid;
 }
 
-._4kg>li {
+._4kglfm>li {
     border-width: 0 0 1px 0;
 }
-
+/*
 .objectListItem {
     padding-bottom: 8px;
     padding-top: 8px;
-}
+}*/
 .objectListItem>*{
 	cursor: default;
 }
@@ -137,7 +138,7 @@ h3{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
+/* 
 .objectListItem_profile {
 	height: 48px;
 	margin-right: 2px;
@@ -220,7 +221,7 @@ h3{
     font-size: 12px;
     font-weight: bold;
 }
-
+ */
 .author{
 	color: #1d2129;
     padding-top: 7px;
@@ -279,6 +280,35 @@ h3{
 
 </style>
 
+<div id="dgMessPos" style="position:fixed;top:30px;z-index: 10;">
+	<div class="uiToggleFLayoutm" id="dgfmessengers">
+	    <ul>
+	    	<li style="border-top: none;">
+	    		<div>
+	    			<div class="uiScrollableArealfm" style="min-height:100px; max-height: 631px;">
+	    				<div class="messengerHeader">
+							<div class="clearfix" style="zoom:1;">
+								<h3 class="uiHeaderTitle">안읽은 메시지 <span id="fMURCnt"></span></h3>
+							</div>
+	    				</div>
+	    				<div class="uiScrollableAreaWraplfm" id="dglfmScroll">
+	    					<div class="uiScrollableAreaBodylfm" id="dglfmDoc" style="width: 430px;">
+	    						<div class="uiScrollableAreaContentlfm" >
+	    							<div style="padding-top: 0;">
+	    								<ul class="_4kglfm _4kslfm" id="fMCList">
+	    								</ul>
+	    							</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</li>
+	    </ul>
+	</div>
+	<div class="alim" id="reqalimFMess"></div>
+</div>
+
 <script type="text/javascript">
 function readaFMessCnt() {
 	var url="<%=cp%>/duogram/fMURtDCnt";
@@ -310,9 +340,13 @@ function readaFMessCnt() {
 			console.log(e.responseText)
 		}
 	});
+	console.log("메시지 카운트 로드");
 }
 function dMcl(){
 	$('#fMCList').html('');
+	pageLFMCNo=1;
+	totalPageLFMC=1;
+	console.log("채팅방 리스트 삭제 로드");
 }
 function listFMC(page) {
 	var url="<%=cp%>/duogram/listFMC";
@@ -337,34 +371,7 @@ function listFMC(page) {
 			console.log(e.responseText);
 		}
 	});
+	console.log("채팅방 리스트 로드");
 }
 
 </script>
-<div id="dgMessPos" style="position:fixed;top:30px;z-index: 10;">
-	<div class="uiToggleFLayoutm" id="dgfmessengers">
-	    <ul>
-	    	<li style="border-top: none;">
-	    		<div>
-	    			<div class="uiScrollableArea" style="min-height:100px; max-height: 631px;">
-	    				<div class="messengerHeader">
-							<div class="clearfix" style="zoom:1;">
-								<h3 class="uiHeaderTitle">안읽은 메시지 <span id="fMURCnt"></span></h3>
-							</div>
-	    				</div>
-	    				<div class="uiScrollableAreaWrap">
-	    					<div class="uiScrollableAreaBody" style="width: 430px;">
-	    						<div class="uiScrollableAreaContent" >
-	    							<div style="padding-top: 0;">
-	    								<ul class="_4kg _4ks" id="fMCList">
-	    								</ul>
-	    							</div>
-	    						</div>
-	    					</div>
-	    				</div>
-	    			</div>
-	    		</div>
-	    	</li>
-	    </ul>
-	</div>
-	<div class="alim" id="reqalimFMess"></div>
-</div>
