@@ -14,4 +14,12 @@
 		INSERT INTO reserv (reservNum, memberNum, signSpot) 
 		VALUES(SEQ_RESERV.NEXTVAL, #{memberNum}, #{signSpot})
 	</insert>
+
+	
+	<select id="rmlist" resultType="com.duospace.duospace.rmres.Rmres">
+	SELECT rmresNum, TO_CHAR(startDate,'YYYY-MM-DD')startDate, TO_CHAR(endDate,'YYYY-MM-DD')endDate, roomCode,
+	rm.reservNum, people, userName, tel 
+	FROM rmres rm
+	JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+	</select>
 </mapper>

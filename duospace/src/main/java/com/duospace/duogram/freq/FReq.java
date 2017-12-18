@@ -2,11 +2,17 @@ package com.duospace.duogram.freq;
 
 public class FReq {
 	private int memberNum, friendNum;
-	private String userId, name;
+	private String userId, name, proFileSaveFileName;
 	private String reqDate;
 	private int fReqCount;
 	
 	
+	public String getProFileSaveFileName() {
+		return proFileSaveFileName;
+	}
+	public void setProFileSaveFileName(String proFileSaveFileName) {
+		this.proFileSaveFileName = proFileSaveFileName;
+	}
 	public String getReqDate() {
 		return reqDate;
 	}

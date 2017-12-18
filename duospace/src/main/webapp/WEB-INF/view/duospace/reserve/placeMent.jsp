@@ -92,12 +92,14 @@ $(function(){
 
 </style>
 
-	<c:forEach var="dto" items="${reserveList}" varStatus="status">
-		<input type="hidden" name="reserveDone" class="reserveDone" value="${dto.seatName}">
-	</c:forEach>
-	<div>
-		
+
 	
+	
+	<div>
+		<c:forEach var="vo" items="${reserveList}">
+			<input type="hidden" name="reserveDone" class="reserveDone" value="${vo.seatName}">
+		</c:forEach>
+		
 		<c:if test="${not empty dto}">
 			<h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2> ${dto.floorName} 배치도</h2>
 			${dto.placement}
