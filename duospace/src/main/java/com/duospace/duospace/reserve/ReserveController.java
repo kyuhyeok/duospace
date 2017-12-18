@@ -154,29 +154,6 @@ public class ReserveController {
 		if(info==null)
 			return "redirect:/duospace/reserve";
 		
-		System.out.println(passCode);
-		System.out.println(seatName);
-		System.out.println(startTime[0]);
-		System.out.println(startTime[1]);
-		System.out.println(endTime);
-		System.out.println(reserve_floor);  //층 번호
-	
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		int si = Integer.parseInt(startTime[1].substring(0, 2));
-		int bun = Integer.parseInt(startTime[1].substring(3, 5));
-		String ap = startTime[1].substring(6, 8);
-		if (ap.equalsIgnoreCase("pm")) {
-			si = si + 12;
-		}
-		
-	//	String startDate=startTime[0]+Integer.toString(si)+Integer.toString(bun);
-		
-		System.out.println(startDate);
-		//startDate=format.format(startDate);
-		System.out.println(startDate);
-		
-		
 		Map<String, Object> map = new HashMap<>();
 		
 		Reserve dto = service.readPlacement(reserve_floor);
@@ -207,7 +184,43 @@ public class ReserveController {
 			System.out.println("");
 		}
 		
-		return "redirect:/space_main";
+		int reserveNum=service.readReserveNum();
+		
+		String query="passCode="+passCode+"&reservNum="+reserveNum+"&startDate="+startDate+"&endDate="+endTime+"&floorNum="+reserve_floor;
+		query+="&seatName="+seatName;
+		
+		
+		return "redirect:/duospace/reserve/reserveComplete?"+query;
+	}
+	
+	@RequestMapping(value="/duospace/reserve/reserveComplete", method=RequestMethod.GET)
+	public String reserveComplete(
+			@RequestParam int passCode,
+			@RequestParam int reservNum,
+			@RequestParam String startDate,
+			@RequestParam String endDate,
+			@RequestParam int floorNum,
+			@RequestParam String seatName,
+			Model model
+			) throws Exception{
+		
+		Reserve dto = new Reserve();
+		
+		dto.setPassCode(passCode);
+		dto.setReservNum(reservNum);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
+		dto.setFloorNum(floorNum);
+		dto.setSeatName(seatName);
+		int passPrice = service.readPass(passCode);
+		dto.setPrice(passPrice);
+		Reserve dto2=service.readPlacement(floorNum);
+		dto.setSpotName(dto2.getSpotName());
+		dto.setFloorName(dto2.getFloorName());
+		
+		model.addAttribute("dto", dto);
+		
+		return ".reserve.reserveComplete";
 	}
 }
 

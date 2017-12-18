@@ -76,6 +76,18 @@
 		VALUES (SEQ_STRES.NEXTVAL, to_date(#{startDate},'yyyy-mm-dd hh24-mi-ss'),to_date(#{endDate},'yyyy-mm-dd hh24-mi-ss'), #{reservNum}, #{seatCode}, #{passCode})
 	</insert>
 	
+	<!-- 예약번호 가져오기 -->
+	<select id="readReserveNum" resultType="Integer">
+		SELECT MAX(reservnum) reservNum FROM reserv
+	</select>
+	
+	<!-- 이용권 정보 가져오기 -->
+	<select id="readPass" parameterType="Integer" resultType="Integer">
+		SELECT price
+		FROM pass
+		WHERE passCode=#{passCode}
+	</select>
+	
 </mapper>
 
 

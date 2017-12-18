@@ -119,6 +119,29 @@ public class ReserveServiceImpl implements ReserveService {
 		return result;
 	}
 
+	@Override
+	public int readReserveNum() {
+		int reserveNum=0;
+		try {
+			reserveNum=dao.selectOne("duospace.reserveSeat.readReserveNum");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return reserveNum;
+	}
+
+	@Override
+	public int readPass(int passCode) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("duospace.reserveSeat.readPass",passCode);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
+	}
+
 
 
 	

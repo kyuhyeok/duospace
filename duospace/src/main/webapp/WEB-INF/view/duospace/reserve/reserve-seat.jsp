@@ -17,6 +17,7 @@
 
 
 <script type="text/javascript">
+
 $(function() {
 		
 		
@@ -109,6 +110,8 @@ $(function() {
 		$('.timepicker').timepicker();
 
 		$("#date3").datepicker({
+			minDate: 0,
+			altFormat: "yyyy-mm-dd",
 			showMonthAfterYear : true
 		});
 
@@ -363,6 +366,10 @@ function check() {
 }
 .resultTb>div{
 	padding-left: 10px;
+}
+.selected.choice{
+	background-color: black;
+	color: white;
 }
 </style>
 
