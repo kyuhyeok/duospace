@@ -51,6 +51,16 @@ $(function(){
 	/*고객이 좌석 선택시 이벤트*/
 	$(".make-Seat-Tb tr td").on("click",function(){
 		if($(this).hasClass("selected")){
+			
+			$(".selected").each(function(index) {
+				
+				if($(this).hasClass("choice")){
+					$(this).removeClass("choice");
+				}
+			});
+			
+			$(this).addClass("choice");
+			
 			var a= $(this).children().eq(0).val();
 			$(".resultTb>div>div:eq(2)").text(a);
 			$(".resultTb>div>div:eq(2)").append("<input type ='hidden' name='seatName' value='"+a+"'>");
@@ -58,6 +68,14 @@ $(function(){
 		}else if($(this).hasClass("can")){
 			alert("해당좌석은 선택이 불가합니다.");
 			$(".resultTb>div>div:eq(2)").empty();
+			
+			$(".selected").each(function(index) {
+				
+				if($(this).hasClass("choice")){
+					$(this).removeClass("choice");
+				}
+			});
+			
 		}
 		
 		
@@ -84,20 +102,25 @@ $(function(){
 
 }
 .can{
-	opacity : 0.7;
+	
 	background-image: url('<%=cp%>/resource/images/duospace/icon/slash.png');
 	background-size: 100% 100%;
 }
-
+.selected.choice{
+	background-image: url('<%=cp%>/resource/images/duospace/icon/black.jpg');
+	color: white;
+}
 
 </style>
 
-	<c:forEach var="dto" items="${reserveList}" varStatus="status">
-		<input type="hidden" name="reserveDone" class="reserveDone" value="${dto.seatName}">
-	</c:forEach>
-	<div>
-		
+
 	
+	
+	<div>
+		<c:forEach var="vo" items="${reserveList}">
+			<input type="hidden" name="reserveDone" class="reserveDone" value="${vo.seatName}">
+		</c:forEach>
+		
 		<c:if test="${not empty dto}">
 			<h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2> ${dto.floorName} 배치도</h2>
 			${dto.placement}

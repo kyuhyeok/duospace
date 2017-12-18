@@ -11,8 +11,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-<!-- timepicker -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css"><style type="text/css">
+<style type="text/css">
+
 <!--
 메뉴스타일-->#container {
 	margin: 0 auto;
@@ -163,27 +163,24 @@ function rangeDate(data) {
 	}
 }
 
-$(function() {
-	$("#rs_date").datepicker({minDate: 0,
-		altFormat: "yyyy-mm-dd"
-	});
-});
 
 
 function Dialog(roomCode, roomName, floorName) {
-	$("#modal-frm input[name=roomCode]").val(roomCode);
-	$("#modal-frm input[name=roomName]").val(roomName);
-	$("#modal-frm input[name=floorName]").val(floorName);
-	var date = new Date();
-	$("#modal-frm input[name=rs_date]").val(strDate(date));
-	$("#modal-frm input[name=rs_date2]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
+	var url="<%=cp%>/createdForm?roomCode="+roomCode+"&roomName="+roomName+"&floorName="+floorName;
+	$('#myRoomModal .modal-body').load(url, function () {
+		
+		
+		$("#modalForm input[name=roomCode]").val(roomCode);
+		$("#modalForm input[name=roomName]").val(roomName);
+		$("#modalForm input[name=floorName]").val(floorName);
+		var date = new Date();
+		$("#modalForm input[name=startDate]").val(strDate(date));
+		$("#modalForm input[name=endDate]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
+
+
+		$('#myRoomModal').modal('show');
+	});
 	
-
-	$('#myRoomModal').modal('show');
-}
-
-function Dialogcancel() {
-	$('#myRoomModal').modal('hide');
 }
 
 function strDate(date) {
@@ -195,15 +192,13 @@ function strDate(date) {
 	
 	return y+"-"+m+"-"+d;
 }
-
+function Dialogcancel() {
+	$('#myRoomModal').modal('hide');
+}
 function SendOk() {
-	var f=document.modal-frm;
-	
-	${dto.signSpot}=$("#modal-frm input[name=rs_reserve]:checked").val();
-	
+	var f=document.modalForm;
 	f.action="<%=cp%>/rmres";
 	f.submit();
-	
 	
 }
 </script>
@@ -265,85 +260,11 @@ function SendOk() {
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">예약 등록</h4>
         </div>
-        
-         <div class="modal-body">
-					<div id="newmodal" style="padding: 5px 20px;">
-						<form class="form-horizontal calender" id="modal-frm" name="modal-frm" role="form">
-							<input type="hidden" name="roomCode">
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">룸 이름</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" type="text" readonly="readonly" name="roomName">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label"> 층 </label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" type="text" readonly="readonly" name="floorName">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">시작일</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_date" name="rs_date" type="text" onchange="inputChange(this)" value="${dto.startDate}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">이용기간</label>
-								<div class="col-sm-9 col-xs-12">
-									<select class="form-control" id="rs_daterange" name="rs_daterange" onchange="javascript:selectDate(this);">
-										<option value="1">1개월</option>
-										<option value="2">6개월</option>
-										<option value="3">1년</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">종료일</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_date2" name="rs_date2" type="text" readonly="readonly" value="${dto.endDate}"/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">인원수</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_people" name="rs_people" type="text" value="${dto.people}"/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">예약자명*</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_name" name="rs_name" type="text" value="${dto.userName}"/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">연락처*</label>
-								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_phone" name="rs_phone" type="text" value="${dto.tel}"/>
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">예약구분</label>
-								<div class="col-sm-9 col-xs-12">
-									<input id="rs_web" name="rs_reserve" type="radio" value="0" ${dto.signSpot}/>웹
-									<input id="rs_scene" name="rs_reserve" type="radio" value="1" ${dto.signSpot}/>현장
-							</div>
-							</div>
-						</form>
-					</div>
-				</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
-        </div>
+         <div class="modal-body"></div>
       </div>
     </div>
   </div>		
-  	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-
+  
   
 </body>
 </html>

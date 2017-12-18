@@ -93,12 +93,53 @@ public class ReserveServiceImpl implements ReserveService {
 
 	/**
 	 * reserv테이블에 입력
-	 * 예약1
+	 * 예약1, 예약2
 	 */
 	@Override
-	public int insertReserve(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void insertReserve(Map<String, Object> map) throws Exception{
+		try {
+			int seq=dao.selectOne("duospace.reserveSeat.seq");
+			map.put("reservNum", seq);
+			dao.insertData("duospace.reserveSeat.insert1", map);
+			dao.insertData("duospace.reserveSeat.insert2", map);
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
+	@Override
+	public int readSeatCode(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.reserveSeat.readSeatCode", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
+	}
+
+	@Override
+	public int readReserveNum() {
+		int reserveNum=0;
+		try {
+			reserveNum=dao.selectOne("duospace.reserveSeat.readReserveNum");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return reserveNum;
+	}
+
+	@Override
+	public int readPass(int passCode) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("duospace.reserveSeat.readPass",passCode);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 

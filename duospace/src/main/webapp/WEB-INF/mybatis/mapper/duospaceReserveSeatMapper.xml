@@ -55,15 +55,38 @@
 	</select>
 	
 	<!-- RESERV 테이블에 예약입력 -->
+	<select id="seq" resultType="Integer">
+		SELECT seq_RESERV.NEXTVAL FROM DUAL
+	</select>
 	<insert id="insert1" parameterType="map">
-		INSERT INTO reserv (reservnum, membernum) VALUES (SEQ_RESERV.NEXTVAL, #{memberNum})
+		INSERT INTO reserv (reservnum, membernum) VALUES (#{reservNum}, #{memberNum})
 	</insert>
 	
-	<!-- reservnum 예약번호가져오기 -->
-	<select id="getReservNum">
-		SELECT MAX(reservnum) FROM reserv
+	
+	
+	<!-- 선택한 좌석의 좌석코드 가져오기 -->
+	<select id="readSeatCode" parameterType="map" resultType="Integer">
+		SELECT seatcode FROM seat
+		WHERE placeCode=#{placeCode} and isUsed=1 and seatName=#{seatName}
 	</select>
 	
+	<!-- 예약상세 입력 -->
+	<insert id="insert2" parameterType="map">
+		INSERT INTO stres (stresnum,startDate, endDate, reservnum,seatCode, passCode) 
+		VALUES (SEQ_STRES.NEXTVAL, to_date(#{startDate},'yyyy-mm-dd hh24-mi-ss'),to_date(#{endDate},'yyyy-mm-dd hh24-mi-ss'), #{reservNum}, #{seatCode}, #{passCode})
+	</insert>
+	
+	<!-- 예약번호 가져오기 -->
+	<select id="readReserveNum" resultType="Integer">
+		SELECT MAX(reservnum) reservNum FROM reserv
+	</select>
+	
+	<!-- 이용권 정보 가져오기 -->
+	<select id="readPass" parameterType="Integer" resultType="Integer">
+		SELECT price
+		FROM pass
+		WHERE passCode=#{passCode}
+	</select>
 	
 </mapper>
 

@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.common.DuospaceUtil;
+import com.duospace.member.SessionInfo;
 
 @Controller("duospace.reserveController")
 public class ReserveController {
@@ -140,16 +144,83 @@ public class ReserveController {
 			@RequestParam int passCode,
 			@RequestParam String seatName,
 			@RequestParam String startTime[],
-			@RequestParam String endTime
+			@RequestParam String startDate,
+			@RequestParam String endTime,
+			@RequestParam int reserve_floor,
+			HttpSession session
 			) throws Exception{
 		
-		System.out.println(passCode);
-		System.out.println(seatName);
-		System.out.println(startTime[0]);
-		System.out.println(startTime[1]);
-		System.out.println(endTime);
+		SessionInfo info = (SessionInfo)session.getAttribute("user");
+		if(info==null)
+			return "redirect:/duospace/reserve";
 		
-		return "";
+		Map<String, Object> map = new HashMap<>();
+		
+		Reserve dto = service.readPlacement(reserve_floor);
+		
+		if(dto==null)
+			return "redirect:/duospace/reserve";
+		
+		map.put("placeCode",dto.getPlaceCode());
+		map.put("seatName", seatName);
+		
+		map.put("memberNum", info.getMemberNum());
+		
+		int seatCode=service.readSeatCode(map);
+		//System.out.println(seatCode);
+		
+		
+	
+		map.put("passCode", passCode);  //이용권코드
+		map.put("seatCode", seatCode); //좌석코드
+		map.put("endDate", endTime);  //종료일
+		map.put("startDate",startDate);// 시작일
+		
+		try {
+			service.insertReserve(map);
+			
+		} catch (Exception e) {
+			//인서트 안된경우
+			System.out.println("");
+		}
+		
+		int reserveNum=service.readReserveNum();
+		
+		String query="passCode="+passCode+"&reservNum="+reserveNum+"&startDate="+startDate+"&endDate="+endTime+"&floorNum="+reserve_floor;
+		query+="&seatName="+seatName;
+		
+		
+		return "redirect:/duospace/reserve/reserveComplete?"+query;
+	}
+	
+	@RequestMapping(value="/duospace/reserve/reserveComplete", method=RequestMethod.GET)
+	public String reserveComplete(
+			@RequestParam int passCode,
+			@RequestParam int reservNum,
+			@RequestParam String startDate,
+			@RequestParam String endDate,
+			@RequestParam int floorNum,
+			@RequestParam String seatName,
+			Model model
+			) throws Exception{
+		
+		Reserve dto = new Reserve();
+		
+		dto.setPassCode(passCode);
+		dto.setReservNum(reservNum);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
+		dto.setFloorNum(floorNum);
+		dto.setSeatName(seatName);
+		int passPrice = service.readPass(passCode);
+		dto.setPrice(passPrice);
+		Reserve dto2=service.readPlacement(floorNum);
+		dto.setSpotName(dto2.getSpotName());
+		dto.setFloorName(dto2.getFloorName());
+		
+		model.addAttribute("dto", dto);
+		
+		return ".reserve.reserveComplete";
 	}
 }
 
