@@ -27,36 +27,28 @@ $(function() {
 
 		});
 
-//[name=passCode], .timepicker,  
+//[name=reserve_usingTicket], .timepicker,  
 
 		$("#timepicker").change(function(){
 			//changeEnd();
 			alert("ss");
 	});
 			
-		$("[name=passCode], #date3").on("change",function(){
+		$("[name=reserve_usingTicket], #date3").on("change",function(){
 			changeEnd();
 		});
 		
 		$("body").on("click",".reserve_change",function() {
-					var usingTicket = $(":input:radio[name=passCode]:checked").attr("data-hour");     //체크한 이용권
-					var tName = $(":input:radio[name=passCode]:checked").next().text();
-				 	var tprice=$(":input:radio[name=passCode]:checked").attr("data-tprice");  //이용권가격
+					var usingTicket = $(":input:radio[name=reserve_usingTicket]:checked").val();    //체크한 이용권
+				 	var tprice=$(":input:radio[name=reserve_usingTicket]:checked").attr("data-tprice");  //이용권가격
 				 	var member = $(":input:radio[name=reserve_mem_number]:checked").val();  //멤버수
 				 	var totalPrice=parseInt(tprice)*parseInt(member);  //이용권가격*멤버수
-				 
 				 	$(".reserve_total").children().children().eq(0).children().eq(0).children().eq(3).children().eq(1).text(member);
 					$(".reserve_total  td:eq(3) div:eq(0) div:eq(1) div:eq(2)").text(member);
 				 	$(".reserve_total").children().children().eq(0).children().eq(2).children().eq(0).children().eq(1).text(usingTicket+'시간');
 				 	$(".reserve_total").children().children().eq(0).children().eq(2).children().eq(1).children().eq(1).text(tprice+'원');
 				 	$(".reserve_total  td:eq(3) div:eq(0) div:eq(1) div:eq(0)").text(tprice);
 				 	$(".reserve_total  td:eq(3)").children().eq(1).children().eq(1).text(totalPrice);
-				 	
-				 	
-				 	$(".resultTb>div").next().children().eq(1).text(tName);
-				
-				 	$(".resultTb>div:eq(4)>div:eq(1)").text(totalPrice);
-				 
 				 	
 				});
 
@@ -69,12 +61,6 @@ $(function() {
 			var startTime=$(".reserve_total td:eq(0) > div:eq(1)").children().eq(1).text(); //시작시간
 			var endTime=$(".reserve_total td:eq(0) > div:eq(2)").children().eq(1).text();	//종료시간
 			var floorNum=$("input[name=reserve_floor]:checked").val();  //선택한 층번호
-			
-			//결제창의 층정보 보여주기
-			var floorName=$("input[name=reserve_floor]:checked").next().text();
-			$(".resultTb div:eq(0) div:eq(1)").text(floorName);
-			//alert(floorName);
-			
 			
 			if(startTime.length==0||endTime.length==0)
 				return;
@@ -97,11 +83,6 @@ $(function() {
 			
 			
 		});
-		
-		$("button[type=button]").click(function(){
-				
-			});
-		
 		
 });
 
@@ -145,7 +126,7 @@ function pad(n) {
 function changeEnd(){
 
 	
-		var usingTicket = $(":input:radio[name=passCode]:checked").attr("data-hour");
+		var usingTicket = $(":input:radio[name=reserve_usingTicket]:checked").val();
 		//console.log(usingTicket);
 		var startDate = $("#date3").val();
 		
@@ -188,55 +169,6 @@ function changeEnd(){
 		$(".reserve_total").children().children().eq(0).children()
 			.eq(0).children().eq(2).children().eq(1)
 			.text(date2);
-		
-		$(".resultTb>div").next().next().children().eq(1).text(date1);
-		$(".resultTb>div").next().next().next().children().eq(1).text(date2);
-}
-
-function check() {
-	
-
-	var f=document.reserve_seat_form;
-	
-	var str=f.endTime;
-	if(! str){
-		alert("시간을 선택해주세요");
-		return;
-	}
-	
-	 str = f.passCode;
-	
-	var ch=false;
-	for(var i=0; i<str.length;i++){
-		if(str[i].checked==true)
-			ch=true;
-	}
-	if(ch==false){
-		alert("이용권을 선택해주세요");
-		return;
-	}
-	
-	str=f.reserve_floor;
-	ch=false;
-	for(var i=0;i<str.length;i++){
-		if(str[i].checked==true)
-			ch=true;
-	}
-	if(ch==false){
-		alert("층을 선택해주세요");
-		return;
-	}
-	
-	
-	str=$(".resultTb>div>div:eq(2)>input").val();
-	if(! str){
-		alert("자리를 선택해주세요");
-		return;
-	}
-	
-	f.action="<%=cp%>/duospace/reserve_com";
-	f.submit();
-	
 }
 </script>
 
@@ -322,10 +254,12 @@ function check() {
 	height: 50px;
 	padding-top: 15px;
 }
+
 .reserve_seat_tb {
 	border-spacing: 0px;
 	border-collapse: collapse;
 	width: 100%;
+	margin: 100px 0px 50px 0px;
 }
 
 .reserve_seat_tb td {
@@ -351,13 +285,7 @@ function check() {
 	text-align: center;
 	color: black;
 }
-.resultTb>div div{
-	margin: 5px 6px;
-	padding: 5px 5px;
-}
-.resultTb>div{
-	padding-left: 10px;
-}
+
 </style>
 
 </head>
@@ -365,7 +293,7 @@ function check() {
 
 	<div class="container" role="main">
 
-		
+		<form name="reserve_seat_form">
 
 	<div>
 		<nav class="region-bar">
@@ -383,109 +311,74 @@ function check() {
 			</ul>
 		</nav>
 	</div>
-	     
-	     
-			
-			
-			<form name="reserve_seat_form" method="post">
-				<table class="reserve_seat_tb" style="border: 1px solid black; margin-top: 100px; ">
+	
+			<div>
+				<table class="reserve_seat_tb" style="border: 2px solid #e4e4e4">
 					<tr height="50px;">
-						<td align="center" colspan="3">좌석 예매</td>
+						<td align="center" colspan="2">좌석 d예매</td>
 					</tr>
-					<tr>     
+					<tr>
 						<td>예약시간</td>
-						<td style="width: 490px;">
-							<input type="text" name="startTime" readonly="readonly" id="date3"
+						<td>
+							<input type="text" readonly="readonly" id="date3"
 								style="margin-right: 3px; width: 100px; text-align: center;"
 								placeholder="예약날짜"> 
 							
-							<input type="text" id="timepicker" name="startTime" class='timepicker' placeholder="시간" style="width: 100px; text-align: center;">
+							<input type="text" id="timepicker"  class='timepicker' placeholder="시간" style="width: 100px; text-align: center;">
 							~ 
-							<input type="text" name="endTime" readonly="readonly" style="text-align: center;">
+							<input type="text" readonly="readonly" style="text-align: center;">
 						</td>
-						
-						<td rowspan="4" style="vertical-align: top; padding-top: 0px;">
-							<div class="resultTb" style="border-left: 1px solid; height: 250px;">
-								<div>
-									<div style="float: left; text-align: center;">${spotName}</div>
-									<div style="float: left; text-align: center;">1층&nbsp;&nbsp;</div>
-									<div style="float: left; text-align: center;">1-1 좌석</div>
-								</div>
-								<div style="clear: both;">
-									<div style="float: left;">이용권</div>
-									<div style="float: left;">8DAYs</div>
-								</div>
-								<div style="clear: both;">
-									<div style="float: left;">시작일시</div>
-									<div style="float: left;">0000-00-00</div>
-								</div>
-								<div style="clear: both;">
-									<div style="float: left;">종료일시</div>
-									<div style="float: left;">0000-00-01</div>
-								</div>
-								<div style="clear: both;">
-									<div style="float: left;">최종금액</div>
-									<div style="float: left;">160000원</div>
-								</div>
-						
-									
-								
-								
-							</div>
-							<div style="text-align: center;">
-								<button type="button" onclick="check();">결제하기</button>
-							</div>
-						</td>
-						
 					</tr>
 					
 					<tr>
 						<td>이용권</td>
 						
-						<td colspan="2">
-											
+						<td>
+						
+						
 							<c:forEach items="${passList}" var="dto">
-								<input class="reserve_change" name="passCode" type="radio" value="${dto.passCode}" data-hour="${dto.passHour}" data-tprice="${dto.price}">
+								<input class="reserve_change" name="reserve_usingTicket" type="radio" value="${dto.passHour}" data-tprice="${dto.price}">
 								<label>${dto.passName}</label>
 							</c:forEach>
 						 
 	 	<!--  
-						<input class="reserve_change" name="passCode" type="radio" value="8" checked="checked" data-tprice="8000"><label>8hours</label> 
-						<input class="reserve_change" name="passCode" type="radio" value="24" data-tprice="10000"><label>1day</label>
-						<input class="reserve_change" name="passCode" type="radio" value="720" data-tprice="200000"><label>30days</label>
+						<input class="reserve_change" name="reserve_usingTicket" type="radio" value="8" checked="checked" data-tprice="8000"><label>8hours</label> 
+						<input class="reserve_change" name="reserve_usingTicket" type="radio" value="24" data-tprice="10000"><label>1day</label>
+						<input class="reserve_change" name="reserve_usingTicket" type="radio" value="720" data-tprice="200000"><label>30days</label>
 		-->					
 	
 						</td>
-						
 					</tr>
 
 					<tr>
 						<td width="100px">인원</td>
-						<td  colspan="2">
-						<input class="reserve_change" name="reserve_mem_number" type="radio" value="1"
+						<td><input class="reserve_change" name="reserve_mem_number" type="radio" value="1"
 							checked="checked"><label>1</label> 
 							<input class="reserve_change" name="reserve_mem_number" type="radio" value="2"><label>2</label>
 							<input class="reserve_change" name="reserve_mem_number" type="radio" value="3"><label>3</label>
 							<input class="reserve_change" name="reserve_mem_number" type="radio" value="4"><label>4</label>
 
 						</td>
-						
 					</tr>
+
+					
 
 					<tr>
 						<td>층</td>
-						<td  colspan="2">
+						<td>
 							<c:forEach items="${floorList}" var="dto">
 								<input name="reserve_floor" type="radio" value="${dto.floorNum}"><label>${dto.floorName}</label>
 							</c:forEach>
 
 						</td>
-						
 					</tr>
-				
 				</table>
 
-			<div class="seating_plan" style="clear: both; margin-top: 70px;">
+			</div>
+			
+			
+
+			<div class="seating_plan">
 				<!-- 배치도 넣을곳 -->
 				${dto.placement}
 			</div>

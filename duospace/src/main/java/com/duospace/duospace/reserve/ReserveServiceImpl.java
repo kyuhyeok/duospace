@@ -91,6 +91,18 @@ public class ReserveServiceImpl implements ReserveService {
 		return list;
 	}
 
+	/**
+	 * reserv테이블에 입력
+	 * 예약1
+	 */
+	@Override
+	public int insertReserve(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
 	
 
 }

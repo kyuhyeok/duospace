@@ -127,23 +127,20 @@
 	<definition name=".userGramLayout" template="/WEB-INF/view/duoGram/layout/layout4.jsp">
 	    <put-attribute name="title" value="duoGram" />
 	  	<put-attribute name="header" value="/WEB-INF/view/duoGram/layout/header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/mypage.jsp" />
 		<put-attribute name="body1" value="/WEB-INF/view/duoGram/layout/mypagebody.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duoGram/main/mypage.jsp" />
 		<put-attribute name="fReq" value="/WEB-INF/view/duoGram/fReq/listFReq.jsp" />
 		<put-attribute name="fMess" value="/WEB-INF/view/duoGram/fMess/listFMess.jsp" />
 		<put-attribute name="fch" value="/WEB-INF/view/duoGram/fMess/fMess.jsp" />
 	</definition>
-	<definition name=".duoGram.*.*.*" extends=".userGramLayout">
+	<definition name=".userGram.*.*.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}/{3}.jsp"/>
-		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}/{2}/{3}.jsp" />
 	</definition>
-	<definition name=".duoGram.*.*" extends=".userGramLayout">
+	<definition name=".userGram.*.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}/{2}.jsp"/>
-		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}/{2}.jsp" />
 	</definition>
-	<definition name=".duoGram.*" extends=".userGramLayout">
+	<definition name=".userGram.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}.jsp"/>
-		<put-attribute name="body1" value="/WEB-INF/view/duoGram/{1}.jsp" />
 	</definition>
 
 	<!-- 순서가 바뀌면 안됨(* 많은것이 위에) -->

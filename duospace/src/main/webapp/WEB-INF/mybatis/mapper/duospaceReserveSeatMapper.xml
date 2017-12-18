@@ -13,6 +13,7 @@
 		SELECT spotCode, spotName,region
 		FROM spot
 	</select>
+	
 
 
 	<!-- 선택한 지점의 층리스트 -->
@@ -53,6 +54,15 @@
 		        					AND  TO_DATE(#{endTime},'YYYY/MM/DD hh24:mi')))
 	</select>
 	
+	<!-- RESERV 테이블에 예약입력 -->
+	<insert id="insert1" parameterType="map">
+		INSERT INTO reserv (reservnum, membernum) VALUES (SEQ_RESERV.NEXTVAL, #{memberNum})
+	</insert>
+	
+	<!-- reservnum 예약번호가져오기 -->
+	<select id="getReservNum">
+		SELECT MAX(reservnum) FROM reserv
+	</select>
 	
 	
 </mapper>
