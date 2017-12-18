@@ -166,13 +166,14 @@ function changeEnd(){
 		var arr1 = startDate.split('-');
 		
 		//예약 끝 날짜에 값 넣기
-		var date1 = new Date(arr1[0], arr1[1], arr1[2], si, bun); //시작일
-		var date2 = new Date(arr1[0], arr1[1], arr1[2], si, bun); //종료일
+		var date1 = new Date(parseInt(arr1[0]), parseInt(arr1[1])-1, parseInt(arr1[2]), si, bun); //시작일
+		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1])-1, parseInt(arr1[2]), si, bun); //종료일
+		
+	
 		date2.setHours(date2.getHours() + parseInt(usingTicket));
 		
-		var mon = date2.getMonth();
-		if (mon == 0)
-		mon = 12;
+		var mon = date2.getMonth()+1;
+
 		
 		date1 = arr1[0] + '/' + arr1[1] + '/' + arr1[2] + ' ' + si
 			+ ":" + bun;
@@ -180,6 +181,10 @@ function changeEnd(){
 			+ pad(date2.getDate()) + ' '
 			+ pad(date2.getHours()) + ":"
 			+ pad(date2.getMinutes());
+		
+			
+		
+			
 		$(".timepicker").next().val(date2);
 		
 		$(".reserve_total").children().children().eq(0).children()
@@ -191,6 +196,7 @@ function changeEnd(){
 		
 		$(".resultTb>div").next().next().children().eq(1).text(date1);
 		$(".resultTb>div").next().next().next().children().eq(1).text(date2);
+		$("input[name=startDate]").val(date1);
 }
 
 function check() {
@@ -408,24 +414,26 @@ function check() {
 							<div class="resultTb" style="border-left: 1px solid; height: 250px;">
 								<div>
 									<div style="float: left; text-align: center;">${spotName}</div>
-									<div style="float: left; text-align: center;">1층&nbsp;&nbsp;</div>
-									<div style="float: left; text-align: center;">1-1 좌석</div>
+									<div style="float: left; text-align: center;">&nbsp;&nbsp;</div>
+									<div style="float: left; text-align: center;"></div>
+									
 								</div>
 								<div style="clear: both;">
 									<div style="float: left;">이용권</div>
-									<div style="float: left;">8DAYs</div>
+									<div style="float: left;"></div>
 								</div>
 								<div style="clear: both;">
 									<div style="float: left;">시작일시</div>
-									<div style="float: left;">0000-00-00</div>
+									<div style="float: left;"></div>
+									<input type="hidden" name="startDate" value="">
 								</div>
 								<div style="clear: both;">
 									<div style="float: left;">종료일시</div>
-									<div style="float: left;">0000-00-01</div>
+									<div style="float: left;"></div>
 								</div>
 								<div style="clear: both;">
 									<div style="float: left;">최종금액</div>
-									<div style="float: left;">160000원</div>
+									<div style="float: left;"></div>
 								</div>
 						
 									
