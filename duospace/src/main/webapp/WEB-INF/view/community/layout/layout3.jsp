@@ -30,7 +30,6 @@
 <div>
     <tiles:insertAttribute name="header"/>
 </div>
-
 <div>
     <tiles:insertAttribute name="body"/>
 </div>
