@@ -158,6 +158,28 @@ public class MoimalbumServiceImpl implements MoimalbumService{
 		
 		return result;
 	}
+
+	@Override
+	public int insertReply(Reply dto) {
+		int result=0;
+		try {
+			result=dao.insertData("moimalbum.insertReply", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("moimalbum.listReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
 		
 	
 }
