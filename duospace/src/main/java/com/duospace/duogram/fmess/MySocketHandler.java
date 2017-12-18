@@ -49,7 +49,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 			updateReadm(session, jsonReceive);
 		} else if(type.equals("talk")) {
 			receiveTalk(session, jsonReceive);
-		} 
+		} else if(type.equals("close")) {
+			removeUser(session);
+		}
 	}
 
 	/*
@@ -88,9 +90,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 			if(result==0) return;
 			
 			JSONObject job=new JSONObject();
-			job.put("type", "read");
 			if(chatUserMap.get(receiveNum+"-"+senderNum)==null)	return;
 			
+			job.put("type", "read");
 			sendOneMessage(job.toString(), chatUserMap.get(receiveNum+"-"+senderNum));
 		} catch (Exception e) {
 			this.logger.info(e.toString());
@@ -98,9 +100,10 @@ public class MySocketHandler extends TextWebSocketHandler {
 	}
 	
 	protected void receiveTalk(WebSocketSession session, JSONObject jsonReceive) {
-		String senderNum=getUserNum(session);
-	
-		if(senderNum==null) return;
+		String[] userNum=getUserNum(session).split("-");
+		String senderNum=userNum[0];
+		String receiveNum=userNum[1];
+		if(senderNum==null || receiveNum==null) return;
 
 		JSONObject job;
 		FMess dto=null;
@@ -108,10 +111,6 @@ public class MySocketHandler extends TextWebSocketHandler {
 			String msg=jsonReceive.getString("message");
 
 			if(msg==null) return;
-			
-			String receiveNum = jsonReceive.getString("receiveNum");
-			
-			if(receiveNum==null) return;
 			
 			dto=new FMess();
 			dto.setMemberNum(Integer.parseInt(senderNum));
@@ -132,6 +131,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 			job.put("num", dto.getNum());
 			job.put("sendDate", dto.getSendDate());
 			job.put("message", dto.getContent());
+			job.put("proFileSaveFileName", dto.getProFileSaveFileName());
 			
 			if(chatUserMap.get(receiveNum+"-"+senderNum)==null) {
 				job.put("read", 0);

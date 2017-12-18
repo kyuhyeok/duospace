@@ -5,7 +5,6 @@
 <%
 	String cp=request.getContextPath();
 %>
-
 <style type="text/css">
 body {
     direction: ltr;
@@ -50,7 +49,7 @@ h3{
     padding: 0;
 }
 
-.uiToggleFLayoutR{
+.uiToggleFLayoutFReq{
 	display: none;
 	
 	background: #ffffff;
@@ -65,15 +64,16 @@ h3{
     z-index: -1;
 }
 
-.uiScrollableArea {
+.uiScrollableAreaFReq {
     direction: ltr;
     height: 100%;
     overflow: hidden;
     position: relative;
 }
 
-.uiScrollableAreaWrap {
-    height: 100%;
+.uiScrollableAreaWrapFReq {
+    height: inherit;
+    max-height:inherit;
     outline: none;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -83,12 +83,12 @@ h3{
     padding-right: 30px;
 }
 
-.uiScrollableAreaBody {
+.uiScrollableAreaBodyFReq {
     direction: ltr;
     position: relative;
 }
 
-.uiScrollableAreaContent {
+.uiScrollableAreaContentFReq {
     padding-bottom: 0;
 }
 
@@ -213,229 +213,17 @@ text-align:center;
 }	
 </style>
 
-<script type="text/javascript">
-$(document).click(function(){
-	$('#dgFReqlistview').hide();
-	$('#dgfmessengers').hide();
-	dReqcl();
-	dMcl();
-});
-$(window).resize(function() {
-	var xp=5;
-	var yp=-350;
-	$("#dgFReqPos").css("top",$("#dgFReq").offset().top+xp);
-	$("#dgFReqPos").css("left",$("#dgFReq").offset().left+yp);
-
-	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
-	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
-});
-$(function() {
-	var xp=5;
-	var yp=-350;
-	$("#dgFReqPos").css("top",$("#dgFReq").offset().top+xp);
-	$("#dgFReqPos").css("left",$("#dgFReq").offset().left+yp);
-
-	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
-	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
-	
-	//readaFReqCnt();
-	//readaFMessCnt()
-	//setInterval("readaFReqCnt()",10000);
-	//setInterval("readaFMessCnt()",10000);
-	
-	$("body").on("click", "#dgFReq", function(event){
-		event.stopPropagation();
-		var isVisible=$("#dgFReqlistview").is(":visible");
-		
-		if(isVisible){
-			$('#dgFReqlistview').hide();
-			$('#dgfmessengers').hide();
-			dReqcl();
-		}else {
-			$('#dgFReqlistview').show();
-			$('#dgfmessengers').hide();
-			listFRPage(1);
-			dMcl();
-		}
-	});
-	$("body").on("click", "#dgFReqlistview", function(event){
-		event.stopPropagation();
-	});
-	$("body").on("click", "#dgMess", function(event){
-		event.stopPropagation();
-		var isVisible=$("#dgfmessengers").is(":visible");
-		
-		if(isVisible){
-			$('#dgfmessengers').hide();
-			$('#dgFReqlistview').hide();
-			dMcl();
-		}else {
-			$('#dgfmessengers').show();
-			$('#dgFReqlistview').hide();
-			listFMC(1);
-			dReqcl();
-		}
-	});
-});
-function readaFReqCnt() {
-	var url="<%=cp%>/duogram/readFReqCnt";
-	//AJAX:JSON
-	$.ajax({
-		type:"post"
-		,url:url
-		,dataType:"json"
-		,success:function(data){
-			var cnt=data.count;
-			if(cnt!=0){
-				$("#reqalimFReq").css("display","inline-block");
-				$("#reqalimFReq").html(cnt);
-				var freqcnt="("+cnt+")";
-				$("#fReqCnt").html(freqcnt);
-			}else{
-				$("#reqalimFReq").css("display","none");
-				$("#fReqCnt").html('');
-			}
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true);
-		}
-		,error:function(data){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText)
-		}
-	});
-}
-function dReqcl() {
-	$('#friendRequestList').html('');
-}
-function listFRPage(page) {
-	var url="<%=cp%>/duogram/listFReq";
-	var q="pageNo="+page;
-	//AJAX:TEXT
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,success:function(data){
-			$("#friendRequestList").html(data);
-			readaFReqCnt();
-		}
-		,error:function(e){
-			console.log(e.responseText);
-		}
-	});
-}
-function fReqOk(friendNum) {
-	var q="friendNum="+friendNum;
-	var url="<%=cp%>/duogram/insertFResp";
-	//AJAX:JSON
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,dataType:"json"
-		,success:function(data){
-			<%--
-			var s=data.state;
-			
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			} --%>
-			listFRPage(1);
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true);
-		}
-		,error:function(data){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText)
-		}
-	});
-}
-function delFReq(friendNum) {
-	var url="<%=cp%>/duogram/deleteFResp";
-	var q="friendNum="+friendNum;
-	
-	//AJAX:JSON
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,dataType:"json"
-		,success:function(data){
-			<%--
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}--%>
-			
-			listFRPage(1);
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true)
-		}
-		,error:function(data){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText)
-		}
-	});
-}
-function insFReq(friendNum) {
-	var url="<%=cp%>/duogram/insertFReq";
-	var q="friendNum="+friendNum;
-	
-	//AJAX:JSON
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,dataType:"json"
-		,success:function(data){
-			<%--
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}--%>
-			
-			listFRPage(1);
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true)
-		}
-		,error:function(data){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText)
-		}
-	});
-}
-</script>
-
 <div id="dgFReqPos" style="position: fixed;top:30px;z-index: 10;">
-	<div class="uiToggleFLayoutR" id="dgFReqlistview">
+	<div class="uiToggleFLayoutFReq" id="dgFReqlistview">
 	    <ul>
 	    	<li style="border-top: none;">
 	    		<div>
 	    			<!-- 더보기 윗화면 -->
-	    			<div class="uiScrollableArea" style="min-height:100px; max-height: 631px;">
+	    			<div class="uiScrollableAreaFReq" style="min-height:100px; max-height: 631px;">
 	    				<!-- 스크롤 가능 영역 -->
-	    				<div class="uiScrollableAreaWrap" style="position: relative;">
-	    					<div class="uiScrollableAreaBody" style="width: 430px;">
-	    						<div class="uiScrollableAreaContent">
+	    				<div class="uiScrollableAreaWrapFReq" id="dgFReqScroll" style="position: relative;">
+	    					<div class="uiScrollableAreaBodyFReq" id="dgFReqDoc" style="width: 430px;">
+	    						<div class="uiScrollableAreaContentFReq">
 	    							<div style="height: 31px;"></div>
 	    							<div style="padding-top: 0;">
 	    								<ul class="_4kg _4ks" id="friendRequestList">
@@ -469,3 +257,248 @@ function insFReq(friendNum) {
 	</div>
 	<div class="alim" id="reqalimFReq"></div>
 </div>
+
+<script type="text/javascript">
+var pageFReqNo=1;		//친구 현재 페이지
+var totalPageFReq=1;	//친구 전체 페이지
+var pageLFMCNo=1;		//메시지방 현재 페이지
+var totalPageLFMC=1;	//메시지방 전체 페이지
+$(document).click(function(){
+	$('#dgFReqlistview').hide();
+	$('#dgfmessengers').hide();
+	dReqcl();
+	dMcl();
+});
+$(window).resize(function() {
+	var xp=5;
+	var yp=-350;
+	$("#dgFReqPos").css("top",$("#dgFReq").offset().top+xp);
+	$("#dgFReqPos").css("left",$("#dgFReq").offset().left+yp);
+
+	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
+	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
+});
+$(function() {
+	var xp=5;
+	var yp=-350;
+	$("#dgFReqPos").css("top",$("#dgFReq").offset().top+xp);
+	$("#dgFReqPos").css("left",$("#dgFReq").offset().left+yp);
+
+	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
+	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
+	
+	$("body").on("click", "#dgFReq", function(event){
+		event.stopPropagation();
+		var isVisible=$("#dgFReqlistview").is(":visible");
+		
+		if(isVisible){
+			$('#dgFReqlistview').hide();
+			$('#dgfmessengers').hide();
+			dReqcl();
+		}else {
+			$('#dgFReqlistview').show();
+			$('#dgfmessengers').hide();
+			listFRPage(1);
+			dMcl();
+		}
+	});
+	readaFReqCnt();
+	readaFMessCnt();
+	setTimeout(readaFReqCnt(), 10000);
+	setTimeout(readaFMessCnt(), 10000);
+	$("body").on("click", "#dgFReqlistview", function(event){
+		event.stopPropagation();
+	});
+	$("body").on("click", "#dgMess", function(event){
+		event.stopPropagation();
+		var isVisible=$("#dgfmessengers").is(":visible");
+		
+		if(isVisible){
+			$('#dgfmessengers').hide();
+			$('#dgFReqlistview').hide();
+			dMcl();
+		}else {
+			$('#dgfmessengers').show();
+			$('#dgFReqlistview').hide();
+			listFMC(1);
+			dReqcl();
+		}
+	});
+	//요청무한스크롤
+	$('#dgFReqScroll').scroll(function() {
+	    if ($('#dgFReqScroll').scrollTop() + 100 >= $('#dgFReqDoc').height() - $('#dgFReqScroll').height()) {
+	    	if(pageFReqNo<totalPageFReq) {
+	    		++pageFReqNo;
+	    		listFRPage(pageFReqNo);
+	    	}
+	    }
+	});
+	//메신저무한스크롤
+	$('#dglfmScroll').scroll(function() {
+	    if ($('#dglfmScroll').scrollTop() + 100 >= $('#dglfmDoc').height() - $('#dglfmScroll').height()) {
+	    	if(pageLFMCNo<totalPageLFMC) {
+	    		++pageLFMCNo;
+	    		listFMC(pageLFMCNo);
+	    	}
+	    }
+	});
+	console.log("요청 및 메신저 창 토글 로드");
+});
+function readaFReqCnt() {
+	var url="<%=cp%>/duogram/readFReqCnt";
+	//AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,dataType:"json"
+		,success:function(data){
+			var cnt=data.count;
+			if(cnt!=0){
+				$("#reqalimFReq").css("display","inline-block");
+				$("#reqalimFReq").html(cnt);
+				var freqcnt="("+cnt+")";
+				$("#fReqCnt").html(freqcnt);
+			}else{
+				$("#reqalimFReq").css("display","none");
+				$("#fReqCnt").html('');
+			}
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true);
+		}
+		,error:function(data){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText)
+		}
+	});
+	console.log("요청 카운트 로드");
+}
+function dReqcl() {
+	$('#friendRequestList').html('');
+	pageFReqNo=1;
+	totalPageFReq=1;
+	console.log("요청 삭제 로드");
+}
+function listFRPage(page) {
+	if(! $("#friendRequestList").length>0) return;
+	var url="<%=cp%>/duogram/listFReq";
+	var q="pageNo="+page;
+	//AJAX:TEXT
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,success:function(data){
+			$("#friendRequestList").html(data);
+			pageFReqNo=page;
+			totalPageFReq=$("#total_Freqpage").html();
+			$("#total_Freqpage").remove();
+			readaFReqCnt();
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+	console.log("요청 리스트 로드");
+}
+function fReqOk(friendNum) {
+	var q="friendNum="+friendNum;
+	var url="<%=cp%>/duogram/insertFResp";
+	//AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data){
+			<%--
+			var s=data.state;
+			
+			if(s=="loginFail"){
+				location.href="<%=cp%>/member/login";
+				return;
+			} --%>
+			listFRPage(1);
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true);
+		}
+		,error:function(data){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText)
+		}
+	});
+	console.log("요청리스트 삭제 로드");
+}
+function delFReq(friendNum) {
+	var url="<%=cp%>/duogram/deleteFResp";
+	var q="friendNum="+friendNum;
+	
+	//AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data){
+			<%--
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/member/login";
+				return;
+			}--%>
+			listFRPage(1);
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true)
+		}
+		,error:function(data){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText)
+		}
+	});
+	console.log("요청 삭제 로드");
+}
+function insFReq(friendNum) {
+	var url="<%=cp%>/duogram/insertFReq";
+	var q="friendNum="+friendNum;
+	
+	//AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data){
+			<%--
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/member/login";
+				return;
+			}--%>
+			
+			listFRPage(1);
+		}
+		,beforeSend:function(e){
+			e.setRequestHeader("AJAX", true)
+		}
+		,error:function(data){
+			if(e.status==403){
+				location.href='<%=cp%>/member/login';
+				return;
+			}
+			console.log(e.responseText)
+		}
+	});
+	console.log("요청 로드");
+}
+</script>

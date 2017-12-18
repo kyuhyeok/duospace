@@ -36,7 +36,7 @@ function sendFreeboard(){
 		,success:function(data){
 			$("#modalContent").val("");
 			
-			location.href="<%=cp%>/community/moim/moim?cmoimCode=${cmoimCode}";
+			location.href="<%=cp%>/community/moim${cmoimCode}";
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -92,7 +92,9 @@ function listPage(page) {
 		}
 	});
 }
+
 //댓글버튼
+
 /*
 $(function(){
 	$("body").on("click", ".btnReplyAnswerLayout", function(){
@@ -119,12 +121,12 @@ $(function(){
 		<table>
 			<tr>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/moim/moim?cmoimCode=${cmoimCode}">
+					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/moim${cmoimCode}">
 						전체글<!-- freeboardNum -->
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimalbum">
+					<a style="color: #ffffff;" id="moimalbum" href="<%=cp%>/moimalbum/list">
 						사진첩
 					</a>
 				</td>
@@ -144,7 +146,7 @@ $(function(){
 </header>
 
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
-	<div style="width: 1050px;min-height: 800px; margin: auto;">
+	<div style="width: 1050px; margin: auto; margin-bottom: 10px;">
 			<!-- 프로필 -->
 			<div style="vertical-align: top;margin-right: 20px;float: left; width: 180px;">
 				<div>

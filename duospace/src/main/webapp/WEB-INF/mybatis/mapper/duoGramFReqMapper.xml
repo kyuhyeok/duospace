@@ -10,11 +10,12 @@
 	<select id="listFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
 		SELECT * FROM (
 			SELECT ROWNUM rnum, tb.* FROM (
-				SELECT friendNum, name, reqDate FROM (
+				SELECT friendNum, name, reqDate, g.proFileSaveFileName FROM (
                     SELECT memberNum friendNum, reqDate FROM gramfriend 
                     WHERE friendNum=#{to}
                 ) f
                 JOIN member2 m ON f.friendNum=m.memberNum
+                JOIN mygram g ON f.friendNum=g.memberNum
                 WHERE friendNum NOT IN (
                     SELECT friendNum FROM gramfriend 
                     WHERE memberNum=#{to}
@@ -27,22 +28,21 @@
 	
 	<select id="fReqDataCount" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(*),0) FROM (
-        	SELECT friendNum, name, reqDate FROM (
+        	SELECT friendNum, reqDate FROM (
                 SELECT memberNum friendNum, reqDate FROM gramfriend 
                 WHERE friendNum=#{to}
-            ) f
-            JOIN member2 m ON f.friendNum=m.memberNum
-            WHERE friendNum NOT IN (
+            ) WHERE friendNum NOT IN (
                 SELECT friendNum FROM gramfriend 
                 WHERE memberNum=#{to}
-			) ORDER BY reqDate DESC
+			)
         )
 	</select>
 	
 	<select id="readFReq" resultType="com.duospace.duogram.freq.FReq" parameterType="map">
-		SELECT friendNum, f.memberNum, name 
+		SELECT friendNum, f.memberNum, name, g.proFileSaveFileName
 		FROM gramfriend f
 		JOIN member2 m ON f.friendNum=m.memberNum
+		JOIN mygram g ON f.friendNum=g.memberNum
 		WHERE f.memberNum=#{from} AND friendNum=#{to}
 	</select>
 	

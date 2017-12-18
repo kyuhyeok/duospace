@@ -5,7 +5,7 @@
 <%
 	String cp=request.getContextPath();
 %>
-
+<div style="display:none;" id="total_Freqpage">${total_page}</div>
 <c:forEach var="fRC" items="${listFR}">
 	<li id="frc${fRC.friendNum}" class="objectListItem" style="padding: 6px 12px;border-top: none;border-width: 0;border-bottom: solid 1px #dddfe2;">
 		<div style="zoom: 1;">

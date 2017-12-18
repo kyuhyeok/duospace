@@ -53,7 +53,7 @@ public class FReqController {
 	//친구 요청 리스트(AJAX:TEXT)
 	@RequestMapping("/duogram/listFReq")
 	public String listFReq(
-			@RequestParam(value="pageNo") int current_page,
+			@RequestParam(value="pageNo", defaultValue="1") int current_page,
 			HttpSession session,
 			Model model
 			) {
@@ -174,7 +174,7 @@ public class FReqController {
 			FReq dto,
 			HttpSession session
 			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
 		
 		if(info==null) {
@@ -200,7 +200,7 @@ public class FReqController {
 			FReq dto,
 			HttpSession session
 			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
 		
 		if(info==null) {
@@ -218,5 +218,4 @@ public class FReqController {
 		
 		return model;
 	}
-	
 }

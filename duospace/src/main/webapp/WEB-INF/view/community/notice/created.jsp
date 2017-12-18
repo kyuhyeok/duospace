@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 function sendOk() {
-    var f = document.createdForm;
+   F var f = document.createdForm;
 
 	var str = f.subject.value;
     if(!str) {

@@ -14,7 +14,7 @@
 	</sql>
 	
 	<select id="listFMC" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
-		SELECT friendNum, name, sendDate, content, unReadCnt FROM(
+		SELECT friendNum, name, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, unReadCnt FROM(
 			SELECT ROWNUM rnum, friendNum, name, sendDate, content, unReadCnt FROM (
 				SELECT m.friendNum, name, sendDate, content, unReadCnt FROM (
 					SELECT memberNum, friendNum, sendDate, content FROM (
@@ -73,20 +73,37 @@
 	<select id="fMURtDCnt" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(*),0) totUnReadCnt
 		FROM messenger
-		WHERE friendNum=#{memberNum} AND readDate IS NULL AND deleteStatus!=1
+		<where>
+			<if test="friendNum!=0">
+				memberNum=#{friendNum}
+			</if>
+			AND readDate IS NULL AND friendNum=#{memberNum} AND deleteStatus!=1
+		</where>
 	</select>
 	
 	<select id="readFMess" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
-		SELECT num, memberNum, sendDate, readDate, deleteStatus, content
-		FROM messenger
-		WHERE num=#{num}
+		<choose>
+			<when test="num==0">
+				SELECT num, m.memberNum, friendNum, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, proFileSaveFileName FROM (
+					SELECT num, memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER (ORDER BY sendDate DESC) rank 
+					FROM messenger
+					WHERE memberNum=#{memberNum} AND friendNum=#{friendNum}
+				) m LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
+				WHERE rank=1
+			</when>
+			<otherwise>
+				SELECT num, memberNum, friendNum, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, readDate, deleteStatus, content
+				FROM messenger
+				WHERE num=#{num}
+			</otherwise>
+		</choose>
 	</select>
 	
 	<sql id="fMesslist">
-        SELECT num, friendNum, sendDate, content FROM messenger
+        SELECT num, friendNum, sendDate, content, readDate FROM messenger
         WHERE memberNum=#{memberNum} AND friendNum=#{friendNum} AND deleteStatus!=1
         UNION ALL
-        SELECT num, friendNum, sendDate, content FROM messenger
+        SELECT num, friendNum, sendDate, content, readDate FROM messenger
         WHERE friendNum=#{memberNum} AND memberNum=#{friendNum} AND deleteStatus!=2
 	</sql>
 	
@@ -96,16 +113,37 @@
 	</insert>
 	
 	<select id="listFMessContent" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
-		SELECT num, friendNum, sendDate, content, proFileSaveFileName FROM (
-			SELECT ROWNUM rnum, tb.* FROM (
-				<include refid="fMesslist"/>
-				<![CDATA[
-			) tb WHERE ROWNUM<=#{end}
-		) m
-		LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
-		WHERE rnum>=#{start}
-		]]>
-		ORDER BY sendDate ASC
+		SELECT num, friendNum, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, proFileSaveFileName, readDate FROM (
+			SELECT num, friendNum, sendDate, content, proFileSaveFileName, readDate FROM (
+				<if test="end==10">
+				SELECT * FROM (
+				</if>
+					SELECT * FROM (
+						<include refid="fMesslist"/>
+					) 
+					<where>
+						<if test="first!=1 and num!=0 ">
+							num lt #{num}
+						</if>
+						<if test="first==1 and end==0">
+							num ge (
+								SELECT num FROM(
+								    SELECT ROW_NUMBER() OVER (ORDER BY sendDate ASC) rank, num FROM messenger
+								    WHERE readDate IS NULL AND memberNum=#{friendNum} AND friendNum=#{memberNum}
+								) WHERE rank=1
+							)
+						</if>
+					</where>
+				<if test="end==10">
+					ORDER BY sendDate DESC
+					<![CDATA[
+				) WHERE ROWNUM <= #{end}
+				]]>
+				</if>
+			) m
+			LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
+			ORDER BY sendDate ASC
+		)
 	</select>
 	
 	<select id="fMListDataCount" resultType="Integer" parameterType="map">
@@ -116,10 +154,25 @@
 	        SELECT num FROM messenger
 	        WHERE friendNum=#{memberNum} AND memberNum=#{friendNum} AND deleteStatus!=2
 		)
+		<where>
+			<if test="num!=0">
+				num lt #{num}
+			</if>
+		</where>
 	</select>
 	
-	<update id="updateReadDate" parameterType="com.duospace.duogram.fmess.FMess">
-		UPDATE messenger SET readDate=SYSDATE WHERE num=#{num}
+	<update id="updateReadDate" parameterType="map">
+		UPDATE messenger SET readDate=SYSDATE
+		<where>
+			<choose>
+				<when test="num=0">
+					readDate IS NUll AND memberNum=#{friendNum} AND friendNum=#{memberNum}
+				</when>
+				<otherwise>
+					num=#{num}
+				</otherwise>
+			</choose>
+		</where>
 	</update>
 	
 	<update id="updateFMess" parameterType="map">
