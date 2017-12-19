@@ -6,44 +6,44 @@
 	String cp=request.getContextPath();
 %>
 <style type="text/css">
-body {
+#dgFReqlistview body {
     direction: ltr;
     line-height: 1.34;
     font-size: 12px;
 }
 
-div {
+#dgFReqlistview div {
     display: block;
 }
 
-ul{
+#dgFReqlistview ul{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-li {
+#dgFReqlistview li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
 
-a {
+#dgFReqlistview a {
     color: #365899;
     cursor: pointer;
     text-decoration: none;
 }
 
-form {
+#dgFReqlistview form {
     margin: 0;
     padding: 0;
 }
 
-button{
+#dgFReqlistview button{
 	margin: 0;
 	outline: 0;
 }
 
-h3{
+#dgFReqlistview h3{
     color: #333;
     font-size: 12px;
     margin: 0;

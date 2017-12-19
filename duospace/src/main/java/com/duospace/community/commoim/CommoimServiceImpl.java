@@ -17,6 +17,7 @@ public class CommoimServiceImpl implements CommoimService{
 	public int insertCommoim(Commoim dto) {
 		int result=0;
 		try {
+			
 			result=dao.insertData("commoim.insertCommoim", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -33,6 +34,28 @@ public class CommoimServiceImpl implements CommoimService{
 			System.out.println(e.toString());
 		}
 		return list;
+	}
+
+	@Override
+	public int insertAccept(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.insertData("commoim.insertAccept",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int countAccept(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.countAccept",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	
