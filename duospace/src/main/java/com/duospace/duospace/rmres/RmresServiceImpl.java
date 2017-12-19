@@ -1,6 +1,7 @@
 package com.duospace.duospace.rmres;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class RmresServiceImpl implements RmresService{
 			dto.setReservNum(num);
 			dao.insertData("duospace.rmres.insert2", dto);
 			dao.insertData("duospace.rmres.insert", dto);
+			dao.selectOne("duospace.rmres.colist", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			throw e;
@@ -37,6 +39,32 @@ public class RmresServiceImpl implements RmresService{
 			System.out.println(e.toString());
 		}
 		return list;
+	}
+
+
+
+	@Override
+	public Rmres listComplete(int reservNum) {
+		Rmres dto=null;
+		try {
+			dto=dao.selectOne("duospace.rmres.colist", reservNum);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return dto;
+	}
+
+
+
+	@Override
+	public int readReserveNum() {
+		int reserveNum=0;
+		try {
+			reserveNum=dao.selectOne("duospace.rmres.readReserveNum");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return reserveNum;
 	}
 
 

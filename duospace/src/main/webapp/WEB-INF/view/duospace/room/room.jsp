@@ -151,28 +151,42 @@ function rangeDate(data) {
 	var arr1 = strDate1.split('-');
 	if(arr1.length<3) return;
 	
+	
+	
+	var price = $("#prices").val();
+	
+	
 	if(data==1){
 		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1]), parseInt(arr1[2]));
 	    $("#rs_date2").val(strDate(date2));
+	    $("#rs_price").val(price);
+	    
 	} else if(data==2){
 		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1])+5, parseInt(arr1[2]));
 	    $("#rs_date2").val(strDate(date2));
+	    $("#rs_price").val(price*6);
+	  
+	    
+		
 	} else if(data==3){
 		var date2 = new Date(parseInt(arr1[0]), parseInt(arr1[1])+11, parseInt(arr1[2]));
 	    $("#rs_date2").val(strDate(date2));
+	    $("#rs_price").val(price*12);
+
 	}
 }
 
 
-
-function Dialog(roomCode, roomName, floorName) {
-	var url="<%=cp%>/createdForm?roomCode="+roomCode+"&roomName="+roomName+"&floorName="+floorName;
+function Dialog(roomCode, roomName, floorName, price) {
+	var query="roomCode="+roomCode+"&roomName="+encodeURIComponent(roomName)+"&floorName="+floorName+"&price="+price
+	var url="<%=cp%>/createdForm?"+query;
 	$('#myRoomModal .modal-body').load(url, function () {
-		
 		
 		$("#modalForm input[name=roomCode]").val(roomCode);
 		$("#modalForm input[name=roomName]").val(roomName);
 		$("#modalForm input[name=floorName]").val(floorName);
+		$("#modalForm input[name=prices]").val(price);
+		$("#modalForm input[name=price]").val(price);
 		var date = new Date();
 		$("#modalForm input[name=startDate]").val(strDate(date));
 		$("#modalForm input[name=endDate]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
@@ -199,8 +213,13 @@ function SendOk() {
 	var f=document.modalForm;
 	f.action="<%=cp%>/rmres";
 	f.submit();
-	
 }
+function CheckOk() {
+	var f=document.modalForm;
+	f.action="<%=cp%>/rmres";
+	f.submit();
+}
+
 </script>
 </head>
 <body>
@@ -242,7 +261,7 @@ function SendOk() {
           <h3>\<fmt:formatNumber value="${vo.price}" pattern="#,###"/>/1월</h3>
           <h2>${vo.floorName}</h2>
           <h4>${vo.rcontent}</h4>
-         	 <a id="reserve" class="btn btn-lg" href="javascript:Dialog('${vo.roomCode}', '${vo.roomName}', '${vo.floorName}')">예약하기</a>
+         	 <a id="reserve" class="btn btn-lg" href="javascript:Dialog('${vo.roomCode}', '${vo.roomName}', '${vo.floorName}' ,'${vo.price}')">예약하기</a>
         </div>
       </div>      
     </div>   
