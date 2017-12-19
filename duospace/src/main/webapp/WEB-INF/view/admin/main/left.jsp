@@ -69,7 +69,7 @@
 						<li class="adminmenu">
 							<a><i class="fa fa-coffee"></i>예약관리<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">예약 리스트</a></li>
+								<li><a href="<%=cp%>/admin/reserve/list">예약 리스트</a></li>
 								<li><a href="#">예약 등록</a></li>
 							</ul>
 						</li>

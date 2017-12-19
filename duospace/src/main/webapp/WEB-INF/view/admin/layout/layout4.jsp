@@ -17,13 +17,19 @@
 
 
 <title>DuoSpace-관리자</title>
+<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.min.css" type="text/css"/>
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap-theme.min.css" type="text/css"/>
 <link href="<%=cp%>/resource/gentelella/css/custom.css" rel="stylesheet" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>	<!-- jquery cdn -->
 <script src="<%=cp%>/resource/js/soledot.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css"/>
+<link href="<%=cp%>/resource/gentelella/fonts/css/font-awesome.min.css" rel="stylesheet" />
+
+
+
+
 </head>
 <body>
 <div>
@@ -71,6 +77,8 @@
 </div>
 
 <script type="text/javascript" src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
 <script src="<%=cp%>/resource/gentelella/js/icheck/icheck.min.js"></script>
 <script src="<%=cp%>/resource/gentelella/js/pace/pace.min.js"></script>
 <script src="<%=cp%>/resource/gentelella/js/custom.js"></script></body>

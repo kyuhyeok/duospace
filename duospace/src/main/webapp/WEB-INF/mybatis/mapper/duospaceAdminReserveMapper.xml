@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.reserve">
+
+<sql id="where-date">
+	<if test="startDate!=NULL and startDate !='' and endDate !=null and endDate !=''">
+		(	(startdate BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD') AND  TO_DATE(#{endDate},'YYYY/MM/DD'))  
+		OR  (enddate  BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD')  AND  TO_DATE(#{endDate},'YYYY/MM/DD'))
+		)
+	</if>
+	<if test="startDate != NULL and startDate !=''">
+		startDate = TO_DATE(#{startDate},'YYYY/MM/DD') 
+	</if>
+	<if test="endDate !=null and endDate !=''">
+		endDate = TO_DATE(#{endDate},'YYYY/MM/DD')
+	</if>
+
+</sql>
+<sql id="where-list">
+	<if test="searchKey=='userName'">
+		userName=#{searchValue}
+	</if>
+	<if test="searchKey=='spotName'">
+		spotName=#{searchValue}
+	</if>
+</sql>
+
+<select id="dataCount" parameterType="map" resultType="Integer">
+ 	SELECT COUNT(*)
+    FROM reserv r1
+    JOIN rmres r2 ON r1.reservnum=r2.reservnum
+    JOIN room ro ON ro.roomcode=r2.roomcode
+    JOIN floor f ON f.floornum=ro.floornum
+    JOIN spot s ON s.spotcode=f.spotcode
+    <where>
+		<if test="searchValue !=NULL and searchValue!=''">
+			<include refid="where-list"/>
+		</if>
+		 
+		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+		  <include refid="where-date"/>
+		</if>
+	</where>
+</select>
+
+
+<select id="reserveRoomList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+	 SELECT * FROM (
+		SELECT ROWNUM rnum, tb.* FROM(
+			 SELECT r1.reservnum,membernum,NVL(signspot,0) signspot,rmresnum,startdate,enddate,userName,
+		        r2.roomcode,roomname,ro.floornum, floorname, 
+		        f.spotcode, spotname
+			FROM reserv r1
+			JOIN rmres r2 ON r1.reservnum=r2.reservnum
+			JOIN room ro ON ro.roomcode=r2.roomcode
+			JOIN floor f ON f.floornum=ro.floornum
+			JOIN spot s ON s.spotcode=f.spotcode
+	<where>
+		<if test="searchValue !=NULL and searchValue!=''">
+			<include refid="where-list"/>
+		</if>
+		 
+		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+				<include refid="where-date"/>
+		</if>
+	</where>
+			)tb
+<![CDATA[
+		WHERE ROWNUM <= #{end}
+	)WHERE rnum >= #{start}
+]]>	
+</select>
+
+
+
+</mapper>
