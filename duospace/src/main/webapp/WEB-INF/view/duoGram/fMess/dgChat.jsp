@@ -55,6 +55,7 @@ $(function(){
     	var type = data.type;
     	
     	if(type=="talk") {
+    		alert(data.msg);
     		writeToScreen(data);
     	} else if(type=="read"){
     		if($(".unreadfm").length>0)
@@ -128,7 +129,7 @@ function writeToScreen(vo) {
 	if(vo.senderNum=="${sessionScope.user.memberNum}") {
 		out+="<div class='contentBox _ua0' id='mess"+vo.num+"' data-fmNum='"+vo.num+"'>";
 		out+="<div class='content _my'>";
-		out+="<div class='etcbox _ua0'>"+vo.sendDate+"</div>";
+		out+="<div class='etcbox _ua0' style='width:100%'>"+vo.sendDate+"</div>";
 		out+="<div class='myCon'>";
 		out+="<div class='textbox _mycolor' style='padding: 5px 8px 5px;'>";
 		out+="<span>"+vo.content+"</span>";
@@ -154,7 +155,7 @@ function writeToScreen(vo) {
 		out+="</a>";
 		out+="</div>";
 		out+="<div class='content'>";
-		out+="<div class='etcbox _ua1'>"+vo.sendDate+"</div>";
+		out+="<div class='etcbox _ua1' style='width:100%'>"+vo.sendDate+"</div>";
 		out+="<div class='friendCon'>";
 		out+="<div class='textbox' style='padding: 5px 8px 5px;'>";
 		out+="<span>"+vo.message+"</span>";

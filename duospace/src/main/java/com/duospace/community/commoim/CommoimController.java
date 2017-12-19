@@ -20,7 +20,7 @@ public class CommoimController {
 	private CommoimService service;
 	
 	
-	@RequestMapping(value="/community/commoim/commoim",method=RequestMethod.GET)
+	@RequestMapping(value="/community/commoim",method=RequestMethod.GET)
 	public String commoimForm(Model model) {
 		
 		return ".community.commoim.commoim";

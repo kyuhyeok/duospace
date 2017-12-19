@@ -1,18 +1,18 @@
 package com.duospace.community.freeboard;
 
 public class Freeboard {
-	private int boardnum,listNum;//자유게시판코드
+	private int boardNum,listNum;//자유게시판코드
 	private String content,created,name;//내용,작성일
 	private int hitCount,cmoimCode,writer;//조회수,코뮤니티코드,작성자
 	
+	private int replyNum;
 	
-	public int getBoardnum() {
-		return boardnum;
+	public int getBoardNum() {
+		return boardNum;
 	}
-	public void setBoardnum(int boardnum) {
-		this.boardnum = boardnum;
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
 	}
-	
 	public int getListNum() {
 		return listNum;
 	}
@@ -54,6 +54,12 @@ public class Freeboard {
 	}
 	public void setCmoimCode(int cmoimCode) {
 		this.cmoimCode = cmoimCode;
+	}
+	public int getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
 	}
 	
 	

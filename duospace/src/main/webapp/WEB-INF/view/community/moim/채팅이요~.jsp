@@ -74,7 +74,7 @@ $(function(){
 	});
 });
 
-
+//자유게시판 전체글 리스트
 function listPage(page) {
 	var url="<%=cp%>/freeboard/list";
 	
@@ -82,6 +82,7 @@ function listPage(page) {
 	
 	var query="cmoimCode="+cmoimCode;
 		query+="&pageNo="+page;
+		
 	//ajax:text
 	$.ajax({
 		type:"post"
@@ -98,8 +99,6 @@ function listPage(page) {
 
 
 //댓글버튼
-
-
 $(function(){
 	$("body").on("click", ".btnReplyLayout", function(){
 		var replyNum = $(this).attr("data-replyNum");
@@ -156,6 +155,24 @@ function sendReply(boardNum){
 	});
 }
 
+
+function listReply(boardNum){
+	var listReplyId="#listReply"+boardNum;
+	var url="<%=cp%>/freeboard/listReply";
+	
+	var query="boardNum="+baordNum;
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(listReplyId).html(data);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 </script>
 
 <header>

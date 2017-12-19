@@ -23,19 +23,7 @@ public class FreeboardController {
 	@Autowired
 	private FreeboardService service;
 	@Autowired
-	private MyUtil util;
-	
-	
-	
-	@RequestMapping(value="/moim/freeboard",method=RequestMethod.GET)
-	@ResponseBody
-	public String list(Model model) {
-		
-		
-		return ".community.moim.freeboard";
-	}
-	
-	
+	private MyUtil util;	
 	
 	@RequestMapping(value="/freeboard/insertFreeboard",method=RequestMethod.POST)
 	@ResponseBody
@@ -58,6 +46,7 @@ public class FreeboardController {
 		return model;
 	}	
 	
+	//TEXT
 	@RequestMapping(value="/freeboard/list")
 	public String list(
 			@RequestParam(value="cmoimCode") int cmoimCode,
@@ -77,7 +66,7 @@ public class FreeboardController {
 			current_page=total_page;
 		int start = (current_page-1)*rows+1;
 		int end = current_page*rows;
-
+		
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -95,8 +84,38 @@ public class FreeboardController {
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("pageNo",current_page);
 		
 		return "community/moim/listFreeboard";
 		
+	}
+	
+	
+	//댓글등록
+	@RequestMapping(value="/freeboard/insertReply",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			@RequestParam int cmoimCode,
+			Reply dto,
+			HttpSession session,
+			Model model
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		if(info==null) {
+			state="loginFail";
+		} else {
+			dto.setMemberNum(info.getMemberNum());
+			service.insertReply(dto);
+			state="true";
+		}
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("state", state);
+		
+		model.addAttribute("cmoimCode",cmoimCode);
+		
+		return map;
 	}
 }

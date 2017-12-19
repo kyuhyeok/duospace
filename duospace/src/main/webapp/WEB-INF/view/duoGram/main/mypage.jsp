@@ -135,10 +135,10 @@ function sendReply(num) {
 		$("#replyContent").focus();
 		return;
 	}
-	var num="${dto.num}";
+
 	var blogNum="${blogNum}";
 	var q="content="+encodeURIComponent(content)+"&blogNum="+blogNum;
-	q+="&num=${dto.num}";
+	q+="&num="+num;
 	q+="&answer=0";
 		
 	var url="<%=cp%>/duogram/mypage/insertReply";
@@ -151,7 +151,6 @@ function sendReply(num) {
 			var s=data.state;
 
 			$("#replyContent").val("");
-
 			listPage(1);
 		}
 		,error:function(e){
@@ -230,11 +229,11 @@ function printDuogram(data) {
 			// if(listReply==null)
 				out+="<div style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'>댓글이 작성되지 않았습니다.</div>";
 			// else
-				out+="<div id='listReply' style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'></div>";
+				out+="<div id='listMethod("+page+num+")' style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'></div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
 			out+="<textarea id='replyContent' class='boxTA' type='text' style='border-radius: 2px; border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 30px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
-			out+="<button type='button' class='btn' onclick='sendReply(num);' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
+			out+="<button type='button' class='btn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
 			out+="</div>";
 			out+="</div>";
 		}
@@ -251,6 +250,27 @@ function deleteBoard(num, page) {
 	
 	  if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
 	  	location.href=url;
+}
+
+function listMethod(num, page){
+	alert("a");
+	var url="<%=cp%>/duogram/mypage/listReply";
+	var num="${num}";
+	var blogNum="${blogNum}";
+	
+	var q="num="+num+"&blogNum="+blogNum+"&pageNo="+page;
+	$.ajax
+	({
+		type:"post"
+		,url:url
+		,data:q
+		,success:function(a){
+			$("#listReply").html(a);
+		}
+		,brforeSend : function(e) {
+			e.setRequestHeader("AJAX", true);
+		}
+	});
 }
 
 </script>

@@ -12,7 +12,7 @@
   		</div>
  			<div style="float: left;">
 			<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-		  		<a href="<%=cp%>/community/commoim/commoim" style="background-color: #ffffff; ">
+		  		<a href="<%=cp%>/community/commoim" style="background-color: #ffffff; ">
 		  			<span style=" padding-top: 55px; padding-left: 65px;">
 		  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
 		  			</span>
@@ -26,7 +26,7 @@
 		<!-- 최근 인기모임 리스트 -->
 		<div style="float: left;">
 			<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
-		  		<a href="<%=cp%>/community/moim/moim?cmoimCode=${dto.cmoimCode}" style=" background-color: #ffffff;">
+		  		<a href="<%=cp%>/community/moim${dto.cmoimCode}" style=" background-color: #ffffff;">
 		  			<span style=" padding-top: 55px;text-align: center;">
 		  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
 		  			</span>
