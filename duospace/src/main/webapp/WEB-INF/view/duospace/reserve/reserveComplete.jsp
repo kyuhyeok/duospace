@@ -47,6 +47,8 @@
 
 </table>
 
+<button type="button" onclick="javacript:location.href='<%=cp%>/space_main';">메인화면</button>
+
 
 </div>
 </div>	

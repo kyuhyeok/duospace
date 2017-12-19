@@ -124,12 +124,41 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public List<Reply> listReply(Map<String, Object> map) {
-		return null;
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("mypage.listReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 	@Override
 	public int replyCountAnswer(int answer) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int replyDataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("mypage.replyDataCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteReply(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Reply> listReplyAnswer(int answer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

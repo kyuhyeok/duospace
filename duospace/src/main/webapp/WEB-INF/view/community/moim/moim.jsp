@@ -74,9 +74,12 @@ $(function(){
 	});
 });
 
+
 function listPage(page) {
 	var url="<%=cp%>/freeboard/list";
+	
 	var cmoimCode="${cmoimCode}";//값설정..
+	
 	var query="cmoimCode="+cmoimCode;
 		query+="&pageNo="+page;
 	//ajax:text
@@ -88,32 +91,71 @@ function listPage(page) {
 			$("#listFreeboard").html(data);
 		}
 		,error:function(e){
-			consloe.log(e.responseText);
+			console.log(e.responseText);
 		}
 	});
 }
 
+
 //댓글버튼
 
-/*
+
 $(function(){
-	$("body").on("click", ".btnReplyAnswerLayout", function(){
+	$("body").on("click", ".btnReplyLayout", function(){
 		var replyNum = $(this).attr("data-replyNum");
 		
-		var $trReplyAnswer = $(this).parent().parent().next();
-		var isVisible = $trReplyAnswer.is(":visible");
+		var $trReply = $(this).parent().parent().next();
+		var isVisible = $trReply.is(":visible");
 		
 		if(isVisible) {
-			$trReplyAnswer.hide();
+			$trReply.hide();
 		} else {
-			$trReplyAnswer.show();
+			$trReply.show();
 			
-			listAnswer(replyNum);
+			//listReply(replyNum);
 		}
 			
 	});
 });
-*/
+
+//댓글쓰기
+function sendReply(boardNum){
+	var uid="${sessionScope.user.memberNum}";
+	if(! uid){
+		location.href='<%=cp%>/member/login';
+		return;
+	}
+	
+	var content = $.trim($("#replyContent").val());
+	if(! content){
+		$("#replyContent").focus();
+		return;
+	}
+	var query ="content="+encodeURIComponent(content);
+		query+="&cmoimCode=${cmoimCode}";
+		query+="&boardNum="+boardNum;
+		
+	var url="<%=cp%>/freeboard/insertReply";
+	$.ajax({
+		type:"post"			
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data){
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/user/login";
+				return;
+			}
+			$("#replyContent").val("");
+			//listPage(1);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
 </script>
 
 <header>
@@ -131,7 +173,7 @@ $(function(){
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moim">
+					<a style="color: #ffffff;" id="moimcalendar" href="<%=cp%>/community/moim${cmoimCode}/calendar">
 						일정
 					</a>
 				</td>
@@ -161,10 +203,10 @@ $(function(){
 				<!-- 전체글 -->
 				<!-- 새글 올라올곳.. -->		
 				<div id="listFreeboard"></div>
-					<!-- 리플 리스트 -->
-					<!-- 
-					 <div id="listReply"></div>
-					 -->
+				<!-- 리플 리스트 -->
+				<!-- 
+				 <div id="listReply"></div>
+				 -->
 			</div>
 			
 			<!-- 사이드. -->
