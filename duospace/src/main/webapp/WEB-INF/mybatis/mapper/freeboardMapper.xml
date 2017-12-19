@@ -4,9 +4,10 @@
 <mapper namespace="freeboard">
 	<!-- 글쓰기 -->
 	<insert id="insertFreeboard" parameterType="com.duospace.community.freeboard.Freeboard">
-		INSERT INTO freeboard(boardnum,content,writer,cmoimCode)
+		INSERT INTO freeboard(boardNum,content,writer,cmoimCode)
        	 	VALUES(SEQ_FREEBOARD.NEXTVAL,#{content},#{writer},#{cmoimCode})
 	</insert>
+	
 	<!-- 글갯수 -->
 	<!-- 서비스에서 맵을던지면 파라미터타입 맵을받는다. -->
 	<select id="dataCountFreeboard" resultType="Integer" parameterType="map">
@@ -15,26 +16,35 @@
 	
 	<!-- 글 리스트 -->
 	<select id="listFreeboard" resultType="com.duospace.community.freeboard.Freeboard" parameterType="map" >
-<!-- 
+
 		SELECT * FROM(
 		    SELECT ROWNUM rnum, tb.*FROM(
- -->
-		        SELECT  boardnum, content, f.created, hitcount, writer, f.cmoimcode,m.name
+		        SELECT  boardNum, content, TO_CHAR(f.created,'YYYY-MM-DD') created, hitcount, writer, f.cmoimcode,m.name
 		            FROM freeboard f 
 		            JOIN commoim c ON f.cmoimcode = c.cmoimcode
 		            JOIN member2 m ON c.membernum = m.membernum
 		            WHERE f.cmoimCode = #{cmoimCode}
-		            ORDER BY boardnum DESC 
-		            <!-- 
+		            ORDER BY boardNum DESC
 <![CDATA[	
 		    ) tb WHERE ROWNUM <= #{end}
 		)WHERE rnum >= #{start}
 ]]>
-		             -->
 	</select>
 	
+	<!-- 댓글쓰기 -->
 	
+	<insert id="insertReply" parameterType="com.duospace.community.freeboard.Reply">
+	INSERT INTO FRboardRp(FRboardrpNum, content,boardNum, memberNum,cmoimCode)
+	   VALUES (seq_FRboardRp.NEXTVAL,#{content},#{boardNum},#{memberNum},#{cmoimCode})
+	</insert>
 	
+	<!-- 댓글 갯수확인 -->
+	
+	<select id="replyDataCount" resultType="Integer" parameterType="map">
+	SELECT NVL(COUNT(*), 0)
+	        FROM FRboardRp WHERE boardNum=#{boardNum}
+	</select>
+		
 	
 	
 </mapper>

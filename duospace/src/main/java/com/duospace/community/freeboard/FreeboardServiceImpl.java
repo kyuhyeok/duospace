@@ -64,4 +64,43 @@ public class FreeboardServiceImpl implements FreeboardService{
 		return 0;
 	}
 
+	@Override
+	public int insertReply(Reply dto) {
+		int result=0;
+		try {
+			result=dao.insertData("freeboard.insertReply",dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Freeboard> listReply(Map<String, Object> map) {
+		List<Freeboard> list =null;
+		try {
+			list = dao.selectList("freeboard.listReply",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
+	public int replyDataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.replyDataCount",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteReply(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
