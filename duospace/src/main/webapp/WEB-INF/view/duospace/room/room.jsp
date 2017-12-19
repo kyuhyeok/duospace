@@ -195,7 +195,7 @@ function strDate(date) {
 function Dialogcancel() {
 	$('#myRoomModal').modal('hide');
 }
-function SendOk(reservNum) {
+function SendOk() {
 	var f=document.modalForm;
 	f.action="<%=cp%>/rmres";
 	f.submit();

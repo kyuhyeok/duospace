@@ -14,5 +14,6 @@ public interface ReserveService {
 	public void insertReserve(Map<String, Object> map) throws Exception;//예약1 넣기
 	
 	public int readSeatCode(Map<String, Object> map); //좌석이름,배치도 로 좌석코드 읽어오기
-	
+	public int readReserveNum();
+	public int readPass(int passCode);
 }

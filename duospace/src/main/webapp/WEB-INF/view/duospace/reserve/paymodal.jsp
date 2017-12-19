@@ -16,7 +16,6 @@ $(function() {
 </script>
 <div id="newmodal" style="padding: 5px 20px;">
 						<form class="form-horizontal calender" id="modalForm" name="modalForm" role="form">
-							
 							<input type="hidden" name="roomCode">
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">룸 이름</label>
@@ -78,10 +77,10 @@ $(function() {
 									<input id="rs_scene" name="signSpot" type="radio" value="1" ${dto.signSpot}/>현장
 							</div>
 							</div>
-							<input type="hidden" name="roomCode" value="${dto.roomCode}">
-						</form> 
+							<input type="hidden" name=roomCode value="${dto.roomCode}">
+						</form>
 					</div>
 					 <div class="modal-footer">
-          			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
+          			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk(${dto.reservNum});">예약</button>
           			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
         			</div>
