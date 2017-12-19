@@ -40,7 +40,7 @@ public class MypageController {
 		
 		int cnt = service.countAccept(info.getMemberNum());
 		if(cnt==0) {
-			return "redirect:/duogram/"+blogNum;
+			return "redirect:/duogram";
 		}
 		
 		String me="true";

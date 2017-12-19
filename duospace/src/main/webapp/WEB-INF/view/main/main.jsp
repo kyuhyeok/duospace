@@ -45,7 +45,7 @@ img{
 		</a>
 	</div>
 	<div>
-		<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}">
+		<a href="<%=cp%>/duogram">
 			<img src="<%=cp%>/resource/images/duogram/duogram 1.jpg">
 		</a>
 	</div>

@@ -25,11 +25,11 @@
 					<a title=Home href="<%=cp%>/main" style="font-family: '나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/home.png" style="width: 60px; height: 60px;">
 					</a>
-					<a href="<%=cp%>/community/{memberNum}" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">|  Community</a>
+					<a href="<%=cp%>/community" style="font-family:'나눔고딕'; font-size: 12px; color: white; font-weight: bold; text-decoration:none;">|  Community</a>
 				</td>
 				
 				<td align="center"> 
-					<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" class="logo" style="font-size: 46px; text-decoration:none; color: white;">Duo Gram</a>			
+					<a href="<%=cp%>/duogram" class="logo" style="font-size: 46px; text-decoration:none; color: white;">Duo Gram</a>			
 				</td>
 			
 				<td align="right" width="311px" style="padding-right: 10px;">
@@ -70,7 +70,7 @@
     	  			
     	  			<!-- 타임라인 -->
 					<div style="float: right" id="hello">
-					<a title=Timeline href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=Timeline href="<%=cp%>/duogram" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
     	  				<img onclick="change_background_color()" src="<%=cp%>/resource/images/duogram/timeline.png" style="width: 42px; height: 45px;">&nbsp;
     	  			</a>
     	  			</div>

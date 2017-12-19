@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duoGramF">
+	<select id="listFriend" resultType="com.duospace.duogram.friend.Friend" parameterType="map">
+		<choose>
+			<when test="blogNum==memberNum">
+				SELECT m.friendNum, name, email, proFileSaveFileName, (1+NVL(freq, 0)) friendShip, NVL(fofcnt,0) fofcnt
+				FROM gramfriend m
+				LEFT OUTER JOIN (
+					SELECT memberNum friendNum, TO_NUMBER('1') freq  FROM gramfriend
+					WHERE friendNum=#{blogNum}
+				) f ON m.friendNum=f.friendNum
+				LEFT OUTER JOIN (
+					SELECT memberNum friendNum, COUNT(*) fofcnt
+					FROM gramfriend
+					WHERE memberNum IN (
+						SELECT friendNum
+						FROM gramfriend
+						WHERE memberNum=#{blogNum}
+					)
+					GROUP BY memberNum
+				) fof ON m.friendNum=fof.friendNum
+				LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
+				LEFT OUTER JOIN member2 m2 ON m.friendNum=m2.memberNum
+				WHERE m.memberNum=#{blogNum}
+				ORDER BY reqDate DESC
+			</when>
+			<otherwise>
+				SELECT b.friendNum, name, email, proFileSaveFileName, NVL(friendShip,0) friendShip, NVL(fofcnt,0) fofcnt
+				FROM gramfriend b
+				LEFT OUTER JOIN (
+					SELECT friendNum, (1+NVL(freq, 0)) friendShip
+					FROM gramfriend m
+					LEFT OUTER JOIN (
+						SELECT memberNum friendNum, TO_NUMBER('1') freq  FROM gramfriend
+						WHERE friendNum=#{memberNum}
+					) f ON m.friendNum, f.friendNum
+					WHERE memberNum=#{memberNum}
+				) m ON b.friendNum=m.friendNum
+				LEFT OUTER JOIN (
+					SELECT memberNum friendNum, COUNT(*) fofcnt
+					FROM gramfriend
+					WHERE memberNum IN (
+						SELECT friendNum
+						FROM gramfriend
+						WHERE memberNum=#{blogNum}
+					)
+					GROUP BY memberNum
+				) fof ON b.friendNum=fof.friendNum
+				LEFT OUTER JOIN mygram g ON b.friendNum=g.memberNum
+				LEFT OUTER JOIN member2 m2 ON b.friendNum=m2.memberNum
+				WHERE memberNum=#{blogNum}
+				ORDER BY reqDate DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="fDataCount" resultType="Integer" parameterType="map">
+		SELECT NVL(COUNT(*),0) FROM (
+        	SELECT friendNum FROM gramfriend 
+        	WHERE memberNum=#{blogNum}
+        )
+	</select>
+</mapper>

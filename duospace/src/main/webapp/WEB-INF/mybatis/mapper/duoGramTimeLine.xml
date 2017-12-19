@@ -8,9 +8,9 @@
 	</insert>
 	
 	<insert id="insertBoard" parameterType="com.duospace.duogram.Duogram">
-		INSERT INTO gramTimeLine (num, memberNum, content,blogNum,
+		INSERT INTO gramTimeLine (num, memberNum, content, blogNum,
 			saveFilename, originalFilename)
-			VALUES (seq_gramtimeline.NEXTVAL, #{memberNum}, #{content}, #{blogNum}
+			VALUES (seq_gramtimeline.NEXTVAL, #{memberNum}, #{content}, #{memberNum}
 			, #{saveFilename, jdbcType=VARCHAR}, #{originalFilename, jdbcType=VARCHAR})
 	</insert>
 	
@@ -27,7 +27,6 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM gramtimeline g
 		JOIN member2 m2 ON g.memberNum=m2.memberNum
-		WHERE g.blogNum=#{blogNum}
 	</select>
 	
 	<select id="listBoard" parameterType="map"

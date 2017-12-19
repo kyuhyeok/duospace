@@ -40,6 +40,7 @@ form {
 
 button{
 	margin: 0;
+	outline: 0;
 }
 
 h3{
@@ -366,12 +367,12 @@ function readaFReqCnt() {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
 			}
-			console.log(e.responseText)
+			console.log(e.responseText);
 		}
 	});
 	console.log("요청 카운트 로드");
@@ -426,7 +427,7 @@ function fReqOk(friendNum) {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
@@ -458,7 +459,7 @@ function delFReq(friendNum) {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
@@ -491,7 +492,7 @@ function insFReq(friendNum) {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;

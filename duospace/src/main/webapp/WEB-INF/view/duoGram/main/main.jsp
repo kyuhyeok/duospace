@@ -54,8 +54,8 @@ function sendBoard() {
 		return;
 	}
 	
-	var blogNum="${blogNum}";
-	var q="content="+encodeURIComponent(content)+"&blogNum="+blogNum;
+	var memberNum="${memberNum}";
+	var q="content="+encodeURIComponent(content)+"&memberNum="+memberNum;
 	
 	var url="<%=cp%>/duogram/insert";
 	
