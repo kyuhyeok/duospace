@@ -45,14 +45,7 @@ $(function() {
 				 	var tprice=$(":input:radio[name=passCode]:checked").attr("data-tprice");  //이용권가격
 				 	var member = $(":input:radio[name=reserve_mem_number]:checked").val();  //멤버수
 				 	var totalPrice=parseInt(tprice)*parseInt(member);  //이용권가격*멤버수
-				 
-				 	$(".reserve_total").children().children().eq(0).children().eq(0).children().eq(3).children().eq(1).text(member);
-					$(".reserve_total  td:eq(3) div:eq(0) div:eq(1) div:eq(2)").text(member);
-				 	$(".reserve_total").children().children().eq(0).children().eq(2).children().eq(0).children().eq(1).text(usingTicket+'시간');
-				 	$(".reserve_total").children().children().eq(0).children().eq(2).children().eq(1).children().eq(1).text(tprice+'원');
-				 	$(".reserve_total  td:eq(3) div:eq(0) div:eq(1) div:eq(0)").text(tprice);
-				 	$(".reserve_total  td:eq(3)").children().eq(1).children().eq(1).text(totalPrice);
-				 	
+ 	
 				 	
 				 	$(".resultTb>div").next().children().eq(1).text(tName);
 				
@@ -67,8 +60,13 @@ $(function() {
 		$("input[name=reserve_floor]").on("change",function(){
 			//ajax
 			
-			var startTime=$(".reserve_total td:eq(0) > div:eq(1)").children().eq(1).text(); //시작시간
-			var endTime=$(".reserve_total td:eq(0) > div:eq(2)").children().eq(1).text();	//종료시간
+			
+				
+		
+			
+			
+			var startTime=$(".resultTb>div").next().next().children().eq(1).text(); //시작시간
+			var endTime=$(".resultTb>div").next().next().next().children().eq(1).text();	//종료시간
 			var floorNum=$("input[name=reserve_floor]:checked").val();  //선택한 층번호
 			
 			//결제창의 층정보 보여주기
@@ -190,13 +188,7 @@ function changeEnd(){
 			
 		$(".timepicker").next().val(date2);
 		
-		$(".reserve_total").children().children().eq(0).children()
-			.eq(0).children().eq(1).children().eq(1)
-			.text(date1);
-		$(".reserve_total").children().children().eq(0).children()
-			.eq(0).children().eq(2).children().eq(1)
-			.text(date2);
-		
+
 		$(".resultTb>div").next().next().children().eq(1).text(date1);
 		$(".resultTb>div").next().next().next().children().eq(1).text(date2);
 		$("input[name=startDate]").val(date1);
@@ -403,7 +395,7 @@ function check() {
 			<form name="reserve_seat_form" method="post">
 				<table class="reserve_seat_tb" style="border: 1px solid black; margin-top: 100px; ">
 					<tr height="50px;">
-						<td align="center" colspan="3">좌석 예매</td>
+						<td align="center" colspan="3"><h4>좌석 예매</h4></td>
 					</tr>
 					<tr>     
 						<td>예약시간</td>
@@ -418,7 +410,7 @@ function check() {
 						</td>
 						
 						<td rowspan="4" style="vertical-align: top; padding-top: 0px;">
-							<div class="resultTb" style="border-left: 1px solid; height: 250px;">
+							<div class="resultTb" style="border-left: 1px solid; height: 250px;padding-left: 30px;">
 								<div>
 									<div style="float: left; text-align: center;">${spotName}</div>
 									<div style="float: left; text-align: center;">&nbsp;&nbsp;</div>
@@ -426,7 +418,7 @@ function check() {
 									
 								</div>
 								<div style="clear: both;">
-									<div style="float: left;">이용권</div>
+									<div style="float: left;">이 용 권</div>
 									<div style="float: left;"></div>
 								</div>
 								<div style="clear: both;">
@@ -504,70 +496,11 @@ function check() {
 				<!-- 배치도 넣을곳 -->
 				${dto.placement}
 			</div>
+	
+			
+			
 
-
-			<div style="padding: 10px 10px; border: 1px solid;margin: 50px 0px 50px 0px;">
-				<table class="reserve_total" style="width: 100%; height: 100px;">
-					<tr>
-						<td>
-							<div style="clear: both;">
-								<div style="float: left">지점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-								<div style="float: left">Duo당산</div>
-							</div>
-							<div style="clear: both;">
-								<div style="float: left">시작일시&nbsp;</div>
-								<div style="float: left"></div>
-							</div>
-							<div style="clear: both;">
-								<div style="float: left">종료일시&nbsp;</div>
-								<div style="float: left">2017.02.13 15:00</div>
-							</div>
-							<div style="clear: both;">
-								<div style="float: left">인원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-								<div style="float: left">4명</div>
-							</div>
-						</td>
-						<td style="border-left: 1px solid">
-							<div style="clear: both;">
-								<div style="float: left">좌석명&nbsp;</div>
-								<div style="float: left">A-50</div>
-							</div>
-						</td>
-
-						<td style="border-left: 1px solid">
-							<div style="clear: both;">
-								<div style="float: left">이용권&nbsp;</div>
-								<div style="float: left">8시간</div>
-							</div>
-							<div style="clear: both;">
-								<div style="float: left">이용권가격&nbsp;</div>
-								<div style="float: left">8000</div>
-							</div>
-						</td>
-						<td style="border-left: 1px solid">
-							<div style="clear: both;">
-								<div style="float: left">금액&nbsp;</div>
-								<div style="float: left">
-								   <div style="float: left">8000</div>
-								   <div style="float: left">*</div>
-								   <div style="float: left">4명</div>
-								</div>
-							</div>
-							<div style="clear: both;">
-								<div style="float: left">총금액&nbsp;</div>
-								<div style="float: left">32000</div>
-							</div>
-						</td>
-						<td align="right">
-							<button type="button" class="btn btn-danger"
-								style="height: 90px; width: 100px;">
-								결제<br>하기
-							</button>
-						</td>
-					</tr>
-				</table>
-
-			</div>
+		
 		</form>
 
 	</div>
