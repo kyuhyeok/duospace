@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,30 +36,31 @@ public class DuogramController {
 			HttpSession session, Model model) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		service.insertAccept(info.getMemberNum());
-		return "redirect:/duogram/"+info.getMemberNum();
+		return "redirect:/duogram";
 	}
 	
 	// SNS 메인 화면
-	@RequestMapping(value="/duogram/{blogNum}")
+	@RequestMapping(value="/duogram")
 	public String duogram(
-			@PathVariable int blogNum,
 			HttpSession session,
 			Model model) throws Exception {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
-		int countAccept=service.countAccept(blogNum);
+		int memberNum = info.getMemberNum();
+		
+		int countAccept=service.countAccept(memberNum);
 		if(countAccept==0) {
 			return ".duoGram.acceptcheck";
 		}
 		
 		String me="true";
-		if(info.getMemberNum()!=blogNum)
+		if(info.getMemberNum()!=memberNum)
 			me="false";
 		
 		// sns 타임라인 불러오기
 		model.addAttribute("me", me);
-		model.addAttribute("blogNum", blogNum);
+		model.addAttribute("memberNum", memberNum);
 		
 		return ".duoGramLayout";
 	}
@@ -92,22 +92,20 @@ public class DuogramController {
 		@RequestMapping(value="/duogram/update", 
 				method=RequestMethod.POST)
 		public String updateSubmit(
-				Mypage dto, 
-				@RequestParam int blogNum,
+				Mypage dto,
 				@RequestParam String page,
 				HttpSession session) throws Exception {	
 			// 수정 하기
 			service.updateBoard(dto);		
 			
-			return "redirect:/duogram/"+blogNum;
+			return "redirect:/duogram";
 		}
 	
 	// 리스트
 	@RequestMapping(value="/duogram/list")
 	@ResponseBody
 	public Map<String, Object> list(
-			@RequestParam(value="pageNo", defaultValue="1") int current_page,
-			@RequestParam int blogNum
+			@RequestParam(value="pageNo", defaultValue="1") int current_page
 			) throws Exception {
 		
 		int rows=10;
@@ -115,7 +113,6 @@ public class DuogramController {
 		int total_page;
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("blogNum", blogNum);
 		
 		dataCount=service.dataCount(map);
 		total_page = util.pageCount(rows, dataCount);
@@ -152,14 +149,13 @@ public class DuogramController {
 	@RequestMapping(value="/duogram/delete")
 	public String delete(
 			@RequestParam int num,
-			@RequestParam int blogNum,
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 			
 		service.deleteBoard(num, info.getMemberNum());
 			
-		return "redirect:/duogram/"+blogNum;
+		return "redirect:/duogram";
 	}
 	
 }
