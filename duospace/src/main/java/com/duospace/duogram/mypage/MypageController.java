@@ -181,6 +181,50 @@ public class MypageController {
 		return model;
 	}
 	
+	// 답글 리스트
+	@RequestMapping(value="/duogram/mypage/listReply")
+	public String listReply(
+			@RequestParam(value="num") int num,
+			@RequestParam(value="pageNo") int current_page,
+			Model model
+			) {
+		
+		int rows=3;	// 한화면 리스트 개수
+		int total_page=0;
+		int dataCount=0;
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("num", num);
+		
+		dataCount=service.replyDataCount(map);
+		total_page=util.pageCount(rows, dataCount);
+		if(current_page>total_page)
+			current_page=total_page;
+		
+		int start=(current_page-1)*rows+1;
+		int end=current_page*rows;
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<Reply> listReply=service.listReply(map);
+		
+		// 엔터를 <br>로
+		for(Reply dto : listReply) {
+			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		}
+		
+		// 페이징처리(인수 2개짜리, 자바스크립트로 처리)
+		String paging=util.paging(current_page, total_page, "listMethod");
+		
+		// 포워딩할 jsp에 넘길 데이터
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("paging", paging);
+		model.addAttribute("replyCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("pageNo", current_page);
+		
+		return "duoGram/main/reply";
+	}
 	
 }
 
