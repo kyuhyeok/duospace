@@ -7,8 +7,7 @@
 %>
 
 <style type="text/css">
-/* 
-body {
+#dgChatTabFlyout body {
     background: #fff;
     color: #1d2129;
     direction: ltr;
@@ -19,24 +18,23 @@ body {
     font-size: 12px;
 }
 
-ul {
+#dgChatTabFlyout ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-a{	
+#dgChatTabFlyout a{	
 	color: #365899;
 	cursor: pointer;
     text-decoration: none;
 }
- */
-td {
+#dgChatTabFlyout td {
     text-align: left;
     display: table-cell;
 }
 
-textarea{
+#dgChatTabFlyout textarea{
 	text-align: left;
 	border: none;
 	outline:0;
@@ -48,11 +46,11 @@ textarea{
 	overflow: hidden;
 }
 
-img {
+#dgChatTabFlyout img {
     border: 0;
 }
 
-time{
+#dgChatTabFlyout time{
 	display: block;
     height: 2px;
     text-align: center;
@@ -60,7 +58,7 @@ time{
     margin: 16px 0px 15px;
 }
 
-time>span{
+#dgChatTabFlyout time>span{
 	color: rgb(144, 148, 156);
     display: inline-block;
     font-size: 10px;

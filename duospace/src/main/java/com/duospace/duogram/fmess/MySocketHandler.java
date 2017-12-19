@@ -130,7 +130,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 			job.put("senderNum", dto.getMemberNum());
 			job.put("num", dto.getNum());
 			job.put("sendDate", dto.getSendDate());
-			job.put("message", dto.getContent());
+			job.put("content", dto.getContent());
 			job.put("proFileSaveFileName", dto.getProFileSaveFileName());
 			
 			if(chatUserMap.get(receiveNum+"-"+senderNum)==null) {
