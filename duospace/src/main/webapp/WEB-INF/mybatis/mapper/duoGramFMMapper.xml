@@ -77,7 +77,9 @@
 			<if test="friendNum!=0">
 				memberNum=#{friendNum}
 			</if>
-			AND readDate IS NULL AND friendNum=#{memberNum} AND deleteStatus!=1
+			AND readDate IS NULL AND friendNum=#{memberNum} AND deleteStatus!=1 AND memberNum IN (
+				<include refid="flist"/>
+			)
 		</where>
 	</select>
 	

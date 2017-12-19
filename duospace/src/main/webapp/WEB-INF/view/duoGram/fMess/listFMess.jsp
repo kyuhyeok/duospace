@@ -50,7 +50,7 @@ h3{
     padding: 0;
 }
 */
-li:first-child{
+#fMCList li:first-child{
     border-top: none;
 }
 
@@ -332,7 +332,7 @@ function readaFMessCnt() {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
