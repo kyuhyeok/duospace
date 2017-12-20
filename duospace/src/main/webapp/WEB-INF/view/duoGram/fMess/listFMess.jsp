@@ -6,51 +6,51 @@
 	String cp=request.getContextPath();
 %>
 <style type="text/css">
-/*
-body {
+
+#dgfmessengers body {
     direction: ltr;
     line-height: 1.34;
     font-size: 12px;
 }
 
-div {
+#dgfmessengers div {
     display: block;
 }
 
-ul{
+#dgfmessengers ul{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-li {
+#dgfmessengers li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
 
-a {
-    color: #365899;
+#dgfmessengers a {
+    color: #4b4f56;
     cursor: pointer;
     text-decoration: none;
 }
 
-form {
+#dgfmessengers form {
     margin: 0;
     padding: 0;
 }
 
-button{
+#dgfmessengers button{
 	margin: 0;
 }
 
-h3{
+#dgfmessengers h3{
     color: #333;
     font-size: 12px;
     margin: 0;
     padding: 0;
 }
-*/
-li:first-child{
+
+#fMCList li:first-child{
     border-top: none;
 }
 
@@ -116,12 +116,12 @@ li:first-child{
 ._4kglfm>li {
     border-width: 0 0 1px 0;
 }
-/*
-.objectListItem {
+
+#dgfmessengers .objectListItem {
     padding-bottom: 8px;
     padding-top: 8px;
-}*/
-.objectListItem>*{
+}
+#dgfmessengers .objectListItem>*{
 	cursor: default;
 }
 
@@ -138,8 +138,8 @@ li:first-child{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-/* 
-.objectListItem_profile {
+
+#dgfmessengers .objectListItem_profile {
 	height: 48px;
 	margin-right: 2px;
 	margin-top: 1px;
@@ -150,7 +150,7 @@ li:first-child{
     border: 0;background-color: #eeeeee;
 }
 
-.uiScrollableAreaTrack {
+#dgfmessengers .uiScrollableAreaTrack {
     bottom: 2px;
     display: block;
     pointer-events: none;
@@ -162,7 +162,7 @@ li:first-child{
     z-index: 5;
 }
 
-.RequestOKBtn{
+#dgfmessengers .RequestOKBtn{
 	line-height: 22px;
 	
 	background-color: #32b0e5;
@@ -189,7 +189,7 @@ li:first-child{
     white-space: nowrap;
 }
 
-.requestDeleteBtn{
+#dgfmessengers .requestDeleteBtn{
 	margin-left: 4px;
 	
     line-height: 22px;
@@ -216,12 +216,12 @@ li:first-child{
     white-space: nowrap;
 }
 
-.friendRequestName{
+#dgfmessengers .friendRequestName{
     color: #333333;
     font-size: 12px;
     font-weight: bold;
 }
- */
+
 .author{
 	color: #1d2129;
     padding-top: 7px;
@@ -332,7 +332,7 @@ function readaFMessCnt() {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;

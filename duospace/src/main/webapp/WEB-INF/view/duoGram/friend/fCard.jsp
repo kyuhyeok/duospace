@@ -10,7 +10,7 @@
 	<c:forEach var="vo" items="${list}">
 		<li class="_698" id="friend${vo.friendNum}">
 			<div class="clearfix _5qo4">
-				<a class="_5q6s _8o _8t lfloat _ohe" href="#">
+				<a class="_5q6s _8o _8t lfloat _ohe" href="<%=cp%>/duogram/${vo.friendNum}">
 					<c:choose>
 						<c:when test="${empty vo.proFileSaveFileName}">
 							<img class="_s0 _4ooo _1ve7 _rv img" style="background-color:#e4e4e4;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
@@ -26,21 +26,23 @@
 						<div class="_6a _6b">
 							<div class="_5t4x">
 								<div class="FriendButton" id="friendBtn${vo.friendNum}">
+									<c:if test="${memberNum!=vo.friendNum}">
 									<c:choose>
 										<c:when test="${vo.friendShip==2}">
-											<a class="_42ft _4jy0 _55pi _2agf _4o_4 FriendRequestFriends friendButton enableFriendListFlyout _4jy3 _517h _51sy" href="#" style="max-width:200px;">
+											<a class="_42ft _4jy0 _55pi _2agf _4o_4 FriendRequestFriends friendButton enableFriendListFlyout _4jy3 _517h _51sy" href="#" style="max-width:200px;" data-fnum="${vo.friendNum}" onclick="fcancle(${vo.friendNum})">
 												<span class="_55pe">
 													<span aria-hidden="true">친구</span>
 												</span>
 											</a>
 										</c:when>
 										<c:when test="${vo.friendShip==1}">
-											<button class="_42ft _4jy0 FriendRequestOutgoing enableFriendListFlyout outgoingButton enableFriendListFlyout hidden_elem _4jy3 _517h _51sy" type="button">친구 요청 전송됨</button>
+											<button class="_42ft _4jy0 FriendRequestOutgoing enableFriendListFlyout outgoingButton enableFriendListFlyout hidden_elem _4jy3 _517h _51sy" type="button" data-fnum="${vo.friendNum}" onclick="freqcancle(${vo.friendNum})">친구 요청 전송됨</button>
 										</c:when>
 										<c:when test="${vo.friendShip==0}">
 											<button class="_42ft _4jy0 FriendRequestAdd addButton hidden_elem _4jy3 _4jy1 selected _51sy" type="button" onclick="ftof(${vo.friendNum})">친구 추가</button>
 										</c:when>
 									</c:choose>
+									</c:if>
 								</div>
 							</div>
 						</div>

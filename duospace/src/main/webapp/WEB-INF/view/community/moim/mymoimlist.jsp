@@ -12,7 +12,7 @@
   		</div>
  			<div style="float: left;">
 			<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-		  		<a href="<%=cp%>/community/commoim/commoim" style="background-color: #ffffff; ">
+		  		<a href="<%=cp%>/community/commoim" style="background-color: #ffffff; ">
 		  			<span style=" padding-top: 55px; padding-left: 65px;">
 		  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
 		  			</span>
@@ -36,7 +36,7 @@
 				  			<br>
 				  			<span style="display:table ;height: 85px; margin-left: 25px;">
 				  				<span style="display:table; margin-top: 20px; ">제목:${dto.comname}</span>
-				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.moimcount}</span>
+				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.memberCount}</span>
 				  			</span>
 				  		</a>
 					</div>

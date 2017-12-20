@@ -84,11 +84,11 @@ public class ReserveController {
 			}
 		}
 		
-		//선택한 층의 배치도
+	/*	//선택한 층의 배치도
 		Reserve dto = service.readPlacement(floorNum);
 		if(dto!=null)
 			dto.setPlacement(myUtil.htmlToStr(dto.getPlacement()));
-		
+	*/	
 		//model.addAttribute("dto", dto);
 		
 		model.addAttribute("spotName", spotName);
@@ -147,7 +147,8 @@ public class ReserveController {
 			@RequestParam String startDate,
 			@RequestParam String endTime,
 			@RequestParam int reserve_floor,
-			HttpSession session
+			HttpSession session,
+			Model model
 			) throws Exception{
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("user");
@@ -185,43 +186,23 @@ public class ReserveController {
 		}
 		
 		int reserveNum=service.readReserveNum();
+
 		
-		String query="passCode="+passCode+"&reservNum="+reserveNum+"&startDate="+startDate+"&endDate="+endTime+"&floorNum="+reserve_floor;
-		query+="&seatName="+seatName;
-		
-		
-		return "redirect:/duospace/reserve/reserveComplete?"+query;
-	}
-	
-	@RequestMapping(value="/duospace/reserve/reserveComplete", method=RequestMethod.GET)
-	public String reserveComplete(
-			@RequestParam int passCode,
-			@RequestParam int reservNum,
-			@RequestParam String startDate,
-			@RequestParam String endDate,
-			@RequestParam int floorNum,
-			@RequestParam String seatName,
-			Model model
-			) throws Exception{
-		
-		Reserve dto = new Reserve();
 		
 		dto.setPassCode(passCode);
-		dto.setReservNum(reservNum);
+		dto.setReservNum(reserveNum);
 		dto.setStartDate(startDate);
-		dto.setEndDate(endDate);
-		dto.setFloorNum(floorNum);
+		dto.setEndDate(endTime);
+		dto.setFloorNum(reserve_floor);
 		dto.setSeatName(seatName);
-		int passPrice = service.readPass(passCode);
-		dto.setPrice(passPrice);
-		Reserve dto2=service.readPlacement(floorNum);
-		dto.setSpotName(dto2.getSpotName());
-		dto.setFloorName(dto2.getFloorName());
 		
 		model.addAttribute("dto", dto);
 		
+		
 		return ".reserve.reserveComplete";
 	}
+	
+	
 }
 
 

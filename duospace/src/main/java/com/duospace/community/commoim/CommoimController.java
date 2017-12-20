@@ -20,7 +20,7 @@ public class CommoimController {
 	private CommoimService service;
 	
 	
-	@RequestMapping(value="/community/commoim/commoim",method=RequestMethod.GET)
+	@RequestMapping(value="/community/commoim",method=RequestMethod.GET)
 	public String commoimForm(Model model) {
 		
 		return ".community.commoim.commoim";
@@ -34,16 +34,27 @@ public class CommoimController {
 			) throws Exception{
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
+		
 		if(info==null) {
 			state="loginFail";
 		}else {
 			//글을 쓴 사람(로그인한 아이디)
 			dto.setMemberNum(info.getMemberNum());
+			
+			int cmoimCode = service.cmoimSeq();
+			dto.setCmoimCode(cmoimCode);
 			service.insertCommoim(dto);
+			
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("memberNum", info.getMemberNum());//방생성후 가입하기.
+			map.put("cmoimCode",cmoimCode);
+			service.insertAccept(map);//로그인된상태에서 번호가져옴
+			
 			state="true";
 		}
-		
 		Map<String, Object> model=new HashMap<>();
+		
 		model.put("state", state);
 		return model;
 	}

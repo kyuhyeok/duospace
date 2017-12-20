@@ -14,7 +14,6 @@
 	 SELECT NVL(COUNT(*), 0) FROM commaincate 
 	</select>
 	
-	
 	<!-- 분류 리스트 -->
 	<select id="listcommaincate" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
 		SELECT cateNum,BoardName
@@ -23,21 +22,6 @@
 	</select>
 	
 	<!-- 분류안에 제목리스트 -->
-	<!-- 
-	<select id="listcommainboard" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
-		SELECT * FROM (
-			SELECT ROWNUM rnum, tb.* FROM (
-				SELECT catenum, created, boardNum, subject, hitCount
-				FROM commainboard 
-				WHERE cateNum = #{cateNum}
-				ORDER BY created DESC
-				
-<![CDATA[
-			) tb WHERE ROWNUM <=5
-		) WHERE rnum >=1
-]]>
-	</select>
-	 -->
 	<select id="listcommainboard" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
 		SELECT * FROM (
 			SELECT ROWNUM rnum, tb.* FROM (

@@ -26,18 +26,14 @@
 		<!-- 마이프로필 정보 -->
 		<div style="margin: auto; width: 100%; height: 50px; background: white; border: 1px solid #ccc;">
 			<div style="float: left; margin-left: 500px; margin-right: 50px; padding-right: 50px; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none; font-size: 17px; font-weight: bold">마이페이지</a>
+				<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">내 타임라인</a>
 			</div>
 			<div class="duo_01" style="float: left; line-height: 45px; font-size: 15px;">
 				<a href="#" style="text-decoration:none; font-size: 17px; font-weight: bold">정보</a>
 			</div>
 			<div class="duo_01" style="margin-right: 50px; margin-left: 50px; padding-left: 50px; float: left; line-height: 45px; font-size: 15px;">
-				<a href="#" style="text-decoration:none; font-size: 17px; font-weight: bold">친구</a>
+				<a href="<%=cp%>/duogram/${blogNum}/f" style="text-decoration:none; font-size: 17px; font-weight: bold">친구</a>
 			</div>
-			<div class="duo_01" style="margin-left: 50px; float: left; line-height: 45px; font-size: 15px;">
-				<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">타임라인</a>
-			</div>
-
 		</div>
 		
 </div>

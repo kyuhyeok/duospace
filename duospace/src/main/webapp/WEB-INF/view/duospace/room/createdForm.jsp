@@ -12,6 +12,19 @@ $(function() {
 		altFormat: "yyyy-mm-dd"
 	});
 });
+function Spot(num) {
+	var res=document.getElementById("res");
+	var pay=document.getElementById("pay");
+
+	if(num==0){
+		res.style.display="block";
+		pay.style.display="none";
+	}else{
+		res.style.display="none";
+		pay.style.display="block";
+	}
+	
+}
 
 </script>
 <div id="newmodal" style="padding: 5px 20px;">
@@ -74,14 +87,27 @@ $(function() {
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">예약구분</label>
 								<div class="col-sm-9 col-xs-12">
-									<input id="rs_web" name="signSpot" type="radio" value="0" checked="checked" ${dto.signSpot}/>웹
-									<input id="rs_scene" name="signSpot" type="radio" value="1" ${dto.signSpot}/>현장
+									<input id="rs_web" name="signSpot" type="radio" value="0" checked="checked" ${dto.signSpot} onclick="Spot('0');"/>웹
+									<input id="rs_scene" name="signSpot" type="radio" value="1" ${dto.signSpot} onclick="Spot('1');" />현장
 							</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-xs-12 control-label">가격</label>
+								<div class="col-sm-9 col-xs-12">
+									<input class="form-control" id="rs_price" name="price" type="text" readonly="readonly" ${dto.price}/>
+								</div>
 							</div>
 							<input type="hidden" name="roomCode" value="${dto.roomCode}">
+							<input type="hidden" id="prices" name="prices" readonly="readonly">
 						</form> 
 					</div>
 					 <div class="modal-footer">
+					 <div id="res" style="display:block;">
           			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
           			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
+					 </div>
+					 <div id="pay" style="display:none;">
+          			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="CheckOk();">결제</button>
+          			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
+					 </div>
         			</div>

@@ -55,6 +55,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
+			if(dto.getMemberNum()==dto.getFriendNum()) return result;
 			result=dao.insertData("duoGramFM.insertFMess", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());

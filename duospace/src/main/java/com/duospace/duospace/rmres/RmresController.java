@@ -43,6 +43,18 @@ public class RmresController {
 			e.toString();
 		}
 		
-		return ".room.room";
+		return "redirect:/complete";
+	}
+	
+	@RequestMapping(value="/complete")
+	public String colist(
+			Model model) {
+		int reservNum=service.readReserveNum();
+		Rmres dto =service.listComplete(reservNum);
+		dto.setReservNum(reservNum);
+				
+		model.addAttribute("dto", dto);
+		
+		return ".complete.rcomplete";
 	}
 }

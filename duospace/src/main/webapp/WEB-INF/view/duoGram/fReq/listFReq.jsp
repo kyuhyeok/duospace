@@ -6,43 +6,44 @@
 	String cp=request.getContextPath();
 %>
 <style type="text/css">
-body {
+#dgFReqlistview body {
     direction: ltr;
     line-height: 1.34;
     font-size: 12px;
 }
 
-div {
+#dgFReqlistview div {
     display: block;
 }
 
-ul{
+#dgFReqlistview ul{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-li {
+#dgFReqlistview li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
 
-a {
+#dgFReqlistview a {
     color: #365899;
     cursor: pointer;
     text-decoration: none;
 }
 
-form {
+#dgFReqlistview form {
     margin: 0;
     padding: 0;
 }
 
-button{
+#dgFReqlistview button{
 	margin: 0;
+	outline: 0;
 }
 
-h3{
+#dgFReqlistview h3{
     color: #333;
     font-size: 12px;
     margin: 0;
@@ -366,12 +367,12 @@ function readaFReqCnt() {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
 			}
-			console.log(e.responseText)
+			console.log(e.responseText);
 		}
 	});
 	console.log("요청 카운트 로드");
@@ -426,7 +427,7 @@ function fReqOk(friendNum) {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
@@ -436,7 +437,7 @@ function fReqOk(friendNum) {
 	});
 	console.log("요청리스트 삭제 로드");
 }
-function delFReq(friendNum) {
+function delFResp(friendNum) {
 	var url="<%=cp%>/duogram/deleteFResp";
 	var q="friendNum="+friendNum;
 	
@@ -458,7 +459,7 @@ function delFReq(friendNum) {
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
@@ -479,19 +480,11 @@ function insFReq(friendNum) {
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			<%--
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}--%>
-			
-			listFRPage(1);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;

@@ -10,9 +10,9 @@
 	<!-- 룸상세 등록 -->
 	<insert id="insert" parameterType="com.duospace.duospace.rmres.Rmres">
 		INSERT INTO rmres(rmresNum, startDate, endDate, 
-		roomCode, reservNum, people, userName, tel) 
+		roomCode, reservNum, people, userName, tel, price) 
 		VALUES(SEQ_RMRES.NEXTVAL,#{startDate},#{endDate},
-		#{roomCode},#{reservNum},#{people},#{userName},#{tel})
+		#{roomCode},#{reservNum},#{people},#{userName},#{tel},#{price})
 	</insert>
 	
 	<!-- 예약 등록 -->
@@ -23,9 +23,28 @@
 
 	<!-- 룸상세 리스트 -->
 	<select id="rmlist" resultType="com.duospace.duospace.rmres.Rmres">
-	SELECT rmresNum, TO_CHAR(startDate,'YYYY-MM-DD')startDate, TO_CHAR(endDate,'YYYY-MM-DD')endDate, roomCode,
-	rm.reservNum, people, userName, tel 
+	SELECT rmresNum, TO_CHAR(startDate,'YYYY-MM-DD')startDate, TO_CHAR(endDate,'YYYY-MM-DD')endDate, rm.roomCode,
+	rm.reservNum, people, userName, tel, ro.price
 	FROM rmres rm
 	JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+    JOIN room ro ON rm.ROOMCODE=ro.ROOMCODE
+	</select>
+	
+	<!-- 예약 완료 리스트 -->
+	<select id="colist" parameterType="Integer" resultType="com.duospace.duospace.rmres.Rmres">
+		SELECT TO_CHAR(rm.startDate,'YYYY-MM-DD')startDate, TO_CHAR(rm.endDate,'YYYY-MM-DD')endDate,
+	rm.reservNum, rm.people, rm.userName, rm.tel, rm.PRICE, s.SPOTNAME, ro.SAVEFILENAME, f.FLOORNAME, ro.roomName
+    ,s.SPOTADDR2
+	FROM rmres rm
+	JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+    JOIN room ro ON rm.ROOMCODE=ro.ROOMCODE
+    JOIN floor f ON ro.FLOORNUM=f.FLOORNUM
+    JOIN spot s ON f.SPOTCODE=s.SPOTCODE
+    WHERE rm.reservNum=#{reservNum}
+	</select>
+	
+	<!-- 예약 정보 가져오기 -->
+	<select id="readReserveNum" resultType="Integer">
+		SELECT MAX(reservnum) reservNum FROM reserv
 	</select>
 </mapper>

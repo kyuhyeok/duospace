@@ -13,26 +13,50 @@
 	   SELECT COUNT(*) FROM moimmember WHERE memberNum = #{memberNum} and cmoimcode = #{cmoimCode}
 	</select>
 	
-	<!-- 글쓰기 -->
+	<!-- 모임생성 시퀀스 -->
+	<select id="cmoimSeq" resultType="Integer">
+		SELECT seq_commoim.NEXTVAL  FROM dual
+	</select>
+	<!-- 모임 생성 --><!-- 모임생성하기전에 시퀀스를 불러온다. -->
 	<insert id="insertCommoim" parameterType="com.duospace.community.commoim.Commoim">
 		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,regcode,membernum)
-			VALUES(seq_commoim.NEXTVAL,#{comname},#{isopen},#{catecode},#{regcode},#{memberNum})
+			VALUES(#{cmoimCode},#{comname},#{isopen},#{catecode},#{regcode},#{memberNum})
 	</insert>
 	
-	<!-- 글 리스트 -->
+	<!-- 나의모임 리스트 -->
 	<select id="listCommoim" parameterType="map" 
 		resultType="com.duospace.community.commoim.Commoim">
-        SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
-        	c.memberNum,NVL(moimcount, 0) moimcount
+		SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
+	        c.memberNum,NVL(membercount, 0) membercount 
+	        FROM commoim c 
+	        JOIN (SELECT cmoimCode FROM  moimmember WHERE memberNum=#{memberNum}) mm ON c.cmoimCode = mm.cmoimCode
+	        LEFT OUTER JOIN (
+	            SELECT cmoimcode, COUNT(*) membercount 
+	            FROM moimmember 
+	            GROUP BY cmoimcode
+	        ) cnt ON c.cmoimCode = cnt.cmoimCode
+		ORDER BY cmoimcode DESC
+	</select>
+	
+	<!-- 전체모임 리스트 -->
+	<select id="list" parameterType="map" resultType="com.duospace.community.commoim.Commoim">
+	 SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
+        	c.memberNum,NVL(memberCount, 0) memberCount
         	FROM commoim c 
         	JOIN member2 m ON c.membernum = m.membernum
         	LEFT OUTER JOIN (
-            	SELECT cmoimcode,COUNT(*) moimcount 
+            	SELECT cmoimcode,COUNT(*) memberCount 
             	FROM moimmember 
             	GROUP BY cmoimcode
        	 	) cnt ON c.cmoimCode = cnt.cmoimCode
-     	WHERE c.memberNum=#{memberNum}
       	ORDER BY cmoimcode DESC
 	</select>
-
+	<!-- 모임 보기 -->
+	<select id="readcmoim" resultType="com.duospace.community.commoim.Commoim" parameterType="Integer">
+		SELECT cmoimCode,comname,isopen,created,cateCode,REGCODE,memberNum
+	    FROM COMMOIM
+	    WHERE cmoimCode=#{cmoimCode}
+	</select>
+	
+	
 </mapper>

@@ -20,13 +20,13 @@
 		</div>
 	
 		<div style="float: right;vertical-align: middle;">
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/commaincate/admin">
+			<a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/commaincate/admin">
 				임시 관리자
 			</a>
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist/${sessionScope.user.memberNum}">
+			<a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist">
 				인기모임
 			</a>
-			<a style="margin-right: 20px; color: #ffffff; font-size: large;" href="<%=cp%>/mymoimlist/${sessionScope.user.memberNum}">
+			<a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/mymoimlist/${sessionScope.user.memberNum}">
 				나의모임
 			</a>
 			
@@ -34,7 +34,7 @@
 			<span class="glyphicon glyphicon-log-in"></span>
 				duospace
 			</a>
-			<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="color: #ffffff;">
+			<a href="<%=cp%>/duogram" style="color: #ffffff;">
 			<span class="glyphicon glyphicon-log-in"></span>
 				duoGram
 			</a>
@@ -42,7 +42,11 @@
 			<span class="glyphicon glyphicon-log-in"></span>
 				홈
 			</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="<%=cp%>/member/logout" style="color: #ffffff;">
+			<span class="glyphicon glyphicon-log-in"></span>
+				로그아웃
+			</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="color: #ffffff;">
 				<img src="<%=cp%>/resource/images/communiti/bell.png" style="width: 35px; height: 35px; margin-right: 15px;">
 			</a>

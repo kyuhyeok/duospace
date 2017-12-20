@@ -35,6 +35,64 @@ public class CommoimServiceImpl implements CommoimService{
 		return list;
 	}
 
+	@Override
+	public int insertAccept(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.insertData("commoim.insertAccept",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int countAccept(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.countAccept",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Commoim> list(Map<String, Object> map) {
+		List<Commoim> list=null;
+		try {
+			list=dao.selectList("commoim.list",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
+	public Commoim readcmoim(int cmoimCode) {
+		Commoim dto=null;
+		
+		try{
+			// 게시물 가져오기
+			dto=dao.selectOne("commoim.readcmoim", cmoimCode);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public int cmoimSeq() {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.cmoimSeq");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 	
 
 }

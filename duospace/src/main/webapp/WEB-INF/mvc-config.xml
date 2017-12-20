@@ -44,7 +44,7 @@
 	    <mvc:exclude-mapping path="/main"/>
 	    <mvc:exclude-mapping path="/space_main"/>
 	    <mvc:exclude-mapping path="/community"/>
-	    <mvc:exclude-mapping path="/duogram"/>
+	  <!--    <mvc:exclude-mapping path="/duogram"/>-->
 	    <mvc:exclude-mapping path="/resource/**"/>
 		 <mvc:exclude-mapping path="/member/login"/>
 	    <mvc:exclude-mapping path="/member/member"/>

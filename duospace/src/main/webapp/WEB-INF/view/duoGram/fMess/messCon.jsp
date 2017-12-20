@@ -22,7 +22,7 @@
 						</c:when>
 						<c:otherwise>
 							<a class='friendLink' href="<%=cp%>/duogram/${vo.friendNum}">
-								<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}p'>
+								<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}'>
 							</a>
 						</c:otherwise>
 					</c:choose>

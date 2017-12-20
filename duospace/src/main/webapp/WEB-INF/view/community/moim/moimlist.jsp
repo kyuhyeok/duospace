@@ -12,7 +12,7 @@
   		</div>
  			<div style="float: left;">
 			<div style="background-color: #ffffff; width: 180px;height: 200px;margin: 30px;">
-		  		<a href="<%=cp%>/community/commoim/commoim" style="background-color: #ffffff; ">
+		  		<a href="<%=cp%>/community/commoim" style="background-color: #ffffff; ">
 		  			<span style=" padding-top: 55px; padding-left: 65px;">
 		  				<img style="width: 50px;height: 50px; margin-top: 55px;"  src="<%=cp%>/resource/images/communiti/icon_plus.png">
 		  			</span>
@@ -24,19 +24,35 @@
 			</div>
 		</div>
 		<!-- 최근 인기모임 리스트 -->
-		<div style="float: left;">
-			<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
-		  		<a href="<%=cp%>/community/moim/moim?cmoimCode=${dto.cmoimCode}" style=" background-color: #ffffff;">
-		  			<span style=" padding-top: 55px;text-align: center;">
-		  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
-		  			</span>
-		  			<br>
-		  			<span style="display:table ;height: 85px; margin-left: 25px;">
-		  				<span style="display:table; margin-top: 20px; ">제목:${dto.comname}</span>
-		  				<span style="display:table; margin-top: 2px; ">인원수:${dto.moimcount}</span>
-		  			</span>
-		  		</a>
-			</div>
-		</div>
+		<c:forEach var="dto" items="${list}">
+			<c:if test="${cmoimcode!=0}">
+				<div style="float: left;">
+					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+				  		<a href="<%=cp%>/community/moim${dto.cmoimCode}" style=" background-color: #ffffff;">
+				  			<span style=" padding-top: 55px;text-align: center;">
+				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+				  			</span>
+				  			<br>
+				  			<span style="display:table ;height: 85px; margin-left: 25px;">
+				  				<span style="display:table; margin-top: 20px; ">제목:${dto.comname}</span>
+				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.memberCount}</span>
+				  			</span>
+				  		</a>
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${cmoimcode==0}">
+				<div style="float: left;">
+					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
+				  		
+				  		<div style="margin: auto;">
+					  		<h1>
+					  			가입된 모임이 없습니다.
+					  		</h1>
+				  		</div>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
 	</div>
 </div>

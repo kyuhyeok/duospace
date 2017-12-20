@@ -21,13 +21,13 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
 }
-#globalContainer{
+#globalContainerf{
 	margin: 0 auto;
 	position: relative;
 	zoom: 1;
-	width: 851px;/*981px*/
+	width: 851px;/981px
 	clear: both;
-	/*padding-right: 205px;*/
+	/padding-right: 205px;
 }
 #content {
     margin: 0;
@@ -134,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
 }
 a {
-    color: #4b4f56;
+    color: #273A50;
     cursor: pointer;
     text-decoration: none;
 }
@@ -248,7 +248,7 @@ button:focus{
 	outline:none; 
 }
 ._3i9 {
-    padding: 0 14px 0 15px;
+    padding: 0 15px 0 15px;
 }
 
 ._1qp6 .fbProfileBrowserListContainer, ._262m {
@@ -267,11 +267,8 @@ ul {
     padding: 0 10px 0 0;
     position: relative;
     vertical-align: top;
-    width: 390px;
-}<%--
-.uiList>li:first-child {
-    border-width: 0;
-}--%>
+    width: 400px;
+}
 ._4kg>li {
     border-width: 1px 0 0 0;
 }
@@ -351,15 +348,15 @@ html ._4jy0:focus {
 }
 eeVKsWys53f.css:178
 ._4jy1:active, ._4jy1._42fs {
-    background-color: #29487d;
-    border-color: #29487d;
+    background-color: #172A40;
+    border-color: #172A40;
 }
 ._4jy0:active {
     transition: none;
 }
 ._4jy1:hover {
-    background-color: #365899;
-    border-color: #365899;
+    background-color: #172A40;
+    border-color: #172A40;
 }
 ._42ft:hover {
     text-decoration: none;
@@ -368,8 +365,8 @@ eeVKsWys53f.css:178
     line-height: 22px;
 }
 ._4jy1 {
-    background-color: #4267b2;
-    border-color: #4267b2;
+    background-color: #273A50;
+    border-color: #273A50;
 }
 ._4jy1, ._4jy2 {
     color: #ffffff;
@@ -478,8 +475,8 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
     white-space: nowrap;
 }
 .uiMenuItem:hover ,.uiMenuItem:active ,.uiMenuItem:hover span ,.uiMenuItem:active span {
-    background-color: #365899;
-    border-color: #365899;
+    background-color: #374A60;
+    border-color: #374A60;
 	color: #ffffff;
 }
 
@@ -487,7 +484,7 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
     position: relative;
 }
 .uiMenuItem .itemAnchor {
-    border: solid #fff;
+    border: solid #ffffff;
     border-width: 1px 0;
     color: #111;
     display: block;
@@ -541,7 +538,7 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 </head>
 
 <body>
-<div id="globalContainer" class="timelineLayout">
+<div id="globalContainerf" class="timelineLayout">
 	<div class="clearfix" id="content" style="min-height: 100px;">
 		<div id="mainContainer">
 			<div id="contentCol" class="clearfix hasRightCol">
@@ -556,7 +553,8 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 												<h3 class="_3c- lfloat _ohe" id="medley_header_friends">
 													<a class="_51sx" href="#">친구</a>
 												</h3>
-												<span class="_3d0" id="userfriendcnt" style="font-size: 16px;margin-left: -4px;">(208)</span>
+												<span class="_3d0 userfriendcnt" id="userfriendcnt" style="font-size: 16px;margin-left: -4px;"></span>
+												<%--
 												<div class="_6ph rfloat _ohf">
 													<div class="uiTypeahead fbProfileBrowserTypeahead" id="u_fetchstream_14_28">
 														<div class="wrap" style="width: fit-content;">
@@ -564,14 +562,14 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 															<div class="innerWrap">
 																<span class="uiSearchInput textInput" id="u_fetchstream_14_29">
 																	<span>
-																		<input type="text" class="inputtext" maxlength="100" placeholder="친구 검색" autocomplete="off" spellcheck="false">
-																		<button type="submit">검색</button>
+																		<input type="text" class="inputtext" id="searchUserf" maxlength="100" placeholder="친구 검색" autocomplete="off" spellcheck="false">
+																		<button type="button" onclick="searchUserf();">검색</button>
 																	</span>
 																</span>
 															</div>
 														</div>
 													</div>
-												</div>
+												</div> --%>
 											</div>
 										</div>
 										<div id="collection_wrapper_2356318349" class="_3i9">
@@ -635,33 +633,22 @@ var totalPageF=1;
 var blogNum=0;
 var friendcnt=0;
 $(function(){
-	$(".FriendRequestOutgoing").mouseenter(function(){
-		var fNum=$(this).attr("data-fnum");
-		$(this).parent().append(flayout(fNum, 1));
-		$(this).next().css("left", $(this).offset().left + 0);
-		$(this).next().css("top", $(this).offset().left + 10);
-		$(this).next().show();
-	});
-	$(".FriendRequestOutgoing").mouseleave(function(){
-		$(this).next().remove();
-	});
-	$(".FriendRequestFriends").mouseenter(function(){
-		var fNum=$(this).attr("data-fnum");
-		$(this).parent().append(flayout(fNum, 2));
-		$(this).next().css("left", $(this).offset().left + 0);
-		$(this).next().css("top", $(this).offset().left + 10);
-		$(this).next().show();
-	});
-	$(".FriendRequestFriends").mouseleave(function(){
-		$(this).next().remove();
-	});
 	blogNum=Number("${blogNum}");
 	readfcnt();
 	listFPage(1, blogNum);
+	
+	$(document).scroll(function() {
+	    if ($(window).scrollTop() + 100 >= $(document).height() - $(window).height()) {
+	    	if(pagefNo<totalPageF) {
+    			++pagefNo;
+    			listFPage(pagefNo,blogNum);
+	    	}
+	    }
+	});
 });
 function readfcnt(){
-	var url="<%=cp%>/duogram/deleteFReq";
-	var q="blogNum="+blogNum;
+	var url="<%=cp%>/duogram/readFCnt";
+	var q="blogNum="+Number(blogNum);
 	
 	//AJAX:JSON
 	$.ajax({
@@ -670,14 +657,14 @@ function readfcnt(){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			if($('#userfriendcnt').length>0)
-				$('#userfriendcnt').html(data.count);
+			var s="("+data.count+")";
+			$('.userfriendcnt').html(s);
 			friendcnt=data.count;
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
 		}
-		,error:function(data){
+		,error:function(e){
 			if(e.status==403){
 				location.href='<%=cp%>/member/login';
 				return;
@@ -699,7 +686,6 @@ function listFPage(page, blogN) {
 			pagefNo=page;
 			totalPageF=$("#total_Fpage").html();
 			$("#total_Fpage").remove();
-			userfriendList
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
@@ -714,8 +700,9 @@ function listFPage(page, blogN) {
 	});
 	console.log("친구리스트 로딩 완료");
 }
-function flayout(fnum, seri){
-	var s="<div class='uiContextualLayerPositioner _53ip uiLayer' style='width: 948px; left: 350px; top: 530px; opacity: 1;display:none;'>";
+<%--
+function flayout(seri){
+	var s="<div class='uiContextualLayerPositioner _53ip uiLayer' style='width: 0px; left: 280px; top: 51px; opacity: 1;display:none;'>";
 	s+="<div class='uiContextualLayer uiContextualLayerBelowLeft'>";
 	s+="<div class='_5v-0 _53il'>";
 	s+="<div class='_53ij'>";
@@ -723,10 +710,10 @@ function flayout(fnum, seri){
 	s+="<div class='uiMenu FriendListActionMenu'>";
 	s+="<ul class='uiMenuInner'>";
 	if(seri==1||seri=='1'){
-		s+="<li class='uiMenuItem FriendListCancel hidden_elem' onclick='freqcancle("+fnum+")'>";
+		s+="<li class='uiMenuItem FriendListCancel hidden_elem' onclick='freqcancle('fnum')'>";
 		s+="<a class='itemAnchor' href=''><span class='itemLabel fsm'>친구 요청 취소</span></a></li>";
 	}else if(seri==2||seri=='2'){
-		s+="<li class='uiMenuItem FriendListUnfriend' onclick='fcancle("+fnum+")'>";
+		s+="<li class='uiMenuItem FriendListUnfriend' onclick='fcancle('fnum')'>";
 		s+="<a class='itemAnchor' href=''><span class='itemLabel fsm'>친구 끊기</span></a></li>";
 	}
 	s+="</ul>";
@@ -736,18 +723,21 @@ function flayout(fnum, seri){
 	s+="</div>";
 	s+="</div>";
 	s+="</div>";
-	return "s";
-}
+	return s;
+}--%>
 //친구요청하기
 function ftof(fnum){
 	insFReq(fnum);
-	var s="<button class='_42ft _4jy0 FriendRequestOutgoing enableFriendListFlyout outgoingButton enableFriendListFlyout hidden_elem _4jy3 _517h _51sy' type='button'>친구 요청 전송됨</button>";
+	var s="<button class='_42ft _4jy0 FriendRequestOutgoing enableFriendListFlyout outgoingButton enableFriendListFlyout hidden_elem _4jy3 _517h _51sy' type='button' data-fnum='"+fnum+"' onclick='freqcancle("+fnum+"'>친구 요청 전송됨</button>";
 	var f="#friendBtn"+fnum;
 	$(f).html(s);
 }
 function freqcancle(fnum){
+	if(!confirm("친구 요청을 취소하시겠습니까?"))
+		return;
+	
 	var url="<%=cp%>/duogram/deleteFReq";
-	var q="friendNum="+fnum;
+	var q="friendNum="+Number(fnum);
 	
 	//AJAX:JSON
 	$.ajax({
@@ -756,7 +746,8 @@ function freqcancle(fnum){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			listFPage(1);
+			console.log("친구요청 취소");
+			listFPage(1,blogNum);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
@@ -771,6 +762,9 @@ function freqcancle(fnum){
 	});
 }
 function fcancle(fnum){
+	if(!confirm("친구관계를 취소하시겠습니까?"))
+		return;
+	
 	var url="<%=cp%>/duogram/deleteFreind";
 	var q="friendNum="+fnum;
 	
@@ -781,7 +775,7 @@ function fcancle(fnum){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			listFPage(1);
+			listFPage(1,blogNum);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)

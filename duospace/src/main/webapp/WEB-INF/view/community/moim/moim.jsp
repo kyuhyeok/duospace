@@ -74,11 +74,15 @@ $(function(){
 	});
 });
 
+//자유게시판 전체글 리스트
 function listPage(page) {
 	var url="<%=cp%>/freeboard/list";
+	
 	var cmoimCode="${cmoimCode}";//값설정..
+	
 	var query="cmoimCode="+cmoimCode;
 		query+="&pageNo="+page;
+		
 	//ajax:text
 	$.ajax({
 		type:"post"
@@ -88,32 +92,117 @@ function listPage(page) {
 			$("#listFreeboard").html(data);
 		}
 		,error:function(e){
-			consloe.log(e.responseText);
+			console.log(e.responseText);
 		}
 	});
 }
 
-//댓글버튼
 
-/*
+//댓글 리스트.
+function listReply(boardNum){
+	var listReplyId="#listReply"+boardNum;
+	
+	var url="<%=cp%>/freeboard/listReply";
+	
+	var query="boardNum="+boardNum;
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(listReplyId).html(data);
+		}
+		,beforeSend : function(e){
+			e.setRequestHeader("AJAX",true);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
+
+//댓글버튼
 $(function(){
-	$("body").on("click", ".btnReplyAnswerLayout", function(){
-		var replyNum = $(this).attr("data-replyNum");
+	$("body").on("click", ".btnReplyLayout", function(){
+		var boardNum = $(this).attr("data-boardNum");
 		
-		var $trReplyAnswer = $(this).parent().parent().next();
-		var isVisible = $trReplyAnswer.is(":visible");
+		var $trReply = $(this).parent().parent().next();
+		var isVisible = $trReply.is(":visible");
 		
 		if(isVisible) {
-			$trReplyAnswer.hide();
+			$trReply.hide();
 		} else {
-			$trReplyAnswer.show();
+			$trReply.show();
 			
-			listAnswer(replyNum);
+			listReply(boardNum);//댓글 누르면 밑에 리스트가나온다.
 		}
 			
 	});
 });
-*/
+
+//댓글쓰기
+function sendReply(boardNum){
+	var uid="${sessionScope.user.memberNum}";
+	if(! uid){
+		location.href='<%=cp%>/member/login';
+		return;
+	}
+	
+	var content = $.trim($("#replyContent").val());
+	if(! content){
+		$("#replyContent").focus();
+		return;
+	}
+	var query ="content="+encodeURIComponent(content);
+		query+="&cmoimCode=${cmoimCode}";
+		query+="&boardNum="+boardNum;
+		
+	var url="<%=cp%>/freeboard/insertReply";
+	$.ajax({
+		type:"post"			
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data){
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/user/login";
+				return;
+			}
+			$("#replyContent").val("");
+			listReply(boardNum);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+//채팅
+var msocket="";
+function loadchat(){
+	
+	var url="<%=cp%>/moim/chat";
+	
+	var query="cmoimCode=${cmoimCode}";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(loadchatId).html(data);
+		}
+		,beforeSend : function(e){
+			e.setRequestHeader("AJAX",true);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
 </script>
 
 <header>
@@ -131,7 +220,7 @@ $(function(){
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moim">
+					<a style="color: #ffffff;" id="moimcalendar" href="<%=cp%>/community/moim${cmoimCode}/calendar">
 						일정
 					</a>
 				</td>
@@ -161,15 +250,15 @@ $(function(){
 				<!-- 전체글 -->
 				<!-- 새글 올라올곳.. -->		
 				<div id="listFreeboard"></div>
-					<!-- 리플 리스트 -->
-					<!-- 
-					 <div id="listReply"></div>
-					 -->
+				<!-- 리플 리스트 -->
+				<!-- 
+				 <div id="listReply"></div>
+				 -->
 			</div>
 			
 			<!-- 사이드. -->
-			<div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<!-- 채팅DIV -->
+			<!-- <div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<div>
 					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
 						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
@@ -188,7 +277,7 @@ $(function(){
 					</div>
 				</div>
 			</div>
-			
+			 -->
 			<div style="float: left;margin-left: 20px;">
 				<!-- 채팅DIV -->
 				<div>

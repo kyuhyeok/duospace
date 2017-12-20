@@ -3,6 +3,45 @@ package com.duospace.duospace.rmres;
 public class Rmres {
 	private int rmresNum, roomCode, reservNum, people, memberNum;
 	private String startDate, endDate, userName, tel, signSpot;
+	private String saveFileName, spotName, spotAddr2, roomName, floorName;
+	public String getFloorName() {
+		return floorName;
+	}
+	public void setFloorName(String floorName) {
+		this.floorName = floorName;
+	}
+	private int price;
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
+	public String getSpotName() {
+		return spotName;
+	}
+	public void setSpotName(String spotName) {
+		this.spotName = spotName;
+	}
+
+	public String getSpotAddr2() {
+		return spotAddr2;
+	}
+	public void setSpotAddr2(String spotAddr2) {
+		this.spotAddr2 = spotAddr2;
+	}
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
