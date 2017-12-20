@@ -7,6 +7,7 @@ public class Mypage {
 	private int listNum, replyNum, num, answer, blogNum, memberNum, friendNum, isopen;
 	private String name, pwd, Intro, saveFilename, originalFilename;
 	private String company, school, home, created, updated, content;
+	private int replyCount;
 	
 	public int getIsopen() {
 		return isopen;
@@ -168,5 +169,12 @@ public class Mypage {
 	public void setBlogNum(int blogNum) {
 		this.blogNum = blogNum;
 	}
-	
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 }

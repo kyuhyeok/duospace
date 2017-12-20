@@ -34,9 +34,32 @@
 var pageNo=1;
 var totalPage=1;
 
+
+
 $(function(){
+	userLoad();
 	listPage(1);
 });
+
+function userLoad() {
+	var blogNum="${blogNum}";
+	var q="blogNum="+blogNum;
+	
+	var url="<%=cp%>/duogram/mypage/readuser";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:q
+		,dataType:"json"
+		,success:function(data) {
+			$("#rightName").html(data.name);
+		}
+	    ,error:function(e) {
+	    	console.log(e.responseText);
+	    }
+	});
+}
 
 // 글쓰기
 function sendBoard() {
@@ -151,7 +174,9 @@ function sendReply(num) {
 			var s=data.state;
 
 			$("#replyContent").val("");
-			listPage(1);
+			
+			$("#listReplyLayout"+num).show();
+			listReplyMethod(num);
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -166,6 +191,7 @@ function printDuogram(data) {
 	var uid="${sessionScope.user.memberNum}";
 	var dataCount=data.dataCount;
 	var page=pageNo;
+	var replyCount="${replyCount}"
 	totalPage=data.total_page;
 	
 	var out="";
@@ -176,6 +202,7 @@ function printDuogram(data) {
 			var content=data.list[idx].content;
 			var created=data.list[idx].created;
 			var name=data.list[idx].name;
+			var replyCount=data.list[idx].replyCount;
 			
 			out+="<div style='min-height: 220px; margin-bottom: 30px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
@@ -222,24 +249,36 @@ function printDuogram(data) {
 			out+="<a href='#' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요x개　"+"</a>";
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
-			out+="<button class='button' data-target='#reply' data-toggle='modal' style='border:none; font-weight: blod; font-family: '나눔고딕';'>"+"댓글x개"+"</button>";
+			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글"+replyCount+"개"+"</button>";
 			out+="</div>";
 			out+="</div>";
-			
-			// if(listReply==null)
-				out+="<div style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'>댓글이 작성되지 않았습니다.</div>";
-			// else
-				out+="<div id='listMethod("+page+num+")' style='margin-bottom: 5px; min-height: 30px; margin-left: 15px; font-size: 13px; margin-right: 15px;'></div>";
-			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<textarea id='replyContent' class='boxTA' type='text' style='border-radius: 2px; border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 30px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
-			out+="<button type='button' class='btn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
+			out+="<textarea id='replyContent' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
+			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"
 			out+="</div>";
 		}
 		$("#listDuogramBody").append(out);
 	}
 }
+
+// 댓글창 숨기기
+$(function(){
+	$("body").on("click", ".btnReplyLayout", function(){
+		var num = $(this).attr("data-num");
+		var isVisible = $("#listReplyLayout"+num).is(":visible");
+		
+		if(isVisible) {
+			$("#listReplyLayout"+num).hide();
+		} else {
+			$("#listReplyLayout"+num).show();
+			
+			listReplyMethod(num);
+		}
+			
+	});
+});
 
 // 글 삭제
 function deleteBoard(num, page) {
@@ -252,20 +291,18 @@ function deleteBoard(num, page) {
 	  	location.href=url;
 }
 
-function listMethod(num, page){
-	alert("a");
+function listReplyMethod(num){
 	var url="<%=cp%>/duogram/mypage/listReply";
-	var num="${num}";
-	var blogNum="${blogNum}";
+	// var blogNum="${blogNum}";
 	
-	var q="num="+num+"&blogNum="+blogNum+"&pageNo="+page;
+	var q="num="+num;
 	$.ajax
 	({
 		type:"post"
 		,url:url
 		,data:q
 		,success:function(a){
-			$("#listReply").html(a);
+			$("#listReplyLayout"+num).html(a);
 		}
 		,brforeSend : function(e) {
 			e.setRequestHeader("AJAX", true);
@@ -302,12 +339,9 @@ function listMethod(num, page){
 				<!-- 첨부파일 -->
 				<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
 					<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
-						<a href="#">
-							<button type="button" style="border-radius: 4px; border: 1px solid #dddfe2; width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
-						</a>
-						<!-- 글 및 동영상 등록 -->
-						<button type="button" class="btn pull-right" onclick="sendBoard();" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px;  border-radius: 3px; margin-left: 8px; text-align: center;">등록하기</button>
-						<button type="button" class="btn pull-right" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; border-radius: 3px; text-align: center;">동영상추가</button>
+					<input type="file" name="upload" class="form-control input-sm" style="float: left; height: 30px; width: 250px;">
+						<!-- 글 등록 -->
+						<button type="button" class="btn btn-primary btn-sm bbtn" onclick="sendBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>
 					</div>
 				</form>
 			</div>
@@ -326,12 +360,121 @@ function listMethod(num, page){
 			<div style="overflow: hidden; border-radius: 102.5px; background: #ccc; margin-left: 2.4px; margin-top: 2.4px; max-width: 205px; max-height: 205px;">
 				<img style="width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/dong.png">
 			</div>
+			<div style="margin-top: 10px; margin-left: 65px;">
+			<input type="file" name="upload" style="height: 28px; width: 80px;">
+			</div>
 		</div>
 		</div>
+		
+		<!-- ------------------------------------------------------------------------- -->
+		<!-- 
+		 <tr>
+                            <td class="td1">이미지</td>
+                            <td colspan="3" class="td3">
+                                <input type="file" name="upload" class="form-control input-sm" style="height: 35px;">
+                            </td>
+                        </tr>
+                        
+<c:if test="${mode=='update'}">
+                        <tr>
+                            <td class="td1">등록이미지</td>
+                            <td colspan="3" class="td3">
+                                <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}"
+				                 width="30" height="30" border="0"
+				                 onclick="imageViewer('<%=cp%>/uploads/moimalbum/${dto.imageFile}');"
+				                 style="cursor: pointer;">
+                            </td>
+                        </tr>
+</c:if>                    
+		
+		-->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--
+		<div style="max-width:660px; margin: 0px auto;">
+<c:if test="${dataCount!=0 }">    
+        <div style="clear: both; height: 30px; line-height: 30px;">
+            <div style="float: left;">${dataCount}개(${page}/${total_page} 페이지)</div>
+            <div style="float: right;">&nbsp;</div>
+        </div>
+        
+        <div style="clear: both;">
+    <c:forEach var="dto" items="${list}" varStatus="status">
+                 <c:if test="${status.index==0}">
+                       <c:out value="<div style='clear: both; max-width:660px; margin: 0px auto;'>" escapeXml="false"/>
+                 </c:if>
+                 <c:if test="${status.index!=0 && status.index%3==0}">
+                        <c:out value="</div><div style='clear: both; max-width:660px; margin: 0px auto;'>" escapeXml="false"/>
+                 </c:if>
+			      <div class="imgLayout">
+	                     <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}" style="width: 190px; height: 190px;" border="0">
+			             <span class="subject" onclick="javascript:article('${dto.alnum}');" >
+			                   ${dto.subject}
+			             </span>
+			       </div>
+    </c:forEach>
+
+    <c:set var="n" value="${list.size()}"/>
+    <c:if test="${n>0&&n%3!=0}">
+		        <c:forEach var="i" begin="${n%3+1}" end="3" step="1">
+			             <div class="imgLayout">&nbsp;</div>
+		        </c:forEach>
+    </c:if>
+	
+    <c:if test="${n!=0 }">
+		       <c:out value="</div>" escapeXml="false"/>
+    </c:if>
+        </div>
+</c:if>
+
+        <div class="paging" style="text-align: center; min-height: 50px; line-height: 50px;">
+            <c:if test="${dataCount==0 }">
+                  등록된 게시물이 없습니다.
+            </c:if>
+            <c:if test="${dataCount!=0 }">
+                ${paging}
+            </c:if>
+        </div>        
+        
+        <div style="clear: both; margin-bottom: 100px;">
+        		<div style="float: left; width: 20%; min-width: 85px;">
+        		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/list';">새로고침</button>
+        		</div>
+        		<div style="float: left; width: 60%; text-align: center;">
+        		     <form name="searchForm" action="<%=cp%>/moimalbum/list" method="post" class="form-inline">
+						  <select class="form-control input-sm" name="searchKey" >
+						      <option value="subject">제목</option>
+						      <option value="memberNum">작성자</option>
+						      <option value="content">내용</option>
+						      <option value="created">등록일</option>
+						  </select>
+						  <input type="text" class="form-control input-sm input-search" name="searchValue">
+						  <button type="button" class="btn btn-info btn-sm btn-search" onclick="searchList();"><span class="glyphicon glyphicon-search"></span> 검색</button>
+        		     </form>
+        		</div>
+        		<div style="float: left; width: 20%; min-width: 85px; text-align: right;">
+        		    <button type="button" class="btn btn-primary btn-sm bbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/created';"><span class="glyphicon glyphicon glyphicon-pencil"></span> 등록하기</button>
+        		</div>
+        </div>
+        
+    </div>  -->
+    
 	
 	<!-- 자기소개 -->
 	<div style="width: 293px; text-align:center; float: right; background: white; border-radius: 4px; padding: 10px; margin-bottom: 20px; padding-top: 80px; border: 1px solid #dddfe2">
-		<div style="width: 273px;text-decoration: none; font-weight: bold; font-size: 22px; color: #23527c;">${dto.name}동현쿤</div>
+		<div style="width: 273px;text-decoration: none; font-weight: bold; font-size: 22px; color: #23527c;" id="rightName"></div>
 		<div style="width: 273px; padding-top: 8px; font-weight: bold; padding-bottom: 5px; font-size: 15px; border-bottom: 1px solid #ccc;">미미쨩♥</div>
 		<div style="width: 273px; padding-top: 8px; font-size: 14px; padding-bottom: 10px">나는 미미쨩을 너무너무 사랑한다능 으흐흐 낄낄 꺆꺆</div>
 	</div>
@@ -373,7 +516,7 @@ function listMethod(num, page){
 			<br>
 			<span>주소: 서울특별시 강남구 테헤란로14길 6 남도일빌딩</span>
 			<br>
-    		
+			
     </div>
     <div style="padding-left: 10px; margin-bottom: 10px; border-top: 1px solid #dddfe2; width: 293px; padding-right: 10px; padding-top: 2px; float: right; color: #ccc; font-size: 11px;">
     	<span><a href="#" style="text-decoration:none; color: #8a8a8a; font-family: '나눔고딕';"> 회사 소개 </a></span>
@@ -436,19 +579,15 @@ function listMethod(num, page){
 				<div style="margin-top: 10px; margin-bottom: 10px;">
 					<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요." name="content" id="content"></textarea>
 				</div>
-				
 				<!-- 첨부파일 -->
 				<div style="border-top: 1px solid #ccc; margin-bottom: 10px;"></div>
 				<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
-					<a href="#">
-						<button type="button" style="border-radius: 4px; border: 1px solid #dddfe2; width: 250px; height: 28px; text-decoration:none; color: black">첨부파일</button>
-					</a>
+					<input type="file" name="upload" class="form-control input-sm" style="float: left; height: 30px; width: 250px;">
 					<input type="hidden" name="num">
 					<input type="hidden" name="page">
 					<input type="hidden" name="blogNum" value="${blogNum}">
 					<!-- 글 및 동영상 등록 -->
-					<button type="button" class="btn pull-right" onclick="updateBoard();" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px;  border-radius: 3px; margin-left: 8px; text-align: center;">수정하기</button>
-					<button type="button" class="btn pull-right" style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; border-radius: 3px; text-align: center;">동영상추가</button>
+					<button type="button" class="btn btn-primary btn-sm bbtn" onclick="sendBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>
 				</div>
 			</form>
 		</div>

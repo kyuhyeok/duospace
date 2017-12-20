@@ -7,24 +7,23 @@
 %>
 
 <c:if test="${replyCount !=0}">
-	<table style="width: 100%; margin: 10px auto 30px; border-spacing: 0">
+	<table style="width: 614px; border-spacing: 0">
 		<tr height="35">
 			<td colspan="2">
-				<span style="color: #3ea9cd; font-weight: 700;">댓글 ${replyCount}개</span>
-				<span>[댓글 목록, ${pageNo}/${total_page} 페이지]</span>
+				<!-- <span style="color: #3ea9cd; font-weight: 700; margin-left: 15px;">댓글 ${replyCount}개</span> -->
 			</td>
 		</tr>
 		<c:forEach var="vo" items="${listReply}">
-			<tr height="35" style="background: #eeeeee;">
-				<td width="50%" style="padding: 5px 5px; border: 1px solid #cccccc; border-right:none;">
-					<span><b>${vo.userName}</b></span>
+			<tr height="30px">
+				<td width="50%" style="padding-left: 10px;">
+					<span><b><a href="#">${vo.name}</a></b></span>${vo.memberNum},${sessionScope.user.memberNum},${vo.blogNum}
 				</td>
-				<td width="50%" align="right" style="padding: 5px 5px; border: 1px solid #cccccc; border-left:none;">
-					<span>${vo.created}</span>
-					<c:if test="${sessionScope.user.name==vo.userId || sessionScope.member.userId=='admin'}">
-					<a onclick="deleteReply('${vo.replyNum}','${pageNo}')">삭제</a>
+				<td width="50%" align="right" style="padding-right: 10px;">
+					<span style="color: gray">${vo.created}</span>
+					<c:if test="${sessionScope.user.memberNum==vo.memberNum || sessionScope.user.userId=='admin'}">
+					<a onclick="deleteReply('${vo.replyNum}')">삭제</a>
 					</c:if>
-					<c:if test="${sessionScope.member.userId!=vo.userId && sessionScope.member.userId!='admin'}">
+					<c:if test="${sessionScope.user.memberNum!=vo.memberNum && sessionScope.user.userId!='admin'}">
 						<span>신고</span>
 					</c:if>
 				</td>
@@ -37,12 +36,6 @@
 			</tr>
 			
 		</c:forEach>
-		
-		<tr height="40">
-			<td colspan="2" align="center">
-				${paging}
-			</td>
-		</tr>
 	</table>
 	
 </c:if>
