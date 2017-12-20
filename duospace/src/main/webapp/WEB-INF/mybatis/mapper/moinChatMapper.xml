@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="duoGramFM">
+<mapper namespace="moinChat">
 
-	<select id="listFMC" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
-		SELECT friendNum, name, proFileSaveFileName, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, unReadCnt FROM(
-			SELECT ROWNUM rnum, friendNum, name, proFileSaveFileName, sendDate, content, unReadCnt FROM (
-				SELECT m.friendNum, name, proFileSaveFileName, sendDate, content, unReadCnt FROM (
+	<select id="listFMC" resultType="com.duospace.community.moimchat.MoinChat" parameterType="map">
+		SELECT friendNum, name, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, unReadCnt FROM(
+			SELECT ROWNUM rnum, friendNum, name, sendDate, content, unReadCnt FROM (
+				SELECT m.friendNum, name, sendDate, content, unReadCnt FROM (
 					SELECT memberNum, friendNum, sendDate, content FROM (
 						SELECT memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY friendNum ORDER BY sendDate DESC) RANK FROM (
 							SELECT memberNum, friendNum, sendDate, content FROM(
@@ -131,7 +131,7 @@
 		</where>
 	</select>
 	
-	<select id="readFMess" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
+	<select id="readFMess" resultType="com.duospace.community.moimchat.MoinChat" parameterType="map">
 		<choose>
 			<when test="num==0">
 				SELECT num, m.memberNum, friendNum, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, proFileSaveFileName FROM (
@@ -157,12 +157,12 @@
         WHERE friendNum=#{memberNum} AND memberNum=#{friendNum} AND deleteStatus!=2
 	</sql>
 	
-	<insert id="insertFMess" parameterType="com.duospace.duogram.fmess.FMess">
+	<insert id="insertFMess" parameterType="com.duospace.community.moimchat.MoinChat">
 		insert INTO messenger (num, memberNum, friendNum, content)
         VALUES(seq_messenger.NEXTVAL, #{memberNum}, #{friendNum}, #{content})
 	</insert>
 	
-	<select id="listFMessContent" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
+	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoinChat" parameterType="map">
 		SELECT num, friendNum, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, proFileSaveFileName, readDate FROM (
 			SELECT num, friendNum, sendDate, content, proFileSaveFileName, readDate FROM (
 				<if test="end==10">

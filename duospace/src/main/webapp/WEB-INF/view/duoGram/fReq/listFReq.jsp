@@ -437,7 +437,7 @@ function fReqOk(friendNum) {
 	});
 	console.log("요청리스트 삭제 로드");
 }
-function delFReq(friendNum) {
+function delFResp(friendNum) {
 	var url="<%=cp%>/duogram/deleteFResp";
 	var q="friendNum="+friendNum;
 	
@@ -480,14 +480,6 @@ function insFReq(friendNum) {
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			<%--
-			var s=data.state;
-			if(s=="loginFail"){
-				location.href="<%=cp%>/member/login";
-				return;
-			}--%>
-			
-			listFRPage(1);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)

@@ -25,7 +25,7 @@
 }
 
 #dgChatTabFlyout a{	
-	color: #365899;
+	color: #4b4f56;
 	cursor: pointer;
     text-decoration: none;
 }

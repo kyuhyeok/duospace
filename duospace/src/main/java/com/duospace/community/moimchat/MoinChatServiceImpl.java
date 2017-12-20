@@ -1,4 +1,4 @@
-package com.duospace.duogram.fmess;
+package com.duospace.community.moimchat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
 
-@Service("duogram.fMessService")
-public class FMessServiceImpl implements FMessService{
+@Service("duogram.moinChatService")
+public class MoinChatServiceImpl implements MoinChatService{
 	@Autowired
 	private CommonDAO dao;
 	
 	@Override
-	public List<FMess> listFMC(Map<String, Object> map) {
-		List<FMess> list=null;
+	public List<MoinChat> listFMC(Map<String, Object> map) {
+		List<MoinChat> list=null;
 		
 		try {
-			list=dao.selectList("duoGramFM.listFMC", map);
+			list=dao.selectList("moinChat.listFMC", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -31,7 +31,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.listFMCDataCount", map);
+			result=dao.selectOne("moinChat.listFMCDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -43,7 +43,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.fMURtDCnt", map);
+			result=dao.selectOne("moinChat.fMURtDCnt", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -51,12 +51,12 @@ public class FMessServiceImpl implements FMessService{
 	}
 
 	@Override
-	public int insertFMess(FMess dto) {
+	public int insertFMess(MoinChat dto) {
 		int result=0;
 		
 		try {
-			if(dto.getMemberNum()==dto.getFriendNum()) return result;
-			result=dao.insertData("duoGramFM.insertFMess", dto);
+			
+			result=dao.insertData("moinChat.insertFMess", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -64,11 +64,11 @@ public class FMessServiceImpl implements FMessService{
 	}
 	
 	@Override
-	public FMess readFMess(Map<String, Object> map) {
-		FMess dto=null;
+	public MoinChat readFMess(Map<String, Object> map) {
+		MoinChat dto=null;
 		
 		try {
-			dto=dao.selectOne("duoGramFM.readFMess", map);
+			dto=dao.selectOne("moinChat.readFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -76,11 +76,11 @@ public class FMessServiceImpl implements FMessService{
 	}
 	
 	@Override
-	public List<FMess> listFMessContent(Map<String, Object> map) {
-		List<FMess> list=null;
+	public List<MoinChat> listFMessContent(Map<String, Object> map) {
+		List<MoinChat> list=null;
 		
 		try {
-			list=dao.selectList("duoGramFM.listFMessContent", map);
+			list=dao.selectList("moinChat.listFMessContent", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -92,7 +92,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.fMListDataCount", map);
+			result=dao.selectOne("moinChat.fMListDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -104,7 +104,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.updateReadDate", map);
+			result=dao.selectOne("moinChat.updateReadDate", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -116,7 +116,7 @@ public class FMessServiceImpl implements FMessService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("duoGramFM.updateFMess", map);
+			result=dao.selectOne("moinChat.updateFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -124,7 +124,7 @@ public class FMessServiceImpl implements FMessService{
 	}
 
 	@Override
-	public int deleteFMess(FMess dto) {
+	public int deleteFMess(MoinChat dto) {
 		int result=0;
 		
 		try {
@@ -142,17 +142,17 @@ public class FMessServiceImpl implements FMessService{
 				if(readDate!=null) {
 					switch(ds) {
 					case 1:return result;
-					case 2:result=dao.deleteData("duoGramFM.deleteFMess", map);break;
-					default:map.put("deleteStatus", "1");result=dao.updateData("duoGramFM.updateFMess", map);break;
+					case 2:result=dao.deleteData("moinChat.deleteFMess", map);break;
+					default:map.put("deleteStatus", "1");result=dao.updateData("moinChat.updateFMess", map);break;
 					}
 				}else {
-					result=dao.deleteData("duoGramFM.deleteFMess", map);
+					result=dao.deleteData("moinChat.deleteFMess", map);
 				}
 			}else {
 				switch(ds) {
-				case 1:result=dao.deleteData("duoGramFM.deleteFMess", map);break;
+				case 1:result=dao.deleteData("moinChat.deleteFMess", map);break;
 				case 2:return result;
-				default:map.put("deleteStatus", "2");result=dao.updateData("duoGramFM.updateFMess", map);break;
+				default:map.put("deleteStatus", "2");result=dao.updateData("moinChat.updateFMess", map);break;
 				}
 			}
 		} catch (Exception e) {

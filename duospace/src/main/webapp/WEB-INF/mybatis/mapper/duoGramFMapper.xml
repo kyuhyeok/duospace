@@ -24,19 +24,19 @@
 				LEFT OUTER JOIN mygram g ON m.friendNum=g.memberNum
 				LEFT OUTER JOIN member2 m2 ON m.friendNum=m2.memberNum
 				WHERE m.memberNum=#{blogNum}
-				ORDER BY reqDate DESC
+				ORDER BY friendShip ASC, name ASC
 			</when>
 			<otherwise>
 				SELECT b.friendNum, name, email, proFileSaveFileName, NVL(friendShip,0) friendShip, NVL(fofcnt,0) fofcnt
 				FROM gramfriend b
 				LEFT OUTER JOIN (
-					SELECT friendNum, (1+NVL(freq, 0)) friendShip
+					SELECT m.friendNum, (1+NVL(freq, 0)) friendShip
 					FROM gramfriend m
 					LEFT OUTER JOIN (
 						SELECT memberNum friendNum, TO_NUMBER('1') freq  FROM gramfriend
 						WHERE friendNum=#{memberNum}
-					) f ON m.friendNum, f.friendNum
-					WHERE memberNum=#{memberNum}
+					) f ON m.friendNum=f.friendNum
+					WHERE m.memberNum=#{memberNum}
 				) m ON b.friendNum=m.friendNum
 				LEFT OUTER JOIN (
 					SELECT memberNum friendNum, COUNT(*) fofcnt
@@ -50,8 +50,8 @@
 				) fof ON b.friendNum=fof.friendNum
 				LEFT OUTER JOIN mygram g ON b.friendNum=g.memberNum
 				LEFT OUTER JOIN member2 m2 ON b.friendNum=m2.memberNum
-				WHERE memberNum=#{blogNum}
-				ORDER BY reqDate DESC
+				WHERE b.memberNum=#{blogNum}
+				ORDER BY name ASC
 			</otherwise>
 		</choose>
 	</select>

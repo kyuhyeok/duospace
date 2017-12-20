@@ -58,7 +58,7 @@ public class FriendController {
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
-		int rows=10;
+		int rows=20;
 		int total_page=0;
 		int dataCount=0;
 		
@@ -80,6 +80,7 @@ public class FriendController {
 		
 		//포워딩할 jsp에 넘길 데이터
 		model.addAttribute("list", list);
+		model.addAttribute("memberNum", info.getMemberNum());
 		model.addAttribute("fDataCount", dataCount);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("pageFNo", current_page);
@@ -88,7 +89,7 @@ public class FriendController {
 	}
 	
 	//친구 숫자 : AJAX(JSON)
-	@RequestMapping(value="/duogram/readFCnt", method=RequestMethod.GET)
+	@RequestMapping(value="/duogram/readFCnt", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> readFCnt(
 			@RequestParam int blogNum,

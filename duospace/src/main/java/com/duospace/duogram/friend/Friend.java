@@ -4,7 +4,15 @@ public class Friend {
 	private int memberNum, friendNum;
 	private String email, name, proFileSaveFileName, reqDate;
 	private int fofcnt, fDataCount, friendShip;
+	private String searchUser;
 	
+	
+	public String getSearchUser() {
+		return searchUser;
+	}
+	public void setSearchUser(String searchUser) {
+		this.searchUser = searchUser;
+	}
 	public int getFofcnt() {
 		return fofcnt;
 	}

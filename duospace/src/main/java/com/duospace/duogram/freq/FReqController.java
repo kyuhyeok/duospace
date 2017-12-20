@@ -150,18 +150,19 @@ public class FReqController {
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		String state;
+		Map<String, Object> model=new HashMap<>();
 		
 		if(info==null) {
 			state="loginFail";
 		}else {
+			state="true";
 			dto.setMemberNum(info.getMemberNum());
+			model.put("state", state);
+			if(info.getMemberNum()==dto.getFriendNum()) return model;
 			
 			service.insertFReq(dto);
-			
-			state="true";
 		}
 		
-		Map<String, Object> model=new HashMap<>();
 		model.put("state", state);
 		
 		return model;

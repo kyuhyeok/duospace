@@ -23,7 +23,7 @@
 									<!-- 로딩이미지 -->
 									<img alt="" src="">
 									<button type="button" class="RequestOKBtn" onclick="fReqOk('${fRC.friendNum}');">확인</button>
-									<button type="button" class="requestDeleteBtn" onclick="delFReq('${fRC.friendNum}');">요청 삭제</button>
+									<button type="button" class="requestDeleteBtn" onclick="delFResp('${fRC.friendNum}');">요청 삭제</button>
 								</div>
 							</form>
 						</div>
