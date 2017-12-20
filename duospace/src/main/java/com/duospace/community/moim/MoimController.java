@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.member.SessionInfo;
 
-@Controller("meeting.moimController")
+@Controller("community.moimController")
 public class MoimController {
 	@Autowired
 	private MoimService service;
@@ -61,10 +61,6 @@ public class MoimController {
 		model.addAttribute("cmoimCode",cmoimCode);
 		
 		return ".community.moim.moim";
-	}
-	
-	
-	
-	
+	}	
 	
 }

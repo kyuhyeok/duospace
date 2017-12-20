@@ -22,7 +22,7 @@
 		        SELECT  boardNum, content, TO_CHAR(f.created,'YYYY-MM-DD') created, hitcount, writer, f.cmoimcode,m.name
 		            FROM freeboard f 
 		            JOIN commoim c ON f.cmoimcode = c.cmoimcode
-		            JOIN member2 m ON c.membernum = m.membernum
+		            JOIN member2 m ON f.writer = m.membernum
 		            WHERE f.cmoimCode = #{cmoimCode}
 		            ORDER BY boardNum DESC
 <![CDATA[	
@@ -32,19 +32,28 @@
 	</select>
 	
 	<!-- 댓글쓰기 -->
-	
 	<insert id="insertReply" parameterType="com.duospace.community.freeboard.Reply">
 	INSERT INTO FRboardRp(FRboardrpNum, content,boardNum, memberNum,cmoimCode)
 	   VALUES (seq_FRboardRp.NEXTVAL,#{content},#{boardNum},#{memberNum},#{cmoimCode})
 	</insert>
 	
 	<!-- 댓글 갯수확인 -->
-	
 	<select id="replyDataCount" resultType="Integer" parameterType="map">
 	SELECT NVL(COUNT(*), 0)
 	        FROM FRboardRp WHERE boardNum=#{boardNum}
 	</select>
-		
+	
+	<!-- 댓글 리스트 -->
+	<select id="listReply" resultType="com.duospace.community.freeboard.Reply" parameterType="map">
+		SELECT FRboardrpNum, fb.BOARDNUM, fbrp.content, TO_CHAR(fbrp.created,'YYYY-MM-DD') created,
+	  		fb.CMOIMCODE, m.MEMBERNUM,m.name,
+	  		 NVL(fb.boardNum, 0) boardNumCount
+	    FROM FRboardRp fbrp
+	    JOIN FREEBOARD fb ON fbrp.BOARDNUM = fb.boardNum
+	    JOIN member2 m ON fbrp.memberNum = m.memberNum
+	    WHERE fb.boardNum = #{boardNum}
+	    ORDER BY FRboardrpNum DESC
+	</select>
 	
 	
 </mapper>
