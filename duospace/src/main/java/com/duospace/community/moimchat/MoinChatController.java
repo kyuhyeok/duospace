@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.duogram.freq.DuoGramUtil;
 import com.duospace.member.SessionInfo;
 
-@Controller("duogram.moinChatController")
+@Controller("community.moinChatController")
 public class MoinChatController {
 	@Autowired
 	private MoinChatService service;
@@ -25,7 +25,7 @@ public class MoinChatController {
 	@Autowired
 	private DuoGramUtil myUtil;
 	
-	@RequestMapping(value="/duogram/chat", method=RequestMethod.POST)
+	@RequestMapping(value="/moim/chat", method=RequestMethod.POST)
 	public String main(
 			@RequestParam String friendNum,
 			@RequestParam String name,
@@ -48,7 +48,7 @@ public class MoinChatController {
 	}
 	
 	//메신저 친구 리스트(AJAX:TEXT)
-	@RequestMapping(value="/duogram/listFMC", method=RequestMethod.POST)
+	@RequestMapping(value="/moim/listFMC", method=RequestMethod.POST)
 	public String listFMess(
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpSession session,
@@ -84,7 +84,7 @@ public class MoinChatController {
 	}
 	
 	//안읽은 메세지 tot : AJAX(JSON)
-	@RequestMapping(value="/duogram/fMURtDCnt", method=RequestMethod.POST)
+	@RequestMapping(value="/moim/fMURtDCnt", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> fMURtDCnt(
 			HttpSession session
@@ -112,7 +112,7 @@ public class MoinChatController {
 	}
 	
 	//메시지 보내기 : AJAX(JSON)
-	/*@RequestMapping(value="/duogram/insertFMess", method=RequestMethod.POST)
+	/*@RequestMapping(value="/moim/insertFMess", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertFMess(
 			FMess dto,
@@ -137,7 +137,7 @@ public class MoinChatController {
 	}*/
 	
 	//해당 친구 메시지들(AJAX:TEXT)
-	@RequestMapping(value="/duogram/listFMess", method=RequestMethod.POST)
+	@RequestMapping(value="/moim/listFMess", method=RequestMethod.POST)
 	public String listFMessContent(
 			@RequestParam int friendNum,
 			@RequestParam(value="first", defaultValue="0") int first,
@@ -237,7 +237,7 @@ public class MoinChatController {
 	}*/
 	
 	//메시지 삭제 : AJAX(JSON)
-	@RequestMapping(value="/duogram/deleteFMess", method=RequestMethod.POST)
+	@RequestMapping(value="/moim/deleteFMess", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteFMess(
 			MoinChat dto,
