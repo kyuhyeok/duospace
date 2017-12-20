@@ -1,5 +1,6 @@
 package com.duospace.duogram.mypage;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.common.MyUtil;
+import com.duospace.member.Member;
 import com.duospace.member.SessionInfo;
 
 @Controller("mypage.mypageController")
 public class MypageController {
-	
+
 	@Autowired
 	private MypageService service;
 	
@@ -62,14 +64,16 @@ public class MypageController {
 			Mypage dto,
 			HttpSession session
 			) throws Exception {
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"duogram";
+		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
-
 		String state;
 		if(info==null) {
 			state="loginFail";
 		} else {
 			dto.setMemberNum(info.getMemberNum());
-			service.insertBoard(dto);
+			service.insertBoard(dto, pathname);
 			state="true";
 		}
 		
@@ -167,7 +171,7 @@ public class MypageController {
 		if(info==null) {
 			state="loginFail";
 		} else {
-			dto.setMemberNum(info.getMemberNum());;
+			dto.setMemberNum(info.getMemberNum());
 			service.insertReply(dto);
 			
 			if(dto.getAnswer()!=0)
@@ -185,27 +189,15 @@ public class MypageController {
 	@RequestMapping(value="/duogram/mypage/listReply")
 	public String listReply(
 			@RequestParam(value="num") int num,
-			@RequestParam(value="pageNo") int current_page,
 			Model model
 			) {
 		
-		int rows=3;	// 한화면 리스트 개수
-		int total_page=0;
 		int dataCount=0;
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("num", num);
 		
 		dataCount=service.replyDataCount(map);
-		total_page=util.pageCount(rows, dataCount);
-		if(current_page>total_page)
-			current_page=total_page;
-		
-		int start=(current_page-1)*rows+1;
-		int end=current_page*rows;
-		map.put("start", start);
-		map.put("end", end);
-		
 		List<Reply> listReply=service.listReply(map);
 		
 		// 엔터를 <br>로
@@ -213,17 +205,31 @@ public class MypageController {
 			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		}
 		
-		// 페이징처리(인수 2개짜리, 자바스크립트로 처리)
-		String paging=util.paging(current_page, total_page, "listMethod");
 		
 		// 포워딩할 jsp에 넘길 데이터
 		model.addAttribute("listReply", listReply);
-		model.addAttribute("paging", paging);
 		model.addAttribute("replyCount", dataCount);
-		model.addAttribute("total_page", total_page);
-		model.addAttribute("pageNo", current_page);
 		
 		return "duoGram/main/reply";
+	}
+	
+	@RequestMapping(value="/duogram/mypage/readuser")
+	@ResponseBody
+	public Map<String, Object> readuser(
+			@RequestParam int blogNum
+			) throws Exception {
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("blogNum", blogNum);
+		int memberNum=blogNum;
+		
+		Member dto=service.readMember(memberNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		
+		model.put("name", dto.getName());
+		model.put("email", dto.getEmail());
+		return model;
 	}
 	
 }

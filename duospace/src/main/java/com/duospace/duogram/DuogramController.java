@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.common.MyUtil;
-import com.duospace.duogram.mypage.Mypage;
 import com.duospace.member.SessionInfo;
 
 @Controller("duogram.duogramController")
@@ -92,12 +91,11 @@ public class DuogramController {
 		@RequestMapping(value="/duogram/update", 
 				method=RequestMethod.POST)
 		public String updateSubmit(
-				Mypage dto,
+				Duogram dto,
 				@RequestParam String page,
 				HttpSession session) throws Exception {	
 			// 수정 하기
 			service.updateBoard(dto);		
-			
 			return "redirect:/duogram";
 		}
 	
@@ -158,4 +156,59 @@ public class DuogramController {
 		return "redirect:/duogram";
 	}
 	
+	// 댓글 달기
+	@RequestMapping(value="/duogram/insertReply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			){
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		int count=0;
+		if(info==null) {
+			state="loginFail";
+		} else {
+			dto.setMemberNum(info.getMemberNum());
+			service.insertReply(dto);
+			
+			if(dto.getAnswer()!=0)
+				count=service.replyCountAnswer(dto.getReplyNum());
+			state="true";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		model.put("count", count);
+		return model;
+	}
+	
+	// 답글 리스트
+		@RequestMapping(value="/duogram/listReply")
+		public String listReply(
+				@RequestParam(value="num") int num,
+				Model model
+				) {
+			
+			int dataCount=0;
+			
+			Map<String, Object> map=new HashMap<>();
+			map.put("num", num);
+			
+			dataCount=service.replyDataCount(map);
+			List<Reply> listReply=service.listReply(map);
+			
+			// 엔터를 <br>로
+			for(Reply dto : listReply) {
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			}
+			
+			
+			// 포워딩할 jsp에 넘길 데이터
+			model.addAttribute("listReply", listReply);
+			model.addAttribute("replyCount", dataCount);
+			
+			return "duoGram/main/reply";
+		}
 }
