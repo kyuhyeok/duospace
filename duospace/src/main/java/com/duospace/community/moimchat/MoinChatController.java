@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ public class MoinChatController {
 	
 	@RequestMapping(value="/moim/chat", method=RequestMethod.POST)
 	public String main(
+			@PathVariable int cmoimCode,
 			@RequestParam String friendNum,
 			@RequestParam String name,
 			HttpSession session,
@@ -44,11 +46,11 @@ public class MoinChatController {
 		model.addAttribute("friendNum", friendNum);
 		model.addAttribute("name", name);
 		
-		return "duoGram/fMess/dgChat";
+		return "community/moimChat/moimChat";
 	}
 	
-	//메신저 친구 리스트(AJAX:TEXT)
-	@RequestMapping(value="/moim/listFMC", method=RequestMethod.POST)
+	//모임메신저 리스트(AJAX:TEXT)
+	@RequestMapping(value="/moim/listMCC", method=RequestMethod.POST)
 	public String listFMess(
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpSession session,
@@ -111,35 +113,10 @@ public class MoinChatController {
 		return model;
 	}
 	
-	//메시지 보내기 : AJAX(JSON)
-	/*@RequestMapping(value="/moim/insertFMess", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> insertFMess(
-			FMess dto,
-			HttpSession session
-			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		String state;
-		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			dto.setMemberNum(info.getMemberNum());
-			
-			service.insertFMess(dto);
-			
-			state="true";
-		}
-		Map<String, Object> model=new HashMap<>();
-		model.put("state", state);
-		
-		return model;
-	}*/
-	
-	//해당 친구 메시지들(AJAX:TEXT)
-	@RequestMapping(value="/moim/listFMess", method=RequestMethod.POST)
-	public String listFMessContent(
-			@RequestParam int friendNum,
+	//모임 메시지들(AJAX:TEXT)
+	@RequestMapping(value="/moim/listmChat", method=RequestMethod.POST)
+	public String listmChatContent(
+			@RequestParam int cmoinCode,
 			@RequestParam(value="first", defaultValue="0") int first,
 			@RequestParam(value="num", defaultValue="0") int num,
 			HttpSession session,
@@ -154,7 +131,7 @@ public class MoinChatController {
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
-		map.put("friendNum", friendNum);
+		map.put("friendNum", "dd");
 		map.put("first", first);
 		map.put("num", num);
 		
@@ -188,77 +165,9 @@ public class MoinChatController {
 				list=service.listFMessContent(map);
 			}
 		}
-		/*
-		total_page=myUtil.pageCount(rows, dataCount);
-		if(current_page>total_page)
-			current_page=total_page;
 		
-		int start=(current_page-1)*rows+1;
-		int end=current_page*rows;
-		*/
-		
-		//포워딩할 jsp에 넘길 데이터
-		if((dataCount-end)<=0) {
-			model.addAttribute("lastData", 0);
-		}else {
-			model.addAttribute("lastData", dataCount-end);
-		}
 		model.addAttribute("list", list);
-		//model.addAttribute("total_page", total_page);
-		//model.addAttribute("page", current_page);
 		
-		return "duoGram/fMess/messCon";
-	}
-	
-	//메시지 읽음 : AJAX(JSON)
-	/*@RequestMapping(value="/duogram/updateReadDate", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> updateReadDate(
-			@RequestParam int num,
-			HttpSession session
-			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		String state;
-		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			Map<String, Object> map=new HashMap<>();
-			map.put("num", num);
-			service.updateReadDate(map);
-			
-			state="true";
-		}
-		
-		Map<String, Object> model=new HashMap<>();
-		model.put("state", state);
-		
-		return model;
-	}*/
-	
-	//메시지 삭제 : AJAX(JSON)
-	@RequestMapping(value="/moim/deleteFMess", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> deleteFMess(
-			MoinChat dto,
-			HttpSession session
-			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		String state;
-		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			dto.setMemberNum(info.getMemberNum());
-			
-			service.deleteFMess(dto);
-			
-			state="true";
-		}
-		
-		Map<String, Object> model=new HashMap<>();
-		model.put("state", state);
-		
-		return model;
+		return "community/moimChat/moimChat";
 	}
 }
