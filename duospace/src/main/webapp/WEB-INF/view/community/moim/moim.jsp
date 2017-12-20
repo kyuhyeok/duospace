@@ -179,6 +179,29 @@ function sendReply(boardNum){
 		}
 	});
 }
+//채팅
+var msocket="";
+function loadchat(){
+	
+	var url="<%=cp%>/moim/chat";
+	
+	var query="cmoimCode=${cmoimCode}";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(loadchatId).html(data);
+		}
+		,beforeSend : function(e){
+			e.setRequestHeader("AJAX",true);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 
 </script>
 
@@ -234,8 +257,8 @@ function sendReply(boardNum){
 			</div>
 			
 			<!-- 사이드. -->
-			<div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<!-- 채팅DIV -->
+			<!-- <div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<div>
 					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
 						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
@@ -254,7 +277,7 @@ function sendReply(boardNum){
 					</div>
 				</div>
 			</div>
-			
+			 -->
 			<div style="float: left;margin-left: 20px;">
 				<!-- 채팅DIV -->
 				<div>
