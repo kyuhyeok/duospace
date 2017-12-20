@@ -29,6 +29,7 @@
 					WHERE friendNum=#{memberNum} AND readDate IS NULL AND deleteStatus!=2
 					GROUP BY memberNum
 				) c ON m.friendNum=c.friendNum
+				JOIN mygram mg ON m.friendNum=mg.memberNum
 				JOIN member2 n ON n.memberNum=m.friendNum
 				ORDER BY sendDate DESC
 				<![CDATA[
