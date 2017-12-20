@@ -8,6 +8,11 @@
 
 
 <script type="text/javascript">
+function search(f) {
+	f.action="<%=cp%>/admin/reserve/list";
+	f.submit();
+}
+
 $(function() {
 	$("#startDate").datepicker({
 		altFormat: "yyyy-mm-dd",
@@ -52,7 +57,11 @@ $(function(){
 		});
 
 });
-
+function deleteReserve(rmresNum) {
+	if(confirm("예약을 취소하시겠습니까?")){
+		location.href="<%=cp%>/admin/reserve/delete?page=${page}&rmresNum="+rmresNum;
+	}
+}
 
 
 </script>
@@ -89,15 +98,15 @@ $(function(){
 							<div class="x_content">
 								<div class="form-group">
 								
-							<form name="selectListForm" class="form-horizontal" method="post">
+							<form name="searchForm" class="form-horizontal" method="post">
 									
 									<div class="form-group">
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">예약구분</label>
 										<div class="col-sm-2 col-xs-12">
 											<select class="form-control" name="where" onchange="">
-												<option>룸예약</option>
-												<option>좌석예약</option>
+												<option value="0" selected="selected">룸예약</option>
+												<option value="1">좌석예약</option>
 											</select>
 										</div>
 									</div>
@@ -116,15 +125,14 @@ $(function(){
 										<span id="message" style="color: red;"></span>
 									</div>
 									</div>
-								</form>
 								
-								<form name="searchList" class="form-horizontal" method="post">
 									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
 										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
 											<option value="spotName">지점명</option>
+											<option value="roomName">룸명</option>
 											<option value="userName">예약자명</option>
 										</select>
 										
@@ -140,7 +148,7 @@ $(function(){
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="search2(this.form);">검색</button>
+											onclick="search(this.form);">검색</button>
 									</div>
 								</div>
 								
@@ -192,16 +200,16 @@ $(function(){
 										</thead>
 										<tbody>
 
-									
+									<c:forEach items="${list}" var="dto">
 											<tr style="text-align: center">
 												<td><input class="flat" type="checkbox" /></td>
-												<td>1</td>
-												<td>듀오 강남점</td>
-												<td>3층</td>
-												<td>private office</td>
-												<td>김재원</td>
-												<td>2017.09.06 03:00</td>
-												<td>2017.10.06 05:00</td>
+												<td>${dto.listNum}</td>
+												<td>${dto.spotName}</td>
+												<td>${dto.floorName}</td>
+												<td>${dto.roomName}</td>
+												<td>${dto.userName}</td>
+												<td>${dto.startDate }</td>
+												<td>${dto.endDate}</td>
 												<td>결제완료</td>
 		
 												<td>
@@ -209,12 +217,13 @@ $(function(){
 												수정
 												</button>
 												<button type="button" class="btn btn-danger btn-sm"
-													onclick="deleteSpot(${dto.spotCode}, ${page});">
-													<i class="fa fa-check-square-o"></i> 삭제
+													onclick="deleteReserve(${dto.rmresNum});">
+													<i class="fa fa-check-square-o"></i> 예약취소
 												</button>
 												</td>
 											</tr>
-										
+										</c:forEach>
+
 
 										</tbody>
 									</table>
@@ -240,13 +249,7 @@ $(function(){
 		
 								<div class="ln_solid"></div>
 
-								<div class="form-group">
-									<div class="col-xs-12">
-										<button type="button" class="btn btn-success btn-sm" onclick="">
-											<i class="fa fa-plus"></i> 등록
-										</button>
-									</div>
-								</div>
+								
 
 							</div>
 						</div>
