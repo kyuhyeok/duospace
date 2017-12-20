@@ -1,5 +1,6 @@
 package com.duospace.duogram.mypage;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -63,14 +64,16 @@ public class MypageController {
 			Mypage dto,
 			HttpSession session
 			) throws Exception {
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"duogram";
+		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
-
 		String state;
 		if(info==null) {
 			state="loginFail";
 		} else {
 			dto.setMemberNum(info.getMemberNum());
-			service.insertBoard(dto);
+			service.insertBoard(dto, pathname);
 			state="true";
 		}
 		

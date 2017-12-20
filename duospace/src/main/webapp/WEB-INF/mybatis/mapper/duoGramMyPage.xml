@@ -36,7 +36,7 @@
 				resultType="com.duospace.duogram.mypage.Mypage">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb. * FROM (
-				SELECT g.num, m2.name, g.memberNum, blogNum, content, created, nvl(replyCount, 0) replyCount
+				SELECT g.num, m2.name, g.memberNum, g.saveFilename, blogNum, content, created, nvl(replyCount, 0) replyCount
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
 				LEFT OUTER JOIN 

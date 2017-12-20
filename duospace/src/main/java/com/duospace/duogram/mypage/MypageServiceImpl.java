@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.duospace.common.FileManager;
 import com.duospace.common.dao.CommonDAO;
 import com.duospace.member.Member;
 
@@ -14,6 +15,8 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	private CommonDAO dao;
+	@Autowired
+	private FileManager fileManager;
 	
 	@Override
 	public int insertAccept(int memberNum) {
@@ -38,9 +41,15 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int insertBoard(Mypage dto) {
+	public int insertBoard(Mypage dto, String pathname) {
 		int result=0;
 		try {
+			if(! dto.getUpload().isEmpty()) {
+				String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+				dto.setSaveFilename(saveFilename);
+				dto.setOriginalFilename(dto.getUpload().getOriginalFilename());
+			}
+			
 			result=dao.insertData("mypage.mypageInsertBoard", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());

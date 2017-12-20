@@ -8,7 +8,7 @@ import com.duospace.member.Member;
 public interface MypageService {
 	public int insertAccept(int memberNum);
 	public int countAccept(int memberNum);
-	public int insertBoard(Mypage dto);
+	public int insertBoard(Mypage dto, String pathname);
 	public int dataCount(Map<String, Object> map);
 	public List<Mypage> listMypage(Map<String, Object> map);
 	public int deleteBoard(int num, int memberNum);
