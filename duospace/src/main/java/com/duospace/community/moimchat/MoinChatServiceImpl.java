@@ -129,14 +129,14 @@ public class MoinChatServiceImpl implements MoinChatService{
 		
 		try {
 			Map<String, Object> map=new HashMap<>();
-			map.put("num", dto.getNum());
+			map.put("num", "");
 			int my=dto.getMemberNum();
 			
 			dto=null;
 			dto=readFMess(map);
-			int ds=dto.getDeleteStatus();
+			int ds=0;
 			int from=dto.getMemberNum();
-			String readDate=dto.getReadDate();
+			String readDate="";
 			
 			if(my==from) {
 				if(readDate!=null) {

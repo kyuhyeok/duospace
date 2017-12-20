@@ -74,7 +74,7 @@ $(function(){
 	});
 });
 
-
+//자유게시판 전체글 리스트
 function listPage(page) {
 	var url="<%=cp%>/freeboard/list";
 	
@@ -82,6 +82,7 @@ function listPage(page) {
 	
 	var query="cmoimCode="+cmoimCode;
 		query+="&pageNo="+page;
+		
 	//ajax:text
 	$.ajax({
 		type:"post"
@@ -97,12 +98,35 @@ function listPage(page) {
 }
 
 
+//댓글 리스트.
+function listReply(boardNum){
+	var listReplyId="#listReply"+boardNum;
+	
+	var url="<%=cp%>/freeboard/listReply";
+	
+	var query="boardNum="+boardNum;
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(listReplyId).html(data);
+		}
+		,beforeSend : function(e){
+			e.setRequestHeader("AJAX",true);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
+
 //댓글버튼
-
-
 $(function(){
 	$("body").on("click", ".btnReplyLayout", function(){
-		var replyNum = $(this).attr("data-replyNum");
+		var boardNum = $(this).attr("data-boardNum");
 		
 		var $trReply = $(this).parent().parent().next();
 		var isVisible = $trReply.is(":visible");
@@ -112,7 +136,7 @@ $(function(){
 		} else {
 			$trReply.show();
 			
-			//listReply(replyNum);
+			listReply(boardNum);//댓글 누르면 밑에 리스트가나온다.
 		}
 			
 	});
@@ -148,7 +172,30 @@ function sendReply(boardNum){
 				return;
 			}
 			$("#replyContent").val("");
-			//listPage(1);
+			listReply(boardNum);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+//채팅
+var msocket="";
+function loadchat(){
+	
+	var url="<%=cp%>/moim/chat";
+	
+	var query="cmoimCode=${cmoimCode}";
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$(loadchatId).html(data);
+		}
+		,beforeSend : function(e){
+			e.setRequestHeader("AJAX",true);
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -210,8 +257,8 @@ function sendReply(boardNum){
 			</div>
 			
 			<!-- 사이드. -->
-			<div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<!-- 채팅DIV -->
+			<!-- <div style="float: left;margin-left: 20px;margin-bottom: 12px;">
 				<div>
 					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
 						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
@@ -230,7 +277,7 @@ function sendReply(boardNum){
 					</div>
 				</div>
 			</div>
-			
+			 -->
 			<div style="float: left;margin-left: 20px;">
 				<!-- 채팅DIV -->
 				<div>

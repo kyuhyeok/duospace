@@ -164,7 +164,6 @@ function sendCommoim(){
 		query+="&regcode="+regcode;
 		query+="&catecode="+catecode;
 		query+="&isopen="+isopen;
-		
 	var url="<%=cp%>/commoim/insert";
 
 	$.ajax({
@@ -203,7 +202,7 @@ function sendCommoim(){
 		      	  <!-- 카테고리설정 -->
 		      	  <span>카테고리 설정: </span>
 		      	  <select id="catecode" name="catecode" style="border: none;">
-			      	  <option value="1">스프링</option>
+			      	  <option value="2">스프링</option>
 		      	  </select>
 		      </div>
 		      <div class="coverSelect">

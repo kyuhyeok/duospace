@@ -76,8 +76,8 @@ public class FreeboardServiceImpl implements FreeboardService{
 	}
 
 	@Override
-	public List<Freeboard> listReply(Map<String, Object> map) {
-		List<Freeboard> list =null;
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list =null;
 		try {
 			list = dao.selectList("freeboard.listReply",map);
 		} catch (Exception e) {

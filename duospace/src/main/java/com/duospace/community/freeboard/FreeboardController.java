@@ -118,4 +118,26 @@ public class FreeboardController {
 		
 		return map;
 	}
+	
+	
+	//댓글 리스트 TEXT방식.
+	@RequestMapping(value="/freeboard/listReply")
+	public String listReply(
+			@RequestParam int boardNum,
+			Model model
+			)throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("boardNum", boardNum);
+		List<Reply> listReply=service.listReply(map);
+		
+		for(Reply dto : listReply) {
+			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		}
+		model.addAttribute("listReply",listReply);
+		return "community/moim/listReply";
+	}
+	
+	
+	
 }

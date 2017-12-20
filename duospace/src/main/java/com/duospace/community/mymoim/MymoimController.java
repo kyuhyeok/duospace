@@ -41,7 +41,7 @@ public class MymoimController {
 		int dataCount;
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberNum", memberNum);
-		dataCount=dto.getMoimcount();
+		dataCount=dto.getMemberCount();
 		
 		List<Commoim> list=service.listCommoim(map);
 		model.addAttribute("dataCount",dataCount);
