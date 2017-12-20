@@ -36,7 +36,7 @@
 				  			<br>
 				  			<span style="display:table ;height: 85px; margin-left: 25px;">
 				  				<span style="display:table; margin-top: 20px; ">제목:${dto.comname}</span>
-				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.moimcount}</span>
+				  				<span style="display:table; margin-top: 2px; ">인원수:${dto.memberCount}</span>
 				  			</span>
 				  		</a>
 					</div>

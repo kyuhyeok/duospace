@@ -65,28 +65,14 @@
 					</button>
 				</div>
 				<div style="margin: 15px; float: right; padding-right: 50px;">
-					<button type="button" class="btn btnReplyLayout">
+					<button type="button" class="btn btnReplyLayout" data-boardNum="${vo.boardNum}">
 						댓글쓰기<!-- (댓글카운터갯수 추가하기) -->
 					</button>
 				</div>
 			</div>
 			<div style="border-top: 1px solid #eef0f3; float: none; min-height: 60px; display: none;  overflow: auto;" class="reply wrap">
 				<!-- 댓글 리스트 -->
-				<!-- for문 돌리기. -->
-				<div id="listReply">
-					<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;">
-						<a class="profileInner">
-							<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px;">
-						</a>
-						<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
-							이름 : ${vo.name}
-						</span>
-							올린시간 : ${vo.created}
-					</div>
-					<div style="padding-top: 20px;min-height: 60px;background-color: #fff;padding-left: 15px; border-bottom: 1px solid #cccccc; overflow: auto;">
-						내용..					
-					</div>
-				</div>
+				<div id="listReply${vo.boardNum}"></div>
 				
 				<!-- 댓글 쓰기 -->
 				<div style="float: left; min-height: 60px;">
