@@ -217,7 +217,7 @@
 		<where>
 			<choose>
 				<when test="num==0">
-					readDate IS NUll AND memberNum=#{friendNum} AND friendNum=#{memberNum}
+					readDate IS NUll AND memberNum=#{memberNum} AND friendNum=#{friendNum}
 				</when>
 				<otherwise>
 					num=#{num}

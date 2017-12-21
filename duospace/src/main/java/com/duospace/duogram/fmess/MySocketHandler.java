@@ -94,6 +94,13 @@ public class MySocketHandler extends TextWebSocketHandler {
 			String senderNum = jsonReceive.getString("senderNum");
 			String receiveNum = jsonReceive.getString("receiveNum");
 			chatUserMap.put(senderNum+"-"+receiveNum, session);
+			Iterator<String> it = chatUserMap.keySet().iterator();
+			int i=0;
+			while (it.hasNext()) {
+				String key = it.next();
+				i++;
+				System.out.println("사용자리스트"+i+":"+key);
+			}
 		} catch (Exception e) {
 			this.logger.info(e.toString());
 		}
@@ -103,17 +110,25 @@ public class MySocketHandler extends TextWebSocketHandler {
 		try {
 			String senderNum = jsonReceive.getString("senderNum");
 			String receiveNum = jsonReceive.getString("receiveNum");
-			
+			System.out.println("보냄:"+senderNum+"받음"+receiveNum+"읽음처리 준비");
 			Map<String, Object> map=new HashMap<>();
+			map.put("memberNum", Integer.parseInt(senderNum));
+			map.put("friendNum", Integer.parseInt(receiveNum));
+			map.put("num", 0);
+			System.out.println("보냄:"+receiveNum+"받음"+senderNum+"읽음처리직전");
+			
+			int result=fms.fMURtDCnt(map);
+			System.out.println("보냄:"+receiveNum+"받음"+senderNum+"안읽음개수"+result);
+			if(result<=0) return;
+			
 			map.put("memberNum", Integer.parseInt(receiveNum));
 			map.put("friendNum", Integer.parseInt(senderNum));
-			map.put("num", 0);
-			int result=fms.updateReadDate(map);
-			if(result==0) return;
+			result=fms.updateReadDate(map);
 			
+			System.out.println("보냄:"+receiveNum+"받음"+senderNum+"읽음처리"+result);
 			JSONObject job=new JSONObject();
 			if(chatUserMap.get(receiveNum+"-"+senderNum)==null)	return;
-			
+			System.out.println("보냄:"+receiveNum+"받음"+senderNum+"읽음처리성공후 읽었다고 보냄");
 			job.put("type", "read");
 			sendOneMessage(job.toString(), chatUserMap.get(receiveNum+"-"+senderNum));
 		} catch (Exception e) {
@@ -213,12 +228,14 @@ public class MySocketHandler extends TextWebSocketHandler {
 			String memberNum = jsonReceive.getString("memberNum");
 			String memberName = jsonReceive.getString("memberName");
 			String memberId = jsonReceive.getString("memberId");
+			String profile = ms.readMember(memberId).getProfile();
 			if(memberNum==null) return;
 			
 			MemberInfo memberInfo=new MemberInfo();
 			memberInfo.setSession(session);
 			memberInfo.setMemberName(memberName);
 			memberInfo.setMemberId(memberId);
+			memberInfo.setProfile(profile);
 			
 			String cmoimCode = jsonReceive.getString("cmoimCode");
 			
@@ -317,6 +334,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 		String cmd=jsonReceive.getString("cmd");
 		String memberNum=getUserNum(session);
 		String memberName=memberMap.get(memberNum).getMemberName();
+		String profile=memberMap.get(memberNum).getProfile();
 		if(cmd==null||memberNum==null) return;
 		
 		MemberInfo memberInfo=memberMap.get(memberNum);
@@ -337,6 +355,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 				job.put("cmd", "chatMsg");
 				job.put("memberNum", memberNum);
 				job.put("memberName", memberName);
+				job.put("profile", profile);
 				job.put("message", msg);
 				
 				String out=null;
