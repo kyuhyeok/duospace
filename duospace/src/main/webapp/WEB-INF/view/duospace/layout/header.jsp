@@ -144,7 +144,7 @@ li:hover ul.submenu {
 					<c:if test="${not empty sessionScope.user}">
 						<span style="color: #D9383A;">${sessionScope.user.userName}</span>님 <i></i>
 						<a href="<%=cp%>/member/logout"> 로그아웃</a>
-						<a href="#"> 마이 페이지</a>
+						<a href="<%=cp%>/mypage"> 마이 페이지</a>
 					</c:if>
 					<c:if test="${sessionScope.user.userId=='admin'}">
 						<a href="<%=cp%>/admin">관리자</a>
