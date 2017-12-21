@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.mypage">
+
+	<select id="paylist" resultType="com.duospace.duospace.mypage.Mypage" parameterType="Integer">
+	SELECT TO_CHAR(rm.startDate,'YYYY-MM-DD')startDate, TO_CHAR(rm.endDate,'YYYY-MM-DD')endDate,
+	rm.reservNum, rm.people, rm.userName, rm.tel, rm.PRICE, s.SPOTNAME, ro.SAVEFILENAME, f.FLOORNAME, ro.roomName
+    ,s.SPOTADDR2
+	FROM rmres rm
+	JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+    JOIN room ro ON rm.ROOMCODE=ro.ROOMCODE
+    JOIN floor f ON ro.FLOORNUM=f.FLOORNUM
+    JOIN spot s ON f.SPOTCODE=s.SPOTCODE
+    WHERE
+    memberNum=#{memberNum}
+	</select>
+	
+</mapper>

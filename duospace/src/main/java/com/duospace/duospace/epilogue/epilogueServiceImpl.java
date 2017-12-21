@@ -28,7 +28,7 @@ public class epilogueServiceImpl implements epilogueService{
 				dto.setSaveFilename(saveFilename);
 			}
 			
-			result=dao.insertData("duospace.epilogue.created", dto);
+			result=dao.insertData("duospace.epilogue.insert", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
