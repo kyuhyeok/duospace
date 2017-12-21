@@ -55,7 +55,6 @@ $(function(){
     	var type = data.type;
     	
     	if(type=="talk") {
-    		alert(data.msg);
     		writeToScreen(data);
     	} else if(type=="read"){
     		if($(".unreadfm").length>0)

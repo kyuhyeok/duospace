@@ -5,11 +5,7 @@
 <%
 	String cp=request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 <style type="text/css">
 
@@ -253,8 +249,7 @@ var str;
 }
 
 </script>
-</head>
-<body>
+
 <div>
 	<nav class="region-bar">
 			<ul>
@@ -315,7 +310,3 @@ var str;
       </div>
     </div>
   </div>		
-  
-  
-</body>
-</html>
