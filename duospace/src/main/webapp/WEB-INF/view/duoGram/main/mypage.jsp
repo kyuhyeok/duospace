@@ -119,8 +119,7 @@ $(function(){
 		f.content.value=content;
 		f.page.value=page;
 		
-		$("#updateModelDlg").modal("show");
-			
+		$("#updateModelDlg").modal("show");	
 	});
 });
 
@@ -218,11 +217,12 @@ function printDuogram(data) {
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
-			out+="<a href='#' style='text-decoration:none; color: black;'>";
+			out+="<a href='' style='text-decoration:none; color: black;'>";
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
-			out+="<div style='float:left; height: '><a href='#' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<div style='float:left; height: '>";
+			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
 			out+="<br>"
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div class='dropdown' style='float:right;'>";
@@ -230,11 +230,11 @@ function printDuogram(data) {
 			out+="<span><img src='<%=cp%>/resource/images/duogram/dot.PNG' style='width: 12px; height: 3px;'></span>";
 			out+="</button>"
 			out+="<ul class='dropdown-menu'>";
-			if(uid==memberNum)
+			if(uid==memberNum || uid=="1" || uid=="true")
 				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
 			else
 				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
-			if(uid==memberNum || uid=="admin" || uid=="true")
+			if(uid==memberNum || uid=="1" || uid=="true")
 				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
 			else
 				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
@@ -319,6 +319,29 @@ function listReplyMethod(num){
 		}
 	});
 }
+function deleteReply(replyNum, page) {
+	if(! confirm("답글을 삭제하시겠습니까?"))
+		return;
+	var url="<%=cp%>/duogram/mypage/deleteReply";
+	// AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:{replyNum:replyNum}
+		,dataType:"json"
+		,success:function(data) {
+			var s=data.state;
+			if(s=="loginFail") {
+				location.href="<%=cp%>/member/login";
+				return;
+			}
+			listPage(page);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 
 </script>
 
@@ -372,117 +395,8 @@ function listReplyMethod(num){
 			<div style="overflow: hidden; border-radius: 102.5px; background: #ccc; margin-left: 2.4px; margin-top: 2.4px; max-width: 205px; max-height: 205px;">
 				<img style="width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/dong.png">
 			</div>
-			<div style="margin-top: 10px; margin-left: 65px;">
-			<input type="file" name="upload" style="height: 28px; width: 80px;">
-			</div>
 		</div>
 		</div>
-		
-		<!-- ------------------------------------------------------------------------- -->
-		<!-- 
-		 <tr>
-                            <td class="td1">이미지</td>
-                            <td colspan="3" class="td3">
-                                <input type="file" name="upload" class="form-control input-sm" style="height: 35px;">
-                            </td>
-                        </tr>
-                        
-<c:if test="${mode=='update'}">
-                        <tr>
-                            <td class="td1">등록이미지</td>
-                            <td colspan="3" class="td3">
-                                <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}"
-				                 width="30" height="30" border="0"
-				                 onclick="imageViewer('<%=cp%>/uploads/moimalbum/${dto.imageFile}');"
-				                 style="cursor: pointer;">
-                            </td>
-                        </tr>
-</c:if>                    
-		
-		-->
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!--
-		<div style="max-width:660px; margin: 0px auto;">
-<c:if test="${dataCount!=0 }">    
-        <div style="clear: both; height: 30px; line-height: 30px;">
-            <div style="float: left;">${dataCount}개(${page}/${total_page} 페이지)</div>
-            <div style="float: right;">&nbsp;</div>
-        </div>
-        
-        <div style="clear: both;">
-    <c:forEach var="dto" items="${list}" varStatus="status">
-                 <c:if test="${status.index==0}">
-                       <c:out value="<div style='clear: both; max-width:660px; margin: 0px auto;'>" escapeXml="false"/>
-                 </c:if>
-                 <c:if test="${status.index!=0 && status.index%3==0}">
-                        <c:out value="</div><div style='clear: both; max-width:660px; margin: 0px auto;'>" escapeXml="false"/>
-                 </c:if>
-			      <div class="imgLayout">
-	                     <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}" style="width: 190px; height: 190px;" border="0">
-			             <span class="subject" onclick="javascript:article('${dto.alnum}');" >
-			                   ${dto.subject}
-			             </span>
-			       </div>
-    </c:forEach>
-
-    <c:set var="n" value="${list.size()}"/>
-    <c:if test="${n>0&&n%3!=0}">
-		        <c:forEach var="i" begin="${n%3+1}" end="3" step="1">
-			             <div class="imgLayout">&nbsp;</div>
-		        </c:forEach>
-    </c:if>
-	
-    <c:if test="${n!=0 }">
-		       <c:out value="</div>" escapeXml="false"/>
-    </c:if>
-        </div>
-</c:if>
-
-        <div class="paging" style="text-align: center; min-height: 50px; line-height: 50px;">
-            <c:if test="${dataCount==0 }">
-                  등록된 게시물이 없습니다.
-            </c:if>
-            <c:if test="${dataCount!=0 }">
-                ${paging}
-            </c:if>
-        </div>        
-        
-        <div style="clear: both; margin-bottom: 100px;">
-        		<div style="float: left; width: 20%; min-width: 85px;">
-        		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/list';">새로고침</button>
-        		</div>
-        		<div style="float: left; width: 60%; text-align: center;">
-        		     <form name="searchForm" action="<%=cp%>/moimalbum/list" method="post" class="form-inline">
-						  <select class="form-control input-sm" name="searchKey" >
-						      <option value="subject">제목</option>
-						      <option value="memberNum">작성자</option>
-						      <option value="content">내용</option>
-						      <option value="created">등록일</option>
-						  </select>
-						  <input type="text" class="form-control input-sm input-search" name="searchValue">
-						  <button type="button" class="btn btn-info btn-sm btn-search" onclick="searchList();"><span class="glyphicon glyphicon-search"></span> 검색</button>
-        		     </form>
-        		</div>
-        		<div style="float: left; width: 20%; min-width: 85px; text-align: right;">
-        		    <button type="button" class="btn btn-primary btn-sm bbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/created';"><span class="glyphicon glyphicon glyphicon-pencil"></span> 등록하기</button>
-        		</div>
-        </div>
-        
-    </div>  -->
-    
 	
 	<!-- 자기소개 -->
 	<div style="width: 293px; text-align:center; float: right; background: white; border-radius: 4px; padding: 10px; margin-bottom: 20px; padding-top: 80px; border: 1px solid #dddfe2">
@@ -550,36 +464,12 @@ function listReplyMethod(num){
 <!-- right -->
 <!-- /mid -->
 
-<!-- 댓글 -->
-<div class="modal fade worp" id="reply" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- header -->
-      <div class="modal-header">
-        <!-- 닫기(x) 버튼 -->
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <!-- header title -->
-        <h4 class="modal-title">Header</h4>
-      </div>
-      <!-- body -->
-      <div class="modal-body">
-            Body
-      </div>
-      <!-- Footer -->
-      <div class="modal-footer">
-        Footer
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- 수정창 -->
 <div class="modal fade worp" id="updateModelDlg">
   <div class="wrap" style="width: 614px; position: fixed; top: 300px; left: 650px;">
 		<div style="margin-bottom: 60px; width: 614px; border: 1px solid #dddfe2; background-color: white; border-radius: 4px;">
 			<!-- 게시글 등록 및 동영상 추가 -->
-			<form name="mypageUpdateForm" method="post">
+			<form name="mypageUpdateForm" method="post" enctype="multipart/form-data">
 				<div style="height: 40px; padding: 5px; background: #f6f7f9; border-bottom: 3px solid #dddfe2;">
 					<div align="left" class="duo_01" style="margin-left: 5px; color: black; margin-right: 5px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">
 					게시물 수정
@@ -599,7 +489,7 @@ function listReplyMethod(num){
 					<input type="hidden" name="page">
 					<input type="hidden" name="blogNum" value="${blogNum}">
 					<!-- 글 및 동영상 등록 -->
-					<button type="button" class="btn btn-primary btn-sm bbtn" onclick="sendBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>
+					<button type="button" class="btn btn-primary btn-sm bbtn" onclick="updateBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>
 				</div>
 			</form>
 		</div>

@@ -170,7 +170,7 @@ public class DuogramController {
 		if(info==null) {
 			state="loginFail";
 		} else {
-			dto.setMemberNum(info.getMemberNum());
+			dto.setWriter(info.getMemberNum());
 			service.insertReply(dto);
 			
 			if(dto.getAnswer()!=0)
