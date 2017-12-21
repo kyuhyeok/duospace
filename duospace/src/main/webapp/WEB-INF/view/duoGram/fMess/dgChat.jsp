@@ -44,6 +44,7 @@ $(function(){
 	    socket.send(jsonStr);
 		console.log("소켓로딩");
 	    console.log(uNum+":"+friendNum+' is connected.');
+	    readaFMessCnt();
 	}
 
 	function onClose(evt) {
