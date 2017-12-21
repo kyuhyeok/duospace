@@ -17,7 +17,7 @@
 
 <!-- header -->
 <form>
-	<div style="z-index: 3; background: #172A40; border-bottom: 1px solid black; position: fixed; top:0px; margin: 0px; width: 100%; height:80px;" align="center">
+	<div style="z-index: 3; background: #172A40; border-bottom: 3px solid black; position: fixed; top:0px; margin: 0px; width: 100%; height:80px;" align="center">
 		<table style="height: 80px; width: 935px; margin: auto;">
 			<tr>
 				<td align="left" width="311px" style="padding-left: 10px">
@@ -95,7 +95,7 @@
 	<div style="z-index: 2; position: fixed; width: 100%; background: white; border-bottom: 1px solid #ccc; margin-top: 80px; height: 37px;" align="center">
 		<table style="width: 935px; margin: 0px;">
 			<tr>
-				<td align="left">
+				<td align="left" style="padding-top: 5px;">
 					<c:if test="${sessionScope.user.userId=='admin'}">
 						<a href="<%=cp%>/admin" style="text-decoration: none">관리자페이지　　  </a>
 					</c:if>
@@ -103,11 +103,7 @@
 						<td style="width: 150px"></td>
 					</c:if>
 				</td>
-				<td style="padding: 5px;" align="center">
-					<input type="text" style="border: 1px solid #ccc; border-radius: 10px; 
-      					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black;" placeholder="                 검색">
-				</td>
-				<td align="right">
+				<td align="right" style="padding-top: 5px;">
 					<c:if test="${not empty sessionScope.user}">
 						<span style="color: red;">${sessionScope.user.userName}</span>님 환영합니다.<i></i>
 					</c:if>|

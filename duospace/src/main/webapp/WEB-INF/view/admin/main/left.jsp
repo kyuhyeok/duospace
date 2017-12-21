@@ -71,6 +71,7 @@
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="<%=cp%>/admin/reserve/list">예약 리스트</a></li>
 								<li><a href="#">예약 등록</a></li>
+								<li><a href="<%=cp%>/admin/reserve/complete/list">완료된 예약리스트</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">

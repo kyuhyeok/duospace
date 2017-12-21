@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String cp=request.getContextPath();
-	String wsURL = "ws://"+request.getServerName()+":"+request.getServerPort()+cp+"/chat.msg";
+	String wsURL = "ws://"+request.getServerName()+":"+request.getServerPort()+cp+"/echo.msg";
 %>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <style type="text/css">
 textarea{
 	text-align: left;
@@ -203,7 +203,7 @@ $(function() {
 	    var jsonStr;
 	    obj.type="mconn";
 	    obj.memberNum="${sessionScope.user.memberNum}";
-	    obj.cmoinCode="${cmoinCode}";
+	    obj.cmoimCode="${cmoimCode}";
 	    obj.memberName="${sessionScope.user.userName}";
 	    obj.memberId="${sessionScope.user.userId}";
 	    jsonStr = JSON.stringify(obj); 
@@ -245,7 +245,7 @@ $(function() {
     	console.log("메시지 입력 제한 로드");
     });
 	
-	function sendMessage() {
+	$("#chatsend").on("click",function sendMessage() {
 		var msg=$("#chatinputstream").val().trim();
 		console.log("보낼 메시지:"+msg);
 		if(! msg.length>0) {
@@ -253,7 +253,6 @@ $(function() {
 			$("#chatinputstream").focus();
 			return;
 		}
-		if(friendNum==0) return;
 		
 		console.log("보낼 준비");
         var obj = {};
@@ -266,7 +265,7 @@ $(function() {
 		console.log("메시지 보내기")
         
         $("#chatinputstream").val("");
-	}
+	});
 	
 	function talkProcerss(data) {
 		var cmd=data.cmd;
@@ -365,9 +364,9 @@ function writeToScreen(data) {
 
 function memberCard(memberName, memberId, memberNum, profile) {
 	var s='';
-	s+="<li class="objectListItem messegeContainer" data-memberNum="${vo.friendNum}">";
-	s+="<div class="clearfix" style="zoom: 1;">";
-	s+="<div class="objectListItem_profile" style="float: left;margin-right: 8px;">";
+	s+="<li class='objectListItem messegeContainer' data-memberNum="+memberNum+">";
+	s+="<div class='clearfix' style='zoom: 1;'>";
+	s+="<div class='objectListItem_profile' style='float: left;margin-right: 8px;'>";
     if(profile==''){
     	s+="<img style='width:50px; height: 50px; margin: -1px;' src='<%=cp%>/resource/images/duogram/person-1701091912.png'>";
     }else{
@@ -388,8 +387,8 @@ function memberCard(memberName, memberId, memberNum, profile) {
 }
 
 function listmoimchat(page){
-	var url="<%=cp%>/duogram/listFMess";
-	var q="cmoimCode="+${cmoinCode}+"&cmoimCode="+page;
+	var url="<%=cp%>/moim/listmChat";
+	var q="cmoimCode="+${cmoimCode}+"&page="+page;
 	
 	$.ajax({
 		type:"post"
@@ -448,7 +447,7 @@ function listmoimchat(page){
                     <textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
                 </div>
                 <div style="float:left">
-					<button type="button" style="width:auto;right:-15px;position:relative;" onclick="sendMessage();">보내기</button>
+					<button type="button" id="chatsend" style="width:auto;right:-15px;position:relative;">보내기</button>
 	            </div>
             </div>
       	</div>

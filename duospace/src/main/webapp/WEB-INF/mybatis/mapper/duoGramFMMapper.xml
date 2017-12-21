@@ -216,8 +216,8 @@
 		UPDATE messenger SET readDate=SYSDATE
 		<where>
 			<choose>
-				<when test="num=0">
-					readDate IS NUll AND memberNum=#{friendNum} AND friendNum=#{memberNum}
+				<when test="num==0">
+					readDate IS NUll AND memberNum=#{memberNum} AND friendNum=#{friendNum}
 				</when>
 				<otherwise>
 					num=#{num}

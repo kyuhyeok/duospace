@@ -11,9 +11,9 @@ public interface MypageService {
 	public int insertBoard(Mypage dto, String pathname);
 	public int dataCount(Map<String, Object> map);
 	public List<Mypage> listMypage(Map<String, Object> map);
-	public int deleteBoard(int num, int memberNum);
+	public int deleteBoard(int num, int memberNum, String pathname);
 	public Mypage readBoard(int num);
-	public int updateBoard(Mypage dto);
+	public int updateBoard(Mypage dto, String pathname);
 	
 	// 댓글
 	public int insertReply(Reply dto);
