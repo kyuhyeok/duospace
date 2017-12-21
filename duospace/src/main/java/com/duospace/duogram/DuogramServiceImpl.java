@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
-import com.duospace.duogram.mypage.Mypage;
 
 @Service("duogram.duogramService")
 public class DuogramServiceImpl implements DuogramService {
@@ -100,7 +99,7 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public int updateBoard(Mypage dto) {
+	public int updateBoard(Duogram dto) {
 		int result=0;
 		
 		try {
@@ -111,4 +110,56 @@ public class DuogramServiceImpl implements DuogramService {
 		}
 		return result;
 	}
+
+	@Override
+	public int insertReply(Reply dto) {
+		int result=0;
+		try {
+			result=dao.insertData("duogram.insertReply", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("duogram.listReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
+	public int replyDataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("duogram.replyDataCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteReply(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Reply> listReplyAnswer(int answer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int replyCountAnswer(int answer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -9,20 +9,23 @@
 		OR  (enddate  BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD')  AND  TO_DATE(#{endDate},'YYYY/MM/DD'))
 		)
 	</if>
-	<if test="startDate != NULL and startDate !=''">
+	<if test="startDate != NULL and startDate !='' and (endDate ==null or endDate =='')">
 		startDate = TO_DATE(#{startDate},'YYYY/MM/DD') 
 	</if>
-	<if test="endDate !=null and endDate !=''">
+	<if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
 		endDate = TO_DATE(#{endDate},'YYYY/MM/DD')
 	</if>
 
 </sql>
 <sql id="where-list">
 	<if test="searchKey=='userName'">
-		userName=#{searchValue}
+		INSTR(userName,#{searchValue}) &gt; 0
 	</if>
 	<if test="searchKey=='spotName'">
-		spotName=#{searchValue}
+		INSTR(spotName,#{searchValue}) &gt; 0
+	</if>
+	<if test="searchKey=='roomName'">
+		INSTR(roomName,#{searchValue}) &gt; 0
 	</if>
 </sql>
 
@@ -48,7 +51,8 @@
 <select id="reserveRoomList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
 	 SELECT * FROM (
 		SELECT ROWNUM rnum, tb.* FROM(
-			 SELECT r1.reservnum,membernum,NVL(signspot,0) signspot,rmresnum,startdate,enddate,userName,
+			 SELECT r1.reservnum,membernum,NVL(signspot,0) signspot,rmresnum,TO_CHAR(startdate,'YYYY/MM/DD') startDate,
+			 	TO_CHAR(enddate,'YYYY/MM/DD')endDate,userName,
 		        r2.roomcode,roomname,ro.floornum, floorname, 
 		        f.spotcode, spotname
 			FROM reserv r1
@@ -73,5 +77,15 @@
 </select>
 
 
+<delete id="deleteRmres" parameterType="Integer">
+	DELETE FROM rmres WHERE rmresNum=#{rmresNum}
+</delete>
 
+<select id="readReservNum" parameterType="Integer" resultType="Integer">
+	SELECT reservNum FROM rmres WHERE rmresNum=#{rmresNum}
+</select>
+
+<delete id="deleteReserv" parameterType="Integer">
+	DELETE FROM reserv WHERE reservNum=#{reservNum}
+</delete>
 </mapper>

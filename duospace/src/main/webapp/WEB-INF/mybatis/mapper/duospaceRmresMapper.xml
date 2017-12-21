@@ -47,4 +47,21 @@
 	<select id="readReserveNum" resultType="Integer">
 		SELECT MAX(reservnum) reservNum FROM reserv
 	</select>
+	
+	<!-- 예약 확인 -->
+	<select id="reservCount" parameterType="map" resultType="Integer">
+		SELECT NVL(count(*),0)count 
+			FROM RESERV re 
+			JOIN rmres r ON
+			re.RESERVNUM=r.RESERVNUM
+<![CDATA[
+			WHERE 
+			roomCode=#{roomCode}
+			AND
+			(startDate>=#{startDate} AND startDate<=#{endDate})
+			OR 
+			(endDate>=#{startDate} AND endDate<=#{endDate})
+]]>			
+	</select>
+	
 </mapper>

@@ -199,7 +199,7 @@ public class ReserveController {
 		model.addAttribute("dto", dto);
 		
 		
-		return ".reserve.reserveComplete";
+		return ".complete.scomplete";
 	}
 	
 	

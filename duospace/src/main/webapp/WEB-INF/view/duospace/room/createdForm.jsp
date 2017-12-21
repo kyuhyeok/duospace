@@ -17,20 +17,51 @@ function Spot(num) {
 	var pay=document.getElementById("pay");
 
 	if(num==0){
-		res.style.display="block";
-		pay.style.display="none";
-	}else{
 		res.style.display="none";
 		pay.style.display="block";
+	}else{
+		res.style.display="block";
+		pay.style.display="none";
 	}
+}
+
+function reservCount(roomCode,startDate,endDate) {
+	var roomCode=$("#roomCode").val();
+	var startDate=$("#rs_date").val();
+	var endDate=$("#rs_date2").val();
 	
+	var url="<%=cp%>/reservCount";
+	var p="roomCode="+roomCode+"&startDate="+startDate+"&endDate="+endDate;
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:p
+		,dataType:"json"
+		,success:function(data){
+				var reservCount=data.reservCount;
+				
+				if(reservCount >=1){
+					$("#message").html("<span> 현재 날짜는 예약 또는 결제가</span><span style='color:red;'> 불가능 </span><span>합니다.</span>");
+					$("#reservbtn").attr('disabled',true);
+					$("#paybtn").attr('disabled',true);
+					
+				}else{
+					$("#message").html("<span> 예약이 가능합니다.</span>");
+					$("#reservbtn").attr('disabled',false);
+					$("#paybtn").attr('disabled',false);
+				}
+			
+		}
+		,error:function (e) {
+			alert(e.responseText);
+		}
+	});
 }
 
 </script>
 <div id="newmodal" style="padding: 5px 20px;">
 						<form class="form-horizontal calender" id="modalForm" name="modalForm" role="form">
-							
-							<input type="hidden" name="roomCode">
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">룸 이름</label>
 								<div class="col-sm-9 col-xs-12">
@@ -46,7 +77,8 @@ function Spot(num) {
 							<div class="form-group">
 								<label class="col-sm-3 col-xs-12 control-label">시작일</label>
 								<div class="col-sm-9 col-xs-12">
-									<input class="form-control" id="rs_date" name="startDate" type="text" onchange="inputChange(this)" value="${dto.startDate}">
+									<input class="form-control" id="rs_date" name="startDate" type="text" onchange="inputChange(this); reservCount();" value="${dto.startDate}">
+									<span style="color: blue;" id="message"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -72,7 +104,7 @@ function Spot(num) {
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 col-xs-12 control-label">예약자명*</label>
+								<label class="col-sm-3 col-xs-12 control-label">성 함*</label>
 								<div class="col-sm-9 col-xs-12">
 									<input class="form-control" id="rs_name" name="userName" type="text" value="${dto.userName}"/>
 								</div>
@@ -97,17 +129,17 @@ function Spot(num) {
 									<input class="form-control" id="rs_price" name="price" type="text" readonly="readonly" ${dto.price}/>
 								</div>
 							</div>
-							<input type="hidden" name="roomCode" value="${dto.roomCode}">
+							<input type="hidden" id="roomCode" name="roomCode" value="${dto.roomCode}">
 							<input type="hidden" id="prices" name="prices" readonly="readonly">
 						</form> 
 					</div>
 					 <div class="modal-footer">
-					 <div id="res" style="display:block;">
-          			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
+					 <div id="res" style="display:none;">
+          			<button type="button" id="reservbtn" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="SendOk();">예약</button>
           			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
 					 </div>
-					 <div id="pay" style="display:none;">
-          			<button type="button" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="CheckOk();">결제</button>
+					 <div id="pay" style="display:block;">
+          			<button type="button" id="paybtn" class="btn btn-primary antosubmit" data-dismiss="modal" onclick="CheckOk();">결제</button>
           			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="Dialogcancel();">Close</button>
 					 </div>
         			</div>
