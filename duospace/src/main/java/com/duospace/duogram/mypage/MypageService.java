@@ -15,6 +15,8 @@ public interface MypageService {
 	public Mypage readBoard(int num);
 	public int updateBoard(Mypage dto, String pathname);
 	
+	public int insertLikeBoard(Mypage dto);
+	public int countLikeBoard(int num);
 	// 댓글
 	public int insertReply(Reply dto);
 	public List<Reply> listReply(Map<String, Object> map);

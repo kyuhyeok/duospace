@@ -35,7 +35,7 @@ public class Reserve {
 	private int memberNum;
 	private String name;    // 회원 이름
 	private String signSpot;
-	
+	private int state; //예약상태
 	
 	/*예약상세(Stres, Rmres)*/
 	private int strNum;  //좌석상세코드
@@ -69,6 +69,12 @@ public class Reserve {
 	
 	
 	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public int getCheckNum() {
 		return checkNum;
 	}

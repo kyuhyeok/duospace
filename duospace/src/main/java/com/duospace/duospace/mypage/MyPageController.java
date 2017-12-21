@@ -1,14 +1,34 @@
 package com.duospace.duospace.mypage;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.duospace.member.SessionInfo;
 
 @Controller("duospace.MyPageController")
 public class MyPageController {
 	
+	@Autowired
+	private MypageService service;
+	
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
-	public String mypage() {
+	public String mypage(
+			Model model,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		int memberNum= info.getMemberNum();
+		
+		List<Mypage> mylist=service.myList(memberNum);
+		model.addAttribute("mylist", mylist);
+		
 		return ".userSpace.mypage.main";
 	}
 	

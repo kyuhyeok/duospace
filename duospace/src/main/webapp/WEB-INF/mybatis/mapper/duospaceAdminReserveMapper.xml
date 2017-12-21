@@ -44,10 +44,31 @@
 		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
 		  <include refid="where-date"/>
 		</if>
+		AND TO_CHAR(endDate,'YYYY/MM/DD') &gt;= TO_CHAR(SYSDATE,'YYYY/MM/DD')
 	</where>
 </select>
 
+<select id="jinanRoomDataCount" parameterType="map" resultType="Integer">
+ 	SELECT COUNT(*)
+    FROM reserv r1
+    JOIN rmres r2 ON r1.reservnum=r2.reservnum
+    JOIN room ro ON ro.roomcode=r2.roomcode
+    JOIN floor f ON f.floornum=ro.floornum
+    JOIN spot s ON s.spotcode=f.spotcode
+    <where>
+		<if test="searchValue !=NULL and searchValue!=''">
+			<include refid="where-list"/>
+		</if>
+		 
+		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+		  <include refid="where-date"/>
+		</if>
+		AND 
+				TO_CHAR(endDate,'YYYY/MM/DD') &lt; TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	</where>
+</select>
 
+<!-- 앞으로의예약리스트 -->
 <select id="reserveRoomList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
 	 SELECT * FROM (
 		SELECT ROWNUM rnum, tb.* FROM(
@@ -68,13 +89,50 @@
 		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
 				<include refid="where-date"/>
 		</if>
+		AND TO_CHAR(endDate,'YYYY/MM/DD') &gt;= TO_CHAR(SYSDATE,'YYYY/MM/DD')
 	</where>
+		ORDER BY startDate
 			)tb
 <![CDATA[
 		WHERE ROWNUM <= #{end}
 	)WHERE rnum >= #{start}
 ]]>	
 </select>
+
+
+<!-- 지난 예약리스트 -->
+<select id="jinanReserveRoomList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+	 SELECT * FROM (
+		SELECT ROWNUM rnum, tb.* FROM(
+			 SELECT r1.reservnum,membernum,NVL(signspot,0) signspot,rmresnum,TO_CHAR(startdate,'YYYY/MM/DD') startDate,
+			 	TO_CHAR(enddate,'YYYY/MM/DD')endDate,userName,
+		        r2.roomcode,roomname,ro.floornum, floorname, 
+		        f.spotcode, spotname
+			FROM reserv r1
+			JOIN rmres r2 ON r1.reservnum=r2.reservnum
+			JOIN room ro ON ro.roomcode=r2.roomcode
+			JOIN floor f ON f.floornum=ro.floornum
+			JOIN spot s ON s.spotcode=f.spotcode
+	<where>
+		<if test="searchValue !=NULL and searchValue!=''">
+			<include refid="where-list"/>
+		</if>
+		 
+		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+				<include refid="where-date"/>
+		</if>
+			AND 
+				TO_CHAR(endDate,'YYYY/MM/DD') &lt; TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	</where>
+		ORDER BY startDate
+			)tb
+<![CDATA[
+		WHERE ROWNUM <= #{end}
+	)WHERE rnum >= #{start}
+]]>	
+</select>
+
+
 
 
 <delete id="deleteRmres" parameterType="Integer">
@@ -90,6 +148,21 @@
 </delete>
 
 
+<!-- 총 지점리스트 -->
+<select id="spotList" resultType="com.duospace.admin.reserve.Reserve">
+	SELECT spotCode, spotName, region FROM spot
+</select>
+
+<!-- 선택한 지점의 층리스트 -->
+<select id="floorList" parameterType="Integer" resultType="com.duospace.admin.reserve.Reserve">
+	SELECT f.floorNum, floorName, f.spotCode, spotName
+	FROM floor f
+	JOIN spot s ON f.spotCode=s.spotCode
+	WHERE f.spotCode=#{spotCode}
+	ORDER BY f.floorNum
+</select>
+
+
 <!-- 선택한 층의 배치도 -->
 <select id="readPlacement" parameterType="Integer" resultType="com.duospace.admin.reserve.Reserve">
 		SELECT placeCode, placement, created, isPlaceUsed, p.floorNum,spotname,floorname
@@ -100,7 +173,7 @@
 </select>
 
 <!-- 체크인된 사람 리스트 -->
-<select id="checkinList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+<select id="checkinList" resultType="com.duospace.admin.reserve.Reserve">
 	SELECT checkNum, checkin, checkout, c.membernum, 
         name,re.reservnum,startdate,st.seatcode, seatname, st.placecode, floornum
 	FROM checkIn c
@@ -111,8 +184,38 @@
 	JOIN seat st ON s.seatcode=st.seatcode
 	JOIN placement p ON st.placecode=p.placecode
 	WHERE checkin is not null and checkout is null 
-	  and TO_CHAR(#{startDate},'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	  and TO_CHAR(startDate,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
 </select>
 
+<!-- 좌석 예약 리스트 -->
+<select id="seatReserveList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+	SELECT m1.membernum, name, r.reservnum, startDate, endDate,s.seatCode,seatName,st.placeCode, floorName,spotName
+	FROM member1 m1
+	JOIN member2 m2 ON m1.membernum=m2.membernum
+	JOIN reserv r ON r.membernum=m1.membernum
+	JOIN stres s ON s.reservnum=r.reservnum
+	JOIN seat st ON s.seatcode=st.seatcode
+	JOIN placement p ON st.placecode=p.placecode
+	JOIN floor f ON f.floornum=p.floornum
+	JOIN spot s ON s.spotcode=f.spotcode
+	WHERE state=1 AND TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+				 st.placeCode=#{placeCode} AND seatName=#{seatName}
+	ORDER BY startDate
+</select>
+
+<!-- 좌석예약된것 dataCount -->
+<select id="dataCount_comSeat" parameterType="map" resultType="Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM member1 m1
+	JOIN member2 m2 ON m1.membernum=m2.membernum
+	JOIN reserv r ON r.membernum=m1.membernum
+	JOIN stres s ON s.reservnum=r.reservnum
+	JOIN seat st ON s.seatcode=st.seatcode
+	JOIN placement p ON st.placecode=p.placecode
+	JOIN floor f ON f.floornum=p.floornum
+	JOIN spot s ON s.spotcode=f.spotcode
+	WHERE state=1 AND TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+				 st.placeCode=#{placeCode} AND seatName=#{seatName}
+</select>
 
 </mapper>

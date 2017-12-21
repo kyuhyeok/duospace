@@ -36,8 +36,7 @@ public class RmresController {
 	@RequestMapping(value="/rmres")
 	public String insertRmres(
 			Rmres dto,
-			HttpSession session,
-			Model model
+			HttpSession session
 			) {
 		try {
 			SessionInfo info=(SessionInfo)session.getAttribute("user");

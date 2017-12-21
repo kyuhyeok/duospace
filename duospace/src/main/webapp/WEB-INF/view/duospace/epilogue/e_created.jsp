@@ -34,26 +34,19 @@
 .star_rating a.on {color:#FFE400;}
 </style>
 <script type="text/javascript">
-    function check() {
+    function SendOk(reservNum) {
         var f = document.boardForm;
-
+		
     	var str = f.subject.value;
         if(!str) {
             alert("제목을 입력하세요. ");
             f.subject.focus();
-            return false;
+            return;
         }
 
-    	str = f.content.value;
-        if(!str || str=="<p>&nbsp;</p>") {
-            alert("내용을 입력하세요. ");
-            f.content.focus();
-            return false;
-        }
-
-   		f.action="<%=cp%>/";
-
-   		return true;
+   		f.action="<%=cp%>/duospace/epilogue/created?reservNum=${reservNum}";
+		f.submit();
+   		
     }
     $(function(){
     	$( ".star_rating a" ).click(function() {
@@ -82,21 +75,11 @@
 			<form name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return submitContents(this);"><!--submitContent(this): 스마트에디터에서 사용하는 함수 -->
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">
-			  		지점명
+			  	<td width="120" bgcolor="#eeeeee" style="text-align: center;">
+			  		지점명/예약번호
 			  	</td>
 			  	<td style="padding-left:10px;">
-			  		<select id="shopname" onchange="cityList();" class="selectField">
-                   		<option value="">지역명</option>
-                       	<option value="seoul">서울</option>
-                       	<option value="">경기도</option>
-                       	<option value="">인천</option>
-            		 </select>
-              <select id="" class="selectField">
-                   <option value="">지점</option>
-                   <option value="">당산지점</option>
-                   <option value="">강남지점</option>
-              </select>
+			  		${spotName}/${reservNum}
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
@@ -111,13 +94,13 @@
 	    				<a href="#">★</a>
 	    				<a href="#">★</a>
 					</p>
-					<input type="text" name="starnum" id="score" value="0" readonly="readonly">
+					<input type="hidden" name="starnum" id="score" value="${dto.starnum}" readonly="readonly">
 			  	</td>
 			  </tr>
 			  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 			      <td style="padding-left:10px;"> 
-			        <input type="text" name="subject" maxlength="100" class="boxTF" style="width: 95%;">
+			        <input type="text" name="subject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.subject}">
 			      </td>
 			  </tr>
 			
@@ -131,13 +114,13 @@
 			  <tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 			      <td valign="top" style="padding:5px 0px 5px 10px;"> 
-			        <textarea name="content" id="content" style="width: 95%; height: 450px;"></textarea>
+			        <textarea name="content" id="content" style="width: 95%; height: 450px;">${dto.content}</textarea>
 			      </td>
 			  </tr>
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 			      <td style="padding-left:10px;"> 
-			          <input type="file" name="upload" class="boxTF" size="70" style="height: 30px;">
+			          <input type="file" name="upload" class="boxTF" size="70" style="height: 30px;" value="${dto.saveFilename}">
 			       </td>
 			  </tr>
 			  </table>
@@ -145,9 +128,9 @@
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
 			      <td align="center" >
-			        <button type="submit" class="btn" >등록하기</button>
-			        <button type="reset" class="btn">다시입력</button>
-			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/epilogue'">등록취소</button>
+			        <button type="submit" class="btn btn-success btn-sm" onclick="SendOk('${reservNum}');">등록하기</button>
+			        <button type="reset" class="btn btn-warning btn-sm">다시입력</button>
+			        <button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/mypage'">등록취소</button>
 			      </td>
 			    </tr>
 			  </table>

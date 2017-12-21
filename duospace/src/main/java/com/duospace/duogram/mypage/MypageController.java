@@ -295,5 +295,45 @@ public class MypageController {
 		return model;
 	}
 	
+	// 게시물 공감 추가
+		@RequestMapping(value="duogram/mypage/insertLikeBoard", method=RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> insertLikeBoard(
+				Mypage dto, HttpSession session) throws Exception {
+		
+			SessionInfo info=(SessionInfo) session.getAttribute("user");
+			String state="true";
+			
+			if(info==null) {
+				state="loginFail";
+			} else {
+				dto.setMemberNum(info.getMemberNum());
+				int result=service.insertLikeBoard(dto);
+				if(result==0)
+					state="false";
+	   	    }
+	   	    
+			Map<String, Object> model = new HashMap<>(); 
+			model.put("state", state);
+			return model;
+		}
+		
+		// 게시물 공감 개수
+		@RequestMapping(value="duogram/mypage/countLikeBoard", method=RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> countLikeBoard(
+				@RequestParam(value="num") int num) throws Exception {
+			
+			String state="true";
+			int countLikeBoard=service.countLikeBoard(num);
+			
+	   	    Map<String, Object> model = new HashMap<>();
+	   	    model.put("state", state);
+	   	    model.put("countLikeBoard", countLikeBoard);
+			
+	   	    // 작업 결과를 json으로 전송
+	   	    return model;
+		}	
+	
 }
 

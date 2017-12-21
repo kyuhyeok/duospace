@@ -112,12 +112,14 @@ $(function(){
 	$("body").on("click", ".updateModalBtn", function(){
 		var num = $(this).attr("data-num");
 		var page = $(this).attr("data-page");
+		var saveFilename = $(this).attr("data-saveFilename");
 		var content=$(this).next("span").html();
 		
 		var f=document.mypageUpdateForm;
 		f.num.value=num;
 		f.content.value=content;
 		f.page.value=page;
+		f.saveFilename.value=saveFilename;
 		
 		$("#updateModelDlg").modal("show");	
 	});
@@ -193,13 +195,60 @@ function sendReply(num) {
 	});
 }
 
+
+//게시물 공감 개수
+function countLikeBoard(num) {
+	var url="<%=cp%>/duogram/mypage/countLikeBoard";
+	$.post(url, {num:num}, function(data){
+		var count=data.countLikeBoard;
+		
+		$("#countLikeBoard").html(count);
+	}, "json");
+}
+
+//게시물 공감 추가
+function sendLikeBoard(num) {
+	var uid="${sessionScope.user.memberNum}";
+	if(! uid) {
+		login();
+		return;
+	}
+
+	msg="게시물에 공감하십니까 ?";
+	if(! confirm(msg))
+		return;
+	
+	var query="num="+num;
+
+	$.ajax({
+		type:"post"
+		,url:"<%=cp%>/duogram/mypage/insertLikeBoard"
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			var state=data.state;
+			if(state=="true") {
+				countLikeBoard(num);
+			} else if(state=="false") {
+				alert("좋아요는 한번만 가능합니다.");
+			} else if(state=="loginFail") {
+				login();
+			}
+		}
+		,error:function(e) {
+			console.log(e.responseText);
+		}
+	});
+}
+
 // 타임라인 글 리스트
 function printDuogram(data) {
 	var me="${me}";
 	var uid="${sessionScope.user.memberNum}";
 	var dataCount=data.dataCount;
 	var page=pageNo;
-	var replyCount="${replyCount}"
+	var replyCount="${replyCount}";
+	var countLikeBoard="${countLikeBoard}";
 	totalPage=data.total_page;
 	
 	var out="";
@@ -212,6 +261,7 @@ function printDuogram(data) {
 			var name=data.list[idx].name;
 			var replyCount=data.list[idx].replyCount;
 			var saveFilename=data.list[idx].saveFilename;
+			var countLikeBoard=data.list[idx].countLikeBoard;
 			
 			out+="<div style='min-height: 220px; margin-bottom: 30px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
@@ -221,8 +271,9 @@ function printDuogram(data) {
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
-			out+="<div style='float:left; height: '>";
-			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<div style='float:left;'>";
+			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>"+" → ";
+				out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
 			out+="<br>"
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div class='dropdown' style='float:right;'>";
@@ -231,7 +282,7 @@ function printDuogram(data) {
 			out+="</button>"
 			out+="<ul class='dropdown-menu'>";
 			if(uid==memberNum || uid=="1" || uid=="true")
-				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
+				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-saveFilename='"+saveFilename+"' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
 			else
 				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
 			if(uid==memberNum || uid=="1" || uid=="true")
@@ -252,10 +303,8 @@ function printDuogram(data) {
 			
 			out+="<div style='width: 614px; height: 20px; margin-bottom: 20px;'>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<a href='#' style='text-decoration:none; font-weight: bold;'>"+"♥"+"</a>";
-			out+="</div>";
-			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<a href='#' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요x개　"+"</a>";
+			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요"+"<span id='countLikeBoard'>"+countLikeBoard+"</span></button>";
+			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
 			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글"+replyCount+"개"+"</button>";
@@ -487,6 +536,7 @@ function deleteReply(replyNum, page) {
 					<input type="file" name="upload" class="form-control input-sm" style="float: left; height: 30px; width: 250px;">
 					<input type="hidden" name="num">
 					<input type="hidden" name="page">
+					<input type="hidden" name="saveFilename">
 					<input type="hidden" name="blogNum" value="${blogNum}">
 					<!-- 글 및 동영상 등록 -->
 					<button type="button" class="btn btn-primary btn-sm bbtn" onclick="updateBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>

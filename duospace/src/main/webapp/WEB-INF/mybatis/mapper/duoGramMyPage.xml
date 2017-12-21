@@ -104,5 +104,14 @@
 		LEFT OUTER JOIN member2 m2 ON m1.memberNum=m2.memberNum
 		WHERE m2.memberNum=#{memberNum} AND isUsed !=0
 	</select>
+	
+	<!-- 게시물 공감 ................. -->
+	<insert id="insertLikeBoard" parameterType="com.duospace.duogram.mypage.Mypage">
+	INSERT INTO gramlike(num, memberNum) VALUES (#{num}, #{memberNum})
+	</insert>
 
+	<select id="countLikeBoard" resultType="Integer" parameterType="Integer">
+	   SELECT  NVL(COUNT(*), 0) boardCountLike
+	        FROM gramlike WHERE num=#{num}
+	</select>
 </mapper>

@@ -61,14 +61,80 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	@Override
-	public List<Reserve> checkInList(Map<String, Object> map) {
+	public List<Reserve> checkInList() {
 		List<Reserve> list =null;
 		try {
-			
+			list = dao.selectList("admin.reserve.checkinList");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return list;
+	}
+
+	@Override
+	public List<Reserve> seatReserveList(Map<String, Object> map) {
+		List<Reserve> list =null;
+		try {
+			list=dao.selectList("admin.reserve.seatReserveList", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public int dataCountComSeat(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("admin.reserve.dataCount_comSeat", map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reserve> spotList() {
+		List<Reserve> list =null;
+		try {
+			list=dao.selectList("admin.reserve.spotList");
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Reserve> floorList(int spotCode) {
+		List<Reserve> list =null;
+		try {
+			list=dao.selectList("admin.reserve.floorList",spotCode);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Reserve> jinanRoomReserveList(Map<String, Object> map) {
+		List<Reserve> list=null;
+		try {
+			list=dao.selectList("admin.reserve.jinanReserveRoomList", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public int jinanRoomdataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("admin.reserve.jinanRoomDataCount", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	

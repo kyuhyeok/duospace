@@ -217,4 +217,26 @@ public class MypageServiceImpl implements MypageService {
 		
 		return dto;
 	}
+
+	@Override
+	public int insertLikeBoard(Mypage dto) {
+		int result=0;
+
+		try{
+			result=dao.insertData("mypage.insertLikeBoard", dto);
+		} catch(Exception e) {
+		}
+		return result;
+	}
+
+	@Override
+	public int countLikeBoard(int num) {
+		int result=0;
+
+		try{
+			result=dao.selectOne("mypage.countLikeBoard", num);
+		} catch(Exception e) {
+		}
+		return result;
+	}
 }

@@ -31,29 +31,25 @@ $(function() {
         }                
 	});
 });
-$(function(){
+
+function gogo() {
+
+	var url="<%=cp%>/admin/reserve/readPlacement";
+	var floorNum= $("select[name=floorNum]").val();
+	var data = "floorNum="+floorNum;
 	
-	$("button[name=gogo]").on("click",function(){
-		
-		var url="<%=cp%>/admin/reserve/readPlacement";
-		var floorNum= $("select[name=floorNum]").val();
-		var data = "floorNum="+floorNum;
-		
-		$.ajax({
-			type:"post",
-			url: url,
-			data: data,
-			dataType:"text",
-			success: function(place){
-				$("#place").empty();
-				$("#place").html(place);
-			}
-			
-		})
+	$.ajax({
+		type:"post",
+		url: url,
+		data: data,
+		dataType:"text",
+		success: function(place){
+			$("#place").empty();
+			$("#place").html(place);
+		}
 		
 	});
-	
-});
+}
 
 function deleteReserve(rmresNum) {
 	if(confirm("예약을 취소하시겠습니까?")){
@@ -69,7 +65,34 @@ function changeJsp() {
 		location.href="<%=cp%>/admin/reserve/list";
 	}
 }
-
+function floorList(){
+	
+	var spotCode = $("#spotCode").val();
+	var url="<%=cp%>/admin/reserve/floor/list";
+	var data="spotCode="+spotCode;
+	
+	//alert("11122");
+	
+	
+	$.ajax({
+		type:"post",
+		url:url,
+		data:data,
+		dataType:"json",
+		success:function(result){
+			$("#floorNum option").each(function(){
+				$("#floorNum option:eq(0)").remove();
+			});
+			
+			$("#floorNum").append("<option value=''>층 선택</option>");
+			
+			for(var i=0; i<result.fList.length;i++){
+				$("#floorNum").append("<option value='"+result.fList[i].floorNum+"'>"+result.fList[i].floorName+"</option>");
+			}
+		}
+	});
+	
+}
 
 </script>
 </head>
@@ -136,23 +159,22 @@ function changeJsp() {
 									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">지 점 명</label>
 									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="spotCode" id="spotCode">
+										<select class="form-control" name="spotCode" id="spotCode" onchange="floorList();">
 											<option value="">선택</option>
-											<option value="">강남점</option>
-											<option value="">마포점</option>
-											<option value="">도봉산점</option>
+											<c:forEach items="${spotList}" var="dto">
+												<option value="${dto.spotCode}">${dto.spotName}</option>
+											</c:forEach>
+											
+											
 										</select>
 										
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										
-										<select class="form-control" name="floorNum">
-											<option value="1">1층</option>
-											<option value="">2층</option>
-											<option value="">3층</option>
-											
+										<select class="form-control" name="floorNum" id="floorNum" onchange="gogo();">
 										</select>
-										<button type="button" name="gogo">이동=></button>
+										
+										
 									</div>
 									<div class="col-sm-2 col-xs-12">
 										<span id="message" style="color: red;"></span>
@@ -197,7 +219,7 @@ function changeJsp() {
 		
 		
 		
-		<div id="place" style="padding: 30px 10px 30px 20px;">배치도나올곳</div>
+		<div id="place" style="padding: 30px 10px 30px 20px; margin: 5px auto;">배치도나올곳</div>
 		
 		
 		</div>

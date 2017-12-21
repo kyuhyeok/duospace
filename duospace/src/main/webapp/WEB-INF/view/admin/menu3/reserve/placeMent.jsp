@@ -18,27 +18,26 @@ $(function(){
 	});
 	
 	//선택한 시간의 이미 예약된내용들
-	var rlength=$(".reserveDone").length;
+	var rlength=$(".checkIn").length;
 	
 	var sp=new Array();
 	sp[0]=new Array();
 	sp[1]=new Array();
 	
 	
-	$(".reserveDone").each(function(index){
+	$(".checkIn").each(function(index){
 		sp[index]=$(this).val().split("-");
 		console.log(sp[index][0]);
 		console.log(sp[index][1]);
 	});
 
 		for(var i=0;i<rlength;i++){
-
-			$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).removeClass("selected");
-			$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).addClass("can");	
+			//$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).removeClass("selected");
+			//$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).addClass("can");	
+			//$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).attr("data-tooltip-text","회원정보 이름:");
+			$(".make-Seat-Tb tr").eq(sp[i][0]).children().eq(sp[i][1]).addClass("check-in");
 		}
-		
 	
-		
 	
 	$(".make-Seat-Tb tr").eq(0).remove();
 
@@ -48,35 +47,24 @@ $(function(){
 	
 	$(".selected,.can").css("border","1px solid black");
 	
-	/*고객이 좌석 선택시 이벤트*/
+	/* 좌석 선택시 이벤트*/
 	$(".make-Seat-Tb tr td").on("click",function(){
-		if($(this).hasClass("selected")){
-			
-			$(".selected").each(function(index) {
+		
+		var url="<%=cp%>/admin/reserve/seatReserveList";
+		var placeCode="${dto.placeCode}";
+		var seatName = $(this).text();
+		var data = "placeCode="+placeCode+"&seatName="+seatName;
+	
+		$.ajax({
+			type:"post",
+			url:url,
+			data:data,
+			success:function(result){
+				$("#seatList").empty();
+				$("#seatList").html(result);
+			}
 				
-				if($(this).hasClass("choice")){
-					$(this).removeClass("choice");
-				}
-			});
-			
-			$(this).addClass("choice");
-			
-			var a= $(this).children().eq(0).val();
-			$(".resultTb>div>div:eq(2)").text(a);
-			$(".resultTb>div>div:eq(2)").append("<input type ='hidden' name='seatName' value='"+a+"'>");
-			
-		}else if($(this).hasClass("can")){
-			alert("해당좌석은 선택이 불가합니다.");
-			$(".resultTb>div>div:eq(2)").empty();
-			
-			$(".selected").each(function(index) {
-				
-				if($(this).hasClass("choice")){
-					$(this).removeClass("choice");
-				}
-			});
-			
-		}
+		});
 		
 		
 	});
@@ -101,9 +89,9 @@ $(function(){
 	color: black;
 
 }
-.can{
+.check-in{
 	
-	background-image: url('<%=cp%>/resource/images/duospace/icon/slash.png');
+	background-image: url('<%=cp%>/resource/images/duospace/icon/gray.PNG');
 	background-size: 100% 100%;
 }
 .selected.choice{
@@ -111,12 +99,50 @@ $(function(){
 	color: white;
 }
 
+
+
+[data-tooltip-text]:hover {
+	position: relative;
+}
+
+[data-tooltip-text]:hover:after {
+	background-color: #000000;
+	background-color: rgba(0, 0, 0, 0.8);
+
+	-webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	color: #FFFFFF;
+	font-size: 12px;
+	content: attr(data-tooltip-text);
+
+  margin-bottom: 10px;
+	top: 130%;
+	left: 0;    
+	padding: 7px 12px;
+	position: absolute;  
+	width: auto;
+	min-width: 50px;
+	max-width: 300px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+}
 </style>
 
 
 	
 	
 	<div>
+	
+		<c:forEach var="vo" items="${list}">
+			<input type="hidden" name="checkIn" class="checkIn" value="${vo.seatName}">
+		</c:forEach>
 		
 		
 		<c:if test="${not empty dto}">
@@ -130,3 +156,5 @@ $(function(){
 		
 
 	</div>
+	
+	<div id="seatList" style="margin: 15px auto 50px;"></div>

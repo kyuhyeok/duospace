@@ -3,7 +3,7 @@ package com.duospace.duospace.epilogue;
 import org.springframework.web.multipart.MultipartFile;
 
 public class epilogue {
-	private int reservnum, membernum, hitCount, starnum;
+	private int reservNum, memberNum, hitCount, starnum;
 	private String subject, content, created, saveFilename, userId;
 	public String getUserId() {
 		return userId;
@@ -11,21 +11,22 @@ public class epilogue {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public int getReservNum() {
+		return reservNum;
+	}
+	public void setReservNum(int reservNum) {
+		this.reservNum = reservNum;
+	}
+	public int getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
 	private MultipartFile upload;
 	private int replyCount;
 	
-	public int getReservnum() {
-		return reservnum;
-	}
-	public void setReservnum(int reservnum) {
-		this.reservnum = reservnum;
-	}
-	public int getMembernum() {
-		return membernum;
-	}
-	public void setMembernum(int membernum) {
-		this.membernum = membernum;
-	}
+	
 	public int getHitCount() {
 		return hitCount;
 	}
@@ -53,7 +54,7 @@ public class epilogue {
 	public String getCreated() {
 		return created;
 	}
-	public void setCreated(String created) {
+	public void setCreated(String created) { 
 		this.created = created;
 	}
 	public String getSaveFilename() {
