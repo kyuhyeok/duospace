@@ -1,15 +1,19 @@
 package com.duospace.duospace.rmres;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.member.SessionInfo;
 
@@ -21,8 +25,9 @@ public class RmresController {
 	
 	
 	@RequestMapping(value="/createdForm")
-	public String list(Model model) throws Exception{
+	public String list(	Model model) throws Exception{
 		List<Rmres> rmlist=service.listRmres();
+	
 		
 		model.addAttribute("rmlist", rmlist);
 		return "/duospace/room/createdForm";
@@ -56,5 +61,25 @@ public class RmresController {
 		model.addAttribute("dto", dto);
 		
 		return ".complete.rcomplete";
+	}
+	
+	@RequestMapping(value="/reservCount", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> readCount(
+			@RequestParam int roomCode,
+			@RequestParam String startDate,
+			@RequestParam String endDate
+			) { 
+		Map<String,Object> map=new HashMap<>();
+		
+		map.put("roomCode", roomCode);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		int reservCount=service.reservCount(map);
+
+		map.put("reservCount", reservCount);
+		
+		return map;
+				
 	}
 }

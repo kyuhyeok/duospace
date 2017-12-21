@@ -27,8 +27,6 @@ public class RmresServiceImpl implements RmresService{
 			throw e;
 		}
 	}
-	
-	
 
 	@Override
 	public List<Rmres> listRmres() {
@@ -67,8 +65,16 @@ public class RmresServiceImpl implements RmresService{
 		return reserveNum;
 	}
 
+	@Override
+	public int reservCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.rmres.reservCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
 
-
-
-
+	
 }

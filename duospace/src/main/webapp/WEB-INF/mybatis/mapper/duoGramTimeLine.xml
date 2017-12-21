@@ -33,9 +33,15 @@
 				resultType="com.duospace.duogram.Duogram">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb. * FROM (
-				SELECT num, m2.name, g.memberNum, blogNum, content, created
+				SELECT g.num, m2.name, g.memberNum, g.saveFilename, content, created, nvl(replyCount, 0) replyCount
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
+				LEFT OUTER JOIN 
+					(
+					      SELECT num, NVL(COUNT(*), 0) replyCount FROM gramreply
+			              WHERE answer=0
+					      GROUP BY num
+					) rr ON g.num = rr.num
 				ORDER BY num DESC
 		<![CDATA[
 			) tb WHERE ROWNUM <= #{end}
@@ -54,6 +60,27 @@
 		FROM gramtimeline g 
 		JOIN member2 m2 ON g.memberNum=m2.memberNum
 		WHERE num = #{num}
+	</select>
+	
+	<!-- 댓글쓰기 -->
+    <insert id="insertReply" parameterType="com.duospace.duogram.Duogram">
+    	INSERT INTO gramreply(replyNum, num, content, answer, writer)
+     	VALUES(seq_gramreply.NEXTVAL, #{num}, #{content}, #{answer}, #{writer})   
+    </insert>
+    
+    <!-- 댓글리스트 -->
+    <select id="replyDataCount" resultType="Integer" parameterType="map">
+			SELECT NVL(COUNT(*), 0) FROM gramreply
+			WHERE num=#{num} AND answer=0
+		</select>
+      
+      <select id="listReply" parameterType="map" resultType="com.duospace.duogram.Reply">
+				SELECT replyNum, p.num, p.content, p.created, answer, m2.name, p.writer
+					FROM gramreply p 
+					JOIN gramtimeline g ON p.Num=g.Num
+					JOIN member2 m2 ON m2.memberNum=g.memberNum
+                    WHERE g.num=#{num}
+                    ORDER BY replyNum DESC
 	</select>
 	
 </mapper>

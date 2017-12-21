@@ -143,6 +143,30 @@
 	<definition name=".userGram.*" extends=".userGramLayout">
 		<put-attribute name="body" value="/WEB-INF/view/duoGram/{1}.jsp"/>
 	</definition>
+	<!-- 듀오 스페이스 마이 페이지 4 단  -->
+	<definition name=".userSpaceLayout" template="/WEB-INF/view/duospace/layout/layout4.jsp">
+	    <put-attribute name="title" value="duoSpace" />
+	  	<put-attribute name="header" value="/WEB-INF/view/duospace/layout/header.jsp" />
+	  	<put-attribute name="left" value="/WEB-INF/view/duospace/mypage/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duospace/mypage/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/view/duospace/layout/footer.jsp" />
+	</definition>
+	<definition name=".userSpace.*.*.*.*" extends=".userSpaceLayout">
+	  	<put-attribute name="left" value="/WEB-INF/view/duospace/{1}/{2}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}/{3}/{4}.jsp"/>
+	</definition>
+	<definition name=".userSpace.*.*.*" extends=".userSpaceLayout">
+	  	<put-attribute name="left" value="/WEB-INF/view/duospace/{1}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".userSpace.*.*" extends=".userSpaceLayout">
+	  	<put-attribute name="left" value="/WEB-INF/view/duospace/{1}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/duospace/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".userSpace.*" extends=".userSpaceLayout">
+	  	<put-attribute name="left" value="/WEB-INF/view/duospace/{1}/left.jsp" />
+   	    <put-attribute name="body" value="/WEB-INF/view/duospace/{1}.jsp" />
+	</definition>
 
 	<!-- 순서가 바뀌면 안됨(* 많은것이 위에) -->
 	<definition name=".*.*.*" extends=".duospaceLayout">
@@ -154,5 +178,5 @@
 	<definition name=".*" extends=".duospaceLayout">
     	  <put-attribute name="body" value="/WEB-INF/view/duospace/{1}.jsp" />
 	</definition>
-
+	
 </tiles-definitions>

@@ -5,11 +5,7 @@
 <%
 	String cp=request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 <style type="text/css">
 
@@ -188,10 +184,12 @@ function Dialog(roomCode, roomName, floorName, price) {
 		$("#modalForm input[name=prices]").val(price);
 		$("#modalForm input[name=price]").val(price);
 		var date = new Date();
-		$("#modalForm input[name=startDate]").val(strDate(date));
-		$("#modalForm input[name=endDate]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
+		var startDate=  $("#modalForm input[name=startDate]").val(strDate(date));
+		var endDate= $("#modalForm input[name=endDate]").val(strDate(new Date(date.getFullYear(), date.getMonth()+1, date.getDate())));
 
-
+		
+		reservCount(roomCode,startDate,endDate);
+		
 		$('#myRoomModal').modal('show');
 	});
 	
@@ -211,18 +209,47 @@ function Dialogcancel() {
 }
 function SendOk() {
 	var f=document.modalForm;
+	var str;
+	
+	str=f.userName.value;
+	str = str.trim();
+	if(!str){
+		alert("예약하시는 예약자 이름을 입력 해 주세요.");
+	}
+	
+	str=f.tel.value;
+	if(!str){
+		alert("연락받으실 연락처를 입력 해 주세요.");
+	}
+	
+	
 	f.action="<%=cp%>/rmres";
 	f.submit();
 }
 function CheckOk() {
 	var f=document.modalForm;
+	
+var str;
+	
+	str=f.userName.value;
+	str = str.trim();
+	if(!str){
+		alert("성함을 입력 해 주세요.");
+		return;
+	}
+	
+	str=f.tel.value;
+	if(!str){
+		alert("연락받으실 연락처를 입력 해 주세요.");
+		return;
+	}
+	
 	f.action="<%=cp%>/rmres";
 	f.submit();
 }
 
 </script>
-</head>
-<body>
+
 <div>
 	<nav class="region-bar">
 			<ul>
@@ -283,7 +310,3 @@ function CheckOk() {
       </div>
     </div>
   </div>		
-  
-  
-</body>
-</html>
