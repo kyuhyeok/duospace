@@ -129,6 +129,40 @@ public class ReserveController {
 		
 		return "redirect:/admin/reserve/list?page="+page;
 	}
+	
+	
+	@RequestMapping("/admin/reserve/seatList")
+	public String seatReserveList(Model model)throws Exception{
+		
+		model.addAttribute("where", 1);
+		
+		return ".admin4.menu3.reserve.seat_reservelist";
+	}
+	
+	@RequestMapping(value="/admin/reserve/readPlacement")
+	public String readReserve(
+			@RequestParam int floorNum,
+			Model model
+			) throws Exception{
+		
+		//배치도와 체크인 현황 
+		Reserve dto = service.readPlacement(floorNum);
+		
+		if(dto==null) {
+			System.out.println(floorNum+"ss");
+			System.out.println("dto는 널이란다~~~~");
+		}
+		
+		if(dto!=null)
+			dto.setPlacement(myUtil.htmlToStr(dto.getPlacement()));
+		
+		model.addAttribute("dto", dto);
+		
+		
+		return "/admin/menu3/reserve/placeMent";
+	}
+	
+	
 }
 
 
