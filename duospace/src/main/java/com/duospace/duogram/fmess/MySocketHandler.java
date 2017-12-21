@@ -20,6 +20,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.duospace.community.moimchat.CmoimInfo;
 import com.duospace.community.moimchat.MemberInfo;
+import com.duospace.community.moimchat.MoimChat;
+import com.duospace.community.moimchat.MoimChatService;
 import com.duospace.member.MemberService;
 
 import net.sf.json.JSONArray;
@@ -35,6 +37,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 	private Map<String, CmoimInfo> cmoimMap = new Hashtable<>();
 	@Autowired
 	private FMessService fms;
+	
+	@Autowired
+	private MoimChatService mcs;
 	
 	@Autowired
 	private MemberService ms;
@@ -344,23 +349,58 @@ public class MySocketHandler extends TextWebSocketHandler {
 		if(cmoimInfo==null) return;
 
 		JSONObject job;
+		MoimChat dto=null;
 		try {
 			if(cmd.equals("chatMsg")) {
 				String msg=jsonReceive.getString("message");
 				
 				if(msg==null) return;
+				dto=new MoimChat();
+				dto.setMemberNum(Integer.parseInt(memberNum));
+				dto.setCmoincode(Integer.parseInt(cmoimInfo.getCmoimCode()));
+				dto.setContent(msg);
+				int result=mcs.insertFMess(dto);
+				if(result!=1) return;
+				
+				Map<String, Object> map=new HashMap<>();
+				map.put("memberNum", dto.getMemberNum());
+				map.put("cmoimCode", dto.getCmoincode());
+				map.put("mchatNum", 0);
+				
+				dto=null;
+				dto=mcs.readFMess(map);
+				
+				map.put("mchatNum", dto.getMchatnum());
+				
+				Iterator<String> it = cmoimInfo.getMemberSet().iterator();
+				while (it.hasNext()) {
+					String key=it.next();
+					
+					map.put("memberNum", Integer.parseInt(key));
+					result=mcs.insertReadMess(map);
+				}
+				
+				map.put("memberNum", dto.getMemberNum());
+				mcs.fMURtDCnt(map);
+				dto.setUnReadCnt(mcs.fMURtDCnt(map));
 				
 				job=new JSONObject();
 				job.put("type", "talk");
 				job.put("cmd", "chatMsg");
 				job.put("memberNum", memberNum);
 				job.put("memberName", memberName);
+				job.put("unReadCnt", dto.getUnReadCnt());
+				job.put("mchatNum", dto.getMchatnum());
+				job.put("sendDate", dto.getSendDate());
 				job.put("profile", profile);
 				job.put("message", msg);
 				
 				String out=null;
 				sendMoimMessage(job.toString(), cmoimInfo.getMemberSet(), out);
-			} 
+				
+			} else if(cmd.equals("read")) {
+				
+			}
 		} catch (Exception e) {
 			this.logger.info(e.toString());
 		}

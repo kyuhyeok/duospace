@@ -1,9 +1,9 @@
 package com.duospace.community.moimchat;
 
-public class MoinChat {
+public class MoimChat {
 	private int memberNum, cmoincode, mchatnum;
 	private String name;
-	private String sendDate,content, proFileSaveFileName; 
+	private String sendDate,content, profile; 
 	private int unReadCnt;
 	public int getMemberNum() {
 		return memberNum;
@@ -41,11 +41,11 @@ public class MoinChat {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getProFileSaveFileName() {
-		return proFileSaveFileName;
+	public String getProfile() {
+		return profile;
 	}
-	public void setProFileSaveFileName(String proFileSaveFileName) {
-		this.proFileSaveFileName = proFileSaveFileName;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 	public int getUnReadCnt() {
 		return unReadCnt;

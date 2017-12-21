@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.duospace.duogram.freq.DuoGramUtil;
 import com.duospace.member.SessionInfo;
 
-@Controller("community.moinChatController")
-public class MoinChatController {
+@Controller("moim.moimChatController")
+public class MoimChatController {
 	@Autowired
-	private MoinChatService service;
+	private MoimChatService service;
 	
 	@Autowired
 	private DuoGramUtil myUtil;
@@ -75,7 +75,7 @@ public class MoinChatController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		List<MoinChat> list=service.listFMC(map);
+		List<MoimChat> list=service.listFMC(map);
 		
 		//포워딩할 jsp에 넘길 데이터
 		model.addAttribute("list", list);
@@ -113,61 +113,39 @@ public class MoinChatController {
 		return model;
 	}
 	
-	//모임 메시지들(AJAX:TEXT)
+	//모임 메시지들(AJAX:JSON)
 	@RequestMapping(value="/moim/listmChat", method=RequestMethod.POST)
-	public String listmChatContent(
-			@RequestParam int cmoinCode,
-			@RequestParam(value="first", defaultValue="0") int first,
-			@RequestParam(value="num", defaultValue="0") int num,
-			HttpSession session,
-			Model model
+	@ResponseBody
+	public Map<String, Object> listmChatContent(
+			@RequestParam int cmoimCode,
+			@RequestParam(value="page", defaultValue="1") int current_page,
+			HttpSession session
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
-		//int rows=10;
-		//int total_page=0;
-		int dataCount=0;
-		int end=0;
+		int rows=10;
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
-		map.put("friendNum", "dd");
-		map.put("first", first);
-		map.put("num", num);
+		map.put("cmoimCode", cmoimCode);
+		map.put("mchatNum", 0);
 		
-		dataCount=service.fMCListDataCount(map);
-		List<MoinChat> list=null;
-		if(dataCount<=0)
-			return "";
-		else if(dataCount<=10) {
-			end=10;
-			map.put("first", 0);
-			map.put("end", end);
-			list=service.listFMessContent(map);
-		}else {
-			if(first!=0) {
-				int unread=service.fMURtDCnt(map);
-				if(unread>0) {
-					list=service.listFMessContent(map);
-					if(list.size()<10) {
-						end=10;
-						map.put("first", 0);
-						map.put("end", end);
-						list=service.listFMessContent(map);
-					}else {
-						end=list.size();
-					}
-				}
-			}else {
-				end=10;
-				map.put("first", 0);
-				map.put("end", end);
-				list=service.listFMessContent(map);
-			}
-		}
+		int dataCount=service.fMCListDataCount(map);
+		int total_page=myUtil.pageCount(rows, dataCount);
+		if(current_page>total_page)
+			current_page=total_page;
+		int start=(current_page-1)*rows+1;
+		int end=current_page*rows;
 		
-		model.addAttribute("list", list);
+		List<MoimChat> list=null;
+		map.put("start", start);
+		map.put("end", end);
+		list=service.listFMessContent(map);
 		
-		return "community/moimChat/moimChat";
+		Map<String, Object> model=new HashMap<>();
+		model.put("list", list);
+		model.put("totalpage", total_page);
+		
+		return model;
 	}
 }
