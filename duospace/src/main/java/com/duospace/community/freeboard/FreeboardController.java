@@ -38,6 +38,7 @@ public class FreeboardController {
 		}else {
 			dto.setWriter(info.getMemberNum());
 			service.insertFreeboard(dto);
+			
 			state="true";
 		}
 		
@@ -73,11 +74,13 @@ public class FreeboardController {
 		int listNum,n=0;
 		List<Freeboard> list = service.listFreeboard(map);
 		Iterator<Freeboard> it=list.iterator();
+		
 		while (it.hasNext()) {
 			Freeboard dto = it.next();
 			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 			listNum=dataCount-(start+n-1);
 			dto.setListNum(listNum);
+			//System.out.println(dto.getContent());
 			n++;
 		}
 		
@@ -108,6 +111,7 @@ public class FreeboardController {
 		} else {
 			dto.setMemberNum(info.getMemberNum());
 			service.insertReply(dto);
+			dto.setContent(dto.getContent().replace("\n", "<br>"));
 			state="true";
 		}
 		
@@ -131,9 +135,9 @@ public class FreeboardController {
 		map.put("boardNum", boardNum);
 		List<Reply> listReply=service.listReply(map);
 		
-		for(Reply dto : listReply) {
-			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
-		}
+			for(Reply dto : listReply) {
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			}
 		model.addAttribute("listReply",listReply);
 		return "community/moim/listReply";
 	}

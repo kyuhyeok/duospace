@@ -1,12 +1,21 @@
-package com.duospace.community.calendar;
+package com.duospace.community.moimcalendar;
 
-public class Calendar {
-	private int moimNum;//모임코드
+public class MoimCalendar {
+	private int moimNum,listNum;//모임코드,모임 리스트번호
 	private String subject,content,created;//제목,내용,작성일
 	private int hitCount,people;//조회수,모집인원
-	private String price,spot,moindate;//회비,모임장소,모임시간
+	private String price,spot,moinDate,name;//회비,모임장소,모임시간,이름
 	
-	private int cmoimCode,memberNum;//모임코드,멤버번호
+	private int cmoimCode,memberNum,writer;//모임코드,멤버번호,작성자
+
+	
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 
 	public int getMoimNum() {
 		return moimNum;
@@ -72,12 +81,12 @@ public class Calendar {
 		this.spot = spot;
 	}
 
-	public String getMoindate() {
-		return moindate;
+	public String getMoinDate() {
+		return moinDate;
 	}
 
-	public void setMoindate(String moindate) {
-		this.moindate = moindate;
+	public void setMoinDate(String moinDate) {
+		this.moinDate = moinDate;
 	}
 
 	public int getCmoimCode() {
@@ -96,11 +105,21 @@ public class Calendar {
 		this.memberNum = memberNum;
 	}
 
-	public static Calendar getInstance() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getWriter() {
+		return writer;
+	}
+
+	public void setWriter(int writer) {
+		this.writer = writer;
+	}
 	
 	
 }

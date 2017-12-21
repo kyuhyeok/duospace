@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moimCalendar">
+	<!-- 일정 생성 -->
+	<insert id="insertMoimCalendar" parameterType="com.duospace.community.moimcalendar.MoimCalendar">
+		INSERT INTO moim(moimNum, subject, content, people, price, spot, moinDate, cmoimCode, writer)
+       	 	VALUES(seq_moim.NEXTVAL, #{subject}, #{content} ,#{people} , #{price}, #{spot}, #{moinDate}, #{cmoimCode}, #{writer} )
+	</insert>
+	
+	<!-- 일정 리스트 -->
+	<select id="listMoimCalendar" resultType="com.duospace.community.moimcalendar.MoimCalendar" parameterType="map" >
+		SELECT * FROM(
+		    SELECT ROWNUM rnum, tb.*FROM(
+				SELECT  moimNum, subject, TO_CHAR(created,'YYYY-MM-DD') created, hitcount, writer, content,
+			    	cmoimcode, m.name,TO_CHAR(moinDate,'DD') moinDate,people,spot
+			        FROM moim mo   
+			        JOIN member2 m ON mo.writer = m.membernum
+			        WHERE cmoimCode = #{cmoimCode}
+			        ORDER BY moimNum DESC
+<![CDATA[
+		    ) tb WHERE ROWNUM <= #{end}
+		)WHERE rnum >= #{start}
+]]>
+	</select>
+	
+	<!-- 일정 갯수확인용 -->
+	<select id="dataCountMoimCalendar" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM moim WHERE cmoimCode = #{cmoimCode}
+	</select>
+</mapper>
