@@ -36,6 +36,19 @@ public class ReserveServiceImpl implements ReserveService {
 		return result;
 	}
 
+	@Override
+	public int delete(int rmresNum) throws Exception {
+		int result=0;
+		try {
+			int reservNum= dao.selectOne("admin.reserve.readReservNum", rmresNum);
+			result=dao.deleteData("admin.reserve.deleteRmres", rmresNum);
+			dao.deleteData("admin.reserve.deleteReserv",reservNum);
+		} catch (Exception e) {
+			throw e;
+		}
+		return result;
+	}
+
 	
 
 }

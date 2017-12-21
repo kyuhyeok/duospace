@@ -3,10 +3,12 @@ package com.duospace.duogram.mypage;
 import java.util.List;
 import java.util.Map;
 
+import com.duospace.member.Member;
+
 public interface MypageService {
 	public int insertAccept(int memberNum);
 	public int countAccept(int memberNum);
-	public int insertBoard(Mypage dto);
+	public int insertBoard(Mypage dto, String pathname);
 	public int dataCount(Map<String, Object> map);
 	public List<Mypage> listMypage(Map<String, Object> map);
 	public int deleteBoard(int num, int memberNum);
@@ -21,4 +23,5 @@ public interface MypageService {
 	
 	public List<Reply> listReplyAnswer(int answer);
 	public int replyCountAnswer(int answer);
+	public Member readMember(int memberNum);
 }

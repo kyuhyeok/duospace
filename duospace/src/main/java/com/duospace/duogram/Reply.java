@@ -1,11 +1,9 @@
 package com.duospace.duogram;
 
 public class Reply {
-	private int replyNum, num;
-	private String userId, userName;
-	private String content, created;
+	private int replyNum, num, blogNum, memberNum, writer;
+	private String name, email, replyContent, content, created;
 	private int answer;
-	
 	private int answerCount;
 	
 	public int getAnswerCount() {
@@ -26,18 +24,6 @@ public class Reply {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getContent() {
 		return content;
 	}
@@ -55,5 +41,41 @@ public class Reply {
 	}
 	public void setAnswer(int answer) {
 		this.answer = answer;
+	}
+	public int getBlogNum() {
+		return blogNum;
+	}
+	public void setBlogNum(int blogNum) {
+		this.blogNum = blogNum;
+	}
+	public int getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
+	public int getWriter() {
+		return writer;
+	}
+	public void setWriter(int writer) {
+		this.writer = writer;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getReplyContent() {
+		return replyContent;
+	}
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
 	}
 }

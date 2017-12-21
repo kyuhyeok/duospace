@@ -2,6 +2,8 @@ package com.duospace.admin.reserve;
 
 public class Reserve {
 
+	private int listNum;
+	
 	/*지점(Spot)*/
 	private int spotCode;
 	private String spotName;
@@ -58,6 +60,12 @@ public class Reserve {
 	private long passHour;
 	
 	
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public String getUserName() {
 		return userName;
 	}

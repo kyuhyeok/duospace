@@ -1,7 +1,7 @@
 package com.duospace.duogram.mypage;
 
 public class Reply {
-	private int replyNum, num, blogNum, memberNum;
+	private int replyNum, num, blogNum, memberNum, writer;
 	private String email, name, replyContent;
 	
 	public String getReplyContent() {
@@ -75,4 +75,11 @@ public class Reply {
 	public void setAnswer(int answer) {
 		this.answer = answer;
 	}
+	public int getWriter() {
+		return writer;
+	}
+	public void setWriter(int writer) {
+		this.writer = writer;
+	}
+	
 }

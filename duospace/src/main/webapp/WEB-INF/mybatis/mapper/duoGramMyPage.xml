@@ -36,9 +36,15 @@
 				resultType="com.duospace.duogram.mypage.Mypage">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb. * FROM (
-				SELECT num, m2.name, g.memberNum, blogNum, content, created
+				SELECT g.num, m2.name, g.memberNum, g.saveFilename, blogNum, content, created, nvl(replyCount, 0) replyCount
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
+				LEFT OUTER JOIN 
+					(
+					      SELECT num, NVL(COUNT(*), 0) replyCount FROM gramreply
+			              WHERE answer=0
+					      GROUP BY num
+					) rr ON g.num = rr.num
 				WHERE g.blogNum=#{blogNum}
 				ORDER BY num DESC
 		<![CDATA[
@@ -62,8 +68,8 @@
 	
     <!-- 댓글 -->
     <insert id="insertReply" parameterType="com.duospace.duogram.mypage.Mypage">
-    	INSERT INTO gramreply(replyNum, num, content, answer)
-     	VALUES(seq_gramreply.NEXTVAL, #{num}, #{content}, #{answer})   
+    	INSERT INTO gramreply(replyNum, num, content, answer, writer)
+     	VALUES(seq_gramreply.NEXTVAL, #{num}, #{content}, #{answer}, #{writer})   
     </insert>
     
     <!-- 댓글리스트 -->
@@ -73,16 +79,22 @@
 		</select>
       
       <select id="listReply" parameterType="map" resultType="com.duospace.duogram.mypage.Reply">
-		SELECT * FROM (
-			SELECT ROWNUM rnum, tb.* FROM (
-				SELECT replyNum, p.num, p.content, p.created, answer 
+				SELECT replyNum, p.num, p.content, p.created, answer, m2.name, p.writer
 					FROM gramreply p 
 					JOIN gramtimeline g ON p.Num=g.Num
+					JOIN member2 m2 ON m2.memberNum=g.memberNum
                     WHERE g.num=#{num}
                     ORDER BY replyNum DESC
-	<![CDATA[
-	        ) tb WHERE ROWNUM <= #{end}
-	    ) WHERE rnum >= #{start}
-	]]>     
 	</select>
+	
+	<!-- 회원정보가져오기 -->
+	<select id="readMember" resultType="com.duospace.member.Member" parameterType="Integer">
+		SELECT m1.memberNum,isUsed, email, name, pwd, phone, job, lastLogIn, updated
+				,profile, organization, hobby, joinDate, addrNum, addr1, addr2
+				,favor1, favor2,favor3, birth
+		FROM member1 m1
+		LEFT OUTER JOIN member2 m2 ON m1.memberNum=m2.memberNum
+		WHERE m2.memberNum=#{memberNum} AND isUsed !=0
+	</select>
+
 </mapper>
