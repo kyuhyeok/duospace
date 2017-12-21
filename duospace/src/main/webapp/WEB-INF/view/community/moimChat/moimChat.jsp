@@ -253,7 +253,6 @@ $(function() {
 			$("#chatinputstream").focus();
 			return;
 		}
-		if(friendNum==0) return;
 		
 		console.log("보낼 준비");
         var obj = {};
@@ -388,8 +387,8 @@ function memberCard(memberName, memberId, memberNum, profile) {
 }
 
 function listmoimchat(page){
-	var url="<%=cp%>/duogram/listFMess";
-	var q="cmoimCode="+${cmoinCode}+"&cmoimCode="+page;
+	var url="<%=cp%>/moim/listmChat";
+	var q="cmoimCode="+${cmoinCode}+"&page="+page;
 	
 	$.ajax({
 		type:"post"
