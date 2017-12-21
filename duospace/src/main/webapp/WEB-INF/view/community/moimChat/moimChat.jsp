@@ -176,7 +176,11 @@ li {
 }
 </style>
 <script type="text/javascript">
+var mpage=1;
+var mtotalpage=1;
 $(function() {
+	listmoimchat(1);
+	
 	var socket=null;
 	var host="<%=wsURL%>";
 	
@@ -280,11 +284,7 @@ $(function() {
 			var profile=data.profile;
 			memberCard(memberName, memberId, memberNum, profile);
 		} else if(cmd=="chatMsg") {
-			var msg=data.message;
-			var memberNum=data.memberNum;
-			var memberName=data.memberName;
-			
-			writeToScreen(msg);
+			writeToScreen(data);
 			
 		} else if(cmd=="leave") {
 			var memberNum=data.memberNum;
@@ -297,35 +297,70 @@ $(function() {
     $('#scrollmess').scroll(function() {
 	    if ($('#scrollmess').scrollTop()<=50) {
 	    	if(lastData>0) {
-	    		listFMCon(friendNum, fMNum);
-	    	}else if(lastData==0){
+	    		listmoimchat(page, cmoim);
+	    	}else if((mtotalpage-mpage)==0){
 	    		$('#dgchatcontent').prepend("<time><span>더 이상 메시지가 없습니다.</span></time>");
-	    		lastData--;
+	    		mtotalpage--;
 	    	}
 	    }
 	});
 });
 
-function writeToScreen(message) {
-    var $chatContainer = $("#chatMsgContainer");
-    $chatContainer.append("<p>");
-    $chatContainer.find("p:last").css("wordWrap","break-word"); // 강제로 끊어서 줄 바꿈
-    $chatContainer.find("p:last").html(message);
-
-    while ($chatContainer.find("p").length > 50) {
-    	$chatContainer.find("p:first").remove();
+function writeToScreen(data) {
+	var msg=data.message;
+	var memberNum=data.memberNum;
+	var memberName=data.memberName;
+	var profile=data.profile;
+	
+	var out='';
+	if(memberNum=="${sessionScope.user.memberNum}") {
+		out+="<div class='contentBox _ua0' id='mess"+num+"' data-fmNum='"+num+"'>";
+		out+="<div class='content _my'>";
+		out+="<div class='etcbox _ua0' style='width:100%'>"+memberNum+"</div>";
+		out+="<div class='myCon'>";
+		out+="<div class='textbox _mycolor' style='padding: 5px 8px 5px;'>";
+		out+="<span>"+msg+"</span>";
+		out+="</div>";
+		out+="</div>";
+		out+="<div>";
+		out+="<div class='etcbox _ua0' style='text-align:right; cursor: pointer;width: 10px;' onclick='dMess("+num+")'>X</div>";
+		if(read=='0'){
+			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;'>안읽음</div>";
+		}
+		out+="</div>";
+		out+="</div>";
+		out+="</div>";
+	} else {
+		out+="<div class='contentBox _ua1' id='mess"+vo.num+"' data-fmNum='"+vo.num+"'>";
+		out+="<div class='friendProfile' id='dgchatPS'>";
+		out+="<a class='friendLink' href='<%=cp%>/duogram/"+memberNum+"'>";
+		if(profile==''){
+			out+="<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/person-1701091912.png'>";
+		}else{
+			out+="<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/"+memberNum+"/"+profile+"'>";
+		}
+		out+="</a>";
+		out+="</div>";
+		out+="<div class='content'>";
+		out+="<div class='etcbox _ua1' style='width:100%'>"+sendDate+"</div>";
+		out+="<div class='friendCon'>";
+		out+="<div class='textbox' style='padding: 5px 8px 5px;'>";
+		out+="<span>"+msg+"</span>";
+		out+="</div>";
+		out+="</div>";
+		out+="<div style='margin-left:8px;'>";
+		out+="<div class='etcbox _ua1' style='cursor: pointer;width: 10px;' onclick='dMess("+num+")'>X</div>";
+		out+="</div>";
+		out+="</div>";
+		out+="</div>";
 	}
-}
+	if(data.cmd=="chatMsg")
+    	$("#dgchatcontent").append(out);
+	else
+		$("#dgchatcontent").prepend(out);
+    // 스크롤을 최상단에 있도록 설정
+    $("#scrollmess").scrollTop($("#scrollmess").prop("scrollHeight"));
 
-function writeToScreenlist(message) {
-    var $chatContainer = $("#chatMsgContainer");
-    $chatContainer.append("<p>");
-    $chatContainer.find("p:last").css("wordWrap","break-word"); // 강제로 끊어서 줄 바꿈
-    $chatContainer.find("p:last").html(message);
-
-    while ($chatContainer.find("p").length > 50) {
-    	$chatContainer.find("p:first").remove();
-	}
 }
 
 function memberCard(memberName, memberId, memberNum, profile) {
@@ -352,9 +387,9 @@ function memberCard(memberName, memberId, memberNum, profile) {
 	$("#MCList").append(s);
 }
 
-function listmoimchat(cmoim){
+function listmoimchat(page){
 	var url="<%=cp%>/duogram/listFMess";
-	var q="cmoimCode="+cmoim;
+	var q="cmoimCode="+${cmoinCode}+"&cmoimCode="+page;
 	
 	$.ajax({
 		type:"post"
@@ -362,17 +397,12 @@ function listmoimchat(cmoim){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			var memberList=data.memberList;
-			var me="${sessionScope.user.memberNum}";
-			$.each(memberList, function(index, value){
+			var list=data.list;
+			mpage=page++;
+			mtotalpage=data.totalpage;
+			$.each(list, function(index, value){
 				var a=value.split(":");
-				var s='';
-				if(a[2]==me)
-					s+="<div class='chatcontentbox _my' data-memberNum='"+a[2]+"'>"+a[0]+"("+a[1]+")</div>";
-				else{
-					s+="<div class='chatcontentbox _other' data-memberNum='"+a[2]+"'>"+a[0]+"("+a[1]+")</div>";
-				}
-				$("#chatRoomJoinList").prepend(s);
+				writeToScreen(a[0], a[1], a[2], a[3]);
 			});
 		}
 		,beforeSend:function(e){
