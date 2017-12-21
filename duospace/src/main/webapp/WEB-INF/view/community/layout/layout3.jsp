@@ -34,10 +34,7 @@
     <tiles:insertAttribute name="body"/>
 </div>
 <div>
-	<tiles:insertAttribute name="body1" />
-	<!-- 
-		<tiles:insertAttribute name="body2" />
-	 -->
+	<tiles:insertAttribute name="body1" />	
 </div>
 <div>
     <tiles:insertAttribute name="footer"/>
