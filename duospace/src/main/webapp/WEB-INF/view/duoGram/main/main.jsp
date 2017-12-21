@@ -187,11 +187,12 @@ function printDuogram(data) {
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
-			out+="<a href='#' style='text-decoration:none; color: black;'>";
+			out+="<a href='duogram/mypage/"+memberNum+"' style='text-decoration:none; color: black;'>";
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
-			out+="<div style='float:left; height: '><a href='#' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
+			out+="<div style='float:left; height: '>";
+			out+="<a href='duogram/mypage/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
 			out+="<br>"
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div class='dropdown' style='float:right;'>";

@@ -65,7 +65,7 @@
 	<!-- 댓글쓰기 -->
     <insert id="insertReply" parameterType="com.duospace.duogram.Duogram">
     	INSERT INTO gramreply(replyNum, num, content, answer, writer)
-     	VALUES(seq_gramreply.NEXTVAL, #{num}, #{content}, #{answer}, #{writer})   
+     	VALUES(seq_gramreply.NEXTVAL, #{num}, #{content}, #{answer}, #{writer}) 
     </insert>
     
     <!-- 댓글리스트 -->
@@ -75,12 +75,12 @@
 		</select>
       
       <select id="listReply" parameterType="map" resultType="com.duospace.duogram.Reply">
-				SELECT replyNum, p.num, p.content, p.created, answer, m2.name, p.writer
+                SELECT replyNum, p.num, p.content, p.created, answer, m2.name, p.writer
 					FROM gramreply p 
 					JOIN gramtimeline g ON p.Num=g.Num
-					JOIN member2 m2 ON m2.memberNum=g.memberNum
+					JOIN member2 m2 ON m2.memberNum=p.writer
                     WHERE g.num=#{num}
                     ORDER BY replyNum DESC
-	</select>
+	  </select>
 	
 </mapper>
