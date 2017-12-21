@@ -49,6 +49,17 @@ public class ReserveServiceImpl implements ReserveService {
 		return result;
 	}
 
+	@Override
+	public Reserve readPlacement(int floorNum) {
+		Reserve dto = null;
+		try {
+			dto=dao.selectOne("admin.reserve.readPlacement", floorNum);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return dto;
+	}
+
 	
 
 }

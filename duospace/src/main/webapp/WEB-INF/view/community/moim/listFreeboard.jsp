@@ -66,7 +66,7 @@
 				</div>
 				<div style="margin: 15px; float: right; padding-right: 50px;">
 					<button type="button" class="btn btnReplyLayout" data-boardNum="${vo.boardNum}">
-						댓글쓰기<!-- (댓글카운터갯수 추가하기) -->
+						댓글${vo.replyCount}
 					</button>
 				</div>
 			</div>

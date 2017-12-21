@@ -19,16 +19,22 @@
 
 		SELECT * FROM(
 		    SELECT ROWNUM rnum, tb.*FROM(
-		        SELECT  boardNum, content, TO_CHAR(f.created,'YYYY-MM-DD') created, hitcount, writer, f.cmoimcode,m.name
+		        SELECT  f.boardNum, content, TO_CHAR(f.created,'YYYY-MM-DD') created, hitcount, writer, 
+                f.cmoimcode, m.name, NVL(replyCount,0) replyCount
 		            FROM freeboard f 
 		            JOIN commoim c ON f.cmoimcode = c.cmoimcode
 		            JOIN member2 m ON f.writer = m.membernum
-		            WHERE f.cmoimCode = #{cmoimCode}
+		            LEFT OUTER JOIN (
+                            SELECT boardNum, NVL(COUNT(*),0) replyCount FROM  FRboardRp
+                            GROUP BY boardNum
+                    ) frp ON f.boardNum = frp.boardNum
+                    WHERE f.cmoimCode = #{cmoimCode}
 		            ORDER BY boardNum DESC
-<![CDATA[	
+<![CDATA[
 		    ) tb WHERE ROWNUM <= #{end}
 		)WHERE rnum >= #{start}
 ]]>
+
 	</select>
 	
 	<!-- 댓글쓰기 -->
