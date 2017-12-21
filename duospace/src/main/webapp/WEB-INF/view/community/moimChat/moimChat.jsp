@@ -8,9 +8,6 @@
 %>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
-.b{
-	background-color:grey;height:1000px;width:500px;
-}
 textarea{
 	text-align: left;
 	border: none;
@@ -391,7 +388,7 @@ function listmoimchat(cmoim){
 });
 }
 
-</script><div class="b">
+</script>
 <div style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
 	<div class="chattitle">
 		<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">모임채팅</div>
@@ -442,4 +439,4 @@ function listmoimchat(cmoim){
 		    </div>
 		</div>
 	</div>
-</div></div>
+</div>
