@@ -60,6 +60,17 @@ public class ReserveServiceImpl implements ReserveService {
 		return dto;
 	}
 
+	@Override
+	public List<Reserve> checkInList(Map<String, Object> map) {
+		List<Reserve> list =null;
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
 	
 
 }
