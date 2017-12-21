@@ -6,7 +6,11 @@
 	String cp=request.getContextPath();
 	String wsURL = "ws://"+request.getServerName()+":"+request.getServerPort()+cp+"/chat.msg";
 %>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
+.b{
+	background-color:grey;height:1000px;width:500px;
+}
 textarea{
 	text-align: left;
 	border: none;
@@ -38,7 +42,7 @@ textarea{
     min-height: 16px;
 	overflow-x: hidden;
     overflow-y: auto;
-    padding: 10px 8px 6px;
+    padding: 6px 8px 6px;
     position: relative;
 }
 .scrollable{
@@ -120,6 +124,11 @@ textarea{
     vertical-align: bottom;
     white-space: nowrap;
 }
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
 li {
     display: list-item;
     text-align: -webkit-match-parent;
@@ -134,6 +143,39 @@ li {
 
 ._4kglfm>li {
     border-width: 0 0 1px 0;
+}
+.uiScrollableAreaWraplfm {
+    height: inherit;
+    max-height: inherit;
+    outline: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    
+    margin-right: -30px;
+    padding-right: 30px;
+}
+
+.uiScrollableAreaBodylfm {
+    direction: ltr;
+    position: relative;
+}
+
+.uiScrollableAreaContentlfm {
+    padding-bottom: 0;
+}
+.uiScrollableArealfm {
+    direction: ltr;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.id{
+	color: #90949c;
+    display: block;
+    font-size: 12px;
+    padding-top: 2px;
+    position: absolute;
 }
 </style>
 <script type="text/javascript">
@@ -202,12 +244,6 @@ $(function() {
     	console.log("메시지 입력 제한 로드");
     });
 	
-	$('#보내기').on('click', function(key) {
-  		console.log("보내기");
-    	sendMessage();
-    	return false;
-	});
-	
 	function sendMessage() {
 		var msg=$("#chatinputstream").val().trim();
 		console.log("보낼 메시지:"+msg);
@@ -238,15 +274,14 @@ $(function() {
 			var memberList=data.memberList;
 			$.each(memberList, function(index, value){
 				var a=value.split(":");
-				$("#chatRoomJoinList").append("<div data-memberNum='"+a[2]+"'>"+a[0]+"("+a[1]+")</div>");
+				memberCard(a[0], a[1], a[2], a[3]);
 			});
-			
 		} else if(cmd=="join-add") {
 			var memberId=data.memberId;
 			var memberName=data.memberName;
 			var memberNum=data.memberNum;
-			$("#chatRoomJoinList").append("<div data-memberNum='"+memberNum+"'>"+memberName+"("+memberId+")</div>");
-			
+			var profile=data.profile;
+			memberCard(memberName, memberId, memberNum, profile);
 		} else if(cmd=="chatMsg") {
 			var msg=data.message;
 			var memberNum=data.memberNum;
@@ -257,7 +292,7 @@ $(function() {
 		} else if(cmd=="leave") {
 			var memberNum=data.memberNum;
     		
-			$("#chatRoomJoinList div[data-memberNum="+memberNum+"]").remove();
+			$("#MCList li[data-memberNum="+memberNum+"]").remove();
 		}
 		
 	}
@@ -296,6 +331,30 @@ function writeToScreenlist(message) {
 	}
 }
 
+function memberCard(memberName, memberId, memberNum, profile) {
+	var s='';
+	s+="<li class="objectListItem messegeContainer" data-memberNum="${vo.friendNum}">";
+	s+="<div class="clearfix" style="zoom: 1;">";
+	s+="<div class="objectListItem_profile" style="float: left;margin-right: 8px;">";
+    if(profile==''){
+    	s+="<img style='width:50px; height: 50px; margin: -1px;' src='<%=cp%>/resource/images/duogram/person-1701091912.png'>";
+    }else{
+    	s+="<img style='width:50px; height: 50px; margin: -1px;' src='<%=cp%>/resource/images/duogram/"+memberNum+"/"+profile+"'>";
+    }
+    s+="</div>";
+    s+="<div style='margin: -1px 0;'>";
+    s+="<div class='clearfix' style='overflow: hidden;zoom: 1;'>";
+    s+="<div class='author'>";
+    s+="<strong>"+memberName+"</strong><br>";
+    s+="<div class='id'>"+memberId+"</div>";							
+    s+="</div>";
+    s+="</div>";
+  	s+="</div>";
+ 	s+="</div>";
+	s+="</li>";
+	$("#MCList").append(s);
+}
+
 function listmoimchat(cmoim){
 	var url="<%=cp%>/duogram/listFMess";
 	var q="cmoimCode="+cmoim;
@@ -332,79 +391,55 @@ function listmoimchat(cmoim){
 });
 }
 
-</script>
-<div style="width: 240px;float: left;margin-left: 20px;margin-bottom: 12px;background: #fff; ">
-		<div class="chattitle">
-			<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">모임채팅</div>
-		</div>
-  		<div class="haderAndchatListAndScroll">
-          <div style="display: flex;flex-grow: 1;flex-shrink: 1;background: #ffffff;overflow: hidden;">
-              <div class="scrollable" id="scrollmess">
-                  <div class="haderAndchatcontent">
-                      <table class="haderAndchatList">
-                          <tbody>
-                              <tr style="border: 0;border-collapse: collapse;border-spacing: 0;">
-                                  <td style="padding: 0;vertical-align: bottom;">
-                                      <div id="dgchatcontent" style="width:100%;">
-                                      </div>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-          <div class="dgFlaoutFooter" style="border-bottom: 1px solid #dddfe2;">
-            <div class="_552h">
-              <div class="_5rp7 _5rp8">
-					<div class="_5rpb">
-                      <div class="_1p1t" style="white-space: pre-wrap;user-select: none" id="placeholder_chat"></div>
-                      <textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
-                  </div>
-              </div>
+</script><div class="b">
+<div style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
+	<div class="chattitle">
+		<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">모임채팅</div>
+	</div>
+ 		<div class="haderAndchatListAndScroll">
+        <div style="display: flex;flex-grow: 1;flex-shrink: 1;background: #ffffff;overflow: hidden;">
+            <div class="scrollable" id="scrollmess">
+                <div class="haderAndchatcontent">
+                    <table class="haderAndchatList">
+                        <tbody>
+                            <tr style="border: 0;border-collapse: collapse;border-spacing: 0;">
+                                <td style="padding: 0;vertical-align: bottom;">
+                                    <div id="dgchatcontent" style="width:100%;">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
-  		</div>
+        </div>
+        <div class="dgFlaoutFooter" style="border-bottom: 1px solid #dddfe2;">
+          <div class="_552h">
+            <div class="_5rp7 _5rp8">
+				<div class="_5rpb" style="float:left">
+                    <div class="_1p1t" style="white-space: pre-wrap;user-select: none" id="placeholder_chat"></div>
+                    <textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
+                </div>
+                <div style="float:left">
+					<button type="button" style="width:auto;right:-15px;position:relative;" onclick="sendMessage();">보내기</button>
+	            </div>
+            </div>
+      	</div>
+      	</div>
+	</div>
 	<div class="chattitle">
     	<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">접속멤버</div>
 	</div>
-<div class="haderAndchatListAndScroll">
-	<div style="display: flex;flex-grow: 1;flex-shrink: 1;background: #ffffff;overflow: hidden;">
-		<div class="scrollable" id="scrollmess">
-          	<div class="haderAndchatcontent">
-              	<table class="haderAndchatList">
-                 	<tbody>
-                      	<tr style="border: 0;border-collapse: collapse;border-spacing: 0;">
-                          	<td style="padding: 0;vertical-align: bottom;">
-                              	<ul class="_4kglfm _4kslfm" id="fMCList">
-                                	<li class="objectListItem messegeContainer" onclick="opchat('${vo.friendNum}','${vo.name}');" data-fnum='${vo.friendNum}' data-fname='${vo.name}'>
-                                    	<div class="clearfix" style="zoom: 1;">
-                                        	<div class="objectListItem_profile" style="float: left;margin-right: 8px;">
-                                            	<!--<c:choose>
-                                                	<c:when test="${empty vo.proFileSaveFileName}">-->
-                                                    	<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
-                                                	<!--</c:when>
-                                                	<c:otherwise>
-                                                    	<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
-                                                	</c:otherwise>
-                                            	</c:choose>-->
-                                        	</div>
-                                        	<div style="margin: -1px 0;">
-                                            	<div class="clearfix" style="overflow: hidden;zoom: 1;">
-                                                	<div class="author">
-                                                    	<strong>${vo.name}&nbsp;</strong>								
-                                                  	</div>
-                                              	</div>
-                                          	</div>
-                                      	</div>
-                                  	</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+	<div class="uiScrollableArealfm" style="min-height:100px; max-height: 300px;">
+		<div class="uiScrollableAreaWraplfm" id="dglfmScroll">
+			<div class="uiScrollableAreaBodylfm" id="dglfmDoc" style="width: 240px;">
+				<div class="uiScrollableAreaContentlfm" >
+					<div style="padding-top: 0;">
+						<ul class="_4kglfm _4kslfm" id="MCList">
+	               		</ul>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div></div>
