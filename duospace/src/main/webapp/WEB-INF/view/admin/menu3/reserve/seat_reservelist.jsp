@@ -32,31 +32,29 @@ $(function() {
 	});
 });
 $(function(){
-	$('#ck_main').click(function(){
-		if($(this).prop('checked')){
-			$('input[name=spotCodes]').prop('checked',true);
-		}else{
-			$('input[name=spotCodes]').prop('checked', false);
-		}
+	
+	$("button[name=gogo]").on("click",function(){
+		
+		var url="<%=cp%>/admin/reserve/readPlacement";
+		var floorNum= $("select[name=floorNum]").val();
+		var data = "floorNum="+floorNum;
+		
+		$.ajax({
+			type:"post",
+			url: url,
+			data: data,
+			dataType:"text",
+			success: function(place){
+				$("#place").empty();
+				$("#place").html(place);
+			}
+			
+		})
+		
 	});
-		$("#deletelistBtn").click(function(){
-			
-			var cnt = $("input[name=spotCodes]:checkbox:checked").length;
-			
-			if(cnt==0){
-				alert("선택된 항목이 없습니다!");
-				return;
-			}
-			
-			if(confirm("선택한 항목을 삭제하시겠습니까?")){
-				var f=document.deleteList;
-				f.action="<%=cp%>";
-				f.submit();
-			}
-			
-		});
-
+	
 });
+
 function deleteReserve(rmresNum) {
 	if(confirm("예약을 취소하시겠습니까?")){
 		location.href="<%=cp%>/admin/reserve/delete?page=${page}&rmresNum="+rmresNum;
@@ -67,10 +65,11 @@ function changeJsp() {
 	
 	var w = f.where.value;
 	
-	if(w=='1'){
-		location.href="<%=cp%>/admin/reserve/seatList";
+	if(w=='0'){
+		location.href="<%=cp%>/admin/reserve/list";
 	}
 }
+
 
 </script>
 </head>
@@ -114,7 +113,7 @@ function changeJsp() {
 										<div class="col-sm-2 col-xs-12">
 											<select class="form-control" name="where" onchange="changeJsp();">
 												<option value="0" selected="selected">룸예약</option>
-												<option value="1">좌석예약</option>
+												<option value="1" ${where==1?"selected='selected'":""}>좌석예약</option>
 											</select>
 										</div>
 									</div>
@@ -133,6 +132,33 @@ function changeJsp() {
 										<span id="message" style="color: red;"></span>
 									</div>
 									</div>
+								
+									<div class="form-group">
+									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">지 점 명</label>
+									<div class="col-sm-2 col-xs-12">
+										<select class="form-control" name="spotCode" id="spotCode">
+											<option value="">선택</option>
+											<option value="">강남점</option>
+											<option value="">마포점</option>
+											<option value="">도봉산점</option>
+										</select>
+										
+									</div>
+									<div class="col-sm-2 col-xs-12">
+										
+										<select class="form-control" name="floorNum">
+											<option value="1">1층</option>
+											<option value="">2층</option>
+											<option value="">3층</option>
+											
+										</select>
+										<button type="button" name="gogo">이동=></button>
+									</div>
+									<div class="col-sm-2 col-xs-12">
+										<span id="message" style="color: red;"></span>
+									</div>
+								</div>
+								
 								
 									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
@@ -168,103 +194,12 @@ function changeJsp() {
 						</div>
 					</div>
 				</div>
-		<form name="deleteList" class="form-horizontal" method="post">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="x_panel">
-							<div class="x_title">
-							
-								<h2>
-									예약 리스트<small>Shop List</small>
-								</h2>
-								<ul class="nav navbar-right panel_toolbox">
-									<li><a>Total ${dataCount}EA (${page}/${total_page}페이지)</a></li>
-									<li><a href="javascript:location.reload();"><i
-											class="fa fa-refresh"></i></a></li>
-									<li><a class="collapse-link"><i
-											class="fa fa-chevron-up"></i></a></li>
-									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-								</ul>
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content">
-
-								<div class="table-responsive">
-									<table class="table table-hover" id="table1" style="text-align: center; border-collapse: collapse;">
-										<thead>
-											<tr>
-												<th style="text-align: center;"><input class="flat" id="ck_main" type="checkbox" />
-												</th>
-												<th style="text-align: center;">글번호</th>
-												<th style="text-align: center;">지점명</th>
-												<th style="text-align: center;">층</th>
-												<th style="text-align: center;">자원명(룸/좌석)</th>
-												<th style="text-align: center;">예약자</th>
-												<th style="text-align: center;">예약시작일</th>
-												<th style="text-align: center;">예약종료일</th>
-												<th style="text-align: center;">결제상태</th>
-												<th style="text-align: center;">관리</th>
-											</tr>
-										</thead>
-										<tbody>
-
-									<c:forEach items="${list}" var="dto">
-											<tr style="text-align: center">
-												<td><input class="flat" type="checkbox" /></td>
-												<td>${dto.listNum}</td>
-												<td>${dto.spotName}</td>
-												<td>${dto.floorName}</td>
-												<td>${dto.roomName}</td>
-												<td>${dto.userName}</td>
-												<td>${dto.startDate }</td>
-												<td>${dto.endDate}</td>
-												<td>결제완료</td>
 		
-												<td>
-											
-												<button type="button" class="btn btn-danger btn-sm"
-													onclick="deleteReserve(${dto.rmresNum});">
-													<i class="fa fa-check-square-o"></i> 예약취소
-												</button>
-												</td>
-											</tr>
-										</c:forEach>
-
-
-										</tbody>
-									</table>
-								</div>
-
-								<div class="form-group">
-									<div class="col-md-6 col-sm-6 col-xs-12">
-										<button type="button" class="btn btn-danger btn-sm"
-											id="deletelistBtn">
-											<i class="fa fa-check-square-o"></i> 삭제
-										</button>
-									</div>
-									<div class="col-md-6 col-sm-6 col-xs-12">
-												<c:if test="${dataCount==0 }">
-			              						  등록된 게시물이 없습니다.
-			        							 </c:if>
-			        							<c:if test="${dataCount!=0 }">
-			              						 ${paging}
-			        							 </c:if>
-			  
-									</div>
-								</div>
 		
-								<div class="ln_solid"></div>
-
-								
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</form>
-
+		
+		<div id="place" style="padding: 30px 10px 30px 20px;">배치도나올곳</div>
+		
+		
 		</div>
 	</div>
 
