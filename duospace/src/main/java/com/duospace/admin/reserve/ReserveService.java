@@ -11,5 +11,5 @@ public interface ReserveService {
 	
 	//좌석예약정보
 	public Reserve readPlacement(int floorNum);
-	
+	public List<Reserve> checkInList(Map<String, Object> map);
 }

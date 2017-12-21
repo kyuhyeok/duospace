@@ -15,6 +15,12 @@ function dialogNewWord() {
 	$("#modalNewWord").modal("show");
     $("#modalContent").focus();
 }
+//모달 일정생성창 띄우기.
+function dialogCalendar(){
+	$("#modalContent1").val("");
+	$("#modalCalendar").modal("show");
+	$("#modalContent1").focus()
+}
 
 //<!-- 자유글 쓰기 -->
 function sendFreeboard(){
@@ -97,6 +103,27 @@ function listPage(page) {
 	});
 }
 
+//일정게시판 전체글 리스트
+function calendar(){
+	
+	var url="<%=cp%>/community/moim${cmoimCode}/calendar";
+	
+	var cmoimCode="${cmoimCode}";//값설정..
+	var query="cmoimCode="+cmoimCode;
+	
+	//ajax:text
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$("#listFreeboard").html(data);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 
 //댓글 리스트.
 function listReply(boardNum){
@@ -179,29 +206,9 @@ function sendReply(boardNum){
 		}
 	});
 }
-//채팅
-var msocket="";
-function loadchat(){
-	
-	var url="<%=cp%>/moim/chat";
-	
-	var query="cmoimCode=${cmoimCode}";
-	
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:query
-		,success:function(data){
-			$(loadchatId).html(data);
-		}
-		,beforeSend : function(e){
-			e.setRequestHeader("AJAX",true);
-		}
-		,error:function(e){
-			console.log(e.responseText);
-		}
-	});
-}
+
+
+
 
 </script>
 
@@ -220,7 +227,7 @@ function loadchat(){
 					</a>
 				</td>
 				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimcalendar" href="<%=cp%>/community/moim${cmoimCode}/calendar">
+					<a style="color: #ffffff;" id="moimcalendar" onclick="calendar();">
 						일정
 					</a>
 				</td>
@@ -235,7 +242,7 @@ function loadchat(){
 </header>
 
 <div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
-	<div style="width: 1050px; margin: auto; margin-bottom: 10px;">
+	<div style="width: 1050px; margin: auto; margin-bottom: 10px; overflow:auto;">
 			<!-- 프로필 -->
 			<div style="vertical-align: top;margin-right: 20px;float: left; width: 180px;">
 				<div>
@@ -250,10 +257,6 @@ function loadchat(){
 				<!-- 전체글 -->
 				<!-- 새글 올라올곳.. -->		
 				<div id="listFreeboard"></div>
-				<!-- 리플 리스트 -->
-				<!-- 
-				 <div id="listReply"></div>
-				 -->
 			</div>
 			
 			<!-- 사이드. -->
@@ -301,7 +304,7 @@ function loadchat(){
 	</div>
 </div>
 
-
+<!-- 자유게시판 글쓰기 모달 -->
 <div id="modalNewWord" class="modal fade" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -342,6 +345,90 @@ function loadchat(){
 							<div style="margin: 15px; float: right; padding-right: 50px;">
 								<button type="button" class="btn" onclick="sendFreeboard();">
 									글쓰기
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 일정생성 모달. -->
+<div id="modalCalendar" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 480px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h2 id="myModalLabel" class="modal-title text-center fc-orange"
+					style="font-family: sans-serif, 나눔고딕, 맑은 고딕; font-weight: bold;">일정 만들기</h2>
+			</div>
+			<div class="modal-body">
+				<form name="modalCalendarForm" method="post">
+					<input type="hidden" name="cmoimCode" value="${dto.comimCode}">
+					<div class="form-group" style="overflow: auto;"><!-- 중간에 작성란. -->
+						<div>
+							<div> 
+								<input type="text"  placeholder="일정 제목" style="width: 440px; height: 31px;">
+							</div>
+							<div>
+								<textarea placeholder="일정 설명" maxlength="1500" style="overflow: hidden; width: 440px;height: 81px; margin-top: 5px;"></textarea>
+							</div>
+						</div>
+						
+						<div align="center" style="margin-top: 5px; height: 32px;">
+							<div style="width:89px; height: 18px; padding-right: 10px; font-size: 13px; font-weight: 400;float: left;" >
+								시작
+							</div>
+							<div style="float: left;">
+								<input placeholder="2017-12-21">
+							</div>
+							<div style="float: left;">
+								<input placeholder="오전 01:00">
+							</div>
+						</div>
+						<div align="center" style="margin-top: 5px; height: 32px;">
+							<div style="width:89px; height: 18px; padding-right: 10px; font-size: 13px; font-weight: 400;float: left;" >
+								모집인원
+							</div>
+							<div style="float: left;">
+								<select style="width: 174px;height: 26px;">
+									<option>2명</option>
+									<option>3명</option>
+									<option>4명</option>
+									<option>5명</option>
+									<option>10명</option>
+									<option>20명</option>
+								</select>
+							</div>
+						</div>
+						<div align="center" style="margin-top: 5px; height: 32px;">
+							<div style="width:89px; height: 18px; padding-right: 10px; font-size: 13px; font-weight: 400;float: left;" >
+								모집장소
+							</div>
+							<div style="float: left;">
+								<input placeholder="모집장소를 입력해주세요">
+							</div>
+						</div>
+						<div align="center" style="margin-top: 5px; height: 32px;">
+							<div style="width:89px; height: 18px; padding-right: 10px; font-size: 13px; font-weight: 400;float: left;" >
+								모집시간
+							</div>
+							<div style="float: left;">
+								<input placeholder="오전 01:00">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
+							<div style="margin: 15px; padding-right: 50px;" align="center">
+								<button type="button" class="btn" onclick="sendCalendar();">
+									완료
 								</button>
 							</div>
 						</div>
