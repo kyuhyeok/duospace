@@ -44,6 +44,7 @@ $(function(){
 	    socket.send(jsonStr);
 		console.log("소켓로딩");
 	    console.log(uNum+":"+friendNum+' is connected.');
+	    readaFMessCnt();
 	}
 
 	function onClose(evt) {
@@ -55,7 +56,6 @@ $(function(){
     	var type = data.type;
     	
     	if(type=="talk") {
-    		alert(data.msg);
     		writeToScreen(data);
     	} else if(type=="read"){
     		if($(".unreadfm").length>0)
@@ -66,7 +66,7 @@ $(function(){
 	function onError(evt) {
 	}
 	
-	$('#chatinputstream').on('keydown', function(key) {
+	$('#chatinputstream').on('keydown', function(event) {
     	var tot=100;
 		if($(this).val().length > tot) {
 			$(this).val($(this).val().substring(0, tot));
@@ -129,7 +129,7 @@ function writeToScreen(vo) {
 	if(vo.senderNum=="${sessionScope.user.memberNum}") {
 		out+="<div class='contentBox _ua0' id='mess"+vo.num+"' data-fmNum='"+vo.num+"'>";
 		out+="<div class='content _my'>";
-		out+="<div class='etcbox _ua0' style='width:100%'>"+vo.sendDate+"</div>";
+		out+="<div class='etcbox _ua0' style='width:100%;text-align: right;'>"+vo.sendDate+"</div>";
 		out+="<div class='myCon'>";
 		out+="<div class='textbox _mycolor' style='padding: 5px 8px 5px;'>";
 		out+="<span>"+vo.content+"</span>";

@@ -1,27 +1,35 @@
 package com.duospace.community.moimchat;
 
-public class MoinChat {
-	private int memberNum, cmoincode, mchatnum;
-	private String name;
-	private String sendDate,content, proFileSaveFileName; 
+public class MoimChat {
+	private int memberNum, cmoimCode, mchatNum;
+	private String name, memberId;
+	private String sendDate,content, profile; 
 	private int unReadCnt;
+	
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public int getCmoincode() {
-		return cmoincode;
+	public int getCmoimCode() {
+		return cmoimCode;
 	}
-	public void setCmoincode(int cmoincode) {
-		this.cmoincode = cmoincode;
+	public void setCmoimCode(int cmoimCode) {
+		this.cmoimCode = cmoimCode;
 	}
-	public int getMchatnum() {
-		return mchatnum;
+	public int getMchatNum() {
+		return mchatNum;
 	}
-	public void setMchatnum(int mchatnum) {
-		this.mchatnum = mchatnum;
+	public void setMchatNum(int mchatNum) {
+		this.mchatNum = mchatNum;
 	}
 	public String getName() {
 		return name;
@@ -41,11 +49,11 @@ public class MoinChat {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getProFileSaveFileName() {
-		return proFileSaveFileName;
+	public String getProfile() {
+		return profile;
 	}
-	public void setProFileSaveFileName(String proFileSaveFileName) {
-		this.proFileSaveFileName = proFileSaveFileName;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 	public int getUnReadCnt() {
 		return unReadCnt;

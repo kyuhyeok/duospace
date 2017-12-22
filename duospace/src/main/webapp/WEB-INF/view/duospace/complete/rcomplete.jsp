@@ -198,7 +198,7 @@
 			</div>
 	</div>
 	<div class="footer-btn">
-		<button type="button" class="btn btn-primary antosubmit" onclick="javascript:location.href='<%=cp%>/main'">확인</button>
+		<button type="button" class="btn btn-primary antosubmit" onclick="javascript:location.href='<%=cp%>/space_main'">확인</button>
 	</div>
 </div>
 

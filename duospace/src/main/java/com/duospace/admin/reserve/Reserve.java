@@ -35,7 +35,7 @@ public class Reserve {
 	private int memberNum;
 	private String name;    // 회원 이름
 	private String signSpot;
-	
+	private int state; //예약상태
 	
 	/*예약상세(Stres, Rmres)*/
 	private int strNum;  //좌석상세코드
@@ -60,6 +60,39 @@ public class Reserve {
 	private long passHour;
 	
 	
+	/*체크인 (checkIn)*/
+	private int checkNum;
+	private String checkIn;
+	private String checkOut;
+	
+	
+	
+	
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public int getCheckNum() {
+		return checkNum;
+	}
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+	public String getCheckIn() {
+		return checkIn;
+	}
+	public void setCheckIn(String checkIn) {
+		this.checkIn = checkIn;
+	}
+	public String getCheckOut() {
+		return checkOut;
+	}
+	public void setCheckOut(String checkOut) {
+		this.checkOut = checkOut;
+	}
 	public int getListNum() {
 		return listNum;
 	}

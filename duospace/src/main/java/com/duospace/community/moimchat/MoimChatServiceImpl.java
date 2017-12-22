@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
 
-@Service("duogram.moinChatService")
-public class MoinChatServiceImpl implements MoinChatService{
+@Service("moim.moimChatService")
+public class MoimChatServiceImpl implements MoimChatService{
 	@Autowired
 	private CommonDAO dao;
 	
 	@Override
-	public List<MoinChat> listFMC(Map<String, Object> map) {
-		List<MoinChat> list=null;
+	public List<MoimChat> listFMC(Map<String, Object> map) {
+		List<MoimChat> list=null;
 		
 		try {
-			list=dao.selectList("moinChat.listFMC", map);
+			list=dao.selectList("moimChat.listFMC", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -31,32 +31,31 @@ public class MoinChatServiceImpl implements MoinChatService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("moinChat.listFMCDataCount", map);
+			result=dao.selectOne("moimChat.listFMCDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 		return result;
 	}
 	
+	@Override
+	public List<MoimChat> listMoimMember(Map<String, Object> map) {
+		List<MoimChat> list=null;
+		
+		try {
+			list=dao.selectList("moimChat.listMoimMember", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
 	@Override
 	public int fMURtDCnt(Map<String, Object> map) {
 		int result=0;
 		
 		try {
-			result=dao.selectOne("moinChat.fMURtDCnt", map);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return result;
-	}
-
-	@Override
-	public int insertFMess(MoinChat dto) {
-		int result=0;
-		
-		try {
-			
-			result=dao.insertData("moinChat.insertFMess", dto);
+			result=dao.selectOne("moimChat.fMURtDCnt", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -64,11 +63,23 @@ public class MoinChatServiceImpl implements MoinChatService{
 	}
 	
 	@Override
-	public MoinChat readFMess(Map<String, Object> map) {
-		MoinChat dto=null;
+	public int insertFMess(MoimChat dto) {
+		int result=0;
 		
 		try {
-			dto=dao.selectOne("moinChat.readFMess", map);
+			result=dao.insertData("moimChat.insertFMess", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+	
+	@Override
+	public MoimChat readFMess(Map<String, Object> map) {
+		MoimChat dto=null;
+		
+		try {
+			dto=dao.selectOne("moimChat.readFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -76,11 +87,23 @@ public class MoinChatServiceImpl implements MoinChatService{
 	}
 	
 	@Override
-	public List<MoinChat> listFMessContent(Map<String, Object> map) {
-		List<MoinChat> list=null;
+	public int insertReadMess(Map<String, Object> map) {
+		int result=0;
 		
 		try {
-			list=dao.selectList("moinChat.listFMessContent", map);
+			result=dao.insertData("moimChat.insertReadMess", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public List<MoimChat> listFMessContent(Map<String, Object> map) {
+		List<MoimChat> list=null;
+		
+		try {
+			list=dao.selectList("moimChat.listFMessContent", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -92,7 +115,7 @@ public class MoinChatServiceImpl implements MoinChatService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("moinChat.fMListDataCount", map);
+			result=dao.selectOne("moimChat.fMListDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -104,7 +127,7 @@ public class MoinChatServiceImpl implements MoinChatService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("moinChat.updateReadDate", map);
+			result=dao.selectOne("moimChat.updateReadDate", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -116,7 +139,7 @@ public class MoinChatServiceImpl implements MoinChatService{
 		int result=0;
 		
 		try {
-			result=dao.selectOne("moinChat.updateFMess", map);
+			result=dao.selectOne("moimChat.updateFMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -124,7 +147,7 @@ public class MoinChatServiceImpl implements MoinChatService{
 	}
 
 	@Override
-	public int deleteFMess(MoinChat dto) {
+	public int deleteFMess(MoimChat dto) {
 		int result=0;
 		
 		try {
@@ -142,17 +165,17 @@ public class MoinChatServiceImpl implements MoinChatService{
 				if(readDate!=null) {
 					switch(ds) {
 					case 1:return result;
-					case 2:result=dao.deleteData("moinChat.deleteFMess", map);break;
-					default:map.put("deleteStatus", "1");result=dao.updateData("moinChat.updateFMess", map);break;
+					case 2:result=dao.deleteData("moimChat.deleteFMess", map);break;
+					default:map.put("deleteStatus", "1");result=dao.updateData("moimChat.updateFMess", map);break;
 					}
 				}else {
-					result=dao.deleteData("moinChat.deleteFMess", map);
+					result=dao.deleteData("moimChat.deleteFMess", map);
 				}
 			}else {
 				switch(ds) {
-				case 1:result=dao.deleteData("moinChat.deleteFMess", map);break;
+				case 1:result=dao.deleteData("moimChat.deleteFMess", map);break;
 				case 2:return result;
-				default:map.put("deleteStatus", "2");result=dao.updateData("moinChat.updateFMess", map);break;
+				default:map.put("deleteStatus", "2");result=dao.updateData("moimChat.updateFMess", map);break;
 				}
 			}
 		} catch (Exception e) {

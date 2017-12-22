@@ -305,8 +305,8 @@ $(function() {
 	});
 	readaFReqCnt();
 	readaFMessCnt();
-	setTimeout(readaFReqCnt(), 10000);
-	setTimeout(readaFMessCnt(), 10000);
+	setInterval(readaFReqCnt(), 10000);
+	setInterval(readaFMessCnt(), 10000);
 	$("body").on("click", "#dgFReqlistview", function(event){
 		event.stopPropagation();
 	});

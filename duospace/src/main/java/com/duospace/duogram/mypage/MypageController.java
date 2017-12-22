@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.duospace.common.FileManager;
 import com.duospace.common.MyUtil;
 import com.duospace.member.Member;
 import com.duospace.member.SessionInfo;
@@ -29,6 +30,9 @@ public class MypageController {
 	
 	@Autowired
 	private MyUtil util;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	// mypage 메인 화면
 	@RequestMapping(value="/duogram/mypage/{blogNum}")
@@ -91,8 +95,10 @@ public class MypageController {
 			@RequestParam String page,
 			HttpSession session) throws Exception {	
 		// 수정 하기
-		service.updateBoard(dto);		
-		
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"duogram";	
+	
+		service.updateBoard(dto, pathname);
 		return "redirect:/duogram/mypage/"+blogNum;
 	}
 	
@@ -151,8 +157,40 @@ public class MypageController {
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"duogram";	
+		service.deleteBoard(num, info.getMemberNum(), pathname);
 		
-		service.deleteBoard(num, info.getMemberNum());
+		return "redirect:/duogram/mypage/"+blogNum;
+	}
+	
+	// 파일삭제
+	@RequestMapping(value="/duogram/mypage/deleteFile", 
+			method=RequestMethod.GET)
+	public String deleteFile(
+			@RequestParam int num,
+			@RequestParam int blogNum,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Mypage dto = service.readBoard(num);
+		if(dto==null) {
+			return "redirect:/duogram/mypage/"+blogNum;
+		}
+			
+		if(info.getMemberNum()!=dto.getMemberNum()) {
+			return "redirect:/duogram/mypage/"+blogNum;
+		}
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + File.separator + "uploads" + File.separator + "bbs";		
+		if(dto.getSaveFilename() != null && dto.getSaveFilename().length()!=0) {
+			  fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+			  
+			  dto.setSaveFilename("");
+			  service.updateBoard(dto, pathname);
+       }
 		
 		return "redirect:/duogram/mypage/"+blogNum;
 	}
@@ -171,7 +209,7 @@ public class MypageController {
 		if(info==null) {
 			state="loginFail";
 		} else {
-			dto.setMemberNum(info.getMemberNum());
+			dto.setWriter(info.getMemberNum());
 			service.insertReply(dto);
 			
 			if(dto.getAnswer()!=0)
@@ -231,6 +269,71 @@ public class MypageController {
 		model.put("email", dto.getEmail());
 		return model;
 	}
+	
+	@RequestMapping(value="/duogram/mypage/deleteReply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam int replyNum,
+			HttpSession session
+			) {
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		String state;
+		
+		if(info==null) {
+			state="loginFail";
+		} else {
+			Map<String, Object> map=new HashMap<>();
+			map.put("replyNum", replyNum);
+			map.put("userId", info.getUserId());
+			service.deleteReply(map);
+			state="true";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	// 게시물 공감 추가
+		@RequestMapping(value="duogram/mypage/insertLikeBoard", method=RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> insertLikeBoard(
+				Mypage dto, HttpSession session) throws Exception {
+		
+			SessionInfo info=(SessionInfo) session.getAttribute("user");
+			String state="true";
+			
+			if(info==null) {
+				state="loginFail";
+			} else {
+				dto.setMemberNum(info.getMemberNum());
+				int result=service.insertLikeBoard(dto);
+				if(result==0)
+					state="false";
+	   	    }
+	   	    
+			Map<String, Object> model = new HashMap<>(); 
+			model.put("state", state);
+			return model;
+		}
+		
+		// 게시물 공감 개수
+		@RequestMapping(value="duogram/mypage/countLikeBoard", method=RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> countLikeBoard(
+				@RequestParam(value="num") int num) throws Exception {
+			
+			String state="true";
+			int countLikeBoard=service.countLikeBoard(num);
+			
+	   	    Map<String, Object> model = new HashMap<>();
+	   	    model.put("state", state);
+	   	    model.put("countLikeBoard", countLikeBoard);
+			
+	   	    // 작업 결과를 json으로 전송
+	   	    return model;
+		}	
 	
 }
 

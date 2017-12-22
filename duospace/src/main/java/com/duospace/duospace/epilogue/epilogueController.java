@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.member.SessionInfo;
 
@@ -19,21 +20,27 @@ public class epilogueController {
 	private epilogueService service;
 	
 	@RequestMapping(value="/epilogue")
-	public String reserve(Model model) throws Exception {
+	public String list(Model model) throws Exception {
 		return ".epilogue.list";
 	}
 	
 	@RequestMapping(value="/duospace/epilogue/created", method=RequestMethod.GET)
-	public String createdForm(Model model) throws Exception{
-		
+	public String createdForm(
+			@RequestParam int reservNum,
+			@RequestParam String spotName,
+			Model model) throws Exception{
+		model.addAttribute("reservNum", reservNum);
+		model.addAttribute("spotName", spotName);
 		model.addAttribute("mode", "created");
 		
-		return ".epilogue.e_created";
+		return ".userSpace.epilogue.e_created";
 	}
 	
 	@RequestMapping(value="/duospace/epilogue/created", method=RequestMethod.POST)
 	public String createdSubmit(
 			epilogue dto,
+			@RequestParam int reservNum,
+			Model model,
 			HttpSession session
 			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
@@ -41,11 +48,13 @@ public class epilogueController {
 		String root=session.getServletContext().getRealPath("/");
 		String pathname=root+File.separator+"uploads"+File.separator+"bbs";
 		
-		dto.setUserId(info.getUserId());
-
+		dto.setMemberNum(info.getMemberNum());
+		dto.setReservNum(reservNum);
+		
 		service.insertReview(dto, pathname);
 		
-		return "redirect:/list";
-		
+		return "redirect:/mypage";
 	}
+	
+	
 }

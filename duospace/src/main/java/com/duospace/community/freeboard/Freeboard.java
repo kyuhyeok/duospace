@@ -5,7 +5,7 @@ public class Freeboard {
 	private String content,created,name;//내용,작성일
 	private int hitCount,cmoimCode,writer;//조회수,코뮤니티코드,작성자
 	
-	private int replyNum;
+	private int replyNum,replyCount;
 	
 	public int getBoardNum() {
 		return boardNum;
@@ -60,6 +60,12 @@ public class Freeboard {
 	}
 	public void setReplyNum(int replyNum) {
 		this.replyNum = replyNum;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 	
 	

@@ -59,12 +59,7 @@ $(function() {
 		/*예약시간변경 or 층변경시 배치도 다시불러오기*/
 		$("input[name=reserve_floor]").on("change",function(){
 			//ajax
-			
-			
-				
-		
-			
-			
+					
 			var startTime=$(".resultTb>div").next().next().children().eq(1).text(); //시작시간
 			var endTime=$(".resultTb>div").next().next().next().children().eq(1).text();	//종료시간
 			var floorNum=$("input[name=reserve_floor]:checked").val();  //선택한 층번호

@@ -5,24 +5,28 @@
 <%
    String cp = request.getContextPath();
 %>
-
+<style type="text/css">
+a:hover{
+	text-decoration: none;
+}
+</style>
 <footer class="footer-tet" role="contentinfo">
     <div class="container" style="mar">
     	<div class="footer-tet-left">
     		<span style="font-family:Airways; font-size: 42px; color: #172A40;">Duo Space</span>
     	</div>
 		<div class="footer-tet-right">
-			<span><a href="#"> 회사 소개 </a></span>
+			<span><a href="<%=cp%>/space_company"> 회사 소개 </a></span>
 			<span> : </span>
 			<span><a href="#"> Duo Space 정책 및 약관 </a></span>
 			<span>|</span>
 			<span><a href="#"> 제휴제안 </a></span>
 			<span>|</span>
-			<span><a href="#"> 이용약관 </a></span>
+			<span><a href="<%=cp%>/agreement"> 이용약관 </a></span>
 			<span>|</span>
-			<span><a href="#"> 개인정보취급방침 </a></span>
+			<span><a href="<%=cp%>/privacy"> 개인정보취급방침 </a></span>
 			<span>|</span>
-			<span><a href="#"> 고객센터 </a></span>
+			<span><a href="<%=cp%>/duospace/notice/list"> 고객센터 </a></span>
 			<br>
 			<span> 대표이사: 곽규혁</span>
 			<span> | 사업자등록번호 000-00-000000</span>

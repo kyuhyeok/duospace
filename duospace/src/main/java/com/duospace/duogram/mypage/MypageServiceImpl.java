@@ -80,15 +80,20 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int deleteBoard(int num, int memberNum) {
+	public int deleteBoard(int num, int memberNum, String pathname) {
 		int result=0;
-		
 		try {
+			
 			Mypage dto=readBoard(num);
 			if(dto!=null) {
 				if(dto.getMemberNum()!=memberNum && memberNum!=1)
 					return result;
+				if(dto.getSaveFilename()!=null&&dto.getSaveFilename().length()!=0) {
+					fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+				}
 			}
+			
+			
 			dao.deleteData("mypage.deleteMypage", num);
 			result=1;
 		} catch (Exception e) {
@@ -109,10 +114,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int updateBoard(Mypage dto) {
+	public int updateBoard(Mypage dto, String pathname) {
 		int result=0;
 		
 		try {
+			if(dto.getUpload()!=null && !dto.getUpload().isEmpty()) {
+				String newFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
+		
+				if (newFilename != null) {
+					// 이전 파일 지우기
+					if(dto.getSaveFilename().length()!=0 && dto.getSaveFilename()!=null) {
+						fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+					}
+					dto.setSaveFilename(newFilename);
+				}
+			}
 			dao.updateData("mypage.updateBoard", dto);
 			result=1;
 		} catch (Exception e) {
@@ -162,8 +178,14 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public int deleteReply(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("mypage.deleteReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -194,5 +216,27 @@ public class MypageServiceImpl implements MypageService {
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public int insertLikeBoard(Mypage dto) {
+		int result=0;
+
+		try{
+			result=dao.insertData("mypage.insertLikeBoard", dto);
+		} catch(Exception e) {
+		}
+		return result;
+	}
+
+	@Override
+	public int countLikeBoard(int num) {
+		int result=0;
+
+		try{
+			result=dao.selectOne("mypage.countLikeBoard", num);
+		} catch(Exception e) {
+		}
+		return result;
 	}
 }

@@ -133,7 +133,7 @@ li:hover ul.submenu {
 			
 				<div class="header-login" style="width: 100%; text-align: right;">
 				
-					<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}">Duo Gram</a>
+					<a href="<%=cp%>/duogram">Duo Gram</a>
 					<a href="<%=cp%>/community">Duo Moim</a>
 					<c:if test="${empty sessionScope.user}">
 						<a href="javascript:dialogLogin();"> 로그인</a>
@@ -144,7 +144,7 @@ li:hover ul.submenu {
 					<c:if test="${not empty sessionScope.user}">
 						<span style="color: #D9383A;">${sessionScope.user.userName}</span>님 <i></i>
 						<a href="<%=cp%>/member/logout"> 로그아웃</a>
-						<a href="#"> 마이 페이지</a>
+						<a href="<%=cp%>/mypage"> 마이 페이지</a>
 					</c:if>
 					<c:if test="${sessionScope.user.userId=='admin'}">
 						<a href="<%=cp%>/admin">관리자</a>
