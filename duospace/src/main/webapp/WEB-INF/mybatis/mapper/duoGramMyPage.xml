@@ -37,7 +37,8 @@
 				resultType="com.duospace.duogram.mypage.Mypage">
 		SELECT * FROM(
 			SELECT ROWNUM rnum, tb. * FROM (
-				SELECT g.num, m2.name, g.memberNum, g.saveFilename, blogNum, content, created, nvl(replyCount, 0) replyCount
+				SELECT g.num, m2.name, g.memberNum, g.saveFilename, blogNum, content, created,
+				nvl(replyCount, 0) replyCount, nvl(countLikeBoard, 0) countLikeBoard
 				FROM gramtimeline g
 				JOIN member2 m2 ON g.memberNum=m2.memberNum
 				LEFT OUTER JOIN 
@@ -46,6 +47,10 @@
 			              WHERE answer=0
 					      GROUP BY num
 					) rr ON g.num = rr.num
+				LEFT OUTER JOIN (
+    					SELECT num, COUNT(*) countLikeBoard
+    					FROM gramlike GROUP BY num
+					) c ON g.num = c.num
 				WHERE g.blogNum=#{blogNum}
 				ORDER BY num DESC
 		<![CDATA[

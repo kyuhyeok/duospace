@@ -10,6 +10,74 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function sendInfo() {
+	var uid="${sessionScope.user.memberNum}";
+	if(!uid){
+		location.href="<%=cp%>/member/login";
+		return;
+	} 
+	// 공백이 있으면 다시 채팅창 깜빡이
+	var intro=$.trim($("#intro").val());
+	if(! intro) {
+		$("#intro").focus();
+		alert("자신을 소개해 주세요");
+		return;
+	}
+	
+	var company=$.trim($("#company").val());
+	if(! company) {
+		$("#company").focus();
+		alert("학교를 입력해 주세요");
+		return;
+	}
+	
+	var school=$.trim($("#school").val());
+	if(! school) {
+		$("#school").focus();
+		alert("학교를 입력해 주세요");
+		return;
+	}
+	
+	var home=$.trim($("#home").val());
+	if(! home) {
+		$("#home").focus();
+		alert("거주지를 입력해 주세요");
+		return;
+	}
+	
+	
+	var f=document.myinfoForm;
+	f.answer.value=0;
+
+	var q = new FormData(f);
+	var url="<%=cp%>/duogram/mygram/insert";
+	
+	
+	$.ajax({
+		type:"post"
+		,url:url
+        ,processData: false  // file 전송시 필수
+        ,contentType: false  // file 전송시 필수
+		,data:q
+		,dataType:"json"
+		,success:function(data) {
+			$("#content").val("");
+			$("#company").val("");
+			$("#school").val("");
+			$("#home").val("");
+			// 글쓰기 후 새로고침
+			$("#listDuogramBody").empty();
+			pageNo=1;
+			listPage(1);
+		}
+	    ,error:function(e) {
+	    	console.log(e.responseText);
+	    }
+	});
+
+}
+</script>
 </head>
 
 <!-- Bootstrap core CSS -->
@@ -57,7 +125,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<button type="submit">등록하기</button>
+				<button type="button" onclick="sendInfo()">등록하기</button>
 				<button type="reset">돌아가기</button>
 			</td>
 		</tr> 

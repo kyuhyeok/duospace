@@ -7,7 +7,7 @@ public class Mypage {
 	private int listNum, replyNum, num, answer, blogNum, memberNum, friendNum, isopen;
 	private String name, pwd, Intro, saveFilename, originalFilename;
 	private String company, school, home, created, updated, content;
-	private int replyCount;
+	private int replyCount, countLikeBoard;
 	
 	public MultipartFile getUpload() {
 		return upload;
@@ -135,4 +135,11 @@ public class Mypage {
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
+	public int getCountLikeBoard() {
+		return countLikeBoard;
+	}
+	public void setCountLikeBoard(int countLikeBoard) {
+		this.countLikeBoard = countLikeBoard;
+	}
+	
 }

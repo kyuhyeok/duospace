@@ -163,6 +163,50 @@ function sendReply(num) {
 	});
 }
 
+//게시물 공감 개수
+function countLikeBoard(num) {
+	var url="<%=cp%>/duogram/countLikeBoard";
+	$.post(url, {num:num}, function(data){
+		var count=data.countLikeBoard;
+		
+		$("#countLikeBoard").html(count);
+	}, "json");
+}
+
+//게시물 공감 추가
+function sendLikeBoard(num) {
+	var uid="${sessionScope.user.memberNum}";
+	if(! uid) {
+		login();
+		return;
+	}
+
+	msg="게시물에 공감하십니까 ?";
+	if(! confirm(msg))
+		return;
+	
+	var query="num="+num;
+
+	$.ajax({
+		type:"post"
+		,url:"<%=cp%>/duogram/insertLikeBoard"
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			var state=data.state;
+			if(state=="true") {
+				countLikeBoard(num);
+			} else if(state=="false") {
+				alert("좋아요는 한번만 가능합니다.");
+			} else if(state=="loginFail") {
+				login();
+			}
+		}
+		,error:function(e) {
+			console.log(e.responseText);
+		}
+	});
+}
 //타임라인 글 리스트
 function printDuogram(data) {
 	var me="${me}";
@@ -182,29 +226,34 @@ function printDuogram(data) {
 			var name=data.list[idx].name;
 			var replyCount=data.list[idx].replyCount;
 			var saveFilename=data.list[idx].saveFilename;
+			var countLikeBoard=data.list[idx].countLikeBoard;
+			var blogNum=data.list[idx].blogNum;
 			
 			out+="<div style='min-height: 220px; margin-bottom: 30px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
-			out+="<a href='duogram/mypage/"+memberNum+"' style='text-decoration:none; color: black;'>";
+			out+="<a href='' style='text-decoration:none; color: black;'>";
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
-			out+="<div style='float:left; height: '>";
-			out+="<a href='duogram/mypage/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
-			out+="<br>"
+			out+="<div style='float:left;'>";
+			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
+			if(memberNum!=blogNum)
+				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+blogNum+"</a>";
+			out+="</div>";
+			out+="<br>";
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div class='dropdown' style='float:right;'>";
 			out+="<button aria-expanded='true' data-toggle='dropdown'type='button'>";			
 			out+="<span><img src='<%=cp%>/resource/images/duogram/dot.PNG' style='width: 12px; height: 3px;'></span>";
 			out+="</button>"
 			out+="<ul class='dropdown-menu'>";
-			if(uid==memberNum)
-				out+="<li style='margin-left: 20px; height: 20px;'><button class='button updateModalBtn1' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
+			if(uid==memberNum || uid=="1" || uid=="true")
+				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-saveFilename='"+saveFilename+"' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
 			else
-				out+="<li style='margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
-			if(uid==memberNum || uid=="admin" || uid=="true")
+				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
+			if(uid==memberNum || uid=="1" || uid=="true")
 				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
 			else
 				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
@@ -222,21 +271,19 @@ function printDuogram(data) {
 			
 			out+="<div style='width: 614px; height: 20px; margin-bottom: 20px;'>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<a href='#' style='text-decoration:none; font-weight: bold;'>"+"♥"+"</a>";
-			out+="</div>";
-			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<a href='#' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요x개　"+"</a>";
+			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard'>"+countLikeBoard+"개 "+"</span></button>";
+			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
-			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글"+replyCount+"개"+"</button>";
+			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 "+replyCount+"개"+"</button>";
 			out+="</div>";
 			out+="</div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
 			out+="<textarea id='replyContentA' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
-			out+="<button type='button' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; border-radius: 4px; color: white; border: none; background: #172A40; width: 80px; height: 28px;'>"+"댓글 달기";
+			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
-			out+="<div id='listReplyLayoutA"+num+"' style='display: none; margin-bottom: 15px;'></div>"
+			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"
 			out+="</div>";
 		}
 		$("#listDuogramBodyA").append(out);

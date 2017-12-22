@@ -162,9 +162,9 @@ function sendReply(num) {
 		return;
 	}
 
-	var content=$.trim($("#replyContent").val());
+	var content=$.trim($("#replyContent1").val());
 	if(! content){
-		$("#replyContent").focus();
+		$("#replyContent1").focus();
 		return;
 	}
 
@@ -180,7 +180,7 @@ function sendReply(num) {
 		,success:function(data) {
 			var s=data.state;
 
-			$("#replyContent").val("");
+			$("#replyContent1").val("");
 			
 			$("#listReplyLayout"+num).show();
 			listReplyMethod(num);
@@ -262,6 +262,7 @@ function printDuogram(data) {
 			var replyCount=data.list[idx].replyCount;
 			var saveFilename=data.list[idx].saveFilename;
 			var countLikeBoard=data.list[idx].countLikeBoard;
+			var blogNum=data.list[idx].blogNum;
 			
 			out+="<div style='min-height: 220px; margin-bottom: 30px; width: 614px; border: 1px solid #dddfe2; float:left; background-color: white; border-radius: 3px;'>";
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
@@ -272,9 +273,11 @@ function printDuogram(data) {
 			out+="</a>";
 			out+="</div>";
 			out+="<div style='float:left;'>";
-			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>"+" → ";
-				out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a></div>";
-			out+="<br>"
+			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
+			if(memberNum!=blogNum)
+				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+blogNum+"</a>";
+			out+="</div>";
+			out+="<br>";
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
 			out+="<div class='dropdown' style='float:right;'>";
 			out+="<button aria-expanded='true' data-toggle='dropdown'type='button'>";			
@@ -303,16 +306,16 @@ function printDuogram(data) {
 			
 			out+="<div style='width: 614px; height: 20px; margin-bottom: 20px;'>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; font-weight: bold; font-family: '나눔고딕';'>"+"좋아요"+"<span id='countLikeBoard'>"+countLikeBoard+"</span></button>";
+			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard'>"+countLikeBoard+"개 "+"</span></button>";
 			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
-			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글"+replyCount+"개"+"</button>";
+			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 "+replyCount+"개"+"</button>";
 			out+="</div>";
 			out+="</div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<textarea id='replyContent' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<textarea id='replyContent1' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
 			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
 			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"

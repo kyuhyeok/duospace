@@ -117,7 +117,6 @@ public class MypageController {
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("blogNum", blogNum);
-		
 		dataCount=service.dataCount(map);
 		total_page = util.pageCount(rows, dataCount);
 		if(current_page>total_page)
@@ -130,6 +129,7 @@ public class MypageController {
 		map.put("end", end);
 		
 		int listNum, n=0;
+		
 		List<Mypage> list=service.listMypage(map);
 		Iterator<Mypage> it=list.iterator();
 		while (it.hasNext()) {
@@ -145,6 +145,7 @@ public class MypageController {
 		model.put("list", list);
 		model.put("dataCount", dataCount);
 		model.put("total_page", total_page);
+		
 		
 		return model;
 	}
