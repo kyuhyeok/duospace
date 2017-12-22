@@ -137,6 +137,28 @@ public class ReserveServiceImpl implements ReserveService {
 		return result;
 	}
 
+	@Override
+	public int jinanSeatdataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("admin.reserve.jinanSeatDataCount", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reserve> jinanSeatReserveList(Map<String, Object> map) {
+		List<Reserve> list=null;
+		try {
+			list=dao.selectList("admin.reserve.jinanSeatList", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
 	
 
 }

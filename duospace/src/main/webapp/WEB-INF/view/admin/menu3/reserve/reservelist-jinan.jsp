@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 function search(f) {
-	f.action="<%=cp%>/admin/reserve/list";
+	f.action="<%=cp%>/admin/reserve/complete/list";
 	f.submit();
 }
 
@@ -56,7 +56,24 @@ $(function(){
 			
 		});
 		
-	
+		$("#where").on("change",function(){
+			var n=$("select[name=where]").val();
+			
+			$("#searchKey option").each(function(){
+				$("#searchKey option:eq(0)").remove();
+			});
+			
+			$("#searchKey").append("<option value=''>선택</option>");
+			$("#searchKey").append("<option value='spotName'>지점명</option>");
+			
+			if(n=='0'){
+				$("#searchKey").append("<option value='roomName'>룸명</option> <option value='userName'>예약자명</option>");
+			}else{
+				$("#searchKey").append("<option value='seatName'>좌석명</option> <option value='name'>예약자명</option>");
+			}
+				
+				
+		});
 		
 
 });
@@ -65,15 +82,9 @@ function deleteReserve(rmresNum) {
 		location.href="<%=cp%>/admin/reserve/delete?page=${page}&rmresNum="+rmresNum;
 	}
 }
-function changeJsp() {
-	var f = document.searchForm;
-	
-	var w = f.where.value;
-	
-	if(w=='1'){
-		location.href="<%=cp%>/admin/reserve/seatList";
-	}
-}
+
+
+
 
 </script>
 
@@ -87,7 +98,7 @@ function changeJsp() {
 			<div class="page-title" style="margin: 0px 10px;">
 				<div class="title_left">
 					<h3>
-						예약 관리 <small>Shop Manage</small>
+						지난 예약 관리 <small>Shop Manage</small>
 					</h3>
 				</div>
 				<div class="title_right"></div>
@@ -117,9 +128,9 @@ function changeJsp() {
 										<label class="control-label col-sm-2 col-xs-12"
 											for="managerphoto">예약구분</label>
 										<div class="col-sm-2 col-xs-12">
-											<select class="form-control" name="where" onchange="changeJsp();">
-												<option value="0" selected="selected">룸예약</option>
-												<option value="1">좌석예약</option>
+											<select class="form-control" name="where" id="where">
+												<option value="0" ${where==0?"selected='selected'":""}>룸예약</option>
+												<option value="1" ${where==1?"selected='selected'":""}>좌석예약</option>
 											</select>
 										</div>
 									</div>
@@ -142,11 +153,17 @@ function changeJsp() {
 									<div class="form-group">
 									<label class="col-sm-2 col-xs-12 control-label" for="sc_type">검색분류</label>
 									<div class="col-sm-2 col-xs-12">
-										<select class="form-control" name="searchKey" id="searchform">
+										<select class="form-control" name="searchKey" id="searchKey">
 											<option value="">선택</option>
 											<option value="spotName">지점명</option>
+										<c:if test="${where==0}">
 											<option value="roomName">룸명</option>
 											<option value="userName">예약자명</option>
+										</c:if>
+										<c:if test="${where==1}">
+											<option value="seatName">좌석명</option>
+											<option value="name">예약자명</option>
+										</c:if>
 										</select>
 										
 									</div>
@@ -180,7 +197,7 @@ function changeJsp() {
 							<div class="x_title">
 							
 								<h2>
-									예약 리스트<small>Shop List</small>
+									지난 예약 리스트<small>Shop List</small>
 								</h2>
 								<ul class="nav navbar-right panel_toolbox">
 									<li><a>Total ${dataCount}EA (${page}/${total_page}페이지)</a></li>
@@ -219,9 +236,9 @@ function changeJsp() {
 												<td>${dto.listNum}</td>
 												<td>${dto.spotName}</td>
 												<td>${dto.floorName}</td>
-												<td>${dto.roomName}</td>
-												<td>${dto.userName}</td>
-												<td>${dto.startDate }</td>
+												<td>${dto.roomName}${dto.seatName}</td>
+												<td>${dto.userName}${dto.name}</td>
+												<td>${dto.startDate}</td>
 												<td>${dto.endDate}</td>
 												<td>결제완료</td>
 		
