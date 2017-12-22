@@ -45,6 +45,41 @@
 }
 </style>
 
+<script type="text/javascript">
+function deleteMoimalbum(){
+	<c:if test="${sessionScope.user.memberNum==dto.memberNum || sessionScope.user.userId=='admin'}">
+	var alnum = "${dto.alnum}";
+	var page = "${page}";
+	var query = "alnum="+alnum+"&page="+page;
+	var url = "<%=cp%>/moimalbum/delete?" + query;
+	
+	if(confirm("위 자료를 삭제 하시겠습니까?"))
+		location.href=url;
+	</c:if>
+	<c:if test="${sessionScope.user.memberNum!=dto.memberNum && sessionScope.user.userId!='admin'}">
+		alert("게시물을 삭제할 수 없습니다.");
+	</c:if>
+}
+
+function updateMoimalbum(){
+	<c:if test="${sessionScope.member.memberNum==dto.memberNum}">
+	  var alnum = "${dto.alnum}";
+	  var page = "${page}";
+	  var query = "alnum="+alnum+"&page="+page;
+	  var url = "<%=cp%>/moimalbum/update?" + query;
+
+	  location.href=url;
+	</c:if>
+
+	<c:if test="${sessionScope.member.memberNum!=dto.memberNum}">
+	 alert("게시물을 수정할 수  없습니다.");
+	</c:if>
+
+	
+}
+
+</script>
+
 
 
 
@@ -116,7 +151,7 @@
 <c:if test="${sessionScope.user.memberNum==dto.memberNum}">
                 		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="updateMoimalbum();">수정</button>
 </c:if>
-<c:if test="${sessionScope.user.memberNum==dto.memberNum || sessionScope.user.memberNum=='admin'}">	                		    
+<c:if test="${sessionScope.user.memberNum==dto.memberNum || sessionScope.user.userId=='admin'}">	                		    
                 		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="deleteMoimalbum();">삭제</button>
 </c:if>                		    
                 		</td>

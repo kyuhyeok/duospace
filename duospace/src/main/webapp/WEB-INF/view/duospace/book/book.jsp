@@ -113,7 +113,7 @@
               <select id="" class="selectField">
                    <option value="">::분야::</option>
                    <option value="">IT</option>
-                   <option value="">Coffe</option>
+                   <option value="">Coffee</option>
               </select>
               <input type="text" name="searchValue" class="boxTF">
               <button type="button" onclick="result();" class="btn">검색</button>

@@ -55,7 +55,7 @@
 		FROM mchatread
 		<where>
 			<if test="cmoimCode!=0">
-				cmoimCode=#{cmoimCode}
+				mchatNum=#{mchatNum}
 			</if>
 			AND readDate IS NULL AND cmoimCode IN (
 				SELECT cmoimCode FROM moimmember WHERE memberNum=#{memberNum}
@@ -71,11 +71,13 @@
 	<select id="readFMess" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
 		<choose>
 			<when test="mchatNum==0">
-				SELECT mchatNum, memberNum, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
+				SELECT mchatNum, memberNum, name, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
 					SELECT mchatNum, memberNum, cmoimCode, content, sendDate, ROW_NUMBER() OVER (ORDER BY sendDate DESC) rank 
 					FROM moimchat
 					WHERE memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
-				) WHERE rank=1
+				) m
+				JOIN member2 m2 ON m.memberNum=m2.memberNum
+				WHERE rank=1
 			</when>
 			<otherwise>
 				SELECT mchatNum, memberNum, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate
@@ -85,13 +87,18 @@
 		</choose>
 	</select>
 	
+	<select id="listMoimMember" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
+		SELECT memberNum FROM moimmember
+		WHERE cmoimCode=#{cmoimCode} AND permission=1
+	</select>
+	
 	<insert id="insertReadMess" parameterType="map">
 		insert INTO mchatread (mchatNum, memberNum, cmoimCode)
         VALUES(#{mchatNum}, #{memberNum}, #{cmoimCode})
 	</insert>
 	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
-		SELECT m.mchatNum, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, m.memberNum, profile, NVL(unReadCnt,0) unReadCnt FROM (
+		SELECT m.mchatNum, name, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, m.memberNum, profile, NVL(unReadCnt,0) unReadCnt FROM (
 			SELECT ROWNUM rnum, tb.* FROM (
 				SELECT mchatNum, content, sendDate, memberNum 
 				FROM moimchat
@@ -105,7 +112,7 @@
 		LEFT OUTER JOIN (
 			SELECT mchatNum, NVL(COUNT(*),0) unreadcnt
 			FROM mchatread
-			WHERE cmoimCode=#{cmoimCode}
+			WHERE cmoimCode=#{cmoimCode} AND readDate IS NULL 
 			GROUP BY mchatnum
 		) r ON m.mchatNum=r.mchatNum
 		<![CDATA[
@@ -123,14 +130,14 @@
 	</select>
 	
 	<update id="updateReadDate" parameterType="map">
-		UPDATE messenger SET readDate=SYSDATE
+		UPDATE mchatread SET readDate=SYSDATE
 		<where>
 			<choose>
-				<when test="num=0">
-					readDate IS NUll AND memberNum=#{friendNum} AND friendNum=#{memberNum}
+				<when test="mchatNum==0">
+					readDate IS NUll AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode} AND
 				</when>
 				<otherwise>
-					num=#{num}
+					mchatNum=#{mchatNum} AND memberNum=#{memberNum}
 				</otherwise>
 			</choose>
 		</where>

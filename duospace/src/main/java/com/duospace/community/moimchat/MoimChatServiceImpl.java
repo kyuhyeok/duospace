@@ -39,6 +39,18 @@ public class MoimChatServiceImpl implements MoimChatService{
 	}
 	
 	@Override
+	public List<MoimChat> listMoimMember(Map<String, Object> map) {
+		List<MoimChat> list=null;
+		
+		try {
+			list=dao.selectList("moimChat.listMoimMember", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
 	public int fMURtDCnt(Map<String, Object> map) {
 		int result=0;
 		

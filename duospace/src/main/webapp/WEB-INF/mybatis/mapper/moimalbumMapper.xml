@@ -111,5 +111,27 @@ WHERE alnum=#{alnum}
 DELETE FROM moimalbum WHERE alnum=#{alnum}
 </delete>
 
+<insert id="insertReply" parameterType="com.duospace.community.moimalbum.Reply">
+INSERT INTO moimalrp(
 
+moimalRpNum, alnum, memberNum, content)
+VALUES (seq_moimalrp.NEXTVAL, #{alnum}, #{memberNum}, #{content}) 
+</insert>
+
+<select id="listReply" parameterType="map" resultType="com.duospace.community.moimalbum.Reply">
+SELECT * FROM(
+	SELECT ROWNUM rnum, tb.*
+	FROM
+	(
+		SELECT moimalRpNum, alnum, memberNum, content, created
+			FROM moimalrp
+			JOIN member1 ON member1.memberNum=moimalrp.memberNum
+			WHERE alnum=#{alnum} AND answer=0
+			ORDER BY moimalRpNum DESC
+			)tb
+			<![CDATA[
+			WHERE ROWNUM<=#{end}
+		) WHERE rnum>=#{start}
+	]]>
+	</select>
 </mapper>

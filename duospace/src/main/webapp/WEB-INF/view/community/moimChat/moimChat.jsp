@@ -42,6 +42,14 @@ textarea{
     padding: 6px 8px 6px;
     position: relative;
 }
+._1p1t {
+    color: #cccccc;
+    position: absolute;
+    z-index: 1;
+	right:60px;
+	bottom: 0;
+	text-align: right;
+}
 .scrollable{
 	background-color: #ffffff;
     border: 0;
@@ -167,12 +175,129 @@ li {
     overflow: hidden;
     position: relative;
 }
-.id{
+.ids{
 	color: #90949c;
     display: block;
     font-size: 12px;
     padding-top: 2px;
     position: absolute;
+}
+.contentBox{
+	align-items: flex-end;
+    display: flex;
+    position: relative;
+    margin: 10px 9px 10px 8px;
+}
+
+._ua1 {
+    justify-content: flex-start;
+}
+
+._ua0 {
+    justify-content: flex-end;
+}
+.content{
+    display: flex;
+    flex: 1 1 auto;
+    
+    flex-direction: row;
+    flex-wrap: wrap;
+    line-height: 1.28;
+    text-align: initial;
+    padding: 0px 0px 1px;
+}
+
+._my {
+    flex-direction: row-reverse;
+}
+
+.friendCon{
+    flex-direction: column;
+    direction: ltr;
+    min-height: 24px;
+    margin-left: 8px;
+    
+    clear: left;
+    float: left;
+    
+    position: relative;
+}
+
+.myCon{
+	flex-direction: column;
+    direction: ltr;
+    min-height: 24px;
+    margin-left: 8px;
+    
+    clear: right;
+    float: right;
+    
+    position: relative;
+}
+
+.textbox{
+	border-radius: 12px;
+    margin: 2px 0px;
+    background-color: rgb(241, 240, 240);
+    float: left;
+    
+    color: rgb(75, 79, 86);
+    max-width: 164px;
+    word-break:break-all; word-wrap:break-word;
+    min-width: 14px;
+    position: relative;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    overflow: hidden;
+}
+
+._mycolor{
+	background-color: #09504F;
+	color: #ffffff;
+}
+.etcbox{
+	font-size: 10px;
+	font-weight: bold;
+	opacity:0.5;
+	margin: 2px 0px;
+	color: rgb(75, 79, 86);
+	clear: right;
+    float: right;
+}
+time{
+	display: block;
+    height: 2px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 16px 0px 15px;
+}
+
+time>span{
+	color: rgb(144, 148, 156);
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    position: relative;
+    top: -8px;
+    padding: 0px 5px;
+    
+    text-align: center;
+    text-transform: uppercase;
+}
+.friendLink{
+	display: inline-block;
+    height: 28px;
+    position: relative;
+    width: 28px;
+}
+
+.friendLink img {
+    border-radius: 50%;
+    
+    height: 28px;
+    width: 28px;
 }
 </style>
 <script type="text/javascript">
@@ -204,12 +329,10 @@ $(function() {
 	    obj.type="mconn";
 	    obj.memberNum="${sessionScope.user.memberNum}";
 	    obj.cmoimCode="${cmoimCode}";
-	    obj.memberName="${sessionScope.user.userName}";
 	    obj.memberId="${sessionScope.user.userId}";
 	    jsonStr = JSON.stringify(obj); 
 	    socket.send(jsonStr);
-	    console.log("소켓로딩");
-	    console.log("connected.");
+	    console.log("chat connected.");
 	}
 	
 	function onClose(evt) {
@@ -219,13 +342,16 @@ $(function() {
 	function onMessage(evt) {
     	var data=JSON.parse(evt.data);
     	var type = data.type;
-    	
+
+    	console.log(data.message);
     	if(type=="mtalk") {
     		talkProcerss(data);
     	} else if(type=="mread") {
-    		if($(".unreadfm").length>0)
-    			$(".unreadfm").remove();
-    	}
+    		<%--if($(".unreadfm").length>0)
+    			$(".unreadfm").remove();--%>
+    		$("#dgchatcontent").html();
+    		listmoimchat(1);
+    	} 
 	}
 
 	function onError(evt) {
@@ -237,24 +363,29 @@ $(function() {
 			$(this).val($(this).val().substring(0, tot));
 		}
     	if($(this).val().length > 0) {
-            $('#chatinputstream').html($('#chatinputstream').val().length+'/'+tot);
+            $('._1p1t').html($('#chatinputstream').val().length+'/'+tot);
         }else{
-			$('#chatinputstream').html('');
+			$('._1p1t').html('');
 		}
     	$(this).height(1).height($(this).prop('scrollHeight')-6);
-    	console.log("메시지 입력 제한 로드");
+    	
+    	if(key.keyCode == 116){
+    		var obj = {};
+    	    var jsonStr;
+    	    obj.type="leave";
+    	    jsonStr = JSON.stringify(obj); 
+    	    socket.send(jsonStr);
+    	}
     });
 	
 	$("#chatsend").on("click",function sendMessage() {
-		var msg=$("#chatinputstream").val().trim();
-		console.log("보낼 메시지:"+msg);
+		var msg=$("#chatinputstream").val().trim().replace(/\n/g,"<br>");
+
 		if(! msg.length>0) {
-			console.log("메시지 길이"+msg.length);
 			$("#chatinputstream").focus();
 			return;
 		}
 		
-		console.log("보낼 준비");
         var obj = {};
         var jsonStr;
         obj.type="mtalk";
@@ -262,7 +393,6 @@ $(function() {
         obj.message=msg;
         jsonStr = JSON.stringify(obj);
         socket.send(jsonStr);
-		console.log("메시지 보내기")
         
         $("#chatinputstream").val("");
 	});
@@ -272,22 +402,17 @@ $(function() {
 		
 		if(cmd=="join-list") {
 			var memberList=data.memberList;
-			$.each(memberList, function(index, value){
-				var a=value.split(":");
-				memberCard(a[0], a[1], a[2], a[3]);
-			});
+			for(var i in memberList){
+				memberCard(i);
+			}
 		} else if(cmd=="join-add") {
-			var memberId=data.memberId;
-			var memberName=data.memberName;
-			var memberNum=data.memberNum;
-			var profile=data.profile;
-			memberCard(memberName, memberId, memberNum, profile);
+			memberCard(data);
 		} else if(cmd=="chatMsg") {
 			writeToScreen(data);
 			
 		} else if(cmd=="leave") {
 			var memberNum=data.memberNum;
-    		
+    		console.log("접속삭제")
 			$("#MCList li[data-memberNum="+memberNum+"]").remove();
 		}
 		
@@ -295,8 +420,8 @@ $(function() {
 	$("#dgchatcontent").scrollTop($("#dgchatcontent").prop("scrollHeight"));
     $('#scrollmess').scroll(function() {
 	    if ($('#scrollmess').scrollTop()<=50) {
-	    	if(lastData>0) {
-	    		listmoimchat(page, cmoim);
+	    	if(mpage<mtotalpage) {
+	    		listmoimchat(page);
 	    	}else if((mtotalpage-mpage)==0){
 	    		$('#dgchatcontent').prepend("<time><span>더 이상 메시지가 없습니다.</span></time>");
 	    		mtotalpage--;
@@ -306,34 +431,37 @@ $(function() {
 });
 
 function writeToScreen(data) {
-	var msg=data.message;
+	var msg=data.content;
 	var memberNum=data.memberNum;
-	var memberName=data.memberName;
+	var name=data.name;
 	var profile=data.profile;
-	
+	var unReadCnt=data.unReadCnt;
+	var mchatNum=data.mchatNum;
+	var sendDate=data.sendDate;
+	var profile=data.profile;
 	var out='';
 	if(memberNum=="${sessionScope.user.memberNum}") {
-		out+="<div class='contentBox _ua0' id='mess"+num+"' data-fmNum='"+num+"'>";
+		out+="<div class='contentBox _ua0' id='mess"+mchatNum+"' data-mcNum='"+mchatNum+"' data-mNum='"+memberNum+"'>";
 		out+="<div class='content _my'>";
-		out+="<div class='etcbox _ua0' style='width:100%'>"+memberNum+"</div>";
+		out+="<div class='etcbox _ua0' style='width:100%;text-align: right;'>"+sendDate+"</div>";
 		out+="<div class='myCon'>";
 		out+="<div class='textbox _mycolor' style='padding: 5px 8px 5px;'>";
 		out+="<span>"+msg+"</span>";
 		out+="</div>";
 		out+="</div>";
 		out+="<div>";
-		out+="<div class='etcbox _ua0' style='text-align:right; cursor: pointer;width: 10px;' onclick='dMess("+num+")'>X</div>";
-		if(read=='0'){
-			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;'>안읽음</div>";
+		out+="<div class='etcbox _ua0' style='text-align:right; cursor: pointer;width: 10px;visibility: hidden;' data-num='dMess("+mchatNum+")'>X</div>";
+		if(unReadCnt!=0){
+			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;'>"+unReadCnt+"</div>";
 		}
 		out+="</div>";
 		out+="</div>";
 		out+="</div>";
 	} else {
-		out+="<div class='contentBox _ua1' id='mess"+vo.num+"' data-fmNum='"+vo.num+"'>";
+		out+="<div class='contentBox _ua1' id='mess"+mchatNum+"' data-mcNum='"+mchatNum+"' data-mNum='"+memberNum+"'>";
 		out+="<div class='friendProfile' id='dgchatPS'>";
 		out+="<a class='friendLink' href='<%=cp%>/duogram/"+memberNum+"'>";
-		if(profile==''){
+		if(! profile){
 			out+="<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/person-1701091912.png'>";
 		}else{
 			out+="<img style='background-color: #eeeeee' src='<%=cp%>/resource/images/duogram/"+memberNum+"/"+profile+"'>";
@@ -342,13 +470,14 @@ function writeToScreen(data) {
 		out+="</div>";
 		out+="<div class='content'>";
 		out+="<div class='etcbox _ua1' style='width:100%'>"+sendDate+"</div>";
+		out+="<div class='etcbox _ua1' style='width:100%;opacity: 1;'>"+name+"</div>";
 		out+="<div class='friendCon'>";
 		out+="<div class='textbox' style='padding: 5px 8px 5px;'>";
 		out+="<span>"+msg+"</span>";
 		out+="</div>";
 		out+="</div>";
 		out+="<div style='margin-left:8px;'>";
-		out+="<div class='etcbox _ua1' style='cursor: pointer;width: 10px;' onclick='dMess("+num+")'>X</div>";
+		out+="<div class='etcbox _ua1' style='cursor: pointer;width: 10px;visibility: hidden;' data-num='dMess("+mchatNum+")'>X</div>";
 		out+="</div>";
 		out+="</div>";
 		out+="</div>";
@@ -362,12 +491,17 @@ function writeToScreen(data) {
 
 }
 
-function memberCard(memberName, memberId, memberNum, profile) {
+function memberCard(data) {
+	var memberId=data.memberId;
+	var memberName=data.memberName;
+	var memberNum=data.memberNum;
+	var profile=data.profile;
+	if($("#MCList li[data-memberNum="+memberNum+"]").length) return;
 	var s='';
 	s+="<li class='objectListItem messegeContainer' data-memberNum="+memberNum+">";
 	s+="<div class='clearfix' style='zoom: 1;'>";
 	s+="<div class='objectListItem_profile' style='float: left;margin-right: 8px;'>";
-    if(profile==''){
+    if(! profile){
     	s+="<img style='width:50px; height: 50px; margin: -1px;' src='<%=cp%>/resource/images/duogram/person-1701091912.png'>";
     }else{
     	s+="<img style='width:50px; height: 50px; margin: -1px;' src='<%=cp%>/resource/images/duogram/"+memberNum+"/"+profile+"'>";
@@ -377,7 +511,7 @@ function memberCard(memberName, memberId, memberNum, profile) {
     s+="<div class='clearfix' style='overflow: hidden;zoom: 1;'>";
     s+="<div class='author'>";
     s+="<strong>"+memberName+"</strong><br>";
-    s+="<div class='id'>"+memberId+"</div>";							
+    s+="<div class='ids'>"+memberId+"</div>";							
     s+="</div>";
     s+="</div>";
   	s+="</div>";
@@ -397,12 +531,12 @@ function listmoimchat(page){
 		,dataType:"json"
 		,success:function(data){
 			var list=data.list;
+			console.log(list);
 			mpage=page++;
 			mtotalpage=data.totalpage;
-			$.each(list, function(index, value){
-				var a=value.split(":");
-				writeToScreen(a[0], a[1], a[2], a[3]);
-			});
+			for(var i in list){ 
+				writeToScreen(list[i]);
+	        }
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true);
@@ -447,7 +581,7 @@ function listmoimchat(page){
                     <textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
                 </div>
                 <div style="float:left">
-					<button type="button" id="chatsend" style="width:auto;right:-15px;position:relative;">보내기</button>
+					<button type="button" id="chatsend" style="width:auto;right:-15px;position:relative;border-radius:5px;border:1px solid #777777;padding: 0 3px;">보내기</button>
 	            </div>
             </div>
       	</div>

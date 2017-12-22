@@ -1,27 +1,35 @@
 package com.duospace.community.moimchat;
 
 public class MoimChat {
-	private int memberNum, cmoincode, mchatnum;
-	private String name;
+	private int memberNum, cmoimCode, mchatNum;
+	private String name, memberId;
 	private String sendDate,content, profile; 
 	private int unReadCnt;
+	
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
-	public int getCmoincode() {
-		return cmoincode;
+	public int getCmoimCode() {
+		return cmoimCode;
 	}
-	public void setCmoincode(int cmoincode) {
-		this.cmoincode = cmoincode;
+	public void setCmoimCode(int cmoimCode) {
+		this.cmoimCode = cmoimCode;
 	}
-	public int getMchatnum() {
-		return mchatnum;
+	public int getMchatNum() {
+		return mchatNum;
 	}
-	public void setMchatnum(int mchatnum) {
-		this.mchatnum = mchatnum;
+	public void setMchatNum(int mchatNum) {
+		this.mchatNum = mchatNum;
 	}
 	public String getName() {
 		return name;

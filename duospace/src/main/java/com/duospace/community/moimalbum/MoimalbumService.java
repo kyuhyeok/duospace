@@ -3,6 +3,7 @@ package com.duospace.community.moimalbum;
 import java.util.List;
 import java.util.Map;
 
+
 public interface MoimalbumService {
 
 	public int insertMoimalbum(Moimalbum dto, String path);
@@ -18,6 +19,7 @@ public interface MoimalbumService {
 	public int insertLikeMoimalbum(Moimalbum dto);
 	public int countLikeMoimalbum(int alnum);
 	
-	
+	public int insertReply(Reply dto);
+	public List<Reply> listReply(Map<String, Object> map);
 	
 }

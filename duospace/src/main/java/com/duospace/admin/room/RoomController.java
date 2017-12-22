@@ -92,7 +92,6 @@ public class RoomController {
 		
 		listUrl=cp+"/admin/roomlist?"+query;
 		String paging = myUtil.paging2Method(current_page, total_page, listUrl);
-		
 		model.addAttribute("paging", paging);
 		model.addAttribute("page", current_page);
 		model.addAttribute("total_page", total_page);

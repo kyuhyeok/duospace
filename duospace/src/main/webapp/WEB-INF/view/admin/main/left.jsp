@@ -51,8 +51,8 @@
 						<li class="adminmenu">
 							<a><i class="fa fa-book"></i>도서관리<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">도서 리스트</a></li>
-								<li><a href="#">도서 등록</a></li>
+								<li><a href="<%=cp%>/admin/booklist">도서 리스트</a></li>
+								<li><a href="<%=cp%>/admin/book/created">도서 등록</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">

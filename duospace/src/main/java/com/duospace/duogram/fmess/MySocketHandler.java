@@ -22,6 +22,7 @@ import com.duospace.community.moimchat.CmoimInfo;
 import com.duospace.community.moimchat.MemberInfo;
 import com.duospace.community.moimchat.MoimChat;
 import com.duospace.community.moimchat.MoimChatService;
+import com.duospace.member.Member;
 import com.duospace.member.MemberService;
 
 import net.sf.json.JSONArray;
@@ -78,7 +79,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 			updateReadmm(session, jsonReceive);
 		} else if(type.equals("mtalk")) {
 			receivemTalk(session, jsonReceive);
-		}
+		} else if(type.equals("leave")) {
+			removemUser(session);
+		} 
 	}
 
 	/*
@@ -231,18 +234,19 @@ public class MySocketHandler extends TextWebSocketHandler {
 		
 		try {
 			String memberNum = jsonReceive.getString("memberNum");
-			String memberName = jsonReceive.getString("memberName");
 			String memberId = jsonReceive.getString("memberId");
-			String profile = ms.readMember(memberId).getProfile();
-			if(memberNum==null) return;
+			String cmoimCode = jsonReceive.getString("cmoimCode");
+			if(memberNum==null||memberId==null||cmoimCode==null) return;
+			Member mem=ms.readMember(memberId);
+			if(mem==null) return;
+			String profile = mem.getProfile();
+			String memberName=mem.getName();
 			
 			MemberInfo memberInfo=new MemberInfo();
 			memberInfo.setSession(session);
-			memberInfo.setMemberName(memberName);
 			memberInfo.setMemberId(memberId);
 			memberInfo.setProfile(profile);
-			
-			String cmoimCode = jsonReceive.getString("cmoimCode");
+			memberInfo.setMemberName(memberName);
 			
 			CmoimInfo cmoimInfo = null;
 			
@@ -258,16 +262,19 @@ public class MySocketHandler extends TextWebSocketHandler {
 			memberInfo.setCmoim(cmoimInfo);
 			memberMap.put(memberNum, memberInfo);
 			
-			List<String> list=new ArrayList<>();
+			List<MoimChat> list=new ArrayList<>();
+			MoimChat dto=null;
 			for(String m:cmoimInfo.getMemberSet()) {
 				if(memberMap.get(m)==null) continue;
 				
 				if(m.equals(memberNum)) continue;
 				
-				String name=memberMap.get(m).getMemberName();
-				String id=memberMap.get(m).getMemberId();
-				String p=ms.readMember(id).getProfile();
-				list.add(name+":"+id+":"+m+":"+p);
+				dto=new MoimChat();
+				dto.setMemberNum(Integer.parseInt(m));
+				dto.setName(memberMap.get(m).getMemberName());
+				dto.setMemberId(memberMap.get(m).getMemberId());
+				dto.setProfile(memberMap.get(m).getProfile());
+				list.add(dto);
 			}
 			job=new JSONObject();
 			job.put("type", "mtalk");
@@ -284,7 +291,8 @@ public class MySocketHandler extends TextWebSocketHandler {
 			job.put("memberId", memberId);
 			job.put("memberName", memberName);
 			job.put("memberNum", memberNum);
-			job.put("profile", ms.readMember(memberId).getProfile());
+			job.put("profile", profile);
+			
 			sendMoimMessage(job.toString(),  cmoimInfo.getMemberSet(), memberNum);
 		} catch (Exception e) {
 			this.logger.info(e.toString());
@@ -336,10 +344,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 	}
 	
 	protected void receivemTalk(WebSocketSession session, JSONObject jsonReceive) {
+		
 		String cmd=jsonReceive.getString("cmd");
-		String memberNum=getUserNum(session);
-		String memberName=memberMap.get(memberNum).getMemberName();
-		String profile=memberMap.get(memberNum).getProfile();
+		String memberNum=getUsermNum(session);
 		if(cmd==null||memberNum==null) return;
 		
 		MemberInfo memberInfo=memberMap.get(memberNum);
@@ -357,43 +364,48 @@ public class MySocketHandler extends TextWebSocketHandler {
 				if(msg==null) return;
 				dto=new MoimChat();
 				dto.setMemberNum(Integer.parseInt(memberNum));
-				dto.setCmoincode(Integer.parseInt(cmoimInfo.getCmoimCode()));
+				dto.setCmoimCode(Integer.parseInt(cmoimInfo.getCmoimCode()));
 				dto.setContent(msg);
 				int result=mcs.insertFMess(dto);
 				if(result!=1) return;
 				
 				Map<String, Object> map=new HashMap<>();
 				map.put("memberNum", dto.getMemberNum());
-				map.put("cmoimCode", dto.getCmoincode());
+				map.put("cmoimCode", dto.getCmoimCode());
 				map.put("mchatNum", 0);
 				
 				dto=null;
 				dto=mcs.readFMess(map);
 				
-				map.put("mchatNum", dto.getMchatnum());
+				List<MoimChat> list=mcs.listMoimMember(map);
+				map.put("mchatNum", dto.getMchatNum());
+				for(MoimChat mc:list) {
+					map.put("memberNum", mc.getMemberNum());
+					mcs.insertReadMess(map);
+				}
 				
 				Iterator<String> it = cmoimInfo.getMemberSet().iterator();
 				while (it.hasNext()) {
 					String key=it.next();
 					
 					map.put("memberNum", Integer.parseInt(key));
-					result=mcs.insertReadMess(map);
+					mcs.updateReadDate(map);
 				}
 				
 				map.put("memberNum", dto.getMemberNum());
-				mcs.fMURtDCnt(map);
+				//mcs.updateReadDate(map);
 				dto.setUnReadCnt(mcs.fMURtDCnt(map));
 				
 				job=new JSONObject();
-				job.put("type", "talk");
+				job.put("type", "mtalk");
 				job.put("cmd", "chatMsg");
-				job.put("memberNum", memberNum);
-				job.put("memberName", memberName);
+				job.put("memberNum", dto.getMemberNum());
+				job.put("name", dto.getName());
 				job.put("unReadCnt", dto.getUnReadCnt());
-				job.put("mchatNum", dto.getMchatnum());
+				job.put("mchatNum", dto.getMchatNum());
 				job.put("sendDate", dto.getSendDate());
-				job.put("profile", profile);
-				job.put("message", msg);
+				job.put("profile", dto.getProfile());
+				job.put("content", dto.getContent());
 				
 				String out=null;
 				sendMoimMessage(job.toString(), cmoimInfo.getMemberSet(), out);

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duospace.book">
+	<sql id="where-list">
+		<if test="searchKey=='bookName'">
+		INSTR(bookName,#{searchValue}) &gt; 0
+		</if>
+		<if test="searchKey=='writer'">
+		INSTR(writer,#{searchValue}) &gt; 0
+		</if>
+	</sql>
+
+<insert id="insert" parameterType="com.duospace.admin.book.Book">
+INSERT INTO book(signNum, status, bookName, writer, publisher, pubdate, cateNum, imageName)
+VALUES(SEQ_BOOK.NEXTVAL, #{status}, #{bookName}, #{writer}, #{publisher}, #{pubDate}, #{cateNum}, 
+   #{imageName, jdbcType=VARCHAR})
+</insert>
+
+
+<select id="listBcategory" resultType="com.duospace.admin.book.Bcategory">
+	SELECT cateNum, categoryName
+	from Bcategory
+</select>	
+
+<select id="dataCount" resultType="Integer" parameterType="map">
+	SELECT NVL(count(*),0) FROM book
+		<where>
+			<if test="searchValue!=null and searchValue!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+</select>
+
+<select id="listBook" resultType="com.duospace.admin.book.Book" parameterType="map">
+SELECT * FROM(
+	SELECT ROWNUM rnum, tb.* FROM(
+		SELECT cateNum, signNum, status, bookName, writer, publisher
+		from Book
+		<where>
+		<if test="searchValue!=null and searchValue!='' ">
+			<include refid="where-list"/>
+		</if>
+		</where>
+			ORDER BY signNum DESC
+			)tb
+<![CDATA[
+			WHERE ROWNUM <=#{end}
+		)WHERE rnum >=#{start}
+]]>
+</select>	
+
+</mapper>

@@ -7,67 +7,29 @@
 <%
 	String cp=request.getContextPath();
 	Calendar cal = Calendar.getInstance();
-	
-	
-	
 	String strYear = request.getParameter("year");
-	
 	String strMonth = request.getParameter("month");
-	
-	 
-	
 	int year = cal.get(Calendar.YEAR);
-	
 	int month = cal.get(Calendar.MONTH);
-	
-	int date = cal.get(Calendar.DATE);
-	
-	 
-	
+	int date = cal.get(Calendar.DATE);	
 	if(strYear != null)
-	
-	{
-	
+	{	
 	  year = Integer.parseInt(strYear);
-	
-	  month = Integer.parseInt(strMonth);
-	
-	 
-	
-	}else{
-	
-	 
-	
+	  month = Integer.parseInt(strMonth);	 	
+	}else{ 	
 	}
-	
 	//년도/월 셋팅
-	
-	cal.set(year, month, 1);
-	
-	 
-	
+	cal.set(year, month, 1);	
 	int startDay = cal.getMinimum(java.util.Calendar.DATE);
-	
 	int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-	
 	int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
-	
-	int newLine = 0;
-	
-	 
-	
+	int newLine = 0;	
 	//오늘 날짜 저장.
-	
 	Calendar todayCal = Calendar.getInstance();
-	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd");
-	
-	int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
-	
-	 
-	
-	 
+	int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));	 
 %>
+
 <!-- textarea 자동늘리기 -->
 <style>
 .wrap {
@@ -96,7 +58,7 @@
 	<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px; padding-right: 15px;">
 	
 		<div style="float: right;">
-			<a class="btn1" style="border: none;" href="javascript:dialogCalendar();">일정 만들기</a>
+			<a class="btn1" style="border: none;" href="javascript:dialogMoimCalendar();">일정 만들기</a>
 		</div>
 		
 		<div align="center">
@@ -166,43 +128,27 @@
 				</tr>
 			</table>
 		</div>
-
-<!-- 
-		
-		<table style="width: 100%">
-		    <tr style="height: 50px;">
-		        <td align="center">
-		            <a href="#" style="font-size: x-large;" >◀</a>
-		            <b style="font-size: x-large;">${year}年 ${month}月</b>
-		            <a href="#" style="font-size: x-large;" >▶</a>
-		        </td>
-		    </tr>
-		</table>
-	</div>
-	
-	<div style="padding-top: 20px;background-color: #fff;padding-left: 15px;border-radius: 10px; overflow: auto;">
-         
-		<table style="width: 100%">
-			<tr height="25">
-				<td align="center" ><font color="red">일</font></td>
-				<td align="center" >월</td>
-				<td align="center" >화</td>
-				<td align="center" >수</td>
-				<td align="center" >목</td>
-				<td align="center" >금</td>
-				<td align="center" ><font color="blue">토</font></td>
-			</tr>
-			<tr height='25'>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-				<td>6</td>
-				<td>7</td>
-			</tr>
-		
-		</table>
- -->
 	</div>
 </div>
+<c:if test="${dataCount != 0}">
+	<c:forEach var="dto" items="${list}">
+		<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px; overflow: -webkit-paged-y">
+			<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px; padding-right: 15px;">
+				<!-- 리스트 출력 -->
+				<div style="float: left; width: 50px; height: 71px; margin: auto;">
+					<div style="text-align: center; padding-top: 50%;">
+						<h3 style="font-size: x-large;">${dto.moinDate}</h3>
+						수요일
+					</div>
+				</div>
+				<!-- 글 리스트.. -->
+				<div style="float: left; width: 470px;height: 110px; padding: inherit;">
+					<h3 style="font-size: large;">제목 : ${dto.subject} </h3>
+					<h4 style="font-size: small;">내용 : ${dto.content} </h4>
+					<h4 style="font-size: small;">인원 : ${dto.people} </h4>
+					<h4 style="font-size: small;">장소 : ${dto.spot} </h4>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+</c:if>
