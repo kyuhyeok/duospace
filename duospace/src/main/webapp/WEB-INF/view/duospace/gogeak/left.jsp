@@ -5,27 +5,51 @@
 <%
 	String cp=request.getContextPath();
 %>
-
-
 <style type="text/css">
-a.list-group-item:focus, a.list-group-item:hover, button.list-group-item:focus, button.list-group-item:hover {
-	background-color: #FFF7DC;
+.sidebar .s-head h3{
+	margin-top: 20px;
+    padding-bottom: 10px;
+	color: #172A40;
+    border-bottom: 1px solid #172A40;
 }
+ul{
+	margin-top:20px;
+	padding:0;
+	list-style: none;
+}
+li{
+	margin-top: 10px;
+}
+.sidebar .s-nav a{
+	font-size:16px;
+	text-decoration: none;
+	color:#333333;
+}
+.sidebar .s-nav a:hover{
+	color: #D9383A;
+}
+
 </style>
-<script type="text/javascript">
-$(function(){
-	var idx="${subMenu}";
-	if(! idx) idx=1;
-	var subMenu=$(".list-group-item")[idx];
-	$(subMenu).addClass("active");
-});
-</script>
 
-
-<div class="list-group">
-       <div class="list-group-item lefthead" style="background-color: #D7DADB;color: #2C3E50;font-weight: bold;"><i></i> 고객센터</div>
-       <a href="<%=cp%>/duospace/notice/list" class="list-group-item">공지사항</a>
-       <a href="<%=cp%>/duospace/faq" class="list-group-item">자주묻는질문</a>
-       <a href="<%=cp%>/duospace/qna/list" class="list-group-item">1:1 문의</a>
-       
-</div>
+					<aside class="sidebar">
+						<div class="s-head">
+							<h3>고객센터</h3>
+						</div>
+						<ul class="s-nav">
+							<li>
+								<a href="<%=cp%>/duospace/notice/list">공지사항</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/duospace/faq">자주묻는질문</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/duospace/qna/list">1:1 문의</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/privacy">개인정보처리방침</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/agreement">이용약관</a>
+							</li>
+						</ul>
+					</aside>

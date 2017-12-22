@@ -20,7 +20,7 @@ public class epilogueController {
 	private epilogueService service;
 	
 	@RequestMapping(value="/epilogue")
-	public String reserve(Model model) throws Exception {
+	public String list(Model model) throws Exception {
 		return ".epilogue.list";
 	}
 	
@@ -54,6 +54,7 @@ public class epilogueController {
 		service.insertReview(dto, pathname);
 		
 		return "redirect:/mypage";
-		
 	}
+	
+	
 }

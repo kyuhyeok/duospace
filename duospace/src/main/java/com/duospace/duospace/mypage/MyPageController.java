@@ -34,12 +34,12 @@ public class MyPageController {
 	
 	@RequestMapping(value="/privacy", method=RequestMethod.GET)
 	public String privacy() {
-		return ".userSpace.mypage.privacy.list";
+		return ".four.duospace.gogeak.privacy.list";
 	}
 	
 	@RequestMapping(value="/agreement", method=RequestMethod.GET)
 	public String agreement() {
-		return ".userSpace.mypage.agreement.list";
+		return ".four.duospace.gogeak.agreement.list";
 	}
 	
 	@RequestMapping(value="/myinfo", method=RequestMethod.GET)

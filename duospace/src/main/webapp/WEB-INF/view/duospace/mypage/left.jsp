@@ -56,7 +56,13 @@ li{
 						</div>
 						<ul class="s-nav">
 							<li>
-								<a href="<%=cp%>/qnalist">1:1문의</a>
+								<a href="<%=cp%>/duospace/notice/list">공지사항</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/duospace/faq">자주묻는질문</a>
+							</li>
+							<li>
+								<a href="<%=cp%>/duospace/qna/list">1:1 문의</a>
 							</li>
 							<li>
 								<a href="<%=cp%>/privacy">개인정보처리방침</a>
