@@ -66,7 +66,7 @@ $(function(){
 	function onError(evt) {
 	}
 	
-	$('#chatinputstream').on('keydown', function(key) {
+	$('#chatinputstream').on('keydown', function(event) {
     	var tot=100;
 		if($(this).val().length > tot) {
 			$(this).val($(this).val().substring(0, tot));
