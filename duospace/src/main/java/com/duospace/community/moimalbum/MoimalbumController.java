@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +100,7 @@ public class MoimalbumController {
 			SessionInfo info=
 					(SessionInfo)session.getAttribute("user");
 			if(info==null) {
-				return "redirect:/member/login";
+				return "redirect:/moimalbum/login";
 			}
 			model.addAttribute("mode", "created");
 			return ".community.moimalbum.created";
@@ -114,7 +115,7 @@ public class MoimalbumController {
 			
 			SessionInfo info=(SessionInfo)session.getAttribute("user");
 			if(info==null) {
-				return "redirect:/member/login";
+				return "redirect:/moimalbum/login";
 			}
 			
 			dto.setMemberNum(info.getMemberNum());
@@ -124,7 +125,7 @@ public class MoimalbumController {
 			
 			service.insertMoimalbum(dto, path);
 			
-			return "redirect:/member/list";
+			return "redirect:/moimalbum/list";
 		}
 		
 		
@@ -238,12 +239,44 @@ public class MoimalbumController {
 			Moimalbum dto = service.readMoimalbum(alnum);
 			if(dto==null)
 				return "redirect:/moimalbum/list?page="+page;
-			
-			if(dto.getMemberNum()!=info.getMemberNum()) {
-				return "redirect:/moimalbum/list?page="+page;
-			}
+
 			service.deleteMoimalbum(alnum, dto.getImageFile(), pathname);
 			
 			return "redirect:/moimalbum/list?page="+page;
+		}
+		
+		@RequestMapping(value="/moimalbum/listReply")
+		public String listReply(
+				
+				@RequestParam int alnum,
+				@RequestParam(value="pageNo", defaultValue="1") int current_page,
+				Model model) throws Exception{
+			
+			int rows=5;
+			int total_page=0;
+			int dataCount=0;
+			
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("alnum", alnum);
+			
+			int start=(current_page-1)*rows+1;
+			int end=current_page*rows;
+			map.put("start", start);
+			map.put("end", end);
+			List<Reply> listReply=service.listReply(map);
+			
+			Iterator<Reply> it=listReply.iterator();
+			int listNum, n=0;
+			while(it.hasNext()) {
+				Reply dto=it.next();
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+				n++;
+			}
+			
+			model.addAttribute("listReply", listReply);
+			model.addAttribute("pageNo", current_page);
+			model.addAttribute("total_page", total_page);
+			
+			return "community/moimalbum/listReply";
 		}
 }

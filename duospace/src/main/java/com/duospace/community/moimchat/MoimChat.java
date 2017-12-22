@@ -2,9 +2,17 @@ package com.duospace.community.moimchat;
 
 public class MoimChat {
 	private int memberNum, cmoimCode, mchatNum;
-	private String name;
+	private String name, memberId;
 	private String sendDate,content, profile; 
 	private int unReadCnt;
+	
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public int getMemberNum() {
 		return memberNum;
 	}

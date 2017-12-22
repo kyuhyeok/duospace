@@ -22,6 +22,7 @@ import com.duospace.community.moimchat.CmoimInfo;
 import com.duospace.community.moimchat.MemberInfo;
 import com.duospace.community.moimchat.MoimChat;
 import com.duospace.community.moimchat.MoimChatService;
+import com.duospace.member.Member;
 import com.duospace.member.MemberService;
 
 import net.sf.json.JSONArray;
@@ -78,7 +79,9 @@ public class MySocketHandler extends TextWebSocketHandler {
 			updateReadmm(session, jsonReceive);
 		} else if(type.equals("mtalk")) {
 			receivemTalk(session, jsonReceive);
-		}
+		} else if(type.equals("leave")) {
+			removemUser(session);
+		} 
 	}
 
 	/*
@@ -231,16 +234,19 @@ public class MySocketHandler extends TextWebSocketHandler {
 		
 		try {
 			String memberNum = jsonReceive.getString("memberNum");
-			String memberName = jsonReceive.getString("memberName");
 			String memberId = jsonReceive.getString("memberId");
-			if(memberNum==null) return;
+			String cmoimCode = jsonReceive.getString("cmoimCode");
+			if(memberNum==null||memberId==null||cmoimCode==null) return;
+			Member mem=ms.readMember(memberId);
+			if(mem==null) return;
+			String profile = mem.getProfile();
+			String memberName=mem.getName();
 			
 			MemberInfo memberInfo=new MemberInfo();
 			memberInfo.setSession(session);
-			memberInfo.setMemberName(memberName);
 			memberInfo.setMemberId(memberId);
-			
-			String cmoimCode = jsonReceive.getString("cmoimCode");
+			memberInfo.setProfile(profile);
+			memberInfo.setMemberName(memberName);
 			
 			CmoimInfo cmoimInfo = null;
 			
@@ -256,16 +262,19 @@ public class MySocketHandler extends TextWebSocketHandler {
 			memberInfo.setCmoim(cmoimInfo);
 			memberMap.put(memberNum, memberInfo);
 			
-			List<String> list=new ArrayList<>();
+			List<MoimChat> list=new ArrayList<>();
+			MoimChat dto=null;
 			for(String m:cmoimInfo.getMemberSet()) {
 				if(memberMap.get(m)==null) continue;
 				
 				if(m.equals(memberNum)) continue;
 				
-				String name=memberMap.get(m).getMemberName();
-				String id=memberMap.get(m).getMemberId();
-				String p=ms.readMember(id).getProfile();
-				list.add(name+":"+id+":"+m+":"+p);
+				dto=new MoimChat();
+				dto.setMemberNum(Integer.parseInt(m));
+				dto.setName(memberMap.get(m).getMemberName());
+				dto.setMemberId(memberMap.get(m).getMemberId());
+				dto.setProfile(memberMap.get(m).getProfile());
+				list.add(dto);
 			}
 			job=new JSONObject();
 			job.put("type", "mtalk");
@@ -282,7 +291,8 @@ public class MySocketHandler extends TextWebSocketHandler {
 			job.put("memberId", memberId);
 			job.put("memberName", memberName);
 			job.put("memberNum", memberNum);
-			job.put("profile", ms.readMember(memberId).getProfile());
+			job.put("profile", profile);
+			
 			sendMoimMessage(job.toString(),  cmoimInfo.getMemberSet(), memberNum);
 		} catch (Exception e) {
 			this.logger.info(e.toString());
@@ -337,8 +347,6 @@ public class MySocketHandler extends TextWebSocketHandler {
 		
 		String cmd=jsonReceive.getString("cmd");
 		String memberNum=getUsermNum(session);
-		
-		String memberName=memberMap.get(memberNum).getMemberName();
 		if(cmd==null||memberNum==null) return;
 		
 		MemberInfo memberInfo=memberMap.get(memberNum);
@@ -391,7 +399,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 				job=new JSONObject();
 				job.put("type", "mtalk");
 				job.put("cmd", "chatMsg");
-				job.put("memberNum", memberNum);
+				job.put("memberNum", dto.getMemberNum());
 				job.put("name", dto.getName());
 				job.put("unReadCnt", dto.getUnReadCnt());
 				job.put("mchatNum", dto.getMchatNum());

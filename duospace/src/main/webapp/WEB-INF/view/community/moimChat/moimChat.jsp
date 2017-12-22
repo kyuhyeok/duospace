@@ -42,6 +42,14 @@ textarea{
     padding: 6px 8px 6px;
     position: relative;
 }
+._1p1t {
+    color: #cccccc;
+    position: absolute;
+    z-index: 1;
+	right:60px;
+	bottom: 0;
+	text-align: right;
+}
 .scrollable{
 	background-color: #ffffff;
     border: 0;
@@ -321,12 +329,10 @@ $(function() {
 	    obj.type="mconn";
 	    obj.memberNum="${sessionScope.user.memberNum}";
 	    obj.cmoimCode="${cmoimCode}";
-	    obj.memberName="${sessionScope.user.userName}";
 	    obj.memberId="${sessionScope.user.userId}";
 	    jsonStr = JSON.stringify(obj); 
 	    socket.send(jsonStr);
-	    console.log("소켓로딩");
-	    console.log("connected.");
+	    console.log("chat connected.");
 	}
 	
 	function onClose(evt) {
@@ -341,8 +347,10 @@ $(function() {
     	if(type=="mtalk") {
     		talkProcerss(data);
     	} else if(type=="mread") {
-    		if($(".unreadfm").length>0)
-    			$(".unreadfm").remove();
+    		<%--if($(".unreadfm").length>0)
+    			$(".unreadfm").remove();--%>
+    		$("#dgchatcontent").html();
+    		listmoimchat(1);
     	} 
 	}
 
@@ -355,25 +363,29 @@ $(function() {
 			$(this).val($(this).val().substring(0, tot));
 		}
     	if($(this).val().length > 0) {
-            $('#chatinputstream').html($('#chatinputstream').val().length+'/'+tot);
+            $('._1p1t').html($('#chatinputstream').val().length+'/'+tot);
         }else{
-			$('#chatinputstream').html('');
+			$('._1p1t').html('');
 		}
     	$(this).height(1).height($(this).prop('scrollHeight')-6);
-    	console.log("메시지 입력 제한 로드");
+    	
+    	if(key.keyCode == 116){
+    		var obj = {};
+    	    var jsonStr;
+    	    obj.type="leave";
+    	    jsonStr = JSON.stringify(obj); 
+    	    socket.send(jsonStr);
+    	}
     });
 	
 	$("#chatsend").on("click",function sendMessage() {
 		var msg=$("#chatinputstream").val().trim().replace(/\n/g,"<br>");
-;
-		console.log("보낼 메시지:"+msg);
+
 		if(! msg.length>0) {
-			console.log("메시지 길이"+msg.length);
 			$("#chatinputstream").focus();
 			return;
 		}
 		
-		console.log("보낼 준비");
         var obj = {};
         var jsonStr;
         obj.type="mtalk";
@@ -381,7 +393,6 @@ $(function() {
         obj.message=msg;
         jsonStr = JSON.stringify(obj);
         socket.send(jsonStr);
-		console.log("메시지 보내기")
         
         $("#chatinputstream").val("");
 	});
@@ -391,22 +402,17 @@ $(function() {
 		
 		if(cmd=="join-list") {
 			var memberList=data.memberList;
-			$.each(memberList, function(index, value){
-				var a=value.split(":");
-				memberCard(a[0], a[1], a[2], a[3]);
-			});
+			for(var i in memberList){
+				memberCard(i);
+			}
 		} else if(cmd=="join-add") {
-			var memberId=data.memberId;
-			var memberName=data.memberName;
-			var memberNum=data.memberNum;
-			var profile=data.profile;
-			memberCard(memberName, memberId, memberNum, profile);
+			memberCard(data);
 		} else if(cmd=="chatMsg") {
 			writeToScreen(data);
 			
 		} else if(cmd=="leave") {
 			var memberNum=data.memberNum;
-    		
+    		console.log("접속삭제")
 			$("#MCList li[data-memberNum="+memberNum+"]").remove();
 		}
 		
@@ -435,7 +441,7 @@ function writeToScreen(data) {
 	var profile=data.profile;
 	var out='';
 	if(memberNum=="${sessionScope.user.memberNum}") {
-		out+="<div class='contentBox _ua0' id='mess"+mchatNum+"' data-fmNum='"+mchatNum+"'>";
+		out+="<div class='contentBox _ua0' id='mess"+mchatNum+"' data-mcNum='"+mchatNum+"' data-mNum='"+memberNum+"'>";
 		out+="<div class='content _my'>";
 		out+="<div class='etcbox _ua0' style='width:100%;text-align: right;'>"+sendDate+"</div>";
 		out+="<div class='myCon'>";
@@ -452,7 +458,7 @@ function writeToScreen(data) {
 		out+="</div>";
 		out+="</div>";
 	} else {
-		out+="<div class='contentBox _ua1' id='mess"+mchatNum+"' data-fmNum='"+mchatNum+"'>";
+		out+="<div class='contentBox _ua1' id='mess"+mchatNum+"' data-mcNum='"+mchatNum+"' data-mNum='"+memberNum+"'>";
 		out+="<div class='friendProfile' id='dgchatPS'>";
 		out+="<a class='friendLink' href='<%=cp%>/duogram/"+memberNum+"'>";
 		if(! profile){
@@ -485,7 +491,12 @@ function writeToScreen(data) {
 
 }
 
-function memberCard(memberName, memberId, memberNum, profile) {
+function memberCard(data) {
+	var memberId=data.memberId;
+	var memberName=data.memberName;
+	var memberNum=data.memberNum;
+	var profile=data.profile;
+	if($("#MCList li[data-memberNum="+memberNum+"]").length) return;
 	var s='';
 	s+="<li class='objectListItem messegeContainer' data-memberNum="+memberNum+">";
 	s+="<div class='clearfix' style='zoom: 1;'>";
@@ -570,7 +581,7 @@ function listmoimchat(page){
                     <textarea id="chatinputstream" placeholder="메시지를 입력하세요..."></textarea>
                 </div>
                 <div style="float:left">
-					<button type="button" id="chatsend" style="width:auto;right:-15px;position:relative;">보내기</button>
+					<button type="button" id="chatsend" style="width:auto;right:-15px;position:relative;border-radius:5px;border:1px solid #777777;padding: 0 3px;">보내기</button>
 	            </div>
             </div>
       	</div>
