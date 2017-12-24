@@ -204,37 +204,9 @@ public class FMessController {
 			model.addAttribute("lastData", dataCount-end);
 		}
 		model.addAttribute("list", list);
-		//model.addAttribute("total_page", total_page);
-		//model.addAttribute("page", current_page);
 		
 		return "duoGram/fMess/messCon";
 	}
-	
-	//메시지 읽음 : AJAX(JSON)
-	/*@RequestMapping(value="/duogram/updateReadDate", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> updateReadDate(
-			@RequestParam int num,
-			HttpSession session
-			) {
-		SessionInfo info=(SessionInfo)session.getAttribute("user");
-		String state;
-		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			Map<String, Object> map=new HashMap<>();
-			map.put("num", num);
-			service.updateReadDate(map);
-			
-			state="true";
-		}
-		
-		Map<String, Object> model=new HashMap<>();
-		model.put("state", state);
-		
-		return model;
-	}*/
 	
 	//메시지 삭제 : AJAX(JSON)
 	@RequestMapping(value="/duogram/deleteFMess", method=RequestMethod.POST)
