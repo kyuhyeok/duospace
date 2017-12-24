@@ -354,29 +354,10 @@ function sendReply(boardNum){
 			
 			<!-- 사이드. -->
 				<!-- 채팅DIV -->
-			<!-- <div style="float: left;margin-left: 20px;margin-bottom: 12px;">
-				<div>
-					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
-						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
-							 채팅 
-						</div>
-						
-						<div style="float: right; margin-right: 15px;margin-top:5px;">
-							 <a>새 채팅</a> 
-						</div>
-						
-					</div>
-					<div style="border-top: 1px solid #ccc; width: 240px; height: 63px; background: #fff; ">
-						<a>
-						
-						</a>
-					</div>
-				</div>
-			</div>
-			 -->
+			<div id="moimchatdiv" style="float: left;margin-left: 20px;margin-bottom: 12px;"></div>
+				<!-- /채팅DIV -->
 			<div style="float: left;margin-left: 20px;">
-				<!-- 채팅DIV -->
-				
+				일정
 			</div>
 	</div>
 </div>
