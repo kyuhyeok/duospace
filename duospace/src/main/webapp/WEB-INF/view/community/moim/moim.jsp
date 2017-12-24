@@ -354,7 +354,7 @@ function sendReply(boardNum){
 			
 			<!-- 사이드. -->
 				<!-- 채팅DIV -->
-			<div id="moimchatdiv" style="float: left;margin-left: 20px;margin-bottom: 12px;"></div>
+			<div id="moimchatdiv" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;"></div>
 				<!-- /채팅DIV -->
 			<div style="float: left;margin-left: 20px;">
 				일정
