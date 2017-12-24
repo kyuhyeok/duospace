@@ -537,64 +537,36 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 </style>
 
 <script type="text/javascript">
-var pagefNo=1;
-var totalPageF=1;
-var blogNum=0;
-var friendcnt=0;
+var searchValue="";
+var pagePNo=1;
+var totalPageP=1;
 $(function(){
-	blogNum=Number("${blogNum}");
-	readfcnt();
-	listFPage(1, blogNum);
+	searchValue="#{searchValue}";
+	$("#totalsearch").val(searchValue);
+	listPPage(1);
 	
 	$(document).scroll(function() {
 	    if ($(window).scrollTop() + 100 >= $(document).height() - $(window).height()) {
-	    	if(pagefNo<totalPageF) {
-    			++pagefNo;
-    			listFPage(pagefNo,blogNum);
+	    	if(pagePNo<totalPageP) {
+    			++pagePNo;
+    			listPPage(pagePNo);
 	    	}
 	    }
 	});
 });
-function readfcnt(){
-	var url="<%=cp%>/duogram/readFCnt";
-	var q="blogNum="+Number(blogNum);
-	
-	//AJAX:JSON
-	$.ajax({
-		type:"post"
-		,url:url
-		,data:q
-		,dataType:"json"
-		,success:function(data){
-			var s="("+data.count+")";
-			$('.userfriendcnt').html(s);
-			friendcnt=data.count;
-		}
-		,beforeSend:function(e){
-			e.setRequestHeader("AJAX", true)
-		}
-		,error:function(e){
-			if(e.status==403){
-				location.href='<%=cp%>/member/login';
-				return;
-			}
-			console.log(e.responseText)
-		}
-	});
-}
-function listFPage(page, blogN) {
-	var url="<%=cp%>/duogram/listF";
-	var q="blogNum="+blogN+"&pageNo="+page;
+function listPPage(page) {
+	var url="<%=cp%>/duogram/listP";
+	var q="searchValue="+searchValue+"&pagePNo="+page;
 	
 	//AJAX:TEXT
 	$.ajax({
 		url:url
 		,data:q
 		,success:function(data){
-			$("#userfriendListf").html(data);
-			pagefNo=page;
-			totalPageF=$("#total_Fpage").html();
-			$("#total_Fpage").remove();
+			$("#userList").html(data);
+			pagePNo=page;
+			totalPageP=$("#total_Ppage").html();
+			$("#total_Ppage").remove();
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
@@ -609,31 +581,6 @@ function listFPage(page, blogN) {
 	});
 	console.log("친구리스트 로딩 완료");
 }
-<%--
-function flayout(seri){
-	var s="<div class='uiContextualLayerPositioner _53ip uiLayer' style='width: 0px; left: 280px; top: 51px; opacity: 1;display:none;'>";
-	s+="<div class='uiContextualLayer uiContextualLayerBelowLeft'>";
-	s+="<div class='_5v-0 _53il'>";
-	s+="<div class='_53ij'>";
-	s+="<div class='mvs FlyoutFriendMenu addToListsClosed friendButtonFlyout'>";
-	s+="<div class='uiMenu FriendListActionMenu'>";
-	s+="<ul class='uiMenuInner'>";
-	if(seri==1||seri=='1'){
-		s+="<li class='uiMenuItem FriendListCancel hidden_elem' onclick='freqcancle('fnum')'>";
-		s+="<a class='itemAnchor' href=''><span class='itemLabel fsm'>친구 요청 취소</span></a></li>";
-	}else if(seri==2||seri=='2'){
-		s+="<li class='uiMenuItem FriendListUnfriend' onclick='fcancle('fnum')'>";
-		s+="<a class='itemAnchor' href=''><span class='itemLabel fsm'>친구 끊기</span></a></li>";
-	}
-	s+="</ul>";
-	s+="</div>";
-	s+="</div>";
-	s+="</div>";
-	s+="</div>";
-	s+="</div>";
-	s+="</div>";
-	return s;
-}--%>
 //친구요청하기
 function ftof(fnum){
 	insFReq(fnum);
@@ -656,7 +603,7 @@ function freqcancle(fnum){
 		,dataType:"json"
 		,success:function(data){
 			console.log("친구요청 취소");
-			listFPage(1,blogNum);
+			listPPage(1);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
@@ -684,7 +631,7 @@ function fcancle(fnum){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			listFPage(1,blogNum);
+			listPPage(1);
 		}
 		,beforeSend:function(e){
 			e.setRequestHeader("AJAX", true)
@@ -713,29 +660,12 @@ function fcancle(fnum){
 										<div class="_3cz">
 											<div class="clearfix">
 												<h3 class="_3c- lfloat _ohe" id="medley_header_friends">
-													<a class="_51sx" href="#">친구</a>
+													<a class="_51sx" href="#">사람</a>
 												</h3>
-												<span class="_3d0 userfriendcnt" id="userfriendcnt" style="font-size: 16px;margin-left: -4px;"></span>
-												<%--
-												<div class="_6ph rfloat _ohf">
-													<div class="uiTypeahead fbProfileBrowserTypeahead" id="u_fetchstream_14_28">
-														<div class="wrap" style="width: fit-content;">
-															<input type="hidden" autocomplete="off" class="hiddenInput">
-															<div class="innerWrap">
-																<span class="uiSearchInput textInput" id="u_fetchstream_14_29">
-																	<span>
-																		<input type="text" class="inputtext" id="searchUserf" maxlength="100" placeholder="친구 검색" autocomplete="off" spellcheck="false">
-																		<button type="button" onclick="searchUserf();">검색</button>
-																	</span>
-																</span>
-															</div>
-														</div>
-													</div>
-												</div> --%>
 											</div>
 										</div>
 										<div id="collection_wrapper_2356318349" class="_3i9">
-											<div class="_5h60 _30f" id="userfriendListf">
+											<div class="_5h60 _30f" id="userList">
 											</div>
 										</div>
 									</div>
@@ -746,46 +676,5 @@ function fcancle(fnum){
 				</div>
 			</div>
 		</div>
-	</div><%--
-	<div class="uiContextualLayerPositioner uiLayer hidden_elem" style="width: 757px; top: 534px; opacity: 1; left: 541px;">
-		<div class="uiContextualLayer uiContextualLayerBelowLeft" style="">
-			<div class="uiTooltipX">
-				<div class="tooltipContent" id="js_45">
-					<span>함께 아는 친구</span>
-					<div><span class="accessible_elem">&nbsp;</span>윤**</div>
-					<div><span class="accessible_elem">&nbsp;</span>Mi**</div>
-					<div><span class="accessible_elem">&nbsp;</span>길**</div>
-					<div><span class="accessible_elem">&nbsp;</span>오**</div>
-					<div><span class="accessible_elem">&nbsp;</span>Seo**</div>
-					<div><span class="accessible_elem">&nbsp;</span>서**</div>
-					<div><span class="accessible_elem">&nbsp;</span>Ki**</div>
-					<div><span class="accessible_elem">&nbsp;</span>안**</div>
-					<div><span class="accessible_elem">&nbsp;</span>배**</div>
-					<div><span class="accessible_elem">&nbsp;</span>Su**</div>
-					<div><span class="accessible_elem">&nbsp;</span>Ji**</div>
-					<div><span class="accessible_elem">&nbsp;</span>이**</div>
-					<div><span class="accessible_elem">&nbsp;</span>박**</div>
-					<div><span class="accessible_elem">&nbsp;</span>임**</div>
-					<div><span class="accessible_elem">&nbsp;</span>김**</div>
-					<div><span class="accessible_elem">&nbsp;</span>외 3명...</div>
-				</div>
-			</div>
-		</div>
 	</div>
-	<div class="uiContextualLayerPositioner _53ip uiLayer" id="js_2hq" style="width: 948px; left: 350px; top: 530px; opacity: 1;">
-		<div class="uiContextualLayer uiContextualLayerBelowLeft" role="dialog">
-			<div class="_5v-0 _53il">
-				<div class="_53ij">
-					<div class="mvs FlyoutFriendMenu addToListsClosed friendButtonFlyout" id="friendFlyoutContent">
-						<div role="menu" class="uiMenu FriendListActionMenu" id="u_0_ad">
-							<ul class="uiMenuInner">
-								<li class="uiMenuItem FriendListUnfriend"><a class="itemAnchor" role="menuitem" href="#" rel="async-post"><span class="itemLabel fsm">친구 끊기</span></a></li>
-								<li class="uiMenuItem FriendListCancel hidden_elem"><a class="itemAnchor" role="menuitem" href="#"><span class="itemLabel fsm">친구 요청 취소</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>--%>
 </div>

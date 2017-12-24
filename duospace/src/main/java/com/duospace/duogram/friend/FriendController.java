@@ -1,5 +1,6 @@
 package com.duospace.duogram.friend;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,46 @@ public class FriendController {
 	
 	@Autowired
 	private DuoGramUtil myUtil;
+	
+	//사람 검색 리스트
+	@RequestMapping(value="/duogram/listP", method=RequestMethod.GET)
+	public String peoplePage(
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="pagePNo", defaultValue="1") int current_page,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		int rows=20;
+		int total_page=0;
+		int dataCount=0;
+		
+		searchValue=URLDecoder.decode(searchValue, "utf-8");
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("memberNum", info.getMemberNum());
+		map.put("searchValue", searchValue);
+		
+		dataCount=service.pDataCount(map);
+		total_page=myUtil.pageCount(rows, dataCount);
+		if(current_page>total_page)
+			current_page=total_page;
+		
+		int start=(current_page-1)*rows+1;
+		int end=current_page*rows;
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<Friend> list=service.listPeople(map);
+		
+		//포워딩할 jsp에 넘길 데이터
+		model.addAttribute("list", list);
+		model.addAttribute("total_Ppage", total_page);
+		model.addAttribute("memberNum", info.getMemberNum());
+		
+		return "duoGram/search/pCard";
+	}
 	
 	//친구 페이지 로딩
 	@RequestMapping(value="/duogram/{blogNum}/f", method=RequestMethod.GET)

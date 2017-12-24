@@ -82,8 +82,9 @@
 		<table style="width: 935px; margin: 0px;">
 			<tr>
 				<td style="padding: 5px;" align="center">
-					<input type="text" style="border: 1px solid #ccc; border-radius: 10px; 
+					<input type="text" id="totalsearch" style="border: 1px solid #ccc; border-radius: 10px; 
       					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black;" placeholder="                 검색">
+      				<input type="text" style="display:none;">
 				</td>
 				<td align="right">
 					<a href="<%=cp%>/member/logout" style="padding-right: 15px;"> 로그아웃</a>

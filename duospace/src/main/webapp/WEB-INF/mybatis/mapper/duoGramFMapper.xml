@@ -2,6 +2,42 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duoGramF">
+	<select id="listPeople" resultType="com.duospace.duogram.friend.Friend" parameterType="map">
+		SELECT b.memberNum friendNum, name, email, proFileSaveFileName, NVL(friendShip,0) friendShip, NVL(fofcnt,0) fofcnt
+		FROM duogram b
+		LEFT OUTER JOIN (
+			SELECT m.friendNum, (1+NVL(freq, 0)) friendShip
+			FROM gramfriend m
+			LEFT OUTER JOIN (
+				SELECT memberNum friendNum, TO_NUMBER('1') freq FROM gramfriend
+				WHERE friendNum=#{memberNum}
+			) f ON m.friendNum=f.friendNum
+			WHERE m.memberNum=#{memberNum}
+		) m ON b.memberNum=m.friendNum
+		LEFT OUTER JOIN (
+			SELECT memberNum friendNum, COUNT(*) fofcnt
+			FROM gramfriend
+			GROUP BY memberNum
+		) fof ON b.memberNum=fof.friendNum
+		LEFT OUTER JOIN member2 m2 ON b.memberNum=m2.memberNum
+		<if test="searchValue!=null and searchValue!=''">
+   			<![CDATA[
+   			WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
+   			]]>
+   		</if>
+		ORDER BY name ASC
+	</select>
+	
+	<select id="pDataCount" resultType="Integer" parameterType="map">
+       	SELECT NVL(COUNT(*),0) FROM duogram d 
+       	JOIN member2 m ON d.memberNum=m.memberNum
+   		<if test="searchValue!=null and searchValue!=''">
+   			<![CDATA[
+   			WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
+   			]]>
+   		</if>
+	</select>
+
 	<select id="listFriend" resultType="com.duospace.duogram.friend.Friend" parameterType="map">
 		<choose>
 			<when test="blogNum==memberNum">
