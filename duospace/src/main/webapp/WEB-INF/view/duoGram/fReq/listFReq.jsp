@@ -288,6 +288,15 @@ $(function() {
 	$("#dgMessPos").css("top",$("#dgMess").offset().top+xp);
 	$("#dgMessPos").css("left",$("#dgMess").offset().left+yp);
 	
+	$("#totalsearch").on("keydown",function(event){
+		if(event.keyCode==13){
+			var searchVal=$("#totalsearch").val().trim();
+			if(searchVal){
+				location.href="<%=cp%>/duogram/listSearch?searchValue="+encodeURIComponent(searchVal);
+			}
+		}
+	});
+	
 	$("body").on("click", "#dgFReq", function(event){
 		event.stopPropagation();
 		var isVisible=$("#dgFReqlistview").is(":visible");
