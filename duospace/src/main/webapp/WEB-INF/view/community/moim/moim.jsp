@@ -215,6 +215,28 @@ function moimcalendar(){
 	});
 }
 
+//모임 멤버리스트
+function moimmember(){
+	
+	var url="<%=cp%>/community/moim${cmoimCode}/moimmember";
+	
+	var cmoimCode="${cmoimCode}";//값설정..
+	var query="cmoimCode="+cmoimCode;
+	
+	//ajax:text
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,success:function(data){
+			$("#listFreeboard").html(data);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
 
 //댓글 리스트.
 function listReply(boardNum){
@@ -288,7 +310,7 @@ function sendReply(boardNum){
 		,success:function(data){
 			var s=data.state;
 			if(s=="loginFail"){
-				location.href="<%=cp%>/user/login";
+				location.href="<%=cp%>/member/login";
 				return;
 			}
 			$("#replyContent").val("");
@@ -300,67 +322,67 @@ function sendReply(boardNum){
 	});
 }
 
+//글 삭제
+function deleteFreeboard(boardNum){
+	
+	if(! confirm("게시글을 삭제하시겠습니까?"))
+		return;
+	
+	var url="<%=cp%>/freeboard/deleteFreeboard";
+	
+	var query="boardNum="+boardNum;
+		query+="&cmoimCode=${cmoimCode}";
+		
+	//AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data){
+			var s=data.state;
+			if(s=="loginFail"){
+				location.href="<%=cp%>/member/login";
+				return;
+			}
+			listPage(1);
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
 
 
 
 </script>
 
-<header>
-	<div style="width: 100%; height: 25px; background: #D9383A; position: fixed; left: 0px; top: 50px;" align="center">
-		<table>
-			<tr>
-				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/moim${cmoimCode}">
-						전체글<!-- freeboardNum -->
-					</a>
-				</td>
-				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimalbum" href="<%=cp%>/moimalbum/list">
-						사진첩
-					</a>
-				</td>
-				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimcalendar" onclick="moimcalendar();">
-						일정
-					</a>
-				</td>
-				<td style="padding: 0px 20px;">
-					<a style="color: #ffffff;" id="moimmember">
-						멤버
-					</a>
-				</td>
-			</tr>
-		</table>
-	</div>
-</header>
 
-<div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
-	<div style="width: 1050px; margin: auto; margin-bottom: 10px; overflow:auto;">
-			<!-- 프로필 -->
-			<div style="vertical-align: top;margin-right: 20px;float: left; width: 180px;">
-				<div>
-					<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:180px;height: 100px; ">
-					<h3>자바</h3>
-					<span>멤버 1</span>&nbsp;&nbsp;<a>초대</a>
-					<hr>
-				</div>
-			</div>
-			<!-- 가운데 글리스트 -->
-			<div style="float: left; width: 550px; min-height: 800px;" >
-				<!-- 전체글 -->
-				<!-- 새글 올라올곳.. -->		
-				<div id="listFreeboard"></div>
-			</div>
-			
-			<!-- 사이드. -->
-				<!-- 채팅DIV -->
-			<div id="moimchatdiv" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;"></div>
-				<!-- /채팅DIV -->
-			<div style="float: left;margin-left: 20px;">
-				일정
-			</div>
+
+<!-- 프로필 -->
+<div style="vertical-align: top;margin-right: 20px;float: left; width: 180px;">
+	<div>
+		<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:180px;height: 100px; ">
+		<h3>자바</h3>
+		<span>멤버 1</span>&nbsp;&nbsp;<a>초대</a>
+		<hr>
 	</div>
 </div>
+<!-- 가운데 글리스트 -->
+<div style="float: left; width: 550px; min-height: 800px;" >
+	<!-- 전체글 -->
+	<!-- 새글 올라올곳.. -->		
+	<div id="listFreeboard"></div>
+</div>
+
+<!-- 사이드. -->
+	<!-- 채팅DIV -->
+<div id="moimchatdiv" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;"></div>
+	<!-- /채팅DIV -->
+<div style="float: left;margin-left: 20px;">
+	일정
+</div>
+
 
 <!-- 자유게시판 글쓰기 모달 -->
 <div id="modalNewWord" class="modal fade" tabindex="-1" role="dialog"

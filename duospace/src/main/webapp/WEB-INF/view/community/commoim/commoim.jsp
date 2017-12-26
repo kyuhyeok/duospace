@@ -138,6 +138,8 @@ $(function(){
     		}
     		
             var src=$(this).attr("src");
+            
+            $("#moimimg").val($(this).attr("data-imgname"));
             $(".coverSelected").attr("src", src);
             $(this).next(".mask").show();
     	});
@@ -159,11 +161,14 @@ function sendCommoim(){
 	var comname=$.trim($("#comname").val()); //ID:comname를 앞뒤공백제거하고 comname에넣는다.
 	var regcode=$("form[name=commoimForm] [name=regcode]").val();
 	var catecode=$("form[name=commoimForm] [name=catecode]").val();
+	var moimimg=$("form[name=commoimForm] [name=moimimg]").val(); 
 	
 	var query="comname="+encodeURIComponent(comname);//한글깨짐방지//제목 데이터 입력
 		query+="&regcode="+regcode;
 		query+="&catecode="+catecode;
 		query+="&isopen="+isopen;
+		query+="&moimimg="+moimimg;
+		
 	var url="<%=cp%>/commoim/insert";
 
 	$.ajax({
@@ -220,56 +225,56 @@ function sendCommoim(){
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/0.png"/>
+			      		                 src="<%=cp%>/resource/images/communiti/0.png" data-imgname="0.png"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/8.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/8.JPG" data-imgname="8.JPG"/>"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/7.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/7.JPG" data-imgname="7.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/6.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/6.JPG" data-imgname="6.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet"> 
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/5.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/5.JPG" data-imgname="5.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/4.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/4.JPG" data-imgname="4.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/3.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/3.JPG" data-imgname="3.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
 			      		     <div class="coverSet">
 			      		          <a href="#" class="coverA">
 			      		             <img class="coverImg" width="120" height="90"
-			      		                 src="<%=cp%>/resource/images/communiti/2.JPG"/>
+			      		                 src="<%=cp%>/resource/images/communiti/2.JPG" data-imgname="2.JPG"/>
 			      		             <span class="mask"></span>
 			      		          </a>
 			      		     </div>
@@ -285,6 +290,7 @@ function sendCommoim(){
 			<table>
 				<tr align="center">
 					<td align="center">
+					<input type="hidden" name="moimimg" value="" id="moimimg">
 					<input type="button" value="등록" onclick="sendCommoim();" class="btn">
 					<input type="button" value="취소" onclick="javascript:history.back(-1)" class="btn">
 					</td>

@@ -1,6 +1,7 @@
 package com.duospace.community.moim;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -60,7 +61,23 @@ public class MoimController {
 		
 		model.addAttribute("cmoimCode",cmoimCode);
 		
-		return ".community.moim.moim";
+		return ".moim.moim.moim";
 	}	
+	
+	//TEXT
+	@RequestMapping(value="/community/moim{cmoimCode}/moimmember")
+	public String main(
+			@PathVariable int cmoimCode,
+			Model model
+			)throws Exception {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("cmoimCode", cmoimCode);
+		List<Moim> list = service.listMoimMember(map);
+		
+		model.addAttribute("list",list);
+		
+		return "community/moimmember/list";
+	}
 	
 }

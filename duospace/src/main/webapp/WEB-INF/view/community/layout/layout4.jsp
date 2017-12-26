@@ -31,14 +31,18 @@
     <tiles:insertAttribute name="header"/>
 </div>
 
-<div>
-    <tiles:insertAttribute name="body"/>
+<tiles:insertAttribute name="header2"/>
+
+<div style="width: 100%; min-height: 800px; background:#eef0f3; margin-top: 100px;">
+	<div style="width: 1050px; margin: auto; margin-bottom: 10px; overflow:auto;">
+	    <tiles:insertAttribute name="body"/>
+		<tiles:insertAttribute name="body1" />	
+	</div>
 </div>
 
 <div>
     <tiles:insertAttribute name="footer"/>
 </div>
-
 
 <script type="text/javascript" src="<%=cp%>/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>

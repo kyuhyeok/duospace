@@ -70,15 +70,17 @@
 					</button>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li><a tabindex="-1" href="#">수정</a></li>
-						<li><a tabindex="-1" href="#">삭제</a></li>
-						<li><a tabindex="-1" href="#">신고</a></li>
+						<li><a tabindex="-1" onclick="deleteFreeboard(${vo.boardNum})">삭제</a></li>
 					</ul>
 				</div>
 			</div>
 			
 			<!-- 글 리스트.. -->
 			<div style="margin: 15px;">
-				<textarea rows="3" cols="70" style="border: none;" name="content">${vo.content}</textarea>
+				<div>
+					${vo.content}
+				</div>
+				<%-- <textarea rows="3" cols="70" style="border: none;" name="content">${vo.content}</textarea> --%>
 			</div>
 			
 			<!-- 댓글 및 표정이모티콘 -->

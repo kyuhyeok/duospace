@@ -5,27 +5,30 @@
 <%
    String cp = request.getContextPath();
 %>
-<div class="container" >
-	<table style="width:100%;height: 40px; margin: 10px auto 5px;">
+<div style="z-index:11; width: 100%; height: 25px; background: #D9383A; position: fixed; left: 0px; top: 50px;" align="center">
+	<table>
 		<tr>
-			<td>
-				<a href="<%=cp%>/community">
-					<img alt="" src="<%=cp%>/resource/images/community_img.png" style="width: 50px;height: 50px;">
+			<td style="padding: 0px 20px;">
+				<a style="color: #ffffff;" id="moimfreeboardlist" href="<%=cp%>/community/moim${cmoimCode}">
+					전체글<!-- freeboardNum -->
 				</a>
-				<input type="text" class="_gnbInputSearch" placeholder="모임, 게시글을 검색해 보세요">
 			</td>
-			<td align="right">
-				<fieldset class="topInputSearch _searchBox">
-					<button class="btn">밴드찾기</button>
-				</fieldset>
+			<td style="padding: 0px 20px;">
+				<a style="color: #ffffff;" id="moimalbum" href="<%=cp%>/moimalbum/list">
+					사진첩
+				</a>
 			</td>
-			<td>
-				<a href="<%=cp%>/">홈</a>/
-				<a>알림</a>/
-				<a>메세지</a>/
-				<a>나의정보</a>
+			<td style="padding: 0px 20px;">
+				<a style="color: #ffffff;" id="moimcalendar" onclick="moimcalendar();">
+					일정
+				</a>
 			</td>
-		</tr>		
+			<td style="padding: 0px 20px;">
+				<a style="color: #ffffff;" id="moimmember" onclick="moimmember();">
+					멤버
+				</a>
+			</td>
+		</tr>
 	</table>
 </div>
 

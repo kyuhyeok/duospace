@@ -83,5 +83,16 @@ public class MoimServiceImpl implements MoimService{
 		return result;
 	}
 
+	@Override
+	public List<Moim> listMoimMember(Map<String, Object> map) {
+		List<Moim> list=null;
+		try {
+			list=dao.selectList("moimMember.listMoimMember",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
 
 }
