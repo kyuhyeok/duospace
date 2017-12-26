@@ -6,7 +6,7 @@ import java.util.Map;
 public interface epilogueService {
 	public int insertReview(epilogue dto, String pathname);
 	public List<epilogue> listReview(Map<String, Object> map);
-	public int dataCount(Map<String,Object> map);
+	public int dataCount();
 	public epilogue readReview(int reservnum);
 	public int updateHitCount(int reservnum);
 	public int updateReview(epilogue dto, String pathname);

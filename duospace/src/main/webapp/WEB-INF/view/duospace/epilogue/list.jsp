@@ -116,6 +116,22 @@
 .btn-wrapper{
 	text-align: right;
 }
+.star_rating a {
+    cursor: pointer;
+    color: #FFE400;
+    text-decoration: none;
+    /*line-height: 150%;*/
+}
+.star_rating {font-size:0; letter-spacing:-4px;}
+.star_rating a {
+    font-size:22px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    color:#FFE400;
+    text-decoration:none;
+}
+.star_rating a:first-child {margin-left:0;}
 </style>
 <script type="text/javascript">
 	
@@ -135,23 +151,9 @@
 				</p>
 			</div>
 		</div>
-		<div class="selectbox">
-			<form name="searchForm" action="<%=cp%>/duospace/epilogue/epilogue"
-				method="post">
-				<select name="searchKey" class="shopname" style="padding:4px;">
-					<option value="subject">지점명</option>
-					<option value="content">내용</option>
-					<option value="userName">작성자</option>
-					<option value="created">등록일</option>
-				</select> <input type="text" name="searchValue" class="boxTF">
-				<button type="button" class="btn" onclick="searchList()">검색</button>
-			<div align="right" style="width:100%">
-				<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/duospace/epilogue/created';">후기 등록</button>
-			</div>
-			</form>
-		</div>
 		<div class="row" style="margin:3% 0px;">
 			<ul class="row card-list-wrapper">
+				<c:forEach var="dto" items="${list}">
 				<li class="col-xs-12 col-sm-6 col-lg-4 list">
 					<div class="s-card">
 						<div class="row">
@@ -163,23 +165,22 @@
 							</div>
 							<div class="col-xs-12 col-sm-9 info">
 								<div class="row">
-									<h4 class="shopname">-지점명</h4>
+									<h4 class="shopname">-${dto.spotName}</h4>
 								</div>
 								<div class="review-info">
-									<h3>-이름</h3>
-									<ul class="star-rate">
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-									</ul>
-									<span class="review-count">00개 리뷰</span>
+									<h3>-${dto.userName}</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
 								</div>
+									<span class="review-count">00개 리뷰</span>
 							</div>
 							<div class="col-xs-12 review">
-								<p>이곳은 내용들 입니다!!! 내용이 많아지면 어떻게 되는지 시험도 해보고 더보기도
-								나와야 합니다!!!!!!!!!!!!!과연 나올 것인가?!!! 기대가 되네요 후훗</p>
+								${dto.content}
 								<div class="btn-wrapper">
 								<div class="view-btn">
 									<button type="button" class="btn">더보기</button>
@@ -189,6 +190,7 @@
 						</div>
 					</div>
 				</li>
+				</c:forEach>
 				<li class="col-xs-12 col-sm-6 col-lg-4 list">
 					<div class="s-card">
 						<div class="row">
