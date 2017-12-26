@@ -78,20 +78,6 @@
 			</tr>
 		</table>
 	</div>
-	<div style="position: fixed; width: 100%; background: white; border-bottom: 1px solid #ccc; margin-top: 80px; height: 37px; border-bottom: 10px" align="center">
-		<table style="width: 935px; margin: 0px;">
-			<tr>
-				<td style="padding: 5px;" align="center">
-					<input type="text" id="totalsearch" style="border: 1px solid #ccc; border-radius: 10px; 
-      					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black;" placeholder="                 검색">
-      				<input type="text" style="display:none;">
-				</td>
-				<td align="right">
-					<a href="<%=cp%>/member/logout" style="padding-right: 15px;"> 로그아웃</a>
-				</td>
-			</tr>
-		</table>
-	</div>
 </form>
 	<div style="z-index: 2; position: fixed; width: 100%; background: white; border-bottom: 1px solid #ccc; margin-top: 80px; height: 37px;" align="center">
 		<table style="width: 935px; margin: 0px;">
@@ -103,6 +89,11 @@
 					<c:if test="${sessionScope.user.userId!='admin'}">
 						<td style="width: 150px"></td>
 					</c:if>
+				</td>
+				<td align="center" style="padding-top: 5px;">
+					<input type="text" id="totalsearch" style="border: 1px solid #ccc; border-radius: 10px; 
+      					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black; text-align: center;" placeholder="검색">
+      				<input type="text" style="display:none;">
 				</td>
 				<td align="right" style="padding-top: 5px;">
 					<c:if test="${not empty sessionScope.user}">

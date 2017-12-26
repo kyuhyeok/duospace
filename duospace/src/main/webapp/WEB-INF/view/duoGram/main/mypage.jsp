@@ -162,9 +162,9 @@ function sendReply(num) {
 		return;
 	}
 
-	var content=$.trim($("#replyContent1").val());
+	var content=$.trim($("#replyContent"+num).val());
 	if(! content){
-		$("#replyContent1").focus();
+		$("#replyContent"+num).focus();
 		return;
 	}
 
@@ -180,7 +180,7 @@ function sendReply(num) {
 		,success:function(data) {
 			var s=data.state;
 
-			$("#replyContent1").val("");
+			$("#replyContent"+num).val("");
 			
 			$("#listReplyLayout"+num).show();
 			listReplyMethod(num);
@@ -288,7 +288,7 @@ function printDuogram(data) {
 				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button updateModalBtn' data-saveFilename='"+saveFilename+"' data-num='"+num+"' page='"+page+"' tabindex='-1'>수정</button><span style='display:none;'>"+content+"</span>";
 			else
 				out+="<li style='border-bottom: 1px solid #ccc; margin-left: 20px; height: 20px;'><button class='button' tabindex='-1' style='color:#aaaaaa;'>수정</button>";
-			if(uid==memberNum || uid=="1" || uid=="true")
+			if(uid==memberNum || uid=="1" || uid=="true" || uid==blogNum)
 				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
 			else
 				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
@@ -306,7 +306,7 @@ function printDuogram(data) {
 			
 			out+="<div style='width: 614px; height: 20px; margin-bottom: 20px;'>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard'>"+countLikeBoard+"개 "+"</span></button>";
+			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard'>"+countLikeBoard+"개  "+"</span></button>";
 			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
@@ -315,7 +315,7 @@ function printDuogram(data) {
 			out+="</div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<textarea id='replyContent1' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<textarea id='replyContent"+num+"' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
 			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
 			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"
