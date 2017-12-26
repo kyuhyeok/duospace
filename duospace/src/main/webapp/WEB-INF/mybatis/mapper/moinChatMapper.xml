@@ -55,7 +55,7 @@
 		FROM mchatread
 		<where>
 			<if test="cmoimCode!=0">
-				mchatNum=#{mchatNum}
+				cmoimCode=#{cmoimCode}
 			</if>
 			AND readDate IS NULL AND cmoimCode IN (
 				SELECT cmoimCode FROM moimmember WHERE memberNum=#{memberNum}
@@ -97,6 +97,19 @@
         VALUES(#{mchatNum}, #{memberNum}, #{cmoimCode})
 	</insert>
 	
+	<select id="listUnReadMess" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
+		SELECT m.mchatNum, unReadCnt 
+		FROM moimchat m
+		JOIN mchatread r ON m.mchatNum=r.mchatNum
+		JOIN (
+			SELECT
+			FROM mchatNum, NVL(COUNT(*),0) unReadCnt
+			WHERE reaDate IS NULL AND cmoimNum=#{cmoimNum}
+			GROUP BY mchatNum
+		) c ON m.mchatNum=c.mchatNum
+		WHERE m.cmoimNum=#{cmoimNum} AND r.memberNum=#{memberNum} AND r.reaDate IS NULL
+	</select>
+	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
 		SELECT m.mchatNum, name, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, m.memberNum, profile, NVL(unReadCnt,0) unReadCnt FROM (
 			SELECT ROWNUM rnum, tb.* FROM (
@@ -134,7 +147,7 @@
 		<where>
 			<choose>
 				<when test="mchatNum==0">
-					readDate IS NUll AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode} AND
+					readDate IS NUll AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
 				</when>
 				<otherwise>
 					mchatNum=#{mchatNum} AND memberNum=#{memberNum}

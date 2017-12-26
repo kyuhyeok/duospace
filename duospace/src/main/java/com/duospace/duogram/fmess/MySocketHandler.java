@@ -321,23 +321,28 @@ public class MySocketHandler extends TextWebSocketHandler {
 	}
 	
 	protected void updateReadmm(WebSocketSession session, JSONObject jsonReceive) {
-		try {/*
-			String senderNum = jsonReceive.getString("senderNum");
-			String receiveNum = jsonReceive.getString("receiveNum");
+		try {
+			String memberNum = jsonReceive.getString("memberNum");
+			String cmoimCode = jsonReceive.getString("cmoimCode");
 			
 			Map<String, Object> map=new HashMap<>();
-			map.put("memberNum", Integer.parseInt(receiveNum));
-			map.put("friendNum", Integer.parseInt(senderNum));
-			map.put("num", 0);
-			int result=fms.updateReadDate(map);
+			map.put("memberNum", Integer.parseInt(memberNum));
+			map.put("cmoimCode", Integer.parseInt(cmoimCode));
+			map.put("mchatNum", 0);
+			List<MoimChat> readlist=mcs.listUnReadMess(map);
+			if(readlist.size()==0) return;
+			int result=mcs.updateReadDate(map);
 			if(result==0) return;
 			
-			JSONObject job=new JSONObject();
-			if(chatMoimMap.get(receiveNum+"*"+senderNum)==null)	return;
+			CmoimInfo cmoimInfo=memberMap.get(memberNum).getCmoim();
 			
-			job.put("type", "read");
-			sendOneMessage(job.toString(), chatMoimMap.get(receiveNum+"-"+senderNum));
-			*/
+			JSONObject job=new JSONObject();
+			job.put("type", "mread");
+			job.put("list", readlist);
+			
+			String out=null;
+			sendMoimMessage(job.toString(), cmoimInfo.getMemberSet(), out);
+			
 		} catch (Exception e) {
 			this.logger.info(e.toString());
 		}

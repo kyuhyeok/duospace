@@ -100,9 +100,15 @@
 				             backColor = "#FFEBFE";
 				       }
 				       out.println("<TD valign='top' align='left' height='92px' bgcolor='"+backColor+"' nowrap>");
+				       String subject="z";
 				       %>
+				     <%--  
+				       <c:if test="<%=index%>==${dto.moinDate}">
+				       		"<%=subject%>"=${dto.subject}
+				       </c:if> --%>
+				      
 				       <font color='<%=color%>'>
-				             <%=index %>
+				             <%=index%> <%-- <%=subject%> --%>
 				       </font>
 				       <%
 				       //기능 제거 
@@ -132,7 +138,7 @@
 </div>
 <c:if test="${dataCount != 0}">
 	<c:forEach var="dto" items="${list}">
-		<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px; overflow: -webkit-paged-y">
+		<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px; overflow: -webkit-paged-y" onclick="<%=cp%>">
 			<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px; padding-right: 15px;">
 				<!-- 리스트 출력 -->
 				<div style="float: left; width: 50px; height: 71px; margin: auto;">
@@ -142,11 +148,23 @@
 					</div>
 				</div>
 				<!-- 글 리스트.. -->
-				<div style="float: left; width: 470px;height: 110px; padding: inherit;">
-					<h3 style="font-size: large;">제목 : ${dto.subject} </h3>
-					<h4 style="font-size: small;">내용 : ${dto.content} </h4>
-					<h4 style="font-size: small;">인원 : ${dto.people} </h4>
-					<h4 style="font-size: small;">장소 : ${dto.spot} </h4>
+				<div style="float: left; width: 470px; height: 110px;">
+					<div style="float: left; width: 107px;height: 110px; padding: inherit; margin: 5px;">
+						<h3 style="font-size: large;">제목 </h3>
+						<h3 style="font-size: large;"> ${dto.subject} </h3>
+					</div>
+					<div style="float: left; width: 107px;height: 110px; padding: inherit; margin: 5px;">
+						<h4 style="font-size: small;">내용 </h4>
+						<h4 style="font-size: small;"> ${dto.content} </h4>
+					</div>
+					<div style="float: left; width: 107px;height: 110px; padding: inherit; margin: 5px;">
+						<h4 style="font-size: small;">인원 </h4>
+						<h4 style="font-size: small;"> ${dto.people} </h4>
+					</div>
+					<div style="float: left; width: 107px;height: 110px; padding: inherit; margin: 5px;">
+						<h4 style="font-size: small;">장소 </h4>
+						<h4 style="font-size: small;"> ${dto.spot} </h4>
+					</div>
 				</div>
 			</div>
 		</div>

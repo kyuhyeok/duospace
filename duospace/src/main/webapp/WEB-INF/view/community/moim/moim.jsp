@@ -11,6 +11,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
+
+
 //날짜 창띠우기.
 $(function() {
 	$("#modalMoimMoinDate").datepicker();
@@ -24,12 +26,15 @@ function dialogNewWord() {
 	$("#modalNewWord").modal("show");
     $("#modalContent").focus();
 }
+
+
 //모달 일정생성창 띄우기.
 function dialogMoimCalendar(){
 	$("#modalMoimContent").val("");
 	$("#modalMoimCalendar").modal("show");
 	$("#modalMoimContent").focus()
 }
+
 
 //<!-- 자유글 쓰기 -->
 function sendFreeboard(){
@@ -58,6 +63,7 @@ function sendFreeboard(){
 		}
 	});
 }
+
 
 //일정 만들기
 function sendMoimCalendar(){
@@ -126,9 +132,12 @@ function sendMoimCalendar(){
 		}
 	});
 }
+
+
 //<!-- list 페이지처리 -->
 var pageNo=1;
 var totalPage=1;
+
 
 // 스크롤바 존재 여부
 function checkScrollBar() {
@@ -139,10 +148,13 @@ function checkScrollBar() {
     }
     return false;
 }
+
+
 //페이지 바로출력.
 $(function(){
 	listPage(1);
 });
+
 
 //무한 스크롤
 $(function(){
@@ -155,6 +167,7 @@ $(function(){
 	    }
 	});
 });
+
 
 //자유게시판 전체글 리스트
 function listPage(page) {
@@ -179,6 +192,7 @@ function listPage(page) {
 	});
 }
 
+
 //일정게시판 전체글 리스트
 function moimcalendar(){
 	
@@ -200,6 +214,7 @@ function moimcalendar(){
 		}
 	});
 }
+
 
 //댓글 리스트.
 function listReply(boardNum){
@@ -245,6 +260,7 @@ $(function(){
 	});
 });
 
+
 //댓글쓰기
 function sendReply(boardNum){
 	var uid="${sessionScope.user.memberNum}";
@@ -258,6 +274,7 @@ function sendReply(boardNum){
 		$("#replyContent").focus();
 		return;
 	}
+	
 	var query ="content="+encodeURIComponent(content);
 		query+="&cmoimCode=${cmoimCode}";
 		query+="&boardNum="+boardNum;
@@ -337,29 +354,10 @@ function sendReply(boardNum){
 			
 			<!-- 사이드. -->
 				<!-- 채팅DIV -->
-			<!-- <div style="float: left;margin-left: 20px;margin-bottom: 12px;">
-				<div>
-					<div style="width: 240px;height: 34px;background: #fff; border-bottom: 1px solid #efefef;">
-						<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">
-							 채팅 
-						</div>
-						
-						<div style="float: right; margin-right: 15px;margin-top:5px;">
-							 <a>새 채팅</a> 
-						</div>
-						
-					</div>
-					<div style="border-top: 1px solid #ccc; width: 240px; height: 63px; background: #fff; ">
-						<a>
-						
-						</a>
-					</div>
-				</div>
-			</div>
-			 -->
+			<div id="moimchatdiv" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;"></div>
+				<!-- /채팅DIV -->
 			<div style="float: left;margin-left: 20px;">
-				<!-- 채팅DIV -->
-				
+				일정
 			</div>
 	</div>
 </div>

@@ -5,15 +5,15 @@
 
 <sql id="where-date">
 	<if test="startDate!=NULL and startDate !='' and endDate !=null and endDate !=''">
-		(	(startdate BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD') AND  TO_DATE(#{endDate},'YYYY/MM/DD'))  
-		OR  (enddate  BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD')  AND  TO_DATE(#{endDate},'YYYY/MM/DD'))
+		(	(TO_CHAR(startDate,'YYYY/MM/DD') BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD') AND  TO_DATE(#{endDate},'YYYY/MM/DD'))  
+		OR  (TO_CHAR(endDate,'YYYY/MM/DD')  BETWEEN TO_DATE(#{startDate},'YYYY/MM/DD')  AND  TO_DATE(#{endDate},'YYYY/MM/DD'))
 		)
 	</if>
 	<if test="startDate != NULL and startDate !='' and (endDate ==null or endDate =='')">
-		startDate = TO_DATE(#{startDate},'YYYY/MM/DD') 
+		TO_CHAR(startDate,'YYYY/MM/DD') = TO_DATE(#{startDate},'YYYY/MM/DD') 
 	</if>
 	<if test="endDate !=null and endDate !='' and (startDate ==null or startDate =='')">
-		endDate = TO_DATE(#{endDate},'YYYY/MM/DD')
+		TO_CHAR(endDate,'YYYY/MM/DD') = TO_DATE(#{endDate},'YYYY/MM/DD')
 	</if>
 
 </sql>
@@ -26,6 +26,12 @@
 	</if>
 	<if test="searchKey=='roomName'">
 		INSTR(roomName,#{searchValue}) &gt; 0
+	</if>
+	<if test="searchKey=='seatName'">
+		seatName=#{searchValue}
+	</if>
+	<if test="searchKey=='name'">
+		INSTR(name,#{searchValue}) &gt; 0
 	</if>
 </sql>
 
@@ -91,7 +97,7 @@
 		</if>
 		AND TO_CHAR(endDate,'YYYY/MM/DD') &gt;= TO_CHAR(SYSDATE,'YYYY/MM/DD')
 	</where>
-		ORDER BY startDate
+		ORDER BY startDate desc
 			)tb
 <![CDATA[
 		WHERE ROWNUM <= #{end}
@@ -218,4 +224,70 @@
 				 st.placeCode=#{placeCode} AND seatName=#{seatName}
 </select>
 
+<!-- 지난 좌석예약리스트 -->
+<select id="jinanSeatList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+	
+	 SELECT * FROM (
+		SELECT ROWNUM rnum, tb.* FROM(
+			SELECT r.reservnum,m1.membernum,name,NVL(signspot,0) signspot,state,
+			        TO_CHAR(startdate,'YYYY/MM/DD hh24:mi') startDate,
+			        TO_CHAR(enddate,'YYYY/MM/DD hh24:mi')endDate, st.seatCode, 
+			        seatName, p.placeCode,p.floorNum,floorName, sp.spotCode, spotName
+			FROM member1 m1
+			JOIN member2 m2 ON m1.membernum=m2.membernum
+			JOIN reserv r ON r.membernum=m1.membernum
+			JOIN stres s ON s.reservNum=r.reservNum
+			JOIN seat st ON s.seatCode=st.seatCode
+			JOIN placement p ON st.placecode=p.placecode
+			JOIN floor f ON f.floorNum=p.floorNum
+			JOIN spot sp ON f.spotCode=sp.spotCode
+			<where>
+				<if test="searchValue !=NULL and searchValue!=''">
+					<include refid="where-list"/>
+				</if>
+				 
+				<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+						<include refid="where-date"/>
+				</if>
+					AND 
+						TO_CHAR(endDate,'YYYY/MM/DD') &lt; TO_CHAR(SYSDATE,'YYYY/MM/DD')
+			</where>
+				ORDER BY startDate desc
+					)tb
+		<![CDATA[
+				WHERE ROWNUM <= #{end}
+			)WHERE rnum >= #{start}
+		]]>	
+</select>
+
+
+<select id="jinanSeatDataCount" parameterType="map" resultType="Integer">
+SELECT NVL(COUNT(*),0)
+	FROM member1 m1
+	JOIN member2 m2 ON m1.membernum=m2.membernum
+	JOIN reserv r ON r.membernum=m1.membernum
+	JOIN stres s ON s.reservNum=r.reservNum
+	JOIN seat st ON s.seatCode=st.seatCode
+	JOIN placement p ON st.placecode=p.placecode
+	JOIN floor f ON f.floorNum=p.floorNum
+	JOIN spot sp ON f.spotCode=sp.spotCode
+<where>
+		<if test="searchValue !=NULL and searchValue!=''">
+			<include refid="where-list"/>
+		</if>
+		 
+		<if test="! ((startDate==NULL or startDate =='')and(endDate ==null or endDate ==''))">
+		  <include refid="where-date"/>
+		</if>
+		AND 
+				TO_CHAR(endDate,'YYYY/MM/DD') &lt; TO_CHAR(SYSDATE,'YYYY/MM/DD')
+</where>
+</select>
+
+
+
+
 </mapper>
+
+
+

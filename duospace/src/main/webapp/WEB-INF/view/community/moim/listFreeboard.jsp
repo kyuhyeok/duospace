@@ -37,6 +37,20 @@
 				멤버들에게 전할소식을 남겨주세요
 		</a>
 	</div>
+	<!-- dropdown
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			Dropdown
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+		</ul>
+	</div>
+	 -->
 
 	<!-- 글 리스트... --> 
 <c:if test="${dataCount != 0}">
@@ -50,6 +64,16 @@
 					이름 : ${vo.name}
 				</span>
 				올린시간 : ${vo.created}
+				<div style="float: right; margin-right: 10px;" class="dropdown">
+					<button class="btn1 btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li><a tabindex="-1" href="#">수정</a></li>
+						<li><a tabindex="-1" href="#">삭제</a></li>
+						<li><a tabindex="-1" href="#">신고</a></li>
+					</ul>
+				</div>
 			</div>
 			
 			<!-- 글 리스트.. -->

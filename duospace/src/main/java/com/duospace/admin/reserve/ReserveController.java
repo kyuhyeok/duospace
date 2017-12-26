@@ -219,7 +219,7 @@ public class ReserveController {
 	
 	
 	@RequestMapping(value="/admin/reserve/complete/list")
-	public String jinanRoomReserveList(@RequestParam(value="page", defaultValue="1") int current_page,
+	public String jinanReserveList(@RequestParam(value="page", defaultValue="1") int current_page,
 			@RequestParam(value="where", defaultValue="0") int where,
 			@RequestParam(value="startDate", defaultValue="") String startDate,
 			@RequestParam(value="endDate", defaultValue="") String endDate,
@@ -249,8 +249,11 @@ public class ReserveController {
 		map.put("searchKey", searchKey);
 		map.put("searchValue", searchValue);
 		
-		
-		dataCount=service.jinanRoomdataCount(map);
+		if(where==0)
+			dataCount=service.jinanRoomdataCount(map);
+		else
+			dataCount=service.jinanSeatdataCount(map);
+			
 		
 		total_page=myUtil.pageCount(rows, dataCount);//전체페이지수
 		
@@ -264,7 +267,13 @@ public class ReserveController {
 		map.put("end", end);
 		
 		
-		List<Reserve> list = service.jinanRoomReserveList(map);
+		List<Reserve> list = null;
+		if(where==0)		
+			list=service.jinanRoomReserveList(map);
+		else
+			list=service.jinanSeatReserveList(map);
+	
+			
 		
 		//글번호
 		int listNum, n=0;
@@ -292,6 +301,7 @@ public class ReserveController {
 		
 		query+="&page="+current_page;
 		
+		model.addAttribute("where", where);
 		model.addAttribute("paging", paging);
 		model.addAttribute("listUrl", listUrl);
 		model.addAttribute("list", list);
@@ -301,6 +311,9 @@ public class ReserveController {
 		
 		return ".admin4.menu3.reserve.reservelist-jinan";
 	}
+	
+	
+
 }
 
 

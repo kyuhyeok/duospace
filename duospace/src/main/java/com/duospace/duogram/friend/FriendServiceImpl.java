@@ -12,7 +12,33 @@ import com.duospace.common.dao.CommonDAO;
 public class FriendServiceImpl implements FriendService {
 	@Autowired
 	private CommonDAO dao;
-
+	
+	@Override
+	public List<Friend> listPeople(Map<String, Object> map) {
+		List<Friend> list=null;
+		
+		try {
+			list=dao.selectList("duoGramF.listPeople", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public int pDataCount(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("duoGramF.pDataCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public List<Friend> listFriend(Map<String, Object> map) {
 		List<Friend> list=null;
