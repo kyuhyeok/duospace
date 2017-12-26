@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
+import com.duospace.duogram.mypage.Mypage;
 
 @Service("duogram.duogramService")
 public class DuogramServiceImpl implements DuogramService {
@@ -160,6 +161,28 @@ public class DuogramServiceImpl implements DuogramService {
 	public int replyCountAnswer(int answer) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int insertLikeBoard(Mypage dto) {
+		int result=0;
+
+		try{
+			result=dao.insertData("duogram.insertLikeBoard", dto);
+		} catch(Exception e) {
+		}
+		return result;
+	}
+
+	@Override
+	public int countLikeBoard(int num) {
+		int result=0;
+
+		try{
+			result=dao.selectOne("duogram.countLikeBoard", num);
+		} catch(Exception e) {
+		}
+		return result;
 	}
 
 }
