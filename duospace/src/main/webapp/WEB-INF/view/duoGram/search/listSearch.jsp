@@ -542,6 +542,7 @@ var pagePNo=1;
 var totalPageP=1;
 $(function(){
 	searchValue="#{searchValue}";
+	$("#totalsearch").val(searchValue);
 	listPPage(1);
 	
 	$(document).scroll(function() {

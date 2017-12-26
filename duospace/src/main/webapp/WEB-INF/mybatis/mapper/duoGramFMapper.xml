@@ -20,17 +20,22 @@
 			GROUP BY memberNum
 		) fof ON b.memberNum=fof.friendNum
 		LEFT OUTER JOIN member2 m2 ON b.memberNum=m2.memberNum
+		<if test="searchValue!=null and searchValue!=''">
+   			<![CDATA[
+   			WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
+   			]]>
+   		</if>
 		ORDER BY name ASC
 	</select>
 	
 	<select id="pDataCount" resultType="Integer" parameterType="map">
-		SELECT NVL(COUNT(*),0) FROM (
-        	SELECT memberNum FROM duogram d 
-        	JOIN member2 m ON d.memberNum=m.memberNum
-        	<![CDATA[
-        	WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
-        	]]>
-        )
+       	SELECT NVL(COUNT(*),0) FROM duogram d 
+       	JOIN member2 m ON d.memberNum=m.memberNum
+   		<if test="searchValue!=null and searchValue!=''">
+   			<![CDATA[
+   			WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
+   			]]>
+   		</if>
 	</select>
 
 	<select id="listFriend" resultType="com.duospace.duogram.friend.Friend" parameterType="map">

@@ -1,5 +1,6 @@
 package com.duospace.duogram.friend;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +34,14 @@ public class FriendController {
 			@RequestParam(value="pagePNo", defaultValue="1") int current_page,
 			HttpSession session,
 			Model model
-			) {
+			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 		
 		int rows=20;
 		int total_page=0;
 		int dataCount=0;
+		
+		searchValue=URLDecoder.decode(searchValue, "utf-8");
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
@@ -58,11 +61,10 @@ public class FriendController {
 		
 		//포워딩할 jsp에 넘길 데이터
 		model.addAttribute("list", list);
-		model.addAttribute("pDataCount", dataCount);
 		model.addAttribute("total_Ppage", total_page);
-		model.addAttribute("pagePNo", current_page);
+		model.addAttribute("memberNum", info.getMemberNum());
 		
-		return "duoGram/search/listPeople";
+		return "duoGram/search/pCard";
 	}
 	
 	//친구 페이지 로딩
