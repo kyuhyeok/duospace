@@ -86,40 +86,47 @@ function sendInfo() {
 <body style="background: #e9ebee">
 
 <form>
-	<table class="form-horizontal" style="position: fixed; left: 650px; top: 180px; background: white; height: 700px; width: 600px; margin:auto; border: 1px solid #ccc; padding-left: 15px;">
+	<table class="form-horizontal" style="margin-bottom: -200px; background: white; height: 700px; width: 600px; margin:auto; margin-top: 100px; border: 1px solid #ccc; padding-left: 15px;">
+		<tr>
+			<td style="width: 120px; text-align: center;">소개</td>
+			<td>
+			<input type="text" id="intro" style="margin: auto; width: 450px;" class="form-control" placeholder="소개">
+			</td>
+		</tr>
 		<tr>
 			<td style="width: 120px; text-align: center;">커버사진</td>
+			<td>
+			<input type="text" id="coversavefilename" style="margin: auto; width: 450px;" class="form-control" placeholder="커버사진">
+			</td>
 		</tr>
 		<tr>
 			<td style="width: 120px; text-align: center;">프로필사진</td>
-		</tr>
-		<tr>
-			<td style="width: 120px; text-align: center;">소개</td>
-		</tr>
-		<tr>
-			<td>${intro}</td>
+			<td>
+			<input type="text" id="profilesavefilename" style="margin: auto; width: 450px;" class="form-control" placeholder="프로필사진">
+			</td>
 		</tr>
 		<tr>	
 			<td style="width: 120px; text-align: center;">직장</td>
-		</tr>
-		<tr>
-			<td>${intro}</td>
+			<td>
+			<input type="text" id="company" style="margin: auto; width: 450px;" class="form-control" placeholder="직장">
+			</td>
 		</tr>
 		<tr>	
 			<td style="width: 120px; text-align: center;">학교</td>
+			<td>
+			<input type="text" id="school" style="margin: auto; width: 450px;" class="form-control" placeholder="학교">
+			</td>
 		</tr>
 		<tr>
-			<td>${intro}</td>
+			<td style="width: 120px; text-align: center;">거주지</td>
+			<td>
+			<input type="text" id="home" style="margin: auto; width: 450px;" class="form-control" placeholder="거주지">
+			</td>
 		</tr>
 		<tr>
-			<td style="width: 100%; text-align: center;">거주지</td>
-		</tr>
-		<tr>
-			<td>${intro}</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<button type="button" onclick="sendInfo()">수정하기</button>
+			<td colspan="2" align="center">
+				<button type="button" onclick="sendInfo()">등록하기</button>
+				<button type="reset">돌아가기</button>
 			</td>
 		</tr> 
 	</table>
