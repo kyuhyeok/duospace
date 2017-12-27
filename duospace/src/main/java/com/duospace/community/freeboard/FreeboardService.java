@@ -10,7 +10,7 @@ public interface FreeboardService {
 	public int dataCount(Map<String, Object> map);
 	public Freeboard readFreeboard(int num);
 	public int updateFreeboard(Freeboard dto,String pathname);
-	public int deleteFreeboard(int num,String pathname,String memberNum);
+	public int deleteFreeboard(int boardNum,int memberNum);
 	
 	public int insertReply(Reply dto);//댓글
 	public List<Reply> listReply(Map<String, Object> map);//댓글리스트

@@ -8,7 +8,7 @@
 <c:forEach var="vo" items="${listReply}">
 	<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
 		<a class="profileInner">
-			<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px;">
+			<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px; border-radius: 50%;">
 		</a>
 		<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
 			이름 : ${vo.name}

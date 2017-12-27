@@ -19,15 +19,15 @@
 	</select>
 	<!-- 모임 생성 --><!-- 모임생성하기전에 시퀀스를 불러온다. -->
 	<insert id="insertCommoim" parameterType="com.duospace.community.commoim.Commoim">
-		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,regcode,membernum)
-			VALUES(#{cmoimCode},#{comname},#{isopen},#{catecode},#{regcode},#{memberNum})
+		INSERT INTO commoim(cmoimcode,comname,isopen,catecode,moimimg,regcode,membernum)
+			VALUES(#{cmoimCode},#{comname},#{isopen},#{catecode},#{moimimg},#{regcode},#{memberNum})
 	</insert>
 	
 	<!-- 나의모임 리스트 -->
 	<select id="listCommoim" parameterType="map" 
 		resultType="com.duospace.community.commoim.Commoim">
 		SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
-	        c.memberNum,NVL(membercount, 0) membercount 
+	        c.memberNum,NVL(membercount, 0) membercount ,moimimg
 	        FROM commoim c 
 	        JOIN (SELECT cmoimCode FROM  moimmember WHERE memberNum=#{memberNum}) mm ON c.cmoimCode = mm.cmoimCode
 	        LEFT OUTER JOIN (
@@ -41,7 +41,7 @@
 	<!-- 전체모임 리스트 -->
 	<select id="list" parameterType="map" resultType="com.duospace.community.commoim.Commoim">
 	 SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
-        	c.memberNum,NVL(memberCount, 0) memberCount
+        	c.memberNum,NVL(memberCount, 0) memberCount, moimimg
         	FROM commoim c 
         	JOIN member2 m ON c.membernum = m.membernum
         	LEFT OUTER JOIN (
@@ -58,5 +58,17 @@
 	    WHERE cmoimCode=#{cmoimCode}
 	</select>
 	
+	<!-- 나의 가입수 -->
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM moimmember
+        WHERE memberNum =#{memberNum}
+	</select>
+	
+	<!-- 모임 전체 수 -->
+	<select id="dataCountAll" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM commoim
+	</select>
 	
 </mapper>

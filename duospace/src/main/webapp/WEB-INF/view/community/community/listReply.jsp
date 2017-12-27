@@ -28,7 +28,9 @@
 						<c:if test="${sessionScope.user.memberNum==vo.memberNum }">
 							<a onclick="deleteReply('${vo.boardrpNum}', '${pageNo}')">삭제</a>
 						</c:if>
-   					<span>신고</span>
+					<c:if test="${sessionScope.user.memberNum!=vo.memberNum }">
+   						<span>신고</span>
+   					</c:if>
 	       		</td>
 	       	</tr>
 			<tr>

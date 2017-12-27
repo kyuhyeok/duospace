@@ -37,14 +37,24 @@ public class epilogueServiceImpl implements epilogueService{
 
 	@Override
 	public List<epilogue> listReview(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<epilogue> list=null;
+		try {
+			list=dao.selectList("duospace.epilogue.eplist", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 	@Override
-	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int dataCount() {
+		int result=0;
+		try {
+			result=dao.selectOne("duospace.epilogue.dataCount");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override

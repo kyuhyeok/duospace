@@ -93,6 +93,28 @@ public class CommoimServiceImpl implements CommoimService{
 		return result;
 	}
 
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.dataCount",map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int dataCountAll() {
+		int result=0;
+		try {
+			result=dao.selectOne("commoim.dataCountAll");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 	
 
 }

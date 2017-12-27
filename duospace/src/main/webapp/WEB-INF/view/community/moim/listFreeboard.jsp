@@ -58,7 +58,7 @@
 		<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
 			<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
 				<a class="profileInner">
-					<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px;">
+					<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px; border-radius: 50%;">
 				</a>
 				<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
 					이름 : ${vo.name}
@@ -70,15 +70,17 @@
 					</button>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li><a tabindex="-1" href="#">수정</a></li>
-						<li><a tabindex="-1" href="#">삭제</a></li>
-						<li><a tabindex="-1" href="#">신고</a></li>
+						<li><a tabindex="-1" onclick="deleteFreeboard(${vo.boardNum})">삭제</a></li>
 					</ul>
 				</div>
 			</div>
 			
 			<!-- 글 리스트.. -->
 			<div style="margin: 15px;">
-				<textarea rows="3" cols="70" style="border: none;" name="content">${vo.content}</textarea>
+				<div>
+					${vo.content}
+				</div>
+				<%-- <textarea rows="3" cols="70" style="border: none;" name="content">${vo.content}</textarea> --%>
 			</div>
 			
 			<!-- 댓글 및 표정이모티콘 -->

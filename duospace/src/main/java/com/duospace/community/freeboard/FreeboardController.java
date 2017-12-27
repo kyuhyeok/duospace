@@ -142,6 +142,20 @@ public class FreeboardController {
 		return "community/moim/listReply";
 	}
 	
-	
+	//게시글 삭제
+	@RequestMapping(value="/freeboard/deleteFreeboard")
+	@ResponseBody
+	public Map<String, Object> deleteFreeboard(
+			@RequestParam int boardNum,
+			HttpSession session
+			)throws Exception{
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		service.deleteFreeboard(boardNum, info.getMemberNum());
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardNum",boardNum);
+		
+		return map;
+	}
 	
 }

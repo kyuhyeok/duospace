@@ -48,8 +48,8 @@ function sendOk() {
 					
 					<tr align="left" style="border-bottom: 1px solid #cccccc;"> 
 						<td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;" valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-						<td valign="top" style="padding:5px 0px 5px 10px;"> 
-							<textarea name="content" id="content" style="width: 95%; height: 270px;">${dto.content}</textarea>
+						<td valign="top" style="padding:5px 0px 5px 10px;">
+							<textarea name="content" id="content" style="width: 95%; height: 470px;">${dto.content}</textarea>
 						</td>
 					</tr>
 				</table>

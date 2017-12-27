@@ -60,9 +60,9 @@ public class DuospaceUtil {
 				page = currentPageSetup + 1;
 				while (page <= total_page && page <= (currentPageSetup + numPerBlock)) {
 					if (page == current_page) {
-						sb.append("&nbsp;<span style='color:#fd5c40;'>" + page + "</span>");
+						sb.append("&nbsp;<span style='color:#172a40;font-weight: bold;text-decoration: underline;'>" + page + "</span>");
 					} else {
-						sb.append("&nbsp;<a href='" + list_url + "page=" + page + "' style='color: #7c7b7b'>" + page + "</a>");
+						sb.append("&nbsp;<a href='" + list_url + "page=" + page + "' style='color: #172a40;font-weight: bold;'>" + page + "</a>");
 					}
 					page++;
 				}

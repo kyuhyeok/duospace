@@ -4,7 +4,7 @@ public class Commoim {
 	private int cmoimCode;//모임코드
 	private String comname;//모임이름
 	private int isopen;//공개여부
-	private String created;//모임생성일
+	private String created,moimimg;//모임생성일
 	private int memberCount;//모임 인원수
 	private int catecode,regcode,memberNum;//카테고리,지역,회원번호.(참조키)
 
@@ -15,6 +15,14 @@ public class Commoim {
 
 	public void setCmoimCode(int cmoimCode) {
 		this.cmoimCode = cmoimCode;
+	}
+
+	public String getMoimimg() {
+		return moimimg;
+	}
+
+	public void setMoimimg(String moimimg) {
+		this.moimimg = moimimg;
 	}
 
 	public int getIsopen() {

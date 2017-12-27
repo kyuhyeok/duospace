@@ -14,4 +14,6 @@ public interface MoimService {
 	public int updateMoim(Moim dto);
 	public int deleteMoim(int num);
 	
+	public List<Moim> listMoimMember(Map<String, Object> map);//모임 멤버 리스트
+	
 }

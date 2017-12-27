@@ -6,7 +6,7 @@
 	String cp=request.getContextPath();
 %>
 <div style="background: #eef0f3; "> 
-	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
+	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px; min-height: 800px;">
   		<div style="width: 100%;height: 40px;">
 	  		<h1>내 모임/${dataCount}</h1>
   		</div>
@@ -31,7 +31,7 @@
 					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
 				  		<a href="<%=cp%>/community/moim${dto.cmoimCode}" style=" background-color: #ffffff;">
 				  			<span style=" padding-top: 55px;text-align: center;">
-				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/${dto.moimimg}">
 				  			</span>
 				  			<br>
 				  			<span style="display:table ;height: 85px; margin-left: 25px;">

@@ -58,11 +58,7 @@ public class FreeboardServiceImpl implements FreeboardService{
 		return 0;
 	}
 
-	@Override
-	public int deleteFreeboard(int num, String pathname, String memberNum) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public int insertReply(Reply dto) {
@@ -101,6 +97,17 @@ public class FreeboardServiceImpl implements FreeboardService{
 	public int deleteReply(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int deleteFreeboard(int boardNum, int memberNum) {
+		int result=0;
+		try {
+			result=dao.deleteData("freeboard.deleteFreeboard",boardNum);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 }
