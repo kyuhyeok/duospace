@@ -144,7 +144,7 @@
 				<div style="float: left; width: 50px; height: 71px; margin: auto;">
 					<div style="text-align: center; padding-top: 50%;">
 						<h3 style="font-size: x-large;">${dto.moinDate}</h3>
-						수요일
+						목요일
 					</div>
 				</div>
 				<!-- 글 리스트.. -->

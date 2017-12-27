@@ -25,7 +25,7 @@
 			<c:forEach var="dto" items="${list}">
 				<div style="width: 100%;height: 90px;">
 					<div style="float: left; margin-top: 25px;">
-						<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:40px;height: 40px; ">
+						<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:40px;height: 40px; border-radius: 50%; ">
 					</div>
 					<div style="float: left; margin: 15px; margin-top:25px; min-height: 25px;">
 						<div>

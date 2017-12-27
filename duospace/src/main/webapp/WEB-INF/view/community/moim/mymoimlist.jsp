@@ -6,7 +6,7 @@
 	String cp=request.getContextPath();
 %>
 <div style="background: #eef0f3; "> 
-	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px;">
+	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px; min-height: 800px;">
   		<div style="width: 100%;height: 40px;">
 	  		<h1>내 모임/${dataCount}</h1>
   		</div>

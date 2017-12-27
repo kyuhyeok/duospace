@@ -41,7 +41,7 @@
 	<!-- 전체모임 리스트 -->
 	<select id="list" parameterType="map" resultType="com.duospace.community.commoim.Commoim">
 	 SELECT c.cmoimCode, comname, isopen, TO_CHAR(created,'YYYY-MM-DD') created, c.catecode, c.regcode, 
-        	c.memberNum,NVL(memberCount, 0) memberCount
+        	c.memberNum,NVL(memberCount, 0) memberCount, moimimg
         	FROM commoim c 
         	JOIN member2 m ON c.membernum = m.membernum
         	LEFT OUTER JOIN (
@@ -58,5 +58,17 @@
 	    WHERE cmoimCode=#{cmoimCode}
 	</select>
 	
+	<!-- 나의 가입수 -->
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM moimmember
+        WHERE memberNum =#{memberNum}
+	</select>
+	
+	<!-- 모임 전체 수 -->
+	<select id="dataCountAll" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM commoim
+	</select>
 	
 </mapper>

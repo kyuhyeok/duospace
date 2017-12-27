@@ -178,6 +178,9 @@ public class CommunityController {
 					"&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 			
 		}
+		
+		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		
 
 		model.addAttribute("cateNum",cateNum);
 		model.addAttribute("dto",dto);

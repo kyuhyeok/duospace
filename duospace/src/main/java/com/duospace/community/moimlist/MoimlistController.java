@@ -33,7 +33,7 @@ public class MoimlistController {
 		int dataCount;
 		
 		Map<String, Object> map = new HashMap<>();
-		dataCount=dto.getMemberCount();
+		dataCount=service.dataCountAll();
 		
 		List<Commoim> list=service.list(map);
 		

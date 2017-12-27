@@ -16,7 +16,7 @@
 	<div style="width: 800px; margin: 10px auto 0px;">
 		<div>
 		<div>
-			<h3><span style="font-family: Webdings">2</span> ${boardName}게시판 </h3>
+			<h3><span style="font-family: Webdings">2</span> 자바 게시판 </h3>
 		</div>
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
 			
