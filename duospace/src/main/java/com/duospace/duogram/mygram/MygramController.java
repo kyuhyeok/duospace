@@ -2,6 +2,7 @@ package com.duospace.duogram.mygram;
 
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import com.duospace.member.SessionInfo;
 
 @Controller("mygram.mygramController")
 public class MygramController {
+	
 	
 	@RequestMapping(value="/duogram/mygram/{blogNum}")
 	public String mygram(
@@ -31,4 +33,6 @@ public class MygramController {
 		
 		return ".duoGram.main.mypagegram";
 	}
+	
+	
 }

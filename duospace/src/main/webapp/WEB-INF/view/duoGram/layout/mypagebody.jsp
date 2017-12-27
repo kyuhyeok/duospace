@@ -19,14 +19,14 @@
 <div style="margin:auto; width: 935px; height: 450px; background: black;">
 <!-- 커버사진 -->
 <div align="center" style="background: black; overflow: hidden; max-width: 100%; max-height: 450px;">
-	<img style="vertical-align: middle" src="<%=cp%>/resource/images/duogram/profile2.jpg">
+	<img style="margin-top: -200px; vertical-align: middle" src="<%=cp%>/resource/images/duogram/me2.jpg">
 </div>
 </div>
 
 		<!-- 마이프로필 정보 -->
 		<div style="margin: auto; width: 100%; height: 50px; background: white; border: 1px solid #ccc;">
 			<div style="float: left; margin-left: 500px; margin-right: 50px; padding-right: 50px; line-height: 45px; font-size: 15px;">
-				<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">내 타임라인</a>
+				<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">내 타임라인</a>
 			</div>
 			<div class="duo_01" style="float: left; line-height: 45px; font-size: 15px;">
 				<a href="<%=cp%>/duogram/mygram/${sessionScope.user.memberNum}" style="text-decoration:none; font-size: 17px; font-weight: bold">정보</a>

@@ -35,7 +35,7 @@ public class MypageController {
 	private FileManager fileManager;
 	
 	// mypage 메인 화면
-	@RequestMapping(value="/duogram/mypage/{blogNum}")
+	@RequestMapping(value="/duogram/{blogNum}")
 	public String duogram(
 			@PathVariable int blogNum,
 			Mypage dto,
@@ -99,7 +99,7 @@ public class MypageController {
 		String pathname=root+File.separator+"uploads"+File.separator+"duogram";	
 	
 		service.updateBoard(dto, pathname);
-		return "redirect:/duogram/mypage/"+blogNum;
+		return "redirect:/duogram/"+blogNum;
 	}
 	
 	
@@ -162,7 +162,7 @@ public class MypageController {
 		String pathname=root+File.separator+"uploads"+File.separator+"duogram";	
 		service.deleteBoard(num, info.getMemberNum(), pathname);
 		
-		return "redirect:/duogram/mypage/"+blogNum;
+		return "redirect:/duogram/"+blogNum;
 	}
 	
 	// 파일삭제
@@ -181,7 +181,7 @@ public class MypageController {
 		}
 			
 		if(info.getMemberNum()!=dto.getMemberNum()) {
-			return "redirect:/duogram/mypage/"+blogNum;
+			return "redirect:/duogram/"+blogNum;
 		}
 		
 		String root = session.getServletContext().getRealPath("/");
@@ -193,7 +193,7 @@ public class MypageController {
 			  service.updateBoard(dto, pathname);
        }
 		
-		return "redirect:/duogram/mypage/"+blogNum;
+		return "redirect:/duogram/"+blogNum;
 	}
 	
 	// 댓글 달기

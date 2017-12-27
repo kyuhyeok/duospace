@@ -268,12 +268,12 @@ function printDuogram(data) {
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
-			out+="<a href='' style='text-decoration:none; color: black;'>";
+			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='text-decoration:none; color: black;'>";
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
 			out+="<div style='float:left;'>";
-			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
+			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
 			if(memberNum!=blogNum)
 				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+blogNum+"</a>";
 			out+="</div>";
@@ -445,16 +445,18 @@ function deleteReply(replyNum, page) {
 		<div style="margin-right: 34px; top: 65px; position: relative; z-index: 1; float: right; margin-top: -230px; width: 220px;">
 		<div style="border-radius: 105px; max-width: 210px; height: 210px; border: 1px solid #dddfe2; background:white; border: 1px solid auto">
 			<div style="overflow: hidden; border-radius: 102.5px; background: #ccc; margin-left: 2.4px; margin-top: 2.4px; max-width: 205px; max-height: 205px;">
-				<img style="width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/dong.png">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/me1.jpg">
 			</div>
 		</div>
 		</div>
 	
 	<!-- 자기소개 -->
-	<div style="width: 293px; text-align:center; float: right; background: white; border-radius: 4px; padding: 10px; margin-bottom: 20px; padding-top: 80px; border: 1px solid #dddfe2">
-		<div style="width: 273px;text-decoration: none; font-weight: bold; font-size: 22px; color: #23527c;" id="rightName"></div>
-		<div style="width: 273px; padding-top: 8px; font-weight: bold; padding-bottom: 5px; font-size: 15px; border-bottom: 1px solid #ccc;">미미쨩♥</div>
-		<div style="width: 273px; padding-top: 8px; font-size: 14px; padding-bottom: 10px">나는 미미쨩을 너무너무 사랑한다능 으흐흐 낄낄 꺆꺆</div>
+	<div style="width: 293px; text-align:center; float: right; background: white; border-radius: 4px; padding: 10px; margin-bottom: 20px; padding-top: 50px; border: 1px solid #dddfe2">
+		<div style="padding-bottom: 5px;width: 273px; text-decoration: none; font-weight: bold; font-size: 22px; color: #23527c;" id="rightName"></div>
+		<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개</div>
+		<div style="width: 273px;">
+			<button class='button updateModalBtn' data-saveFilename="saveFilename" data-num="num" tabindex="-1">수정</button>
+		</div>
 	</div>
 	
 	<div style="border: 1px solid #dddfe2; marign-left: 10px; width: 293px; float: right; background: white; border-radius: 4px;">
