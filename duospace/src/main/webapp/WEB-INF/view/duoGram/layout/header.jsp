@@ -36,7 +36,7 @@
 				
 					<!-- 마이페이지 -->
 					<div style="float: right">
-					<a title=Mypage href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=Mypage href="<%=cp%>/duogram/${sessionScope.user.memberNum}" style="font-family: '나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
 						<img src="<%=cp%>/resource/images/duogram/mypage.png" style="width: 43px; height: 40px;">
 					</a>
 					</div>

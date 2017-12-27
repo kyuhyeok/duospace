@@ -43,18 +43,18 @@
 				<c:if test="${cateNum==0 || cateNum != dto.cateNum}">
 					<c:set var="cateNum" value="${dto.cateNum}"/>
 					<div style="padding:20px; width:100%; height:81px; border-bottom: 1px solid #efefef; background: #f5efc7">
-						<a href="<%=cp%>/community/article?cateNum=${dto.cateNum}&page=1&boardNum=${dto.boardNum}">
+						<a href="<%=cp%>/community/list?cateNum=${dto.cateNum}">
 							<span style="margin: 10px; font-size: x-large;">분류 :</span>
 							<span style="font-size: large;">${dto.boardName}</span>
 						</a>
 					</div>
-					<c:out value="<div style='width: 100%; height: 319px;'>" escapeXml="false"/>
+					<c:out value="<div style='width: 100%; height: 219px; padding: 5px 10px;'>" escapeXml="false"/>
 				</c:if>
-				<div style="margin-bottom: 15px;">
-					<a href="<%=cp%>/community/article?cateNum=${dto.cateNum}">
-						<span style="margin: 10px; font-size: large;">제목 :</span>
-						<span style="font-size: large;" class="target_">${dto.subject}</span>
-					</a><br>
+				<div style="margin-bottom: 15px; overflow: hidden; text-overflow: ellipsis;">
+					<a href="<%=cp%>/community/article?cateNum=${dto.cateNum}&page=1&boardNum=${dto.boardNum}">
+						<span style="font-size: large;" class="target_">ㆍ ${dto.subject}</span>
+					</a>
+					<br>
 				</div>
 			</c:forEach>
 			<c:if test="${board.size()!=0}">

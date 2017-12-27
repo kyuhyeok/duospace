@@ -233,12 +233,12 @@ function printDuogram(data) {
 			out+="<div style='height: 40px; padding-left: 15px; padding-right: 15px; font-weight: bold; font-size: 16px;'>";
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
-			out+="<a href='' style='text-decoration:none; color: black;'>";
+			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='text-decoration:none; color: black;'>";
 			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
 			out+="</a>";
 			out+="</div>";
 			out+="<div style='float:left;'>";
-			out+="<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
+			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
 			if(memberNum!=blogNum)
 				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+blogNum+"</a>";
 			out+="</div>";
