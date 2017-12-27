@@ -55,7 +55,7 @@
 		FROM mchatread
 		<where>
 			<if test="cmoimCode!=0">
-				mchatNum=#{mchatNum}
+				cmoimCode=#{cmoimCode}
 			</if>
 			AND readDate IS NULL AND cmoimCode IN (
 				SELECT cmoimCode FROM moimmember WHERE memberNum=#{memberNum}
@@ -97,16 +97,52 @@
         VALUES(#{mchatNum}, #{memberNum}, #{cmoimCode})
 	</insert>
 	
+	<select id="listUnReadMess" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
+		SELECT m.mchatNum, unReadCnt 
+		FROM moimchat m
+		JOIN mchatread r ON m.mchatNum=r.mchatNum
+		JOIN (
+			SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
+			FROM moimchat
+			WHERE reaDate IS NULL AND cmoimNum=#{cmoimNum}
+			GROUP BY mchatNum
+		) c ON m.mchatNum=c.mchatNum
+		WHERE m.cmoimNum=#{cmoimNum} AND r.memberNum=#{memberNum} AND r.reaDate IS NULL
+	</select>
+	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
 		SELECT m.mchatNum, name, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, m.memberNum, profile, NVL(unReadCnt,0) unReadCnt FROM (
-			SELECT ROWNUM rnum, tb.* FROM (
+			<if test="end==10">
+			SELECT * FROM (
+			</if>
 				SELECT mchatNum, content, sendDate, memberNum 
 				FROM moimchat
-				WHERE cmoimCode=#{cmoimCode}
+				<where>
+					<choose>
+						<when test="first!=1 and num!=0">
+							<![CDATA[
+							mchatNum < #{mchatNum}
+							]]>
+						</when>
+						<when test="first==1 and end==0">
+							<![CDATA[
+							mchatNum >= (
+							]]>
+								SELECT mchatNum FROM(
+								    SELECT ROW_NUMBER() OVER (ORDER BY sendDate ASC) rank, mchatnum FROM mchatread
+								    WHERE readDate IS NULL AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
+								) WHERE rank=1
+							)
+						</when>
+					</choose>
+					AND cmoimCode=#{cmoimCode}
+				</where>
+			<if test="end==10">	
 				ORDER BY sendDate DESC
 				<![CDATA[
-			) tb WHERE ROWNUM <= #{end}
+			) WHERE ROWNUM <= #{end}
 			]]>
+			</if>
 		) m
 		LEFT OUTER JOIN member2 m2 ON m.memberNum=m2.memberNum
 		LEFT OUTER JOIN (
@@ -118,7 +154,7 @@
 		<![CDATA[
 		WHERE rnum >= #{start}
 		]]>
-		ORDER BY rnum ASC
+		ORDER BY mchatNum ASC
 	</select>
 	
 	<select id="fMListDataCount" resultType="Integer" parameterType="map">
@@ -134,7 +170,7 @@
 		<where>
 			<choose>
 				<when test="mchatNum==0">
-					readDate IS NUll AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode} AND
+					readDate IS NUll AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
 				</when>
 				<otherwise>
 					mchatNum=#{mchatNum} AND memberNum=#{memberNum}

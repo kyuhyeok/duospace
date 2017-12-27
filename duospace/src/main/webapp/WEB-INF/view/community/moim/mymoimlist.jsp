@@ -31,7 +31,7 @@
 					<div style=" background-color: #ffffff; width: 180px;height: 200px; margin: 30px;">
 				  		<a href="<%=cp%>/community/moim${dto.cmoimCode}" style=" background-color: #ffffff;">
 				  			<span style=" padding-top: 55px;text-align: center;">
-				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/7.JPG">
+				  				<img style="width: 180px;height: 100px;"  src="<%=cp%>/resource/images/communiti/${dto.moimimg}">
 				  			</span>
 				  			<br>
 				  			<span style="display:table ;height: 85px; margin-left: 25px;">

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.common.MyUtil;
+import com.duospace.duogram.mypage.Mypage;
 import com.duospace.member.SessionInfo;
 
 @Controller("duogram.duogramController")
@@ -71,6 +72,7 @@ public class DuogramController {
 			Duogram dto,
 			HttpSession session
 			) throws Exception {
+		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
 
 		String state;
@@ -211,4 +213,44 @@ public class DuogramController {
 			
 			return "duoGram/main/reply";
 		}
+		
+		// 게시물 공감 추가
+				@RequestMapping(value="duogram/insertLikeBoard", method=RequestMethod.POST)
+				@ResponseBody
+				public Map<String, Object> insertLikeBoard(
+						Mypage dto, HttpSession session) throws Exception {
+				
+					SessionInfo info=(SessionInfo) session.getAttribute("user");
+					String state="true";
+					
+					if(info==null) {
+						state="loginFail";
+					} else {
+						dto.setMemberNum(info.getMemberNum());
+						int result=service.insertLikeBoard(dto);
+						if(result==0)
+							state="false";
+			   	    }
+			   	    
+					Map<String, Object> model = new HashMap<>(); 
+					model.put("state", state);
+					return model;
+				}
+				
+				// 게시물 공감 개수
+				@RequestMapping(value="duogram/countLikeBoard", method=RequestMethod.POST)
+				@ResponseBody
+				public Map<String, Object> countLikeBoard(
+						@RequestParam(value="num") int num) throws Exception {
+					
+					String state="true";
+					int countLikeBoard=service.countLikeBoard(num);
+					
+			   	    Map<String, Object> model = new HashMap<>();
+			   	    model.put("state", state);
+			   	    model.put("countLikeBoard", countLikeBoard);
+					
+			   	    // 작업 결과를 json으로 전송
+			   	    return model;
+				}	
 }

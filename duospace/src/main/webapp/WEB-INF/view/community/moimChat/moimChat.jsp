@@ -301,11 +301,19 @@ time>span{
 }
 </style>
 <script type="text/javascript">
+var first=1;
+var mcNum=0;
+var lastData=0;
 var mpage=1;
 var mtotalpage=1;
 $(function() {
-	listmoimchat(1);
+	//채팅공간 삽입
+	var chatspace=$("#moimchatsam").html();
+	$("#moimchatsam").remove();
+	$("#moimchatdiv").html(chatspace);
 	
+	listmoimchat(1);
+	first=0;
 	var socket=null;
 	var host="<%=wsURL%>";
 	
@@ -349,8 +357,13 @@ $(function() {
     	} else if(type=="mread") {
     		<%--if($(".unreadfm").length>0)
     			$(".unreadfm").remove();--%>
-    		$("#dgchatcontent").html();
-    		listmoimchat(1);
+    		for(var vo in data.list){
+	    		if($("#MCList div[data-urm="+vo.mchatNum+"]").length){
+	    			$("#MCList div[data-urm="+vo.mchatNum+"]").html(vo.unReadCnt);
+		    		if(Number($("#MCList div[data-urm="+vo.mchatNum+"]").html())==0)
+		    			$("#MCList div[data-urm="+vo.mchatNum+"]").remove();
+	    		}
+    		}
     	} 
 	}
 
@@ -368,14 +381,6 @@ $(function() {
 			$('._1p1t').html('');
 		}
     	$(this).height(1).height($(this).prop('scrollHeight')-6);
-    	
-    	if(key.keyCode == 116){
-    		var obj = {};
-    	    var jsonStr;
-    	    obj.type="leave";
-    	    jsonStr = JSON.stringify(obj); 
-    	    socket.send(jsonStr);
-    	}
     });
 	
 	$("#chatsend").on("click",function sendMessage() {
@@ -415,16 +420,15 @@ $(function() {
     		console.log("접속삭제")
 			$("#MCList li[data-memberNum="+memberNum+"]").remove();
 		}
-		
 	}
 	$("#dgchatcontent").scrollTop($("#dgchatcontent").prop("scrollHeight"));
     $('#scrollmess').scroll(function() {
 	    if ($('#scrollmess').scrollTop()<=50) {
-	    	if(mpage<mtotalpage) {
+	    	if(lastData>0) {
 	    		listmoimchat(page);
-	    	}else if((mtotalpage-mpage)==0){
+	    	}else if(lastData==0){
 	    		$('#dgchatcontent').prepend("<time><span>더 이상 메시지가 없습니다.</span></time>");
-	    		mtotalpage--;
+	    		lastData--;
 	    	}
 	    }
 	});
@@ -452,7 +456,7 @@ function writeToScreen(data) {
 		out+="<div>";
 		out+="<div class='etcbox _ua0' style='text-align:right; cursor: pointer;width: 10px;visibility: hidden;' data-num='dMess("+mchatNum+")'>X</div>";
 		if(unReadCnt!=0){
-			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;'>"+unReadCnt+"</div>";
+			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;' data-urm='"+mchatNum+"'>"+unReadCnt+"</div>";
 		}
 		out+="</div>";
 		out+="</div>";
@@ -478,6 +482,9 @@ function writeToScreen(data) {
 		out+="</div>";
 		out+="<div style='margin-left:8px;'>";
 		out+="<div class='etcbox _ua1' style='cursor: pointer;width: 10px;visibility: hidden;' data-num='dMess("+mchatNum+")'>X</div>";
+		if(unReadCnt!=0){
+			out+="<div class='etcbox _ua0 unreadfm' style='text-align:right;' data-urm='"+mchatNum+"'>"+unReadCnt+"</div>";
+		}
 		out+="</div>";
 		out+="</div>";
 		out+="</div>";
@@ -520,10 +527,14 @@ function memberCard(data) {
 	$("#MCList").append(s);
 }
 
-function listmoimchat(page){
+function listmoimchat(num){
 	var url="<%=cp%>/moim/listmChat";
-	var q="cmoimCode="+${cmoimCode}+"&page="+page;
-	
+	var q="cmoimCode="+${cmoimCode}+"&mchatNum="+num;
+	if(first==1)
+		q+="&first=1";
+	else{
+		q+="&first=0";
+	}
 	$.ajax({
 		type:"post"
 		,url:url
@@ -532,8 +543,8 @@ function listmoimchat(page){
 		,success:function(data){
 			var list=data.list;
 			console.log(list);
-			mpage=page++;
-			mtotalpage=data.totalpage;
+			mcNum=$('#dgchatcontent').find("div:first").attr("data-mchatNum");
+			lastData=data.lastData
 			for(var i in list){ 
 				writeToScreen(list[i]);
 	        }
@@ -552,7 +563,7 @@ function listmoimchat(page){
 }
 
 </script>
-<div style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
+<div id="moimchatsam" style="display:none; width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
 	<div class="chattitle">
 		<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">모임채팅</div>
 	</div>

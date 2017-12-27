@@ -9,12 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.duospace.duogram.fmess.FMess;
 import com.duospace.duogram.freq.DuoGramUtil;
 import com.duospace.member.SessionInfo;
 
@@ -25,29 +25,6 @@ public class MoimChatController {
 	
 	@Autowired
 	private DuoGramUtil myUtil;
-	
-	@RequestMapping(value="/moim/chat", method=RequestMethod.POST)
-	public String main(
-			@PathVariable int cmoimCode,
-			@RequestParam String friendNum,
-			@RequestParam String name,
-			HttpSession session,
-			Model model
-			) throws Exception {
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String state;
-		
-		if(info==null) {
-			state="loginFail";
-		}else {
-			state="true";
-		}
-		model.addAttribute("state", state);
-		model.addAttribute("friendNum", friendNum);
-		model.addAttribute("name", name);
-		
-		return "community/moimChat/moimChat";
-	}
 	
 	//모임메신저 리스트(AJAX:TEXT)
 	@RequestMapping(value="/moim/listMCC", method=RequestMethod.POST)
@@ -118,6 +95,70 @@ public class MoimChatController {
 	@ResponseBody
 	public Map<String, Object> listmChatContent(
 			@RequestParam int cmoimCode,
+			@RequestParam(value="first", defaultValue="0") int first,
+			@RequestParam(value="mchatNum", defaultValue="0") int mchatNum,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("user");
+		
+		int dataCount=0;
+		int end=0;
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("memberNum", info.getMemberNum());
+		map.put("cmoimCode", cmoimCode);
+		map.put("first", first);
+		map.put("mchatNum", mchatNum);
+		
+		dataCount=service.fMCListDataCount(map);
+		List<MoimChat> list=null;
+		if(dataCount<=0) {
+			map.clear();
+			return map;
+		}else if(dataCount<=10) {
+			end=10;
+			map.put("first", 0);
+			map.put("end", end);
+			list=service.listFMessContent(map);
+		}else {
+			if(first!=0) {
+				int unread=service.fMURtDCnt(map);
+				if(unread>0) {
+					list=service.listFMessContent(map);
+					if(list.size()<10) {
+						end=10;
+						map.put("first", 0);
+						map.put("end", end);
+						list=service.listFMessContent(map);
+					}else {
+						end=list.size();
+					}
+				}
+			}else {
+				end=10;
+				map.put("first", 0);
+				map.put("end", end);
+				list=service.listFMessContent(map);
+			}
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		if((dataCount-end)<=0) {
+			model.put("lastData", 0);
+		}else {
+			model.put("lastData", dataCount-end);
+		}
+		model.put("list", list);
+		
+		return model;
+	}
+
+	//모임 메시지들(AJAX:JSON)
+	/*
+	@RequestMapping(value="/moim/listmChat", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> listmChatContent(
+			@RequestParam int cmoimCode,
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpSession session
 			) {
@@ -147,5 +188,5 @@ public class MoimChatController {
 		model.put("totalpage", total_page);
 		
 		return model;
-	}
+	}*/
 }

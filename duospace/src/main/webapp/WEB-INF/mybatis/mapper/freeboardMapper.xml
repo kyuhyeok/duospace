@@ -61,5 +61,8 @@
 	    ORDER BY FRboardrpNum DESC
 	</select>
 	
+	<delete id="deleteFreeboard" parameterType="Integer">
+		DELETE FROM Freeboard WHERE boardNum=#{boardNum}	
+	</delete>
 	
 </mapper>

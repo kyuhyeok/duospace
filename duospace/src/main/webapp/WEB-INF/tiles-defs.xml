@@ -63,12 +63,11 @@
 		<put-attribute name="body" value="/WEB-INF/view/blog/{2}/{3}.jsp"/>
 	</definition>
 
-	<!-- 커뮤니티(moim) 3단 -->
+	<!-- 커뮤니티 3단 -->
 	<definition name=".communityLayout" template="/WEB-INF/view/community/layout/layout3.jsp">
 	    <put-attribute name="title" value="community" />
 	  	<put-attribute name="header" value="/WEB-INF/view/community/layout/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/view/community/main/main.jsp" />
-		<put-attribute name="body1" value="/WEB-INF/view/community/moimChat/moimChat.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/community/layout/footer.jsp" />
 	</definition>
 	<definition name=".community.*.*.*" extends=".communityLayout">
@@ -78,6 +77,25 @@
 		<put-attribute name="body" value="/WEB-INF/view/community/{1}/{2}.jsp"/>
 	</definition>
 	<definition name=".community.*" extends=".communityLayout">
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}.jsp"/>
+	</definition>
+	
+	<!-- moim 3단  -->
+	<definition name=".moimLayout" template="/WEB-INF/view/community/layout/layout4.jsp">
+	    <put-attribute name="title" value="moim" />
+	  	<put-attribute name="header" value="/WEB-INF/view/community/layout/header.jsp" />
+	  	<put-attribute name="header2" value="/WEB-INF/view/community/layout/header2.jsp" />
+		<put-attribute name="body" value="/WEB-INF/view/community/main/main.jsp" />
+		<put-attribute name="body1" value="/WEB-INF/view/community/moimChat/moimChat.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/view/community/layout/footer.jsp" />
+	</definition>
+	<definition name=".moim.*.*.*" extends=".moimLayout">
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".moim.*.*" extends=".moimLayout">
+		<put-attribute name="body" value="/WEB-INF/view/community/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".moim.*" extends=".moimLayout">
 		<put-attribute name="body" value="/WEB-INF/view/community/{1}.jsp"/>
 	</definition>
 

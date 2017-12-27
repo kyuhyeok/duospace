@@ -37,58 +37,7 @@
 		) WHERE rnum>=#{start}
 		]]>
 	</select>
-	<!-- 
-	<sql id="flist">
-        SELECT m.friendNum FROM (
-            SELECT friendNum FROM gramfriend
-            WHERE memberNum=#{memberNum}
-		) m
-        JOIN (
-            SELECT memberNum friendNum FROM gramfriend
-            WHERE friendNum=#{memberNum}
-		) f ON m.friendNum=f.friendNum
-	</sql>
 	
-	<select id="listFMC" resultType="com.duospace.duogram.fmess.FMess" parameterType="map">
-		SELECT friendNum, name, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, content, unReadCnt FROM(
-			SELECT ROWNUM rnum, friendNum, name, sendDate, content, unReadCnt FROM (
-				SELECT m.friendNum, name, sendDate, content, unReadCnt FROM (
-					SELECT memberNum, friendNum, sendDate, content FROM (
-						SELECT memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY friendNum ORDER BY sendDate DESC) RANK FROM (
-							SELECT memberNum, friendNum, sendDate, content FROM(
-								SELECT memberNum, friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY friendNum ORDER BY sendDate DESC) RANK
-								FROM messenger
-								WHERE memberNum=#{memberNum} AND friendNum IN (
-									<include refid="flist"/>
-								) AND deleteStatus!=1
-							) WHERE rank=1
-							UNION ALL
-							SELECT memberNum, friendNum, sendDate, content FROM(
-								SELECT friendNum memberNum, memberNum friendNum, sendDate, content, ROW_NUMBER() OVER(PARTITION BY memberNum ORDER BY sendDate DESC) RANK
-								FROM messenger
-								WHERE friendNum=#{memberNum} AND memberNum IN (
-									<include refid="flist"/>
-								) AND deleteStatus!=2
-							) WHERE rank=1
-						)
-					) WHERE rank=1
-				) m
-				LEFT OUTER JOIN (
-					SELECT memberNum friendNum, NVL(COUNT(*),0) unReadCnt
-					FROM messenger
-					WHERE friendNum=#{memberNum} AND memberNum IN (
-						<include refid="flist"/>
-					) AND readDate IS NULL AND deleteStatus!=2
-					GROUP BY memberNum
-				) c ON m.friendNum=c.friendNum
-				JOIN member2 n ON n.memberNum=m.friendNum
-				ORDER BY sendDate DESC
-				<![CDATA[
-			) WHERE ROWNUM<=#{end}
-		) WHERE rnum>=#{start}
-		]]>
-	</select>
-	 -->
 	<select id="listFMCDataCount" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(*),0) FROM(
 		    SELECT friendNum FROM messenger
@@ -101,24 +50,7 @@
 		    GROUP BY memberNum
 		) f ON m.friendNum=f.friendNum
 	</select>
-	<!-- 
-	<select id="listFMCDataCount" resultType="Integer" parameterType="map">
-		SELECT NVL(COUNT(*),0) FROM(
-		    SELECT friendNum FROM messenger
-		    WHERE memberNum=#{memberNum} AND friendNum IN (
-		        <include refid="flist"/>
-		    ) AND deleteStatus!=1
-		    GROUP BY friendNum
-		) m
-		FULL OUTER JOIN (
-		    SELECT memberNum friendNum FROM messenger
-		    WHERE friendNum=#{memberNum} AND memberNum IN (
-		        <include refid="flist"/>
-		    ) AND deleteStatus!=2
-		    GROUP BY memberNum
-		) f ON m.friendNum=f.friendNum
-	</select>
-	 -->
+	
 	<select id="fMURtDCnt" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(*),0) totUnReadCnt
 		FROM messenger

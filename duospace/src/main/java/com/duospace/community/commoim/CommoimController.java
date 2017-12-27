@@ -40,11 +40,13 @@ public class CommoimController {
 		}else {
 			//글을 쓴 사람(로그인한 아이디)
 			dto.setMemberNum(info.getMemberNum());
+			System.out.println(dto.getMoimimg()+"11");
 			
 			int cmoimCode = service.cmoimSeq();
 			dto.setCmoimCode(cmoimCode);
 			service.insertCommoim(dto);
 			
+			System.out.println(dto.getMoimimg()+"22");
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("memberNum", info.getMemberNum());//방생성후 가입하기.

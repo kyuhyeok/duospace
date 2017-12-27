@@ -42,6 +42,10 @@
 			              WHERE answer=0
 					      GROUP BY num
 					) rr ON g.num = rr.num
+				LEFT OUTER JOIN (
+    					SELECT num, COUNT(*) countLikeBoard
+    					FROM gramlike GROUP BY num
+					) c ON g.num = c.num	
 				ORDER BY num DESC
 		<![CDATA[
 			) tb WHERE ROWNUM <= #{end}

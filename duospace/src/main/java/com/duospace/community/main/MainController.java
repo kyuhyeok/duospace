@@ -27,9 +27,9 @@ public class MainController {
 		
 		
 		Map<String, Object> map = new HashMap<>();
-		
 		List<Commaincate> cateList = service.listCommaincate(map);
-		
+		int dataCount;
+		dataCount=service.dataCount(map);
 		List<List<Commaincate>> boardList=new ArrayList<>();
 		for(Commaincate c : cateList) {
 			map.put("cateNum", c.getCateNum());
@@ -37,6 +37,7 @@ public class MainController {
 		}
 		
 		model.addAttribute("boardList",boardList);
+		model.addAttribute("dataCount",dataCount);
 		return ".communityLayout";
 	}
 	

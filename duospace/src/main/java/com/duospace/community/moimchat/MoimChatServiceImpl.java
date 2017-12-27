@@ -27,35 +27,23 @@ public class MoimChatServiceImpl implements MoimChatService{
 	}
 
 	@Override
-	public int listFMCDataCount(Map<String, Object> map) {
-		int result=0;
-		
-		try {
-			result=dao.selectOne("moimChat.listFMCDataCount", map);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return result;
-	}
-	
-	@Override
-	public List<MoimChat> listMoimMember(Map<String, Object> map) {
-		List<MoimChat> list=null;
-		
-		try {
-			list=dao.selectList("moimChat.listMoimMember", map);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return list;
-	}
-
-	@Override
 	public int fMURtDCnt(Map<String, Object> map) {
 		int result=0;
 		
 		try {
 			result=dao.selectOne("moimChat.fMURtDCnt", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+	@Override
+	public int listFMCDataCount(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("moimChat.listFMCDataCount", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -73,7 +61,31 @@ public class MoimChatServiceImpl implements MoimChatService{
 		}
 		return result;
 	}
-	
+
+	@Override
+	public List<MoimChat> listMoimMember(Map<String, Object> map) {
+		List<MoimChat> list=null;
+		
+		try {
+			list=dao.selectList("moimChat.listMoimMember", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
+	public int insertReadMess(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.insertData("moimChat.insertReadMess", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 	@Override
 	public MoimChat readFMess(Map<String, Object> map) {
 		MoimChat dto=null;
@@ -85,17 +97,17 @@ public class MoimChatServiceImpl implements MoimChatService{
 		}
 		return dto;
 	}
-	
+
 	@Override
-	public int insertReadMess(Map<String, Object> map) {
-		int result=0;
+	public List<MoimChat> listUnReadMess(Map<String, Object> map) {
+		List<MoimChat> list=null;
 		
 		try {
-			result=dao.insertData("moimChat.insertReadMess", map);
+			list=dao.selectList("moimChat.listUnReadMess", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return result;
+		return list;
 	}
 
 	@Override

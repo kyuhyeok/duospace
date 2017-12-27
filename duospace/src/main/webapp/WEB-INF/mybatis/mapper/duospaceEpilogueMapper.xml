@@ -6,4 +6,34 @@
 		INSERT INTO EPILOGUE (reservnum, subject, content, membernum, saveFilename)
 			VALUES(#{reservNum}, #{subject} ,#{content}, #{memberNum}, #{saveFilename, jdbcType=VARCHAR})
 	</insert>
+	
+	<select id="eplist" resultType="com.duospace.duospace.epilogue.epilogue">
+		SELECT * FROM (
+            SELECT ROWNUM rnum, tb.* FROM(
+                SELECT TO_CHAR(rm.startDate,'YYYY-MM-DD')startDate, TO_CHAR(rm.endDate,'YYYY-MM-DD')endDate,
+                    rm.reservNum, rm.people, rm.userName, rm.tel, rm.PRICE, s.SPOTNAME, ro.SAVEFILENAME, f.FLOORNAME, ro.roomName
+                     ,s.SPOTADDR2, content, subject, starNum, TO_CHAR(created,'YYYY-MM-DD')created
+                    FROM rmres rm
+                    JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+                    JOIN room ro ON rm.ROOMCODE=ro.ROOMCODE
+                    JOIN floor f ON ro.FLOORNUM=f.FLOORNUM
+                    JOIN spot s ON f.SPOTCODE=s.SPOTCODE
+                    JOIN epilogue e ON rm.reservNum=e.RESERVNUM
+                        ORDER BY rm.reservNum DESC
+                    )tb
+<![CDATA[
+
+                    WHERE ROWNUM <=#{end}
+                )WHERE rnum >=#{start}
+]]>                    
+	</select>
+	
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(count(*),0) FROM rmres rm
+                    JOIN reserv re ON rm.RESERVNUM=re.RESERVNUM
+                    JOIN room ro ON rm.ROOMCODE=ro.ROOMCODE
+                    JOIN floor f ON ro.FLOORNUM=f.FLOORNUM
+                    JOIN spot s ON f.SPOTCODE=s.SPOTCODE
+                    JOIN epilogue e ON rm.reservNum=e.RESERVNUM
+	</select>
 </mapper>
