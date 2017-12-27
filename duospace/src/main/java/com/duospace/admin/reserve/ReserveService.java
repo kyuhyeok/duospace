@@ -21,6 +21,10 @@ public interface ReserveService {
 	public Reserve readPlacement(int floorNum);
 	public List<Reserve> checkInList();
 	
+	//전체 좌석 예약 리스트
+	public List<Reserve> seatReserveList_all(Map<String, Object> map);
+	public int dataCountComSeat_all(Map<String, Object> map);
+	
 	public List<Reserve> seatReserveList(Map<String, Object> map);
 	public int dataCountComSeat(Map<String, Object> map);
 	

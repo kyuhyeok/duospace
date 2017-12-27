@@ -103,11 +103,11 @@ $(function(){
 }
 .can{
 	
-	background-image: url('<%=cp%>/resource/images/duospace/icon/slash.png');
+	background-image: url('<%=cp%>/resource/images/duospace/icon/black.jpg');
 	background-size: 100% 100%;
 }
 .selected.choice{
-	background-image: url('<%=cp%>/resource/images/duospace/icon/black.jpg');
+	background-image: url('<%=cp%>/resource/images/duospace/icon/red.jpg');
 	color: white;
 }
 

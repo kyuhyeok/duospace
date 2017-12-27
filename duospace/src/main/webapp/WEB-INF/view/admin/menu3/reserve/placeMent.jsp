@@ -6,7 +6,22 @@
 	String cp=request.getContextPath();
 %>
 <script type="text/javascript">
+$(function(){
+	var url="<%=cp%>/admin/reserve/seatReserveList_all";
+	var placeCode="${dto.placeCode}";
+	var data = "placeCode="+placeCode;
 
+	$.ajax({
+		type:"post",
+		url:url,
+		data:data,
+		success:function(result){
+			$("#seatList").empty();
+			$("#seatList").html(result);
+		}
+			
+	});
+});
 $(function(){
 	
 
@@ -49,6 +64,15 @@ $(function(){
 	
 	/* 좌석 선택시 이벤트*/
 	$(".make-Seat-Tb tr td").on("click",function(){
+		
+		$(".make-Seat-Tb tr td").each(function(index){
+			if($(this).hasClass("choice")){
+				$(this).removeClass("choice");
+			}
+		});
+		
+		
+		$(this).addClass("choice");
 		
 		var url="<%=cp%>/admin/reserve/seatReserveList";
 		var placeCode="${dto.placeCode}";
@@ -158,3 +182,5 @@ $(function(){
 	</div>
 	
 	<div id="seatList" style="margin: 15px auto 50px;"></div>
+	
+	

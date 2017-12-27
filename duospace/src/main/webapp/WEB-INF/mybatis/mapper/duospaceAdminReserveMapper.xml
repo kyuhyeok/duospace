@@ -190,10 +190,41 @@
 	JOIN seat st ON s.seatcode=st.seatcode
 	JOIN placement p ON st.placecode=p.placecode
 	WHERE checkin is not null and checkout is null 
-	  and TO_CHAR(startDate,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	 <!--   and TO_CHAR(startDate,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')-->
 </select>
 
-<!-- 좌석 예약 리스트 -->
+<!-- 좌석 예약 리스트 전체-->
+<select id="seatReserveList_all" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
+	SELECT m1.membernum, name, r.reservnum, startDate, endDate,s.seatCode,seatName,st.placeCode, floorName,spotName
+	FROM member1 m1
+	JOIN member2 m2 ON m1.membernum=m2.membernum
+	JOIN reserv r ON r.membernum=m1.membernum
+	JOIN stres s ON s.reservnum=r.reservnum
+	JOIN seat st ON s.seatcode=st.seatcode
+	JOIN placement p ON st.placecode=p.placecode
+	JOIN floor f ON f.floornum=p.floornum
+	JOIN spot s ON s.spotcode=f.spotcode
+	WHERE  TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+				 st.placeCode=#{placeCode} 
+	ORDER BY startDate
+</select>
+<!-- 좌석예약된것 dataCount all -->
+<select id="dataCount_comSeat_all" parameterType="map" resultType="Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM member1 m1
+	JOIN member2 m2 ON m1.membernum=m2.membernum
+	JOIN reserv r ON r.membernum=m1.membernum
+	JOIN stres s ON s.reservnum=r.reservnum
+	JOIN seat st ON s.seatcode=st.seatcode
+	JOIN placement p ON st.placecode=p.placecode
+	JOIN floor f ON f.floornum=p.floornum
+	JOIN spot s ON s.spotcode=f.spotcode
+	WHERE  TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+				 st.placeCode=#{placeCode} 
+</select>
+
+
+<!-- 좌석 예약 리스트 좌석선택한경우-->
 <select id="seatReserveList" parameterType="map" resultType="com.duospace.admin.reserve.Reserve">
 	SELECT m1.membernum, name, r.reservnum, startDate, endDate,s.seatCode,seatName,st.placeCode, floorName,spotName
 	FROM member1 m1
@@ -204,7 +235,7 @@
 	JOIN placement p ON st.placecode=p.placecode
 	JOIN floor f ON f.floornum=p.floornum
 	JOIN spot s ON s.spotcode=f.spotcode
-	WHERE state=1 AND TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+	WHERE  TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
 				 st.placeCode=#{placeCode} AND seatName=#{seatName}
 	ORDER BY startDate
 </select>
@@ -220,7 +251,7 @@
 	JOIN placement p ON st.placecode=p.placecode
 	JOIN floor f ON f.floornum=p.floornum
 	JOIN spot s ON s.spotcode=f.spotcode
-	WHERE state=1 AND TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi') AND
+	WHERE TO_CHAR(endDate,'YYYY/MM/DD hh24:mi')>=TO_CHAR(SYSDATE,'YYYY/MM/DD hh24:mi')
 				 st.placeCode=#{placeCode} AND seatName=#{seatName}
 </select>
 

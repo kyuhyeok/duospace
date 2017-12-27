@@ -159,6 +159,28 @@ public class ReserveServiceImpl implements ReserveService {
 		return list;
 	}
 
+	@Override
+	public List<Reserve> seatReserveList_all(Map<String, Object> map) {
+		List<Reserve> list =null;
+		try {
+			list=dao.selectList("admin.reserve.seatReserveList_all", map);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return list;
+	}
+
+	@Override
+	public int dataCountComSeat_all(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("admin.reserve.dataCount_comSeat_all", map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+
 	
 
 }

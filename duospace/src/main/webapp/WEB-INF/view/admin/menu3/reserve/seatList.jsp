@@ -104,7 +104,7 @@ function deleteReserve() {
 											<tr style="text-align: center">
 												<td><input class="flat" type="checkbox" /></td>
 												<td>1</td>
-												<td>강남</td>
+												<td>쌍문동지점</td>
 												<td>${dto.floorName}</td>
 												<td>${dto.seatName}</td>
 												<td>${dto.name}</td>
@@ -132,7 +132,7 @@ function deleteReserve() {
 								<div class="form-group" style="text-align:  center;">
 									
 												<c:if test="${dataCount==0 }">
-			              						 예약내역이 없습니다.
+			              						
 			        							 </c:if>
 			        							<c:if test="${dataCount!=0 }">
 			              						 ${paging}
