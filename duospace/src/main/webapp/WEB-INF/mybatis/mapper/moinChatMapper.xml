@@ -71,7 +71,7 @@
 	<select id="readFMess" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
 		<choose>
 			<when test="mchatNum==0">
-				SELECT mchatNum, memberNum, name, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
+				SELECT mchatNum, m.memberNum, name, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
 					SELECT mchatNum, memberNum, cmoimCode, content, sendDate, ROW_NUMBER() OVER (ORDER BY sendDate DESC) rank 
 					FROM moimchat
 					WHERE memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
