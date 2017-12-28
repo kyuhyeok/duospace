@@ -429,7 +429,7 @@ function listReplyMethod(num){
 						</a>
 					</div>
 					<div style="display: table-cell;">
-						<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}"
+						<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}"
 							style="padding-left: 10px; text-decoration: none; color: black; font-size: 14px; font-family: '나눔고딕';">rlawhdrl3702@naver.com</a>
 					</div>
 					<br>

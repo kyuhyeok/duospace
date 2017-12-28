@@ -69,7 +69,7 @@
     	  			
     	  			<!-- 타임라인 -->
 					<div style="float: right" id="hello">
-					<a title=Timeline href="<%=cp%>/duogram" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
+					<a title=NewSpeed href="<%=cp%>/duogram" style="font-family:'나눔고딕'; font-size: 17px; color: #172A40; font-weight: bold; text-decoration:none;">
     	  				<img onclick="change_background_color()" src="<%=cp%>/resource/images/duogram/timeline.png" style="width: 42px; height: 45px;">&nbsp;
     	  			</a>
     	  			</div>
@@ -91,7 +91,7 @@
 				</td>
 				<td align="center" style="padding-top: 5px;">
 					<input type="text" id="totalsearch" style="border: 1px solid #ccc; border-radius: 10px; 
-      					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black; text-align: center;" placeholder="검색">
+      					margin-left: 150px;height: 25px; width: 160px; background: #eee; color: black; text-align: center;" placeholder="검색" value="${searchValue}">
       				<input type="text" style="display:none;">
 				</td>
 				<td align="right" style="padding-top: 5px;">
