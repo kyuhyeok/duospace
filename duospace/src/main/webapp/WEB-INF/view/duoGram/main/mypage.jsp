@@ -77,7 +77,6 @@ function sendBoard() {
 		return;
 	}
 	
-	
 	var f=document.myPageForm;
 	f.answer.value=0;
 
