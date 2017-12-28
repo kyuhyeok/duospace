@@ -10,7 +10,14 @@
 	<li id="frc${fRC.friendNum}" class="objectListItem" style="padding: 6px 12px;border-top: none;border-width: 0;border-bottom: solid 1px #dddfe2;">
 		<div style="zoom: 1;">
 			<div class="objectListItem_profile" style="float: left;margin-right: 8px;">
-				<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
+				<c:choose>
+					<c:when test="${empty vo.proFileSaveFileName}">
+						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
+					</c:when>
+					<c:otherwise>
+						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
+					</c:otherwise>
+				</c:choose>				
 			</div>
 			<div style="overflow: hidden;margin: -1px 0;">
 				<div style="zoom: 1;">

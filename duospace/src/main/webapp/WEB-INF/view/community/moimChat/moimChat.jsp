@@ -307,11 +307,6 @@ var lastData=0;
 var mpage=1;
 var mtotalpage=1;
 $(function() {
-	//채팅공간 삽입
-	var chatspace=$("#moimchatsam").html();
-	$("#moimchatsam").remove();
-	$("#moimchatdiv").html(chatspace);
-	
 	listmoimchat(1);
 	first=0;
 	var socket=null;
