@@ -269,13 +269,27 @@ function printDuogram(data) {
 			out+="<div style='margin-top: 10px;'>";
 			out+="<div style='float: left; margin-right: 8px; max-width: 43px; overflow: hidden; border-radius: 21.5px; max-height: 43px; bottom: 50px'>";
 			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='text-decoration:none; color: black;'>";
-			out+="<img style='width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/dong.png'>";
+			if(memberNum=="4")
+			out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/4/4p.jpg'>";
+			if(memberNum=="5")
+				out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/5/5p.jpg'>";
+				if(memberNum=="6")
+					out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/6/6p.jpg'>";
+					if(memberNum=="7")
+						out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/7/7p.jpg'>";
+						if(memberNum=="8")
+							out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/8/8p.jpg'>";
+							if(memberNum=="11")
+								out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/11/11p.jpg'>";
+								if(memberNum=="13")
+									out+="<img style='margin-top: -10px; width: 100%; height: 100%; vertical-align: middle;' src='<%=cp%>/resource/images/duogram/13/13p.jpg'>";
+									
 			out+="</a>";
 			out+="</div>";
 			out+="<div style='float:left;'>";
 			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
 			if(memberNum!=blogNum)
-				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+blogNum+"</a>";
+				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>김종기</a>";
 			out+="</div>";
 			out+="<br>";
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
@@ -292,6 +306,7 @@ function printDuogram(data) {
 				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
 			else
 				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
+			out+="<li style='margin-left: 20px; height: 20px;'><button type='button' onclick='insFReq("+friendNum+")' tabindex='-1' style='color:#aaaaaa;'>친구</button>";
 			out+="</div>";
 			out+="</div>";
 			out+="</div>";
@@ -445,7 +460,27 @@ function deleteReply(replyNum, page) {
 		<div style="margin-right: 34px; top: 65px; position: relative; z-index: 1; float: right; margin-top: -230px; width: 220px;">
 		<div style="border-radius: 105px; max-width: 210px; height: 210px; border: 1px solid #dddfe2; background:white; border: 1px solid auto">
 			<div style="overflow: hidden; border-radius: 102.5px; background: #ccc; margin-left: 2.4px; margin-top: 2.4px; max-width: 205px; max-height: 205px;">
-				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/me1.jpg">
+				<c:if test="${blogNum==5}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/5/5p.jpg">
+				</c:if>
+				<c:if test="${blogNum==4}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/4/4p.jpg">
+				</c:if>
+				<c:if test="${blogNum==6}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/6/6p.jpg">
+				</c:if>
+				<c:if test="${blogNum==7}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/7/7p.jpg">
+				</c:if>
+				<c:if test="${blogNum==8}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/8/8p.jpg">
+				</c:if>
+				<c:if test="${blogNum==11}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/11/11p.jpg">
+				</c:if>
+				<c:if test="${blogNum==13}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/13/13p.jpg">
+				</c:if>
 			</div>
 		</div>
 		</div>
@@ -453,7 +488,64 @@ function deleteReply(replyNum, page) {
 	<!-- 자기소개 -->
 	<div style="width: 293px; text-align:center; float: right; background: white; border-radius: 4px; padding: 10px; margin-bottom: 20px; padding-top: 50px; border: 1px solid #dddfe2">
 		<div style="padding-bottom: 5px;width: 273px; text-decoration: none; font-weight: bold; font-size: 22px; color: #23527c;" id="rightName"></div>
-		<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개</div>
+		
+		<c:if test="${blogNum==5}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">김종기님의 SNS에 오신걸 환영합니다.
+				<br>생일 : 1991년 6월 10일
+				<br>직장 : 
+				<br>학교 : 한서대학교
+				<br>거주지 : 인천광역시
+				</div>
+				</c:if>
+				<c:if test="${blogNum==4}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">
+				<br>생일 : 2월 16일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+				<c:if test="${blogNum==6}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<br>생일 : 1991년 6월 10일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+				<c:if test="${blogNum==7}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<br>생일 : 1991년 6월 12일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+				<c:if test="${blogNum==8}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<br>생일 : 1992년 7월 5일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+				<c:if test="${blogNum==11}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<br>생일 : 1991년 6월 10일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+				<c:if test="${blogNum==13}">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<br>생일 : 1991년 6월 10일
+				<br>직장 : 
+				<br>학교 : 
+				<br>거주지 : 
+				</div>
+				</c:if>
+		
 		<div style="width: 273px;">
 			<button class='button updateModalBtn' data-saveFilename="saveFilename" data-num="num" tabindex="-1">수정</button>
 		</div>
@@ -462,30 +554,46 @@ function deleteReply(replyNum, page) {
 	<div style="border: 1px solid #dddfe2; marign-left: 10px; width: 293px; float: right; background: white; border-radius: 4px;">
 
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
-		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
+		<div style="font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			친구생일 
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
+			<br>
+			박가람 2월 16일
+			<br> 
+			윤숭열 6월 12일
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
-		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
+		<div style="font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			예약일정
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
+			<br>
+			2018-1-15 ~ 2018-2-15
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
-		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
+		<div style="font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			나의 커뮤니티
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
+			<br>
+			자바 웹 개발
+			<br>
+			자바스크립트 & 제이쿼리
 		</div>
     </div>
     
     <div style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid #dddfe2; float:right; margin-bottom: 20px">	
-		<div style="height: 30px; font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
+		<div style="font-size: 13px; font-weight: bold; font-family: '나눔고딕'; color: #999">
 			인기 커뮤니티
 			<a href="#"><img src="<%=cp%>/resource/images/duogram/gear.PNG" style="width: 15px; height: 15px;"></a>
+			<br>
+			듀오 그램
+			<br>
+			질문에 답해드립니다
+			<br>
+			스프링에 대해서 알고싶다
 		</div>
     </div>
     
