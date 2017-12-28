@@ -151,9 +151,6 @@
 			WHERE cmoimCode=#{cmoimCode} AND readDate IS NULL 
 			GROUP BY mchatnum
 		) r ON m.mchatNum=r.mchatNum
-		<![CDATA[
-		WHERE rnum >= #{start}
-		]]>
 		ORDER BY mchatNum ASC
 	</select>
 	

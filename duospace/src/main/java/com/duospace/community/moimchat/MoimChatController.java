@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.duospace.duogram.fmess.FMess;
 import com.duospace.duogram.freq.DuoGramUtil;
 import com.duospace.member.SessionInfo;
 
