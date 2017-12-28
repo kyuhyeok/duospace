@@ -196,7 +196,10 @@ function floorList() {
 	width: 20px;
 	text-align: center;
 }
-  
+select{
+	height: 30px;
+	width: 100px;
+}
 
 </style>
 
@@ -216,7 +219,7 @@ function floorList() {
 			</div>
 			<div class="clearfix"></div>
 
-	<input type="color" name="favcolor" class="color" value="#478ad1">
+	
 	
 	
 	
@@ -225,7 +228,9 @@ function floorList() {
 	<form name="seatForm" method="post">
 		<input type="hidden" name="seatHtml" id="seatHtml">
 	
-		<table>
+	
+		
+		<table style="width: 100%; margin-bottom: 30px; margin-left: 85px;" >
 		
 		<tr>
 			<td width="50px;" align="right">지 점</td>
@@ -237,16 +242,21 @@ function floorList() {
 					</c:forEach>
 				</select>
 			</td>
-		</tr>
-		<tr>
+		
 			<td width="50px;" align="right">층</td>
 			<td style="padding-left: 20px; width: 150px;height: 50px;">
 				<select id="floorNum" name="floorNum">
 				
 				</select>
 			</td>
+		
+		  <td>
+		     <input type="color" name="favcolor" class="color" value="#478ad1">
+		  </td>
 		</tr>
 		</table>
+		
+		
 		
 <div class="seatTb" align="center">
 		<table class="make-Seat-Tb" style="width: 1000px; height: 700px;cursor: pointer;border-collapse: separate;border-spacing: 5px;">
@@ -270,9 +280,9 @@ function floorList() {
 		</table>  
 </div> 
 		<div align="center" style="margin-top: 50px; text-align: center;">
-			<button type="reset">다시입력</button>
-			<button type="button" id="sub">저장하기</button>
-			<button type="button" onclick="javascript:location.href='<%=cp%>/admin/seat/list'">등록취소</button>
+			<button type="reset" class="btn btn-warning btn-sm">다시입력</button>
+			<button type="button" class="btn btn-success btn-sm" id="sub">저장하기</button>
+			<button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/seat/list'">등록취소</button>
 		</div>
 	</form>
 

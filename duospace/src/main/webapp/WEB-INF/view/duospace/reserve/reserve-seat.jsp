@@ -224,7 +224,7 @@ function check() {
 	}
 	
 	
-	str=$(".resultTb>div>div:eq(2)>input").val();
+	str=$(".resultTb>div>div:eq(3)>input").val();
 	if(! str){
 		alert("자리를 선택해주세요");
 		return;
@@ -325,7 +325,7 @@ function check() {
 }
 
 .reserve_seat_tb td {
-	padding: 20px 0px 20px 20px;
+	padding: 20px 0px 20px 60px;
 }
 
 .reserve_total tr {
@@ -335,7 +335,6 @@ function check() {
 .reserve_total td {
 	padding: 10px 15px;
 }
-
 .make-Seat-Tb{
 	border: 1px solid;
 }
@@ -357,6 +356,24 @@ function check() {
 .selected.choice{
 	background-color: black;
 	color: white;
+}
+.resultTb{
+	font-size: 15px;
+}
+.btns{
+	background-color: transparent;
+	outline: none;
+	border: 1px solid #172a40;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding: 5px 7px;
+	color: #172a40;
+}
+.btns:hover{
+	background-color: #172a40;
+	color: #ffffff;
+}
+input[type='text']{
+	height: 30px;
 }
 </style>
 
@@ -388,13 +405,15 @@ function check() {
 			
 			
 			<form name="reserve_seat_form" method="post">
-				<table class="reserve_seat_tb" style="border: 1px solid black; margin-top: 100px; ">
+				<table class="reserve_seat_tb" style="margin-top: 100px; ">
 					<tr height="50px;">
-						<td align="center" colspan="3"><h4>좌석 예매</h4></td>
+						<td colspan="3" style="padding-left: 20px;">
+						
+						  <div style="border-top: 1px solid black;border-bottom: 1px solid black;height: 50px; width :570px; text-align: center;"><h4>좌석 예매</h4></div></td>
 					</tr>
 					<tr>     
-						<td>예약시간</td>
-						<td style="width: 490px;">
+						<td style="color: #878787;font-weight: bold;font-size: 16px;">예약시간</td>
+						<td style="width: 400px;padding-left: 0px;">
 							<input type="text" name="startTime" readonly="readonly" id="date3"
 								style="margin-right: 3px; width: 100px; text-align: center;"
 								placeholder="예약날짜"> 
@@ -404,53 +423,59 @@ function check() {
 							<input type="text" name="endTime" readonly="readonly" style="text-align: center;">
 						</td>
 						
-						<td rowspan="4" style="vertical-align: top; padding-top: 0px;">
-							<div class="resultTb" style="border-left: 1px solid; height: 250px;padding-left: 30px;">
+						
+						<td rowspan="4" style="vertical-align: top; padding-top: 0px; width: 300px;text-align: center;">
+						  <div style="border: 1px solid #cccccc; width: 280px;">
+							<div class="resultTb" style="height: 200px; padding-top: 20px;">
 								<div>
-									<div style="float: left; text-align: center;">${spotName}</div>
-									<div style="float: left; text-align: center;">&nbsp;&nbsp;</div>
-									<div style="float: left; text-align: center;"></div>
-									
+									<div style="float: left; text-align: center; color: red; font-weight: bold;">${spotName}</div>
+									<div style="float: left; text-align: center;color: #172A40;font-weight: bold;">&nbsp;&nbsp;</div>
+									<div style="float: left; text-align: center; color: #878787;font-weight: bold; ">좌석명</div>
+									<div style="float: left; text-align: center; color: #172A40;font-weight: bold;"></div>
 								</div>
 								<div style="clear: both;">
-									<div style="float: left;">이 용 권</div>
-									<div style="float: left;"></div>
+									<div style="float: left;color: #878787;font-weight: bold;">이 용 권</div>
+									<div style="float: left; color: #172A40;font-weight: bold;"></div>
 								</div>
 								<div style="clear: both;">
-									<div style="float: left;">시작일시</div>
-									<div style="float: left;"></div>
+									<div style="float: left;color: #878787;font-weight: bold;">시작일시</div>
+									<div style="float: left; color: #172A40;font-weight: bold;"></div>
 									<input type="hidden" name="startDate" value="">
 								</div>
 								<div style="clear: both;">
-									<div style="float: left;">종료일시</div>
-									<div style="float: left;"></div>
-								</div>
-								<div style="clear: both;">
-									<div style="float: left;">최종금액</div>
-									<div style="float: left;"></div>
+									<div style="float: left;color: #878787;font-weight: bold; margin-bottom: 20px;">종료일시</div>
+									<div style="float: left; color: #172A40;font-weight: bold; margin-bottom: 20px;"></div>
 								</div>
 						
-									
-								
-								
+								<div style="clear: both; border-top: 1px solid #172A40">
+									<div style="color: #878787;font-weight: bold;text-align: left; padding-bottom: 0px;; margin-top: 20px;">최종금액</div>
+									<div style="float: left; color: #172A40;font-weight: bold;font-size: 20px;padding-top: 0px;margin-left:70px; margin-top: 5px;padding-right: 0px;margin-right: 0px;"></div>
+									<div style="float: left; color: #172A40;font-weight: bold;padding-left: 0px; margin-left: 0px;">원</div>
+								</div>
+						
+
 							</div>
-							<div style="text-align: center;">
-								<button type="button" onclick="check();">결제하기</button>
+							
+							<div style="text-align: right; margin: 20px 30px 30px 0px; height: 60px;">
+								<button type="button" class="btns" onclick="check();" style="width: 50px; height: 60px;">결제<br>하기</button>
+							</div>
+							
+							
 							</div>
 						</td>
 						
 					</tr>
 					
 					<tr>
-						<td>이용권</td>
+						<td style="color: #878787;font-weight: bold;font-size: 16px;">이용권</td>
 						
-						<td colspan="2">
+						<td colspan="2" style="padding-left: 0px;">
 											
 							<c:forEach items="${passList}" var="dto">
 								<input class="reserve_change" name="passCode" type="radio" value="${dto.passCode}" data-hour="${dto.passHour}" data-tprice="${dto.price}">
-								<label>${dto.passName}</label>
+								<label>${dto.passName}</label>&nbsp;&nbsp;&nbsp;
 							</c:forEach>
-						 
+			
 	 	<!--  
 						<input class="reserve_change" name="passCode" type="radio" value="8" checked="checked" data-tprice="8000"><label>8hours</label> 
 						<input class="reserve_change" name="passCode" type="radio" value="24" data-tprice="10000"><label>1day</label>
@@ -462,12 +487,12 @@ function check() {
 					</tr>
 
 					<tr>
-						<td width="100px">인원</td>
-						<td  colspan="2">
+						<td width="100px" style="color: #878787;font-weight: bold;font-size: 16px;">인원</td>
+						<td  colspan="2" style="padding-left: 0px;">
 						<input class="reserve_change" name="reserve_mem_number" type="radio" value="1"
-							checked="checked"><label>1</label> 
-							<input class="reserve_change" name="reserve_mem_number" type="radio" value="2"><label>2</label>
-							<input class="reserve_change" name="reserve_mem_number" type="radio" value="3"><label>3</label>
+							checked="checked"><label>1</label> &nbsp;&nbsp;&nbsp;
+							<input class="reserve_change" name="reserve_mem_number" type="radio" value="2"><label>2</label>&nbsp;&nbsp;&nbsp;
+							<input class="reserve_change" name="reserve_mem_number" type="radio" value="3"><label>3</label>&nbsp;&nbsp;&nbsp;
 							<input class="reserve_change" name="reserve_mem_number" type="radio" value="4"><label>4</label>
 
 						</td>
@@ -475,10 +500,10 @@ function check() {
 					</tr>
 
 					<tr>
-						<td>층</td>
-						<td  colspan="2">
+						<td style="color: #878787;font-weight: bold;font-size: 16px;">층</td>
+						<td  colspan="2" style="padding-left: 0px;">
 							<c:forEach items="${floorList}" var="dto">
-								<input name="reserve_floor" type="radio" value="${dto.floorNum}"><label>${dto.floorName}</label>
+								<input name="reserve_floor" type="radio" value="${dto.floorNum}"><label>${dto.floorName}</label>&nbsp;&nbsp;&nbsp;
 							</c:forEach>
 
 						</td>
@@ -487,11 +512,13 @@ function check() {
 				
 				</table>
 
-			<div class="seating_plan" style="clear: both; margin-top: 70px;">
+<hr style="margin: 80px auto 30px; border: 1px solid #A3A09B;">
+
+			<div class="seating_plan" style="clear: both; margin: 70px auto 200px 50px;">
 				<!-- 배치도 넣을곳 -->
 				${dto.placement}
 			</div>
-	
+		<div style="margin-bottom: 200px;"></div>
 			
 			
 

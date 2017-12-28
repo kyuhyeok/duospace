@@ -153,30 +153,7 @@ $(function() {
 		</tr>
 		</table>
 		
-		<div>
-			<table class="changeSeat-Tb" style="border-spacing: 0px; border-collapse: collapse;width: 1000px;">
-				<tr>
-					<td style="width: 50px;"><b>기존 좌석번호</b></td>
-					<td width="50%;">
-					
-						<div>
-						<c:forEach items="${seatList}" var="dto">
-							<div style="float: left; border: 1px solid; margin: 3px 6px; padding: 3px 10px;" >	
-								<span>${dto.seatName}</span>
-								<span>x</span>
-								<input type="hidden" value="${dto.seatCode}" name="oldSeats">
-								
-							</div>
-						</c:forEach>
-						</div>
-						
-					</td>
-					<td style="width: 50px;"><b>추가좌석번호</b></td>
-					<td width="50%;">sf메롱메롱</td>
-				</tr>
-			</table>
-		</div>
-	
+		
 		<input type="color" name="favcolor" class="color" value="#478ad1">
 	
 		<div class="seatTb" style="margin: 0px auto 30px;">${dto.placeMent}</div>

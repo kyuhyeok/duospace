@@ -21,6 +21,9 @@ function floorChange() {
 		,success:function(re){
 			$(".seatTb").empty();
 			$(".seatTb").html(re);
+			
+			
+			
 		}
 	});  
 }
@@ -53,8 +56,14 @@ function updatePlacement(mode){
 			location.href="<%=cp%>/admin/seat/delete?&placeCode="+placeCode; 
 	}
 }
-</script>
 
+</script>
+<style type="text/css">
+select{
+	height: 30px;
+	width: 100px;
+}
+</style>
 
 
 	<div class="right_col" role="main" style="background: #ffffff; padding: 50px 100px 200px;">
@@ -96,10 +105,12 @@ function updatePlacement(mode){
 	
 			<div class="seatTb" style="margin: 0px auto 30px;"></div>
 	
-	 
-		<button type="button" onclick="updatePlacement('delete');" >삭제</button>
-		<button type="button" id="up" onclick="updatePlacement('update');">수정</button>
-		<button type="button" onclick="javascript:location.href='<%=cp%>/admin/seat/list?page=${page}${query}'">리스트</button>
+	 <div style="margin-left: 400px;">
+		<button type="button"  class="btn btn-warning btn-sm" onclick="updatePlacement('delete');" >삭제</button>
+		<button type="button"  class="btn btn-success btn-sm" id="up" onclick="updatePlacement('update');">수정</button>
+		<button type="button" class="btn btn-danger btn-sm" onclick="javascript:location.href='<%=cp%>/admin/seat/list?page=${page}${query}'">리스트</button>
+	</div>
+	
 	</form>
 
 	</div>
