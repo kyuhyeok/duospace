@@ -103,11 +103,11 @@
 		JOIN mchatread r ON m.mchatNum=r.mchatNum
 		JOIN (
 			SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
-			FROM moimchat
-			WHERE reaDate IS NULL AND cmoimNum=#{cmoimNum}
+			FROM mchatread
+			WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
 			GROUP BY mchatNum
 		) c ON m.mchatNum=c.mchatNum
-		WHERE m.cmoimNum=#{cmoimNum} AND r.memberNum=#{memberNum} AND r.reaDate IS NULL
+		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum} AND r.readDate IS NULL
 	</select>
 	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
@@ -151,9 +151,6 @@
 			WHERE cmoimCode=#{cmoimCode} AND readDate IS NULL 
 			GROUP BY mchatnum
 		) r ON m.mchatNum=r.mchatNum
-		<![CDATA[
-		WHERE rnum >= #{start}
-		]]>
 		ORDER BY mchatNum ASC
 	</select>
 	
