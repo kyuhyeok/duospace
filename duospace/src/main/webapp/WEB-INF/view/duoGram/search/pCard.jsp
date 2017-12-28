@@ -16,7 +16,7 @@
 							<img class="_s0 _4ooo _1ve7 _rv img" style="background-color:#e4e4e4;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
 						</c:when>
 						<c:otherwise>
-							<img class="_s0 _4ooo _1ve7 _rv img" src="<%=cp%>/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
+							<img class="_s0 _4ooo _1ve7 _rv img" src="<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
 						</c:otherwise>
 					</c:choose>
 				</a>

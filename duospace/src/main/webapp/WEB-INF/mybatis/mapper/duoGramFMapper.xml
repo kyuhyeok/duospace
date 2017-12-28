@@ -19,7 +19,8 @@
 			FROM gramfriend
 			GROUP BY memberNum
 		) fof ON b.memberNum=fof.friendNum
-		LEFT OUTER JOIN member2 m2 ON b.memberNum=m2.memberNum
+		JOIN mygram g ON b.memberNum=g.memberNum
+		JOIN member2 m2 ON b.memberNum=m2.memberNum
 		<if test="searchValue!=null and searchValue!=''">
    			<![CDATA[
    			WHERE INSTR(name, #{searchValue})>=1 OR INSTR(email, #{searchValue})>=1
