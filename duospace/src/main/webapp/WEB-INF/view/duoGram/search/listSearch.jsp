@@ -553,7 +553,6 @@ $(function(){
 });
 function listPPage(page) {
 	var sv=$("#totalsearch").val().trim();
-	if(!sv) return;
 	var url="<%=cp%>/duogram/listP";
 	var q="searchValue="+sv+"&pagePNo="+page;
 	
@@ -648,7 +647,7 @@ function fcancle(fnum){
 
 <div id="globalContainerf" class="timelineLayout">
 	<div class="clearfix" id="content" style="min-height: 100px;">
-		<div id="mainContainer">
+		<div id="mainContainer" style="margin-top:  210px;">
 			<div id="contentCol" class="clearfix hasRightCol">
 				<div id="contentArea" role="main">
 					<div class="_5h60" id="pagelet_timeline_main_column">
