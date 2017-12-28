@@ -103,7 +103,7 @@
 		JOIN mchatread r ON m.mchatNum=r.mchatNum
 		JOIN (
 			SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
-			FROM moimchat
+			FROM mchatread
 			WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
 			GROUP BY mchatNum
 		) c ON m.mchatNum=c.mchatNum
