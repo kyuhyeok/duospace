@@ -288,8 +288,6 @@ function printDuogram(data) {
 			out+="</div>";
 			out+="<div style='float:left;'>";
 			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
-			if(memberNum!=blogNum)
-				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>김종기</a>";
 			out+="</div>";
 			out+="<br>";
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
@@ -498,7 +496,7 @@ function deleteReply(replyNum, page) {
 				</div>
 				</c:if>
 				<c:if test="${blogNum==4}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">박가람님의 SNS에 오신걸 환영합니다.
 				<br>생일 : 2월 16일
 				<br>직장 : 
 				<br>학교 : 
@@ -506,23 +504,23 @@ function deleteReply(replyNum, page) {
 				</div>
 				</c:if>
 				<c:if test="${blogNum==6}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
-				<br>생일 : 1991년 6월 10일
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">나는 짱이다!! 인천짱!!
+				<br>생일 : 1992년
 				<br>직장 : 
 				<br>학교 : 
-				<br>거주지 : 
+				<br>거주지 : 인천 촌동네
 				</div>
 				</c:if>
 				<c:if test="${blogNum==7}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">오홍~
 				<br>생일 : 1991년 6월 12일
 				<br>직장 : 
 				<br>학교 : 
-				<br>거주지 : 
+				<br>거주지 : 서울 상경
 				</div>
 				</c:if>
 				<c:if test="${blogNum==8}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">김재원님의 SNS에 오신걸 환영합니다.
 				<br>생일 : 1992년 7월 5일
 				<br>직장 : 
 				<br>학교 : 
@@ -530,16 +528,16 @@ function deleteReply(replyNum, page) {
 				</div>
 				</c:if>
 				<c:if test="${blogNum==11}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
-				<br>생일 : 1991년 6월 10일
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">곽규혁님의 SNS에 오신걸 환영합니다.
+				<br>생일 : 
 				<br>직장 : 
 				<br>학교 : 
 				<br>거주지 : 
 				</div>
 				</c:if>
 				<c:if test="${blogNum==13}">
-				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">소개
-				<br>생일 : 1991년 6월 10일
+				<div style="border-top: 1px solid #ccc; width: 273px; padding-top: 5px; font-size: 14px; padding-bottom: 10px">권예리님의 SNS에 오신걸 환영합니다.
+				<br>생일 : 
 				<br>직장 : 
 				<br>학교 : 
 				<br>거주지 : 
@@ -580,7 +578,7 @@ function deleteReply(replyNum, page) {
 			<br>
 			자바 웹 개발
 			<br>
-			자바스크립트 & 제이쿼리
+			자바스크립트 제이쿼리
 		</div>
     </div>
     

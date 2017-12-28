@@ -474,7 +474,7 @@ function listReplyMethod(num){
 							<br>
 			자바 웹 개발
 			<br>
-			자바스크립트 & 제이쿼리
+			자바스크립트 제이쿼리
 					</div>
 				</div>
 
