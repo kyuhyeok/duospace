@@ -20,9 +20,9 @@
 		</div>
 	
 		<div style="float: right;vertical-align: middle;">
-			<a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/commaincate/admin">
+			<%-- <a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/commaincate/admin">
 				임시 관리자
-			</a>
+			</a> --%>
 			<a style="margin-right: 10px; color: #ffffff; font-size: large;" href="<%=cp%>/moimlist">
 				인기모임
 			</a>

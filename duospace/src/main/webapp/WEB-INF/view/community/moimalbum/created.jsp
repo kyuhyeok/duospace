@@ -56,6 +56,8 @@
 		}
 		
 		 var mode="${mode}";
+		 var cmoimCode="${cmoimCode}";
+		 
 	    	if(mode=="created"||mode=="update" && f.upload.value!="") {
 	    		if(! /(\.gif|\.jpg|\.png|\.jpeg)$/i.test(f.upload.value)) {
 	    			alert('이미지 파일만 가능합니다. !!!');
@@ -63,6 +65,7 @@
 	    			return false;
 	    		}
 	    	}
+			 alert(cmoimCode);
 	    	if(mode=="created")
 	    		f.action="<%=cp%>/moimalbum/created";
 	    	else if(mode=="update")
@@ -120,24 +123,24 @@
                             </td>
                         </tr>
                         
-<c:if test="${mode=='update'}">
-                        <tr>
-                            <td class="td1">등록이미지</td>
-                            <td colspan="3" class="td3">
-                                <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}"
-				                 width="30" height="30" border="0"
-				                 onclick="imageViewer('<%=cp%>/uploads/moimalbum/${dto.imageFile}');"
-				                 style="cursor: pointer;">
-                            </td>
-                        </tr>
-</c:if>                        
+						<c:if test="${mode=='update'}">
+	                        <tr>
+	                            <td class="td1">등록이미지</td>
+	                            <td colspan="3" class="td3">
+	                                <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}"
+					                 width="30" height="30" border="0"
+					                 onclick="imageViewer('<%=cp%>/uploads/moimalbum/${dto.imageFile}');"
+					                 style="cursor: pointer;">
+	                            </td>
+	                        </tr>
+						</c:if>                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="4" style="text-align: center; padding-top: 15px;">
-                                  <button type="submit" class="btn btn-primary" onclick="javascript:location.href='<%=cp%>/moimalbum/list';"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
-                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/moimalbum/list';"> 취소 </button>
-                                  
+                                  <button type="submit" class="btn btn-primary"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
+                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/moimalbum/list${cmoimCode}';"> 취소 </button>
+                                  <input type="hidden" name="cmoimCode" value="${cmoimCode}">
                                   <c:if test="${mode=='update'}">
                                       <input type="hidden" name="alnum" value="${dto.alnum}">
                                       <input type="hidden" name="memberNum" value="${dto.memberNum}">
