@@ -117,18 +117,15 @@
  
  
  
-	<div class="right_col" role="main" style="background: #ffffff; padding: 0px 100px 200px;">
- 
-		<div class="">
-			<div class="page-title">
-				<div class="title_left">
-					<h3>
-						FAQ 관리 <small>FAQ Manage</small>
-					</h3>
-				</div>
-				<div class="title_right"></div>
-			</div>
-			<div class="clearfix"></div>
+	<div class="col-sm-12 body-frame-2">
+
+
+
+<div style="margin-top: 30px;"></div>
+<div style="font-weight: bold; font-size: 25px; margin-bottom: 30px;">자주 묻는 질문</div>
+
+
+	<div>
  
 	
 		<div style="margin-top: 50px;"></div>
@@ -343,5 +340,6 @@
 		</div>
 	
 		</div>
+		<div style="margin-bottom: 200px;"></div>
 	</div>
  

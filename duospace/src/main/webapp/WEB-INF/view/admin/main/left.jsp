@@ -41,7 +41,7 @@
 						<h3>회원님</h3> 
 							<a><i class="fa fa-user"></i>회원관리<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu" style="display: none">
-								<li><a href="#">일반회원 리스트</a></li>
+								<li><a href="<%=cp%>/admin/member/list">일반회원 리스트</a></li>
 								<li><a href="#">일반회원 등록</a></li>
 								<li><a href="#">회원등급 관리</a></li>
 								<li><a href="#">적립금 적립/사용 내역</a></li>

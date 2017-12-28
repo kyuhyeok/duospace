@@ -8,4 +8,9 @@
 		JOIN member2 m ON m.membernum=mm.membernum
 		WHERE cmoimCode = #{cmoimCode}
 	</select>
+	
+	<select id="dataCountMoim" parameterType="Integer" resultType="Integer">
+		SELECT NVL(count(*),0) FROM moimmember
+			WHERE cmoimCode=#{cmoimCode}
+	</select>
 </mapper>

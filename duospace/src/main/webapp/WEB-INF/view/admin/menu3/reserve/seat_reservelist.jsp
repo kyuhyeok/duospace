@@ -204,7 +204,7 @@ function floorList(){
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="button" class="btn btn-info btn-lg btn-block"
-											onclick="search(this.form);">검색</button>
+											onclick="gogo();">검색</button>
 									</div>
 								</div>
 								

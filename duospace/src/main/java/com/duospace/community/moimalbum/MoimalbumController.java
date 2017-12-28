@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +30,9 @@ public class MoimalbumController {
 		@Autowired
 		private DuospaceUtil myUtil;
 		
-		@RequestMapping(value="/moimalbum/list")
+		@RequestMapping(value="/moimalbum/list{cmoimCode}")
 		public String list(
+				@PathVariable int cmoimCode,
 				@RequestParam(value="page", defaultValue="1") int current_page,
 				@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
 				@RequestParam(value="searchValue", defaultValue="") String searchValue,
@@ -50,6 +52,7 @@ public class MoimalbumController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("searchKey", searchKey);
 			map.put("searchValue", searchValue);
+			map.put("cmoimCode", cmoimCode);
 			
 			dataCount = service.dataCount(map);
 			total_page = myUtil.pageCount(rows, dataCount);
@@ -87,15 +90,17 @@ public class MoimalbumController {
 			model.addAttribute("articleUrl", articleUrl);
 			model.addAttribute("page", current_page);
 			model.addAttribute("paging", paging);
+			model.addAttribute("cmoimCode",cmoimCode);
 			
 			return ".community.moimalbum.list";
 	}
 		
-		@RequestMapping(value="/moimalbum/created", method=RequestMethod.GET)
-		
+		@RequestMapping(value="/moimalbum/created{cmoimCode}", method=RequestMethod.GET)
 		public String createdForm(
+				@PathVariable int cmoimCode,
 				HttpSession session,
-				Model model) throws Exception{
+				Model model
+				) throws Exception{
 			
 			SessionInfo info=
 					(SessionInfo)session.getAttribute("user");
@@ -103,29 +108,34 @@ public class MoimalbumController {
 				return "redirect:/moimalbum/login";
 			}
 			model.addAttribute("mode", "created");
+			model.addAttribute("cmoimCode",cmoimCode);
+			
 			return ".community.moimalbum.created";
 		}
 			
 		@RequestMapping(value="/moimalbum/created", method=RequestMethod.POST)
 		public String createdSubmit(
+				@RequestParam int cmoimCode,
 				Moimalbum dto,
-				HttpSession session) throws Exception{
+				HttpSession session,
+				Model model
+				) throws Exception{
 			String root=session.getServletContext().getRealPath("/");
 			String path=root+File.separator+"uploads"+File.separator+"moimalbum";
 			
 			SessionInfo info=(SessionInfo)session.getAttribute("user");
 			if(info==null) {
-				return "redirect:/moimalbum/login";
+				return "redirect:/member/login";
 			}
 			
 			dto.setMemberNum(info.getMemberNum());
 			
-			// 수정 ------------////////////////////////////////////////////////
-			dto.setCmoimCode(7);
+			dto.setCmoimCode(cmoimCode);
 			
 			service.insertMoimalbum(dto, path);
 			
-			return "redirect:/moimalbum/list";
+			String out="redirect:/moimalbum/list"+cmoimCode;
+			return out;
 		}
 		
 		
@@ -153,7 +163,7 @@ public class MoimalbumController {
 			Moimalbum preReadDto = service.preReadMoimalbum(map);
 			Moimalbum nextReadDto = service.nextReadMoimalbum(map);
 			
-			int countLikeMoimalbum=service.countLikeMoimalbum(alnum);
+			/*int countLikeMoimalbum=service.countLikeMoimalbum(alnum);*/
 			
 			String query ="page=" +page;
 			if(searchValue.length()!=0) {
@@ -166,7 +176,7 @@ public class MoimalbumController {
 			model.addAttribute("dto", dto);
 			model.addAttribute("preReadDto", preReadDto);
 			model.addAttribute("nextReadDto", nextReadDto);
-			model.addAttribute("countLikeMoimalbum", countLikeMoimalbum);
+			/*model.addAttribute("countLikeMoimalbum", countLikeMoimalbum);*/
 			
 			model.addAttribute("page", page);
 			model.addAttribute("query", query);
@@ -224,6 +234,7 @@ public class MoimalbumController {
 		
 		@RequestMapping(value="/moimalbum/delete", method=RequestMethod.GET)
 		public String delete(
+				@RequestParam int cmoimCode,
 				@RequestParam int alnum,
 				@RequestParam String page,
 				HttpSession session) throws Exception{

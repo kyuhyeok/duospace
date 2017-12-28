@@ -59,6 +59,35 @@ $(function(){
 	text-align: center;
 	
 }
+input:focus{
+	outline: none;
+	border: none;
+	border-bottom: 1px solid #cccccc;
+}
+input{
+	border: none;
+	border-bottom: 1px solid #cccccc;
+}
+.btns{
+	background-color: transparent;
+	outline: none;
+	border: 1px solid #172a40;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding: 5px 7px;
+	color: #172a40;
+}
+.btns:hover{
+	background-color: #172a40;
+	color: #ffffff;
+}
+.searchbtn {
+	background-color: transparent;
+	outline: none;
+	border: none;
+}
+.subjects:hover{
+	font-weight: bold;
+}
 </style>
 
 	<div class="col-sm-12 body-frame-2">
@@ -72,9 +101,46 @@ $(function(){
 	<div>
 
     <form name="deleteList" method="post">
-    	<button type="button" id="deletelistBtn">삭제</button>
+    <div>
+    <div style="float: left; margin-bottom: 10px;">
+    <c:if test="${sessionScope.user.userId=='admin'}">
+    	<button type="button" class="btns" id="deletelistBtn">삭제</button>
+    </c:if>
+    </div>
+    <div style="float: right;margin-bottom: 20px;">
+    	<form name="searchForm" method="post">
+		  <table>
+		  	<tr> 
+		    <td>
+		      <select name="searchCode">
+		        <option value="" selected="selected">전체</option>
+		        <option value="1">예약/결제</option>
+		        <option value="2">이용권</option>
+		        <option value="3">카페</option>
+		        <option value="4">도서예약</option>
+		        <option value="5">회원가입/로그인</option>
+		        <option value="6">기타문의</option>
+		      </select>
+		      <select name="searchKey">
+		        <option value="subject">제목</option>
+		        <option value="content">내용</option>
+		        <option value="email">아이디</option>
+		        <option value="name">이름</option>
+		        <option value="created">등록일</option>
+		      </select>
+		      <input type="text" name="searchValue">
+		      <button type="button" class="searchbtn" onclick="changeRows(this.form)"><span class="glyphicon glyphicon-search"></span></button>
+		     
+		    </td>
+		  </tr>
+				
+		  </table>
+			<input type="hidden" name="page" value="${page}">
+		</form>
+    </div>
+    </div>
  	  <table class="noticeList" style="margin:10px auto 0px;border-spacing: 0px; border-collapse: collapse; width: 100%">
- 	    <tr style="background: #eeeeee; border-top: 1px solid black; border-bottom: 1px solid black;" height="35px;">
+ 	    <tr style="background: #172a40; border-top: 1px solid black; border-bottom: 1px solid black;color: #ffffff;" height="35px;">
     	 <c:if test="${sessionScope.user.userId=='admin'}">
     	  <th>
 	         <input type="checkbox" name="checkAll"> 
@@ -82,7 +148,7 @@ $(function(){
 	      </c:if>
     	  <th>번호</th>
     	  <th width="8%">구분</th>
-    	  <th width="50%">제목</th>
+    	  <th width="60%">제목</th> 
     	  <th>작성자</th>
     	  <th>작성일</th>
     	</tr>
@@ -101,7 +167,7 @@ $(function(){
     	  <c:if test="${dto.answer!='0'}">
       		&nbsp;&nbsp;<img src="<%=cp%>/resource/images/duospace/icon/re.gif">&nbsp;
   		  </c:if> 
-    	   <a href="${articleUrl}&num=${dto.num}"> ${dto.subject}</a>
+    	   <a class="subjects" href="${articleUrl}&num=${dto.num}" style="color: black;"> ${dto.subject}</a>
     	   <c:if test="${dto.gap<1}">
     	   	<img src="<%=cp%>/resource/images/duospace/icon/new.gif" style="max-height: 10px;">
     	   </c:if>
@@ -117,36 +183,14 @@ $(function(){
  	 </form>
 	</div>
 
-<form name="searchForm" method="post">
-  <table style="width: 100%">
+
+  <table style="width: 100%; margin-bottom: 100px;">
   <tr height="50px;">
-    <td colspan="2" align="center">
+    <td  align="center">
     ${paging}
     </td>
   </tr>
-  <tr> 
-    <td>
-      <select name="searchCode">
-        <option value="" selected="selected">전체</option>
-        <option value="1">예약/결제</option>
-        <option value="2">이용권</option>
-        <option value="3">카페</option>
-        <option value="4">도서예약</option>
-        <option value="5">회원가입/로그인</option>
-        <option value="6">기타문의</option>
-      </select>
-      <select name="searchKey">
-        <option value="subject">제목</option>
-        <option value="content">내용</option>
-        <option value="email">아이디</option>
-        <option value="name">이름</option>
-        <option value="created">등록일</option>
-      </select>
-      <input type="text" name="searchValue">
-      <button type="button" onclick="changeRows(this.form)">검색</button>
-     
-    </td>
-
+  <tr>
     <td align="right">
    
    <c:if test="${sessionScope.user.userId!='admin'}">
@@ -157,7 +201,7 @@ $(function(){
 
   </table>
 
-</form>
+
 					
 
 

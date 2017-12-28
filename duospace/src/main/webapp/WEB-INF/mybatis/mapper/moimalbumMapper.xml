@@ -27,6 +27,7 @@
 			SELECT NVL(COUNT(*), 0) FROM moimalbum p
 			JOIN member2 m
 			ON p.memberNum=m.memberNum
+			WHERE cmoimCode=#{cmoimCode}
 		<where>
 			<if test="searchValue!=null and searchValue!='' ">
 			<include refid="where-list"/>
@@ -45,7 +46,8 @@
 			<where>
 				<if test="searchValue != null and searchValue != ''">
 				   <include refid="where-list"/>
-		                 </if>
+                </if>
+	             AND cmoimCode=#{cmoimCode}
 	                </where>
 		                ORDER BY alnum DESC
 		<![CDATA[

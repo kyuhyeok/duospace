@@ -55,7 +55,9 @@ function deleteMoimalbum(){
 	
 	if(confirm("위 자료를 삭제 하시겠습니까?"))
 		location.href=url;
+	
 	</c:if>
+	
 	<c:if test="${sessionScope.user.memberNum!=dto.memberNum && sessionScope.user.userId!='admin'}">
 		alert("게시물을 삭제할 수 없습니다.");
 	</c:if>
@@ -92,12 +94,12 @@ function updateMoimalbum(){
     </div>
     
  
-        <div class="bbs-article">
+        <div class="bbs-article" style="width: 1050px; margin: 5px auto 0px;">
             <table class="table">
                  <thead>
                      <tr>
                          <th colspan="2" style="text-align: center;">
-                                ${dto.subject}
+                        	제목 : ${dto.subject}
                          </th>
                      </tr>
                 <thead>

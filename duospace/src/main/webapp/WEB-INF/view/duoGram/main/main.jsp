@@ -57,9 +57,7 @@ function sendBoard() {
 		return;
 	}
 	
-	var memberNum="${memberNum}";
-	var q="content="+encodeURIComponent(content)+"&memberNum="+memberNum;
-	
+	var q="content="+encodeURIComponent(content);
 	var url="<%=cp%>/duogram/insert";
 	
 	$.ajax({
@@ -71,7 +69,7 @@ function sendBoard() {
 			$("#content").val("");
 			
 			// 글쓰기 후 새로고침
-			$("#listDuogramBodyA").empty();
+			$("#listDuogramBody").empty();
 			pageNo=1;
 			listPage(1);
 		}
@@ -98,7 +96,7 @@ $(function(){
 	});
 });
 
-function updateBoardB() {
+function updateBoard() {
 	var f=document.duogramUpdateForm;
 	f.action="<%=cp%>/duogram/update";
 	f.submit();
@@ -133,9 +131,9 @@ function sendReply(num) {
 		return;
 	}
 
-	var content=$.trim($("#replyContentA").val());
+	var content=$.trim($("#replyContent").val());
 	if(! content){
-		$("#replyContentA").focus();
+		$("#replyContent").focus();
 		return;
 	}
 	
@@ -152,11 +150,11 @@ function sendReply(num) {
 		,success:function(data) {
 			var s=data.state;
 
-			$("#replyContentA").val("");
-			$("#listReplyLayoutA"+num).show();
+			$("#replyContent").val("");
+			$("#listReplyLayout"+num).show();
 			listReplyMethod(num);
 			
-			$("#listDuogramBodyA").empty();
+			$("#listDuogramBody").empty();
 			pageNo=1;
 			listPage(1);
 		}
@@ -218,6 +216,7 @@ function printDuogram(data) {
 	var page=pageNo;
 	var replyCount="${replyCount}";
 	var friendNum="${friendNum}";
+	var countLikeBoard="${countLikeBoard}";
 	totalPage=data.total_page;
 	
 	var out="";
@@ -258,8 +257,6 @@ function printDuogram(data) {
 			out+="</div>";
 			out+="<div style='float:left;'>";
 			out+="<a href='<%=cp%>/duogram/"+memberNum+"' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>"+name+"</a>";
-			if(memberNum!=blogNum)
-				out+=" → "+"<a href='' style='font-size: 16px; text-decoration:none; font-family: '나눔고딕';'>김종기</a>";
 			out+="</div>";
 			out+="<br>";
 			out+="<div style='float:left; height: 23px; padding-top: 5px; font-size: 12px; color: #ccc;'>"+created+"</a></div>";
@@ -276,7 +273,8 @@ function printDuogram(data) {
 				out+="<li style='margin-left: 20px; height: 20px;'><button onclick='deleteBoard("+num+","+page+");' type='button' tabindex='-1'>삭제</button>";
 			else
 				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' tabindex='-1' style='color:#aaaaaa;'>삭제</button>";
-			out+="<li style='margin-left: 20px; height: 20px;'><button type='button' onclick='insFReq("+friendNum+")' tabindex='-1''>친구추가</button>";
+			
+				out+="<li style='margin-left: 20px; height: 20px;'><button type='button' onclick='insFReq("+friendNum+")' tabindex='-1''>친구추가</button>";
 			out+="</div>";
 			out+="</div>";
 			out+="</div>";
@@ -300,13 +298,13 @@ function printDuogram(data) {
 			out+="</div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<textarea id='replyContentA' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<textarea id='replyContent' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
 			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
 			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"
 			out+="</div>";
 		}
-		$("#listDuogramBodyA").append(out);
+		$("#listDuogramBody").append(out);
 	}
 }
 
@@ -315,12 +313,12 @@ function printDuogram(data) {
 $(function(){
 	$("body").on("click", ".btnReplyLayout", function(){
 		var num = $(this).attr("data-num");
-		var isVisible = $("#listReplyLayoutA"+num).is(":visible");
+		var isVisible = $("#listReplyLayout"+num).is(":visible");
 		
 		if(isVisible) {
-			$("#listReplyLayoutA"+num).hide();
+			$("#listReplyLayout"+num).hide();
 		} else {
-			$("#listReplyLayoutA"+num).show();
+			$("#listReplyLayout"+num).show();
 			
 			listReplyMethod(num);
 		}
@@ -340,14 +338,13 @@ function deleteBoard(num, page) {
 
 function listReplyMethod(num){
 	var url="<%=cp%>/duogram/listReply";
-
 		var q = "num=" + num;
 		$.ajax({
 			type : "post",
 			url : url,
 			data : q,
 			success : function(a) {
-				$("#listReplyLayoutA" + num).html(a);
+				$("#listReplyLayout" + num).html(a);
 			},
 			brforeSend : function(e) {
 				e.setRequestHeader("AJAX", true);
@@ -361,7 +358,7 @@ function listReplyMethod(num){
 	style="margin: 0px; height: 100%; width: 100%; background: #fafafa;">
 
 	<!-- 윗칸 띄우기 -->
-	<div style="height: 110px"></div>
+	<div style="height: 180px"></div>
 
 	<!-- left -->
 	<!-- mid -->
@@ -369,49 +366,34 @@ function listReplyMethod(num){
 		<div style="width: 935px; margin: auto;">
 			<div style="width: 627px;">
 				<!-- 왼쪽 글쓰는곳 -->
-				<div style="height: 100px;"></div>
 				<div class="wrap" style="width: 614px; float: left;">
-					<div
-						style="margin-bottom: 60px; width: 614px; border: 1px solid rgba(0, 0, 0, .0975); background-color: white; border-radius: 4px;">
+					<div style="margin-bottom: 60px; width: 614px; border: 1px solid #dddfe2; background-color: white; border-radius: 4px;">
 						<!-- 게시글 등록 및 동영상 추가 -->
-						<form name="boardForm" method="post">
-							<div
-								style="height: 30px; background: #e9ebee; border-bottom: 1px solid #dddfe2;">
-								<div align="left"
-									style="margin-left: 15px; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
+						<form name="boardForm" method="post" enctype="multipart/form-data">
+							<div style="height: 30px; background: #172A40; border-bottom: 1px solid #dddfe2;">
+								<div align="left" class="duo_01" style="margin-left: 15px; color: white; margin-right: 15px; padding-bottom: 10px; padding-top: 5px; font-size: 14px; font-weight: bold; font-family: '나눔고딕';">글쓰기
 								</div>
 							</div>
 
 							<!-- 내용 입력 -->
 							<div style="margin-top: 10px; margin-bottom: 10px;">
-								<textarea
-									style="border: none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';"
-									placeholder="내용을 입력해주세요." id=content></textarea>
+								<textarea style="border:none; resize: none; width: 584px; height: 60px; font-family: '나눔고딕';" placeholder="내용을 입력해주세요." id="content" name="content"></textarea>
 							</div>
 
 							<!-- 첨부파일 -->
-							<div
-								style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
-							<div
-								style="height: 40px; padding-left: 15px; padding-right: 15px;">
-								<a href="#">
-									<button type="button"
-										style="border-radius: 4px; border: 1px solid rgba(0, 0, 0, .0975); width: 250px; height: 28px; text-decoration: none; color: black">첨부파일</button>
-								</a>
-								<!-- 글 및 동영상 등록 -->
-								<button type="button" class="btn pull-right"
-									onclick="sendBoard();"
-									style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px; margin-left: 8px;">
-									등록하기</button>
-								<button type="button" class="btn pull-right"
-									style="border: 2px solid #ccc; background: #ccc; width: 80px; color: white; height: 28px; font-size: 11px; font-family: '나눔고딕'; border-radius: 3px;">동영상
-									추가</button>
-							</div>
-						</form>
+							<div style="border-top: 1px solid #ccc; margin-bottom: 10px; margin-left: 15px; margin-right: 15px;"></div>
+								<div style="height: 40px; padding-left: 15px; padding-right: 15px;">
+								<input type="file" name="upload" class="form-control input-sm" style="float: left; height: 30px; width: 250px;">
+								<input type="hidden" name="blogNum" value="${blogNum}">
+								<input type="hidden" name="answer" value="0">
+						<!-- 글 등록 -->
+						<button type="button" class="btn btn-primary btn-sm bbtn" onclick="sendBoard();" style="float: right; width: 80px; color: white; height: 28px; font-size: 11px; margin-left: 8px; text-align: center;">등록하기</button>
 					</div>
+				</form>
+			</div>
 
 					<!-- 왼쪽 게시글들 -->
-					<div id="listDuogramBodyA"></div>
+					<div id="listDuogramBody"></div>
 				</div>
 			</div>
 			<!-- /왼쪽 게시글들 -->
@@ -423,19 +405,37 @@ function listReplyMethod(num){
 					style="width: 293px; padding: 10px; height: 65px; border-bottom: 1px solid #dddfe2; float: right; margin-bottom: 20px">
 					<div
 						style="overflow: hidden; float: left; border-radius: 22.5px; max-width: 45px; max-height: 45px;">
-						<a href="<%=cp%>/duogram/mypage/${sessionScope.user.memberNum}">
+						<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}">
 							<img style="width: 100%; height: 100%; vertical-align: middle;"
 							src="<%=cp%>/resource/images/duogram/5/5p.jpg">
 						</a>
 					</div>
-					<div style="display: table-cell;">
-						<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}"
-							style="padding-left: 10px; text-decoration: none; color: black; font-size: 14px; font-family: '나눔고딕';">rlawhdrl3702@naver.com</a>
-					</div>
-					<br>
-					<div
-						style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
-					<br>
+					
+				
+				
+
+				<c:if test="${memberNum==5}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
+				</c:if>
+				<c:if test="${memberNum==4}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">박가람</div>
+				</c:if>
+				<c:if test="${memberNum==6}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">김동현</div>
+				</c:if>
+				<c:if test="${memberNum==7}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">숭열</div>
+				</c:if>
+				<c:if test="${memberNum==8}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">김재원</div>
+				</c:if>
+				<c:if test="${memberNum==11}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">곽규혁</div>
+				</c:if>
+				<c:if test="${memberNum==13}">
+				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">권예리</div>
+				</c:if>
+
 				</div>
 
 				<div
@@ -450,7 +450,7 @@ function listReplyMethod(num){
 			<br> 
 			윤숭열 6월 12일
 					</div>
-				</div>
+					</div>
 
 				<div
 					style="width: 293px; padding: 10px; min-height: 50px; border-bottom: 1px solid rgba(0, 0, 0, .0975); float: right; margin-bottom: 20px">
@@ -474,7 +474,7 @@ function listReplyMethod(num){
 							<br>
 			자바 웹 개발
 			<br>
-			자바스크립트 & 제이쿼리
+			자바스크립트 제이쿼리
 					</div>
 				</div>
 
@@ -559,7 +559,7 @@ function listReplyMethod(num){
 							name="page">
 						<!-- 글 및 동영상 등록 -->
 						<button type="button" class="btn pull-right"
-							onclick="updateBoardB();"
+							onclick="updateBoard();"
 							style="border: 2px solid #172A40; background: #172A40; width: 80px; color: white; height: 28px; font-size: 11px; border-radius: 3px; margin-left: 8px; text-align: center;">수정하기</button>
 					</div>
 				</form>

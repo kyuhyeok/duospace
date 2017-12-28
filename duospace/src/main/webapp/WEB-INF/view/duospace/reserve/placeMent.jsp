@@ -52,6 +52,8 @@ $(function(){
 	$(".make-Seat-Tb tr td").on("click",function(){
 		if($(this).hasClass("selected")){
 			
+			$(".msg").empty();
+			
 			$(".selected").each(function(index) {
 				
 				if($(this).hasClass("choice")){
@@ -62,12 +64,16 @@ $(function(){
 			$(this).addClass("choice");
 			
 			var a= $(this).children().eq(0).val();
-			$(".resultTb>div>div:eq(2)").text(a);
-			$(".resultTb>div>div:eq(2)").append("<input type ='hidden' name='seatName' value='"+a+"'>");
+			$(".resultTb>div>div:eq(3)").text(a);
+			$(".resultTb>div>div:eq(3)").append("<input type ='hidden' name='seatName' value='"+a+"'>");
 			
 		}else if($(this).hasClass("can")){
-			alert("해당좌석은 선택이 불가합니다.");
-			$(".resultTb>div>div:eq(2)").empty();
+			//alert("해당좌석은 선택이 불가합니다.");
+			
+			$(".msg").text("해당 좌석은 선택이 불가합니다.");
+			$(".msg").css("color","red");
+			
+			$(".resultTb>div>div:eq(3)").empty();
 			
 			$(".selected").each(function(index) {
 				
@@ -121,11 +127,22 @@ $(function(){
 			<input type="hidden" name="reserveDone" class="reserveDone" value="${vo.seatName}">
 		</c:forEach>
 		
-		<c:if test="${not empty dto}">
-			<h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2> ${dto.floorName} 배치도</h2>
-			${dto.placement}
-		</c:if>
+		<div align="right" style="margin-bottom: 30px; font-size: 18px; font-weight: bold;text-align: center;" class="msg"></div>
 		
+		<c:if test="${not empty dto}">
+			<div align="center">
+			 <h1><span style="font-weight: bold;">${dto.spotName}</span></h1> <h2 style="margin: 50px auto 30px auto;"> - ${dto.floorName} 배치도 -</h2>
+			
+			
+			<div align="center" style="margin-bottom:30px;">
+				<img src="<%=cp%>/resource/images/duospace/icon/black.jpg" style="height:25px;width: 32px;">
+				<label>선택 불가</label> &nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="<%=cp%>/resource/images/duospace/icon/red.jpg" style="height:25px;width: 32px;">
+				<label>선택한 좌석</label>
+			</div>
+			${dto.placement}
+			</div>
+		</c:if>
 		<c:if test="${empty dto}">	
 			<p>해당하는 배치도가 존재하지 않습니다.</p>
 		</c:if>

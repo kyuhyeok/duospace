@@ -44,7 +44,7 @@ function article(num) {
 </script>
 
 
-<div class="bodyFrame2">
+<div style="width: 1050px;margin: 5px auto 0px;">
     <div class="body-title"style="margin: 100px auto 30px;">
           <h3><span class="glyphicon glyphicon-picture"></span> 포토갤러리 </h3>
     </div>
@@ -70,7 +70,7 @@ function article(num) {
                  </c:if>
 			      <div class="imgLayout">
 	                     <img src="<%=cp%>/uploads/moimalbum/${dto.imageFile}" style="width: 190px; height: 190px;" border="0">
-			             <span class="subject" onclick="javascript:article('${dto.alnum}');" >
+			             <span class="subject" onclick="article(${dto.alnum});" >
 			                   ${dto.subject}
 			             </span>
 			       </div>
@@ -98,7 +98,7 @@ function article(num) {
             </c:if>
         </div>        
         
-        <div style="clear: both; margin-bottom: 100px;">
+        <div style="clear: both; margin-bottom: 100px; min-height: 600px;">
         		<div style="float: left; width: 20%; min-width: 85px;">
         		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/list';">새로고침</button>
         		</div>
@@ -115,7 +115,7 @@ function article(num) {
         		     </form>
         		</div>
         		<div style="float: left; width: 20%; min-width: 85px; text-align: right;">
-        		    <button type="button" class="btn btn-primary btn-sm bbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/created';"><span class="glyphicon glyphicon glyphicon-pencil"></span> 등록하기</button>
+        		    <button type="button" class="btn btn-primary btn-sm bbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/created${cmoimCode}';"><span class="glyphicon glyphicon glyphicon-pencil"></span> 등록하기</button>
         		</div>
         </div>
         

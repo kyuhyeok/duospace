@@ -8,7 +8,7 @@ public interface MoimService {
 	public int countAccept(Map<String, Object>map);
 	public int insertMoim(Moim dto);
 	public List<Moim> listMoim(Map<String, Object>map);
-	public int dataCount(Map<String, Object>map);
+	public int dataCount(int cmoimCode);
 	public Moim readMoim(int num);
 	public int updateHitCount(int num);
 	public int updateMoim(Moim dto);
