@@ -104,10 +104,10 @@
 		JOIN (
 			SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
 			FROM moimchat
-			WHERE reaDate IS NULL AND cmoimCode=#{cmoimCode}
+			WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
 			GROUP BY mchatNum
 		) c ON m.mchatNum=c.mchatNum
-		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum} AND r.reaDate IS NULL
+		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum} AND r.readDate IS NULL
 	</select>
 	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
