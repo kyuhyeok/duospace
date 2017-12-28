@@ -537,12 +537,9 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 </style>
 
 <script type="text/javascript">
-var searchValue="";
 var pagePNo=1;
 var totalPageP=1;
 $(function(){
-	searchValue="#{searchValue}";
-	$("#totalsearch").val(searchValue);
 	listPPage(1);
 	
 	$(document).scroll(function() {
@@ -555,8 +552,10 @@ $(function(){
 	});
 });
 function listPPage(page) {
+	var sv=$("#totalsearch").val().trim();
+	if(!sv) return;
 	var url="<%=cp%>/duogram/listP";
-	var q="searchValue="+searchValue+"&pagePNo="+page;
+	var q="searchValue="+sv+"&pagePNo="+page;
 	
 	//AJAX:TEXT
 	$.ajax({
