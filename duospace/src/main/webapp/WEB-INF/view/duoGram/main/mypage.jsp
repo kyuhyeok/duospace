@@ -445,7 +445,27 @@ function deleteReply(replyNum, page) {
 		<div style="margin-right: 34px; top: 65px; position: relative; z-index: 1; float: right; margin-top: -230px; width: 220px;">
 		<div style="border-radius: 105px; max-width: 210px; height: 210px; border: 1px solid #dddfe2; background:white; border: 1px solid auto">
 			<div style="overflow: hidden; border-radius: 102.5px; background: #ccc; margin-left: 2.4px; margin-top: 2.4px; max-width: 205px; max-height: 205px;">
-				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/me1.jpg">
+				<c:if test="${blogNum==5}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/5/5p.jpg">
+				</c:if>
+				<c:if test="${blogNum==4}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/4/4p.jpg">
+				</c:if>
+				<c:if test="${blogNum==6}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/6/6p.jpg">
+				</c:if>
+				<c:if test="${blogNum==7}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/7/7p.jpg">
+				</c:if>
+				<c:if test="${blogNum==8}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/8/8p.jpg">
+				</c:if>
+				<c:if test="${blogNum==11}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/11/11p.jpg">
+				</c:if>
+				<c:if test="${blogNum==13}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/13/13p.jpg">
+				</c:if>
 			</div>
 		</div>
 		</div>
