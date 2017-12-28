@@ -19,7 +19,27 @@
 <div style="margin:auto; width: 935px; height: 450px; background: black;">
 <!-- 커버사진 -->
 <div align="center" style="background: black; overflow: hidden; max-width: 100%; max-height: 450px;">
-	<img style="margin-top: -200px; vertical-align: middle" src="<%=cp%>/resource/images/duogram/me2.jpg">
+	<c:if test="${blogNum==5}">
+				<img style="margin-top: -800px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/5/5p.jpg">
+				</c:if>
+				<c:if test="${blogNum==4}">
+				<img style="margin-top: -600px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/4/4p.jpg">
+				</c:if>
+				<c:if test="${blogNum==6}">
+				<img style="margin-top: -600px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/6/6p.jpg">
+				</c:if>
+				<c:if test="${blogNum==7}">
+				<img style="margin-top: -800px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/7/7p.jpg">
+				</c:if>
+				<c:if test="${blogNum==8}">
+				<img style="margin-top: -800px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/8/8p.jpg">
+				</c:if>
+				<c:if test="${blogNum==11}">
+				<img style="margin-top: -600px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/11/11p.jpg">
+				</c:if>
+				<c:if test="${blogNum==13}">
+				<img style="margin-top: -80px; bottom: 50px;width: 100%; height: 100%; vertical-align: middle;" src="<%=cp%>/resource/images/duogram/cover/13/13p.jpg">
+				</c:if>
 </div>
 </div>
 

@@ -49,8 +49,7 @@
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">김종기님께서 게시물에 좋아요를 하셨습니다.</a></li>
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">윤숭열님께서 김종기님 타임라인에 글을 게시하였습니다.</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">오늘은 김재원님의 생일입니다.</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">박가람님께서 김종기님 댓글에 댓글을 게시하였습니다.</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">박가람님께서 김종기님 글에 댓글을 게시하였습니다.</a></li>
 						</ul>
 					</div>
 					
