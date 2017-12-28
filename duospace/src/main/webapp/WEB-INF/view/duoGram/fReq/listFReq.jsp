@@ -292,7 +292,7 @@ $(function() {
 		if(event.keyCode==13){
 			var searchVal=$("#totalsearch").val().trim();
 			if(!searchVal) return;
-			location.href="<%=cp%>/duogram/listSearch?searchValue="+encodeURIComponent(searchVal);
+			location.href="<%=cp%>/duogram/search?searchValue="+encodeURIComponent(searchVal);
 		}
 	});
 	

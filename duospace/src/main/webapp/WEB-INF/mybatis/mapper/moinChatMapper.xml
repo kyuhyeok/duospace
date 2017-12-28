@@ -71,7 +71,7 @@
 	<select id="readFMess" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
 		<choose>
 			<when test="mchatNum==0">
-				SELECT mchatNum, memberNum, name, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
+				SELECT mchatNum, m.memberNum, name, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate FROM (
 					SELECT mchatNum, memberNum, cmoimCode, content, sendDate, ROW_NUMBER() OVER (ORDER BY sendDate DESC) rank 
 					FROM moimchat
 					WHERE memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
@@ -103,11 +103,11 @@
 		JOIN mchatread r ON m.mchatNum=r.mchatNum
 		JOIN (
 			SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
-			FROM moimchat
-			WHERE reaDate IS NULL AND cmoimNum=#{cmoimNum}
+			FROM mchatread
+			WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
 			GROUP BY mchatNum
 		) c ON m.mchatNum=c.mchatNum
-		WHERE m.cmoimNum=#{cmoimNum} AND r.memberNum=#{memberNum} AND r.reaDate IS NULL
+		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum} AND r.readDate IS NULL
 	</select>
 	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
@@ -151,9 +151,6 @@
 			WHERE cmoimCode=#{cmoimCode} AND readDate IS NULL 
 			GROUP BY mchatnum
 		) r ON m.mchatNum=r.mchatNum
-		<![CDATA[
-		WHERE rnum >= #{start}
-		]]>
 		ORDER BY mchatNum ASC
 	</select>
 	

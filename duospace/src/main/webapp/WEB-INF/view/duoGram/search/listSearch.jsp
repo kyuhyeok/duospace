@@ -537,12 +537,9 @@ html .FriendButton .enableFriendListFlyout, .FriendButton .enableFriendListFlyou
 </style>
 
 <script type="text/javascript">
-var searchValue="";
 var pagePNo=1;
 var totalPageP=1;
 $(function(){
-	searchValue="#{searchValue}";
-	$("#totalsearch").val(searchValue);
 	listPPage(1);
 	
 	$(document).scroll(function() {
@@ -555,8 +552,9 @@ $(function(){
 	});
 });
 function listPPage(page) {
+	var sv=$("#totalsearch").val().trim();
 	var url="<%=cp%>/duogram/listP";
-	var q="searchValue="+searchValue+"&pagePNo="+page;
+	var q="searchValue="+sv+"&pagePNo="+page;
 	
 	//AJAX:TEXT
 	$.ajax({
@@ -649,7 +647,7 @@ function fcancle(fnum){
 
 <div id="globalContainerf" class="timelineLayout">
 	<div class="clearfix" id="content" style="min-height: 100px;">
-		<div id="mainContainer">
+		<div id="mainContainer" style="margin-top:  210px;">
 			<div id="contentCol" class="clearfix hasRightCol">
 				<div id="contentArea" role="main">
 					<div class="_5h60" id="pagelet_timeline_main_column">

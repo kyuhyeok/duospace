@@ -58,7 +58,15 @@
 		<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
 			<div style="padding-top: 20px;height: 65px;background-color: #fff;padding-left: 15px;border-radius: 10px;">
 				<a class="profileInner">
-					<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width: 40px;height: 40px; border-radius: 50%;">
+					<c:if test="${vo.writer==7}">
+						<img src="<%=cp%>/resource/images/duogram/7/7p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+					</c:if>
+					<c:if test="${vo.writer==4}">
+						<img src="<%=cp%>/resource/images/duogram/4/4p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+					</c:if>
+					<c:if test="${vo.writer==5}">
+						<img src="<%=cp%>/resource/images/duogram/5/5p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+					</c:if>
 				</a>
 				<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
 					이름 : ${vo.name}

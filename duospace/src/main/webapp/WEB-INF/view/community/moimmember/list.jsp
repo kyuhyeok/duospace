@@ -25,7 +25,30 @@
 			<c:forEach var="dto" items="${list}">
 				<div style="width: 100%;height: 90px;">
 					<div style="float: left; margin-top: 25px;">
-						<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:40px;height: 40px; border-radius: 50%; ">
+						<c:if test="${dto.memberNum==7}">
+							<img src="<%=cp%>/resource/images/duogram/7/7p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>
+						<c:if test="${dto.memberNum==4}">
+							<img src="<%=cp%>/resource/images/duogram/4/4p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>
+						<c:if test="${dto.memberNum==5}">
+							<img src="<%=cp%>/resource/images/duogram/5/5p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
+						<c:if test="${dto.memberNum==6}">
+							<img src="<%=cp%>/resource/images/duogram/6/6p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
+						<c:if test="${dto.memberNum==3}">
+							<img src="<%=cp%>/resource/images/duogram/3/3p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>
+						<c:if test="${dto.memberNum==8}">
+							<img src="<%=cp%>/resource/images/duogram/8/8p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
+						<c:if test="${dto.memberNum==11}">
+							<img src="<%=cp%>/resource/images/duogram/11/11p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
+						<c:if test="${dto.memberNum==1}">
+							<img src="<%=cp%>/resource/images/communiti/11.JPG" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
 					</div>
 					<div style="float: left; margin: 15px; margin-top:25px; min-height: 25px;">
 						<div>

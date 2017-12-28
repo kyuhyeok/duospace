@@ -1,5 +1,6 @@
 package com.duospace.duogram;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.duospace.common.MyUtil;
-import com.duospace.duogram.mypage.Mypage;
 import com.duospace.member.SessionInfo;
 
 @Controller("duogram.duogramController")
@@ -72,15 +72,16 @@ public class DuogramController {
 			Duogram dto,
 			HttpSession session
 			) throws Exception {
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+File.separator+"uploads"+File.separator+"duogram";
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("user");
-
 		String state;
 		if(info==null) {
 			state="loginFail";
 		} else {
 			dto.setMemberNum(info.getMemberNum());
-			service.insertBoard(dto);
+			service.insertBoard(dto, pathname);
 			state="true";
 		}
 		
@@ -218,7 +219,7 @@ public class DuogramController {
 				@RequestMapping(value="duogram/insertLikeBoard", method=RequestMethod.POST)
 				@ResponseBody
 				public Map<String, Object> insertLikeBoard(
-						Mypage dto, HttpSession session) throws Exception {
+						Duogram dto, HttpSession session) throws Exception {
 				
 					SessionInfo info=(SessionInfo) session.getAttribute("user");
 					String state="true";
@@ -241,7 +242,8 @@ public class DuogramController {
 				@RequestMapping(value="duogram/countLikeBoard", method=RequestMethod.POST)
 				@ResponseBody
 				public Map<String, Object> countLikeBoard(
-						@RequestParam(value="num") int num) throws Exception {
+						@RequestParam(value="num") int num
+						) throws Exception {
 					
 					String state="true";
 					int countLikeBoard=service.countLikeBoard(num);

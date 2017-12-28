@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duospace.common.dao.CommonDAO;
-import com.duospace.duogram.mypage.Mypage;
-
+	
 @Service("duogram.duogramService")
 public class DuogramServiceImpl implements DuogramService {
 	
@@ -38,9 +37,10 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public int insertBoard(Duogram dto) {
+	public int insertBoard(Duogram dto, String pathname) {
 		int result=0;
 		try {
+		
 			result=dao.insertData("duogram.insertBoard", dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -164,7 +164,7 @@ public class DuogramServiceImpl implements DuogramService {
 	}
 
 	@Override
-	public int insertLikeBoard(Mypage dto) {
+	public int insertLikeBoard(Duogram dto) {
 		int result=0;
 
 		try{

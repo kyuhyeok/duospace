@@ -364,7 +364,7 @@ function deleteFreeboard(boardNum){
 	<div>
 		<img src="<%=cp%>/resource/images/communiti/7.JPG" style="width:180px;height: 100px; ">
 		<h3>자바 웹 개발</h3>
-		<span>멤버 6</span>&nbsp;&nbsp;&nbsp;<a>초대</a>
+		<span>멤버 ${dataCount}</span>&nbsp;&nbsp;&nbsp;<a>초대</a>
 		<hr>
 	</div>
 </div>

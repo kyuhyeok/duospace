@@ -11,11 +11,11 @@
 		<div style="zoom: 1;">
 			<div class="objectListItem_profile" style="float: left;margin-right: 8px;">
 				<c:choose>
-					<c:when test="${empty vo.proFileSaveFileName}">
+					<c:when test="${empty fRC.proFileSaveFileName}">
 						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/person-1701091912.png">
 					</c:when>
 					<c:otherwise>
-						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/${vo.friendNum}/${vo.proFileSaveFileName}">
+						<img style="width:50px; height: 50px; margin: -1px;" src="<%=cp%>/resource/images/duogram/${fRC.friendNum}/${fRC.proFileSaveFileName}">
 					</c:otherwise>
 				</c:choose>				
 			</div>
