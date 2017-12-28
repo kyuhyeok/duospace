@@ -558,7 +558,7 @@ function listmoimchat(num){
 }
 
 </script>
-<div id="moimchatsam" style="display:none; width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
+<div id="moimchatsam" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;background: #ffffff;">
 	<div class="chattitle">
 		<div align="left" style="width: 110px; float: left; margin-top: 5px;margin-left: 10px;">모임채팅</div>
 	</div>
