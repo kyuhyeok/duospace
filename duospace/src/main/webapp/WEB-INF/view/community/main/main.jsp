@@ -20,10 +20,11 @@
 }
 
 </style>
-<div style="background: #eef0f3; "> 
+<div style="background: #ebebeb;"> 
 	<div class="container"style="padding-bottom: 30px; margin-top: 80px; width: 1230px; min-height: 800px;">
-  		<div style="width: 100%;height: 40px; margin-top: 50px; margin-bottom: 30px;">
-	  		<h1>커뮤니티/${dataCount}</h1>
+  		<div style="width: 100%;height: 40px; margin-top: 50px; margin-bottom: 30px; padding-left: 20px;">
+	  		<h1>커뮤니티</h1>
+	  		<h3>커뮤니티 갯수 : ${dataCount}</h3>
   		</div>
   		<!-- 
 	  		<c:out value="" escapeXml="false"/>
@@ -34,7 +35,7 @@
 			<c:set var="cateNum" value="0"/>
 			<c:forEach var="dto" items="${board}">
 				<c:if test="${cateNum==0}">
-					<c:out value="<div style='float: left;'><div style='background-color: #ffffff; width: 360px;height: 300px; margin: 15px;'>" escapeXml="false"/>
+					<c:out value="<div style='float: left;'><div style='background-color: #ffffff; width: 360px;height: 300px; margin: 15px; border-radius: 4px;'>" escapeXml="false"/>
 				</c:if>
 				<c:if test="${cateNum!=0 && cateNum != dto.cateNum}">
 					<c:out value="</div>" escapeXml="false"/>
@@ -42,10 +43,9 @@
 				</c:if>
 				<c:if test="${cateNum==0 || cateNum != dto.cateNum}">
 					<c:set var="cateNum" value="${dto.cateNum}"/>
-					<div style="padding:20px; width:100%; height:81px; border-bottom: 1px solid #efefef; background: #f5efc7">
+					<div style="padding:10px; width:100%; height:55px; border-bottom: 1px solid #efefef; background: #6d9ac1; text-align: center; border-radius: 4px;">
 						<a href="<%=cp%>/community/list?cateNum=${dto.cateNum}">
-							<span style="margin: 10px; font-size: x-large;">분류 :</span>
-							<span style="font-size: large;">${dto.boardName}</span>
+							<span style="font-size: x-large; color: #ffffff;">${dto.boardName}</span>
 						</a>
 					</div>
 					<c:out value="<div style='width: 100%; height: 219px; padding: 5px 10px;'>" escapeXml="false"/>

@@ -31,9 +31,14 @@ public class MoimServiceImpl implements MoimService{
 	}
 
 	@Override
-	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int dataCount(int cmoimCode) {
+		int result=0;
+		try {
+			result=dao.selectOne("moimMember.dataCountMoim",cmoimCode);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 	@Override

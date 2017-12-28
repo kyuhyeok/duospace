@@ -14,7 +14,7 @@
 				</a>
 			</td>
 			<td style="padding: 0px 20px;">
-				<a style="color: #ffffff;" id="moimalbum" href="<%=cp%>/moimalbum/list">
+				<a style="color: #ffffff;" id="moimalbum" href="<%=cp%>/moimalbum/list${cmoimCode}">
 					사진첩
 				</a>
 			</td>
