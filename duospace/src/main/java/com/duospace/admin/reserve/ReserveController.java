@@ -163,9 +163,48 @@ public class ReserveController {
 		model.addAttribute("list", list);
 		model.addAttribute("dto", dto);
 		
-		
 		return "/admin/menu3/reserve/placeMent";
 	}
+	
+	@RequestMapping(value="/admin/reserve/seatReserveList_all", method=RequestMethod.POST)
+	public String seatReserveList_all(
+			@RequestParam int placeCode,
+			@RequestParam(value="page", defaultValue="1")int current_page,
+			Model model,
+			HttpServletRequest req
+			)throws Exception{
+		
+		String cp=req.getContextPath();
+		
+		Map<String, Object> map  = new HashMap<>();
+		map.put("placeCode", placeCode);
+		
+		int rows=5;
+		int dataCount=service.dataCountComSeat_all(map);
+		int total_page=myUtil.pageCount(rows, dataCount);
+		
+		if(current_page>total_page)
+			current_page=total_page;
+		
+		
+		String listUrl=cp+"/admin/reserve/seatReserveList";
+		String paging=myUtil.paging2Method(current_page, total_page, listUrl);
+		
+		
+		List<Reserve> list = service.seatReserveList_all(map);
+		
+		System.out.println(list.size()+"좌석 선택후 예약 리스트------");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("listUrl", listUrl);
+		model.addAttribute("paging", paging);
+		model.addAttribute("dataCount", dataCount);
+		
+		
+		
+		return "/admin/menu3/reserve/seatList";
+	}
+	
 	
 	
 	@RequestMapping(value="/admin/reserve/seatReserveList", method=RequestMethod.POST)
@@ -178,6 +217,8 @@ public class ReserveController {
 			)throws Exception{
 		
 		String cp=req.getContextPath();
+		
+		System.out.println(seatName+"좌석이름으으으으");
 		
 		Map<String, Object> map  = new HashMap<>();
 		map.put("placeCode", placeCode);
@@ -197,10 +238,14 @@ public class ReserveController {
 		
 		List<Reserve> list = service.seatReserveList(map);
 		
+		System.out.println(list.size()+"좌석 선택후 예약 리스트------");
+		
 		model.addAttribute("list", list);
 		model.addAttribute("listUrl", listUrl);
 		model.addAttribute("paging", paging);
 		model.addAttribute("dataCount", dataCount);
+		
+		
 		
 		return "/admin/menu3/reserve/seatList";
 	}
