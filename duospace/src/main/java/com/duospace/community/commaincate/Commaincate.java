@@ -2,7 +2,7 @@ package com.duospace.community.commaincate;
 
 public class Commaincate {
 	private int cateNum;//분류코드
-	private String boardName,created;//게시판,생성일
+	private String boardName,created;//게시판이름,생성일
 	private int boardCount;//게시판수
 	
 	private int hitCount,boardNum;//조회수,게시판번호
