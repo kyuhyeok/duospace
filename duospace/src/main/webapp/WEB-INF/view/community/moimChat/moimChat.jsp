@@ -536,7 +536,6 @@ function listmoimchat(num){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
-			alert("출력인가!");
 			var list=data.list;
 			console.log(list);
 			mcNum=$('#dgchatcontent').find("div:first").attr("data-mchatNum");
