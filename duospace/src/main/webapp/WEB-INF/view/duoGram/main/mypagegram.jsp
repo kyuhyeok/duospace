@@ -20,12 +20,6 @@
 <form>
 	<table class="form-horizontal" style="position: fixed; left: 650px; top: 180px; background: white; height: 700px; width: 600px; margin:auto; border: 1px solid #ccc; padding-left: 15px;">
 		<tr>
-			<td style="width: 120px; text-align: center;">커버사진</td>
-		</tr>
-		<tr>
-			<td style="width: 120px; text-align: center;">프로필사진</td>
-		</tr>
-		<tr>
 			<td style="width: 120px; text-align: center;">소개</td>
 		</tr>
 		<tr>
@@ -51,7 +45,7 @@
 		</tr>
 		<tr>
 			<td align="center">
-				<a href="<%=cp%>/duoGram/main/mypagegramcreated.jsp">수정하기</a>
+				<a href="<%=cp%>/duogram/mygram/created/${sessionScope.user.memberNum}">수정하기</a>
 			</td>
 		</tr> 
 	</table>

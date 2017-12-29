@@ -255,4 +255,29 @@ public class DuogramController {
 			   	    // 작업 결과를 json으로 전송
 			   	    return model;
 				}	
+				
+				@RequestMapping(value="/duogram/deleteReply", method=RequestMethod.POST)
+				@ResponseBody
+				public Map<String, Object> deleteReply(
+						@RequestParam int replyNum,
+						HttpSession session
+						) {
+					
+					SessionInfo info=(SessionInfo)session.getAttribute("user");
+					String state;
+					
+					if(info==null) {
+						state="loginFail";
+					} else {
+						Map<String, Object> map=new HashMap<>();
+						map.put("replyNum", replyNum);
+						map.put("userId", info.getUserId());
+						service.deleteReply(map);
+						state="true";
+					}
+					
+					Map<String, Object> model=new HashMap<>();
+					model.put("state", state);
+					return model;
+				}
 }

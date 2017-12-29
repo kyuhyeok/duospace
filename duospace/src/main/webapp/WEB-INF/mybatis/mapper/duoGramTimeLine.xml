@@ -88,6 +88,10 @@
                     ORDER BY replyNum DESC
 	  </select>
 	  
+		<delete id="deleteReply" parameterType="map">
+			DELETE FROM gramReply WHERE replyNum=#{replyNum}
+		</delete>
+	  
 	  <!-- 게시물 공감 ................. -->
 	<insert id="insertLikeBoard" parameterType="com.duospace.duogram.Duogram">
 	INSERT INTO gramlike(num, memberNum) VALUES (#{num}, #{memberNum})

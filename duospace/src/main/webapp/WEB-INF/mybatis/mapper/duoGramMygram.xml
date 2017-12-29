@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mypage">
+<mapper namespace="mygram">
 	<!-- 정보저장 -->
 	<insert id="mygramInsertGram" parameterType="com.duospace.duogram.mygram.Mygram">
-		INSERT INTO mygram (memberNum, intro, coversavefilename, profilesavefilename, 
-			company, school, home, update)
-			VALUES (#{memberNum}, #{intro}, #{coversavefilename, jdbcType=VARCHAR}, #{profilesavefilename, jdbcType=VARCHAR}, 
-			#{company}, #{school}, #{home}, #{update})
+		INSERT INTO mygram (memberNum, intro, company, school, home)
+			VALUES (#{memberNum}, #{intro}, #{company}, #{school}, #{home})
 	</insert>
 </mapper>

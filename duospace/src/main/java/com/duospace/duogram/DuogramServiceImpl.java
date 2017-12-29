@@ -147,8 +147,14 @@ public class DuogramServiceImpl implements DuogramService {
 
 	@Override
 	public int deleteReply(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.deleteData("mypage.deleteReply", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
 	}
 
 	@Override

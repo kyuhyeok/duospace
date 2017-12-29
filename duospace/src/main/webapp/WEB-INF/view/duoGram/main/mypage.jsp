@@ -179,14 +179,14 @@ function sendReply(num) {
 		,success:function(data) {
 			var s=data.state;
 
+			replyCount=$("#replyco"+num).html();
+			replyCount=Number(replyCount)+1;
+			$("#replyco"+num).html(replyCount);
+						
 			$("#replyContent"+num).val("");
 			
 			$("#listReplyLayout"+num).show();
 			listReplyMethod(num);
-			
-			$("#listDuogramBody").empty();
-			pageNo=1;
-			listPage(1);
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -322,7 +322,7 @@ function printDuogram(data) {
 			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
-			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 "+replyCount+"개"+"</button>";
+			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 <span id='replyco"+num+"'>"+replyCount+"</span>개"+"</button>";
 			out+="</div>";
 			out+="</div>";
 			
@@ -399,7 +399,10 @@ function deleteReply(replyNum, page) {
 				location.href="<%=cp%>/member/login";
 				return;
 			}
-			listPage(page);
+			$("#listDuogramBody").empty();
+			pageNo=1;
+			listPage(1);
+			
 		}
 		,error:function(e){
 			console.log(e.responseText);
