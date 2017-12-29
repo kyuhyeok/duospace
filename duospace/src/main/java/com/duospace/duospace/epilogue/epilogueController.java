@@ -36,7 +36,7 @@ public class epilogueController {
 		
 		int dataCount=service.dataCount();
 		
-		int total_page=myUtil.pageCount(current_page, dataCount);
+		int total_page=myUtil.pageCount(rows, dataCount);
 		
 		if(total_page>current_page)
 			current_page=total_page;
