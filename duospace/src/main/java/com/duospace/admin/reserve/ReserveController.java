@@ -139,6 +139,10 @@ public class ReserveController {
 		model.addAttribute("spotList", list);
 		
 		return ".admin4.menu3.reserve.seat_reservelist";
+		
+		
+		
+		
 	}
 	
 	@RequestMapping(value="/admin/reserve/readPlacement")

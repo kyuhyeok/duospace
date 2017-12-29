@@ -7,7 +7,7 @@ public class Commoim {
 	private String created,moimimg;//모임생성일
 	private int memberCount;//모임 인원수
 	private int catecode,regcode,memberNum;//카테고리,지역,회원번호.(참조키)
-
+	private String categoryName, regionName;
 	
 	public int getCmoimCode() {
 		return cmoimCode;
@@ -79,6 +79,22 @@ public class Commoim {
 
 	public void setMemberCount(int memberCount) {
 		this.memberCount = memberCount;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
 	}
 
 	

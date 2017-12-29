@@ -16,7 +16,7 @@
 	
 	<!-- 분류 리스트 -->
 	<select id="listcommaincate" parameterType="map" resultType="com.duospace.community.commaincate.Commaincate">
-		SELECT cateNum,BoardName
+		SELECT cateNum,boardName
 		FROM commaincate
 		ORDER BY boardName ASC
 	</select>
@@ -32,6 +32,17 @@
 		        ORDER BY boardNum DESC
 			) tb WHERE ROWNUM &lt;=5
 		) WHERE rnum &gt;=1
-</select>	
+	</select>	
+	<update id="updatecate" parameterType="com.duospace.community.commaincate.Commaincate">
+		UPDATE comMainCate SET boardName=#{boardName}
+	   		WHERE cateNum=#{cateNum}
+	</update>
+	<delete id="deletecate" parameterType="Integer">
+	 	DELETE FROM comMainCate WHERE cateNum = #{cateNum}
+	</delete>
+	
+	<select id="readCommaincate" resultType="com.duospace.community.commaincate.Commaincate">
+		SELECT * FROM (SELECT catenum, boardname, ROW_NUMBER() over(ORDER BY created DESC) rank from commaincate) where rank=1
+	</select>
 	
 </mapper>
