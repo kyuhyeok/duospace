@@ -103,9 +103,9 @@
 			<!-- 댓글 및 표정이모티콘 -->
 			<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;" class="dropdown ">
 				<div style="margin: 15px; float: left; padding-left: 50px;">
-					<button type="button">
+					<!-- <button type="button">
 						표정짓기
-					</button>
+					</button> -->
 				</div>
 				<div style="margin: 15px; float: right; padding-right: 50px;">
 					<button type="button" class="btn btnReplyLayout" data-boardNum="${vo.boardNum}">

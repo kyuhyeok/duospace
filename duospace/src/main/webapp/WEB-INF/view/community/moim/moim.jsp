@@ -403,7 +403,7 @@ function deleteFreeboard(boardNum){
 					<div class="form-group">
 						<div style="border-top: 1px solid #eef0f3; float: none; height: 50px;">
 							<div style="margin: 15px; float: left; padding-left: 50px;">
-								<a>
+								<%-- <a>
 									<img src="<%=cp%>/resource/images/communiti/icon_plus.png" style="width: 30px;height: 30px;">
 								</a>
 								<a>
@@ -417,7 +417,7 @@ function deleteFreeboard(boardNum){
 								</a>
 								<a>
 									<img src="<%=cp%>/resource/images/communiti/icon_plus.png" style="width: 30px;height: 30px;">
-								</a>
+								</a> --%>
 							</div>
 							<div style="margin: 15px; float: right; padding-right: 50px;">
 								<button type="button" class="btn" onclick="sendFreeboard();">
