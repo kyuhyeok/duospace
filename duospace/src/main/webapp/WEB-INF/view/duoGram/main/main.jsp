@@ -427,20 +427,13 @@ function deleteReply(replyNum, page) {
 
 			<!-- 오른쪽 커뮤니티? -->
 			<div style="width: 308px; float: right;">
-
-				<div
-					style="width: 293px; padding: 10px; height: 65px; border-bottom: 1px solid #dddfe2; float: right; margin-bottom: 20px">
-					<div
-						style="overflow: hidden; float: left; border-radius: 22.5px; max-width: 45px; max-height: 45px;">
+				<div style="width: 293px; padding: 10px; height: 65px; border-bottom: 1px solid #dddfe2; float: right; margin-bottom: 20px">
+					<div style="overflow: hidden; float: left; border-radius: 22.5px; max-width: 45px; max-height: 45px;">
 						<a href="<%=cp%>/duogram/${sessionScope.user.memberNum}">
-							<img style="width: 100%; height: 100%; vertical-align: middle;"
-							src="<%=cp%>/resource/images/duogram/5/5p.jpg">
+							<img style="margin-top: -17px; width: 100%; height: 100%; vertical-align: middle;"	src="<%=cp%>/resource/images/duogram/7/7p.jpg">
 						</a>
 					</div>
 					
-				
-				
-
 				<c:if test="${memberNum==5}">
 				<div style="padding-top: -10px; padding-left: 10px; display: table-cell; color: #999; font-size: 13px; font-family: '나눔고딕';">김종기</div>
 				</c:if>
@@ -474,8 +467,16 @@ function deleteReply(replyNum, page) {
 							style="width: 15px; height: 15px;"></a>
 							<br>
 			박가람 2월 16일
-			<br> 
+			<br>
+			김동현 4월 12일
+			<br>
+			<c:if test="${memberNum==5}">
 			윤숭열 6월 12일
+			<br>
+			</c:if>
+			<c:if test="${memberNum==7||memberNum!=5}">
+			김종기 6월 10일
+			</c:if>
 					</div>
 					</div>
 
