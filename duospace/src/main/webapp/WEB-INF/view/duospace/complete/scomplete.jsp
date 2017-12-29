@@ -98,7 +98,7 @@
 	<div class="info">
 		<h2><i class="fa fa-check" aria-hidden="true"></i> 성공적으로 예약완료 되었습니다!</h2>
 	</div>
-	<div class="main">
+	<div class="main"style="width: 350px;">
 		
 		<div class="form-right">
 			<ul>
@@ -144,7 +144,7 @@
 			*출력이 불가능할경우, '예매번호' 로 무인발권기/현장 티켓수령이 가능합니다.
 			</div>
 	</div>
-	<div class="footer-btn">
+	<div class="footer-btn" style="margin-left: 50%">
 		<button type="button" class="btn btn-primary antosubmit" onclick="javascript:location.href='<%=cp%>/space_main'">확인</button>
 	</div>
 </div>

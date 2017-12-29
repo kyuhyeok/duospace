@@ -189,7 +189,7 @@
 	JOIN stres s ON s.reservnum=re.reservnum 
 	JOIN seat st ON s.seatcode=st.seatcode
 	JOIN placement p ON st.placecode=p.placecode
-	WHERE checkin is not null and checkout is null 
+	WHERE checkin is not null and checkout is null and TO_CHAR(checkin,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD') and st.placecode=47
 	 <!--   and TO_CHAR(startDate,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')-->
 </select>
 
