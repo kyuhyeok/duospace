@@ -1,5 +1,7 @@
 package com.duospace.admin.member;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.common.DuospaceUtil;
@@ -98,12 +101,23 @@ public class MemberController {
 		
 		return ".admin4.menu3.member.memberlist";
 	}
-	
+	@RequestMapping(value="/admin/member/delete", method=RequestMethod.GET)
 	public String deleteMember(
-			@RequestParam int memberNum
+			@RequestParam int memberNum,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="rows", defaultValue="10") int rows,
+			@RequestParam(value="searchKey", defaultValue="name")String searchKey,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue
 			) {
 		
-		return "";
+		service.memberDelete(memberNum);
+		String query = "page="+page+"&rows="+rows;
+		
+		if(searchValue.length()!=0) {
+			query+="&searchKey="+searchKey+"&searchValue="+searchValue;
+		}
+		
+		return "redirect:/admin/member/list?"+query;
 	}
 	
 	

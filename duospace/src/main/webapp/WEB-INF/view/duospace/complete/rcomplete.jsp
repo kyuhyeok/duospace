@@ -122,7 +122,7 @@
 	<div class="main">
 		<div class="form-left">
 		<div class="form-left-spot">
-			<img src="<%=cp%>/resource/images/duospace/Room/${dto.saveFileName}" style="width: 150px; height: 190px;">
+			<img src="<%=cp%>/resource/images/duospace/review/IMG_6809.jpg" style="width: 150px; height: 190px;">
 		</div>
 		<div class="form-left-info">
 			${dto.spotName}

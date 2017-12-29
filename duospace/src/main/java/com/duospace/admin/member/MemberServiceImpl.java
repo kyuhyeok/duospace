@@ -27,8 +27,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int memberDelete(int memberNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.updateData("admin.member.deleteMember", memberNum);
+		} catch (Exception e) {
+			e.toString();
+		}
+		return result;
 	}
 
 	@Override

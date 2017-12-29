@@ -99,57 +99,42 @@
 		<h2><i class="fa fa-check" aria-hidden="true"></i> 성공적으로 예약완료 되었습니다!</h2>
 	</div>
 	<div class="main">
-		<div class="form-left">
-		<div class="form-left-spot">
-			지점 이미지
-		</div>
-		<div class="form-left-info">
-			강남 지점
-		</div>
-		<div class="form-left-addr">
-			서울 강남구 신사동 643-3
-		</div>
-		<div class="form-left-room">
-			<div class="logo">
-			 <img>룸 이미지
-			</div>
-		</div>
-		</div>
+		
 		<div class="form-right">
 			<ul>
 				<li>
 				<b>예약 번호</b> 
-				<span style="color: #ed794d; font-weight: bold;">1</span>
+				<span style="color: #ed794d; font-weight: bold;">170000${dto.reservNum}</span>
 				</li>
 			</ul>
 			<ul>
 				<li>
 				<b>지 &nbsp;&nbsp;점</b>
-				<span>강남지점</span>
+				<span>쌍문동</span>
 				</li>
 			</ul>
 			<ul>
 				<li>
 				<b>좌 &nbsp;&nbsp;석</b> 
-				<span>1층 4-9</span>
+				<span>2층 ${dto.seatName}</span>
 				</li>
 			</ul>
 			<ul>
 				<li>
 				<b>시 작 일</b>
-				<span> 2017/12/20 12:30</span>
+				<span> ${dto.startDate}</span>
 				 </li>
 			</ul>
 			<ul>
 				<li>
 				<b>종 료 일</b> 
-				<span>2017/12/21 12:30</span>
+				<span>${dto.endDate}</span>
 				</li>
 			</ul>
 			<ul>
 				<li>
 				<b>결제 금액</b> 
-				<span>12000</span>
+				<span>100,000</span>
 				</li>
 			</ul>
 		</div>
@@ -158,6 +143,9 @@
 			<div>
 			*출력이 불가능할경우, '예매번호' 로 무인발권기/현장 티켓수령이 가능합니다.
 			</div>
+	</div>
+	<div class="footer-btn">
+		<button type="button" class="btn btn-primary antosubmit" onclick="javascript:location.href='<%=cp%>/space_main'">확인</button>
 	</div>
 </div>
 

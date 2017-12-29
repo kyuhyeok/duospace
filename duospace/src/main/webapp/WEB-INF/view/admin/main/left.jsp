@@ -102,7 +102,7 @@
 							<a><i class="fa fa-won"></i>매출관리<span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu" style="display: none">
 								<li><a href="#">Core/Cafe 매출</a></li>
-								<li><a href="#">Duo Space 매출</a></li>
+								<li><a href="<%=cp%>/admin/meachul/list">Duo Space 매출</a></li>
 							</ul>
 						</li>
 						<li class="adminmenu">

@@ -23,14 +23,7 @@ function search3(f) {
 	f.submit();
 }
 
-function deleteMember(memberNum) {
-	  
-	if(confirm("멤퍼를 강퇴 하시겠습니까?")){
-		var query = "memberNum="+memberNum;
-		location.href = "<%=cp%>/admin/member/delete?" + query;
-	}
-	return;
-}
+
 
 </script>
 </head>
@@ -42,7 +35,7 @@ function deleteMember(memberNum) {
 			<div class="page-title" style="margin: 0px 10px;">
 				<div class="title_left">
 					<h3>
-						지점 관리 <small>Shop Manage</small>
+						매출 관리 <small>Meachul List</small>
 					</h3>
 				</div>
 				<div class="title_right"></div>
@@ -88,10 +81,11 @@ function deleteMember(memberNum) {
 									<div class="col-sm-2 col-xs-12">
 										<select class="form-control" name="searchKey" id="searchform">
 											<option value="">선택</option>
-											<option value="name">이름</option>
-											<option value="email">이메일</option>
-											<option value="phone">휴대전화</option>
-											<option value="joinDate">가입일</option>
+											<option value="spotCode">예약번호</option>
+											<option value="spotName">예약자명</option>
+											<option value="spotAddrNum">아이디</option>
+											<option value="spotAddr1">결제타입</option>
+											<option value="spotAddr2">결제일</option>
 											
 										</select>
 										
@@ -127,7 +121,7 @@ function deleteMember(memberNum) {
 							<div class="x_title">
 							
 								<h2>
-									회원 리스트<small>Member List</small>
+									매출 리스트<small>Meachul List</small>
 								</h2>
 								<ul class="nav navbar-right panel_toolbox">
 									<li><a>Total ${dataCount}EA (${page}/${total_page}페이지)</a></li>
@@ -145,14 +139,14 @@ function deleteMember(memberNum) {
 									<table class="table table-hover" id="table1" style="text-align: center; border-collapse: collapse;">
 										<thead>
 											<tr>
-												
-												<th style="text-align: center;">아이디(이메일)</th>
-												<th style="text-align: center;">이름</th>
-												<th style="text-align: center;">등급</th>
-												<th style="text-align: center;">휴대폰</th>
-												<th style="text-align: center;">승인여부</th>
-												<th style="text-align: center;">가입일</th>
-												<th style="text-align: center;">관리</th>
+												<th style="text-align: center;"><input class="flat" id="ck_main" type="checkbox" />
+												</th>
+												<th style="text-align: center;">예약번호</th>
+												<th style="text-align: center;">아이디</th>
+												<th style="text-align: center;">예약자명</th>
+												<th style="text-align: center;">결제금액</th>
+												<th style="text-align: center;">결제타입</th>
+												<th style="text-align: center;">결제일</th>
 												
 											</tr>
 										</thead>
@@ -160,20 +154,16 @@ function deleteMember(memberNum) {
 
 										<c:forEach var="dto" items="${list}">
 											<tr style="text-align: center">
-												
+												<td><input class="flat" name="spotCodes" type="checkbox"
+													value="${dto.reservNum}" /></td>
+												<td>${dto.reservNum}</td>
 												<td>${dto.email}</td>
 												<td>${dto.name}</td>
-												<td>일반회원</td>
-												<td>${dto.phone}</td>
-												<td>Y</td>
-												<td>${dto.joinDate}</td>
-												<td>
-									
-												<button type="button" class="btn btn-danger btn-sm"
-													onclick="deleteMember('${dto.memberNum}');">
-													<i class="fa fa-check-square-o"></i> 회원강퇴
-												</button>
-												</td>
+												<td>${dto.pay}</td>
+												<td>카드결제</td>
+												<td>${dto.payDate}</td>
+												
+												
 											</tr>
 										</c:forEach>
 
@@ -181,11 +171,14 @@ function deleteMember(memberNum) {
 									</table>
 								</div>
 
-								<div class="form-group" >
+								<div class="form-group">
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										
+										<button type="button" class="btn btn-danger btn-sm"
+											id="deletelistBtn">
+											<i class="fa fa-check-square-o"></i> 삭제
+										</button>
 									</div>
-									<div class="col-md-6 col-sm-6 col-xs-12" >
+									<div class="col-md-6 col-sm-6 col-xs-12">
 												<c:if test="${dataCount==0 }">
 			              						  등록된 게시물이 없습니다.
 			        							 </c:if>

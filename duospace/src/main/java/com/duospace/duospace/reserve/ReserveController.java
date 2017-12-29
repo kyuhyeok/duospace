@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duospace.common.DuospaceUtil;
+import com.duospace.duospace.rmres.Rmres;
 import com.duospace.member.SessionInfo;
 
 @Controller("duospace.reserveController")
@@ -30,6 +31,15 @@ public class ReserveController {
 	
 	@Autowired
 	DuospaceUtil myUtil;
+	
+	
+	@RequestMapping(value="/seat/updateForm")
+	public String list(String price,Model model) throws Exception{
+	
+		//model.addAttribute("rmlist", rmlist);
+		return "/duospace/reserve/updateForm";
+	}
+	
 	
 	@RequestMapping(value="/duospace/reserve")
 	public String reserve(
