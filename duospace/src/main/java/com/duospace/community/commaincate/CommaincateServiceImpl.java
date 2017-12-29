@@ -64,7 +64,7 @@ public class CommaincateServiceImpl implements CommaincateService{
 	public int deleteCommaincate(int num) {
 		int result =0;
 		try {
-			result = dao.deleteData("commaincate.deleteCommaincate",num);
+			result = dao.deleteData("commaincate.deletecate",num);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -73,10 +73,10 @@ public class CommaincateServiceImpl implements CommaincateService{
 
 
 	@Override
-	public Commaincate readCommaincate(int num) {
+	public Commaincate readCommaincate() {
 		Commaincate dto = null;
 		try {
-			dto=dao.selectOne("commaincate.readCommaincate",num);
+			dto=dao.selectOne("commaincate.readCommaincate");
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -89,7 +89,7 @@ public class CommaincateServiceImpl implements CommaincateService{
 	public int updateCommaincate(Commaincate dto) {
 		int result =0;
 		try {
-			result = dao.updateData("commaincate.updateCommaincate",dto);
+			result = dao.updateData("commaincate.updatecate",dto);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

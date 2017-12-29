@@ -26,6 +26,7 @@
 					<td width="100" style="color: #787878;">작성자</td>
 					<td width="80" style="color: #787878;">작성일</td>
 					<td width="60" style="color: #787878;">조회수</td>
+					<td width="50" style="color: #787878;">첨부</td>
 				</tr>
 				
 			<!-- for문 돌리기. -->
@@ -41,6 +42,7 @@
 							<td>${dto.name}</td>
 							<td>${dto.created}</td>
 							<td>${dto.hitCount}</td>
+							<td><a>첨부</a></td>
 						</tr>
 					</c:if>
 			</c:forEach>

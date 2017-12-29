@@ -67,6 +67,15 @@
 					<c:if test="${vo.writer==5}">
 						<img src="<%=cp%>/resource/images/duogram/5/5p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
 					</c:if>
+					<c:if test="${vo.writer==1}">
+							<img src="<%=cp%>/resource/images/communiti/11.JPG" style="width: 40px;height: 40px; border-radius: 50%;">
+						</c:if>	
+					<c:if test="${vo.writer==3}">
+						<img src="<%=cp%>/resource/images/duogram/3/3p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+					</c:if>
+					<c:if test="${vo.writer==6}">
+						<img src="<%=cp%>/resource/images/duogram/6/6p.jpg" style="width: 40px;height: 40px; border-radius: 50%;">
+					</c:if>
 				</a>
 				<span style="margin-right: 72px;padding-top: 2px; white-space: nowrap; clear: #999">
 					이름 : ${vo.name}
@@ -116,4 +125,12 @@
 			</div>
 		</div>
 	</c:forEach>
+</c:if>
+	
+<c:if test="${dataCount == 0}">
+	<div style="margin-bottom: 11px;background-color: #ffffff; border-radius: 10px;">
+		<div style=" min-height: 265px;background-color: #fff;padding-left: 15px;border-radius: 10px; ">
+			<img src="<%=cp%>/resource/images/communiti/1s.JPG">
+		</div>
+	</div>
 </c:if>

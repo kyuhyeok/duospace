@@ -202,12 +202,16 @@ function sendCommoim(){
 		      	  <!-- 지역 설정 -->
 		      	  <span>지역 설정: </span>
 		      	  <select id="regcode" name="regcode" style="border: none;">
-			      	  	<option value="1">진주</option>
+		      	  	<c:forEach var="dto" items="${comregionlist}">
+			      	  	<option value="${dto.regcode}">${dto.regionName }</option>
+		      	  	</c:forEach>
 		      	  </select>
 		      	  <!-- 카테고리설정 -->
 		      	  <span>카테고리 설정: </span>
 		      	  <select id="catecode" name="catecode" style="border: none;">
-			      	  <option value="2">스프링</option>
+		      	  	<c:forEach var="vo" items="${comcategorylist}">
+			      	  <option value="${vo.catecode}">${vo.categoryName}</option>
+		      	  	</c:forEach>
 		      	  </select>
 		      </div>
 		      <div class="coverSelect">

@@ -52,15 +52,16 @@ public class MoimController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberNum", info.getMemberNum());
 		map.put("cmoimCode", cmoimCode);
-	
+		
+		
 		int countAccept=service.countAccept(map);
 		int dataCount = service.dataCount(cmoimCode);
 		if(countAccept==0) {
 			return ".community.moim.acceptcheck";
 		}
-		
 		model.addAttribute("cmoimCode",cmoimCode);
 		model.addAttribute("dataCount",dataCount);
+		
 		return ".moim.moim.moim";
 	}	
 	

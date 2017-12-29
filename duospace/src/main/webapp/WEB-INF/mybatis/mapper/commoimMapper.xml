@@ -71,4 +71,13 @@
 		FROM commoim
 	</select>
 	
+	<!-- 지역 리스트 -->
+	<select id="comregionlist" resultType="com.duospace.community.commoim.Commoim">
+		SELECT REGCODE,REGIONNAME FROM COMREGION 
+	</select>
+	<!-- 카테고리 리스트 -->
+	<select id="comcategorylist" resultType="com.duospace.community.commoim.Commoim">
+		SELECT CATECODE,CATEGORYNAME FROM COMCATEGORY
+	</select>
+	
 </mapper>

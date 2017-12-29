@@ -14,4 +14,8 @@ public interface CommoimService {
 	public int cmoimSeq();//모인 시퀀스 가져오기.
 	public int dataCount(Map<String, Object>map);//나의 모임 가입수
 	public int dataCountAll();//모임 전체수
+	
+	public List<Commoim> comregionlist();//지역 리스트
+	public List<Commoim> comcategorylist();//카테고리 리스트
+	
 }
