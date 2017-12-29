@@ -166,7 +166,7 @@
 			SELECT m.mchatNum
 			FROM moimchat m
 			JOIN mchatread r ON m.mchatnum=r.mchatnum
-			WHERE cmoimCode=#{cmoimCode} AND READdate is NULL AND r.membernum=#{memberNum}
+			WHERE m.cmoimCode=#{cmoimCode} AND READdate is NULL AND r.membernum=#{memberNum}
 		)
 	</select>
 	
