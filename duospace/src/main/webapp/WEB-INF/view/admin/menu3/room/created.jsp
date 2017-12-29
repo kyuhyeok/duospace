@@ -13,6 +13,7 @@
 }
 .body-container{
 	background: #ffffff;
+	font-size: 16px;
 }
 
 </style>
@@ -93,12 +94,12 @@ function floorList() {
     </div>
     <div>
 			<form name="boardForm" method="post" enctype="multipart/form-data">
-			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			  <tr align="left" height="40">
-			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">지점</td>
+			  <table style="width: 100%; margin: 40px; border-spacing: 0px; border-collapse: collapse;">
+			  <tr align="left" height="70">
+			  	<td width="150" bgcolor="#eeeeee" style="text-align: center;">지점</td>
 			  	<td style="padding-left:10px;">
 			  	<c:if test="${mode=='created'}">
-			  		<select name="spotCode" id="shop" onchange="floorList();">
+			  		<select name="spotCode" id="shop" onchange="floorList();" style="padding: 3px; height: 30px;">
 			  			<option selected="selected" value="">지점 선택</option>
 			  			<c:forEach var="vo" items="${slist}">
 			  				<option value="${vo.spotCode}" ${dto.spotName==vo.spotName?"selected='selected'":""}>${vo.spotName}</option>
@@ -111,11 +112,11 @@ function floorList() {
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
-			  <tr align="left" height="40">
+			  <tr align="left" height="70">
 			  	<td width="100" bgcolor="#eeeeee" style="text-align: center;">층</td>
 			  	<td style="padding-left:10px;">
 			  	<c:if test="${mode=='created'}">
-			  		<select name="floorNum" id="floor">
+			  		<select name="floorNum" id="floor" style="padding: 3px; height: 30px;">
 			  			<option selected="selected" value="">층 선택</option>
 			  		</select>
 			  	</c:if>
@@ -125,38 +126,38 @@ function floorList() {
 			  		<span id="message" style="color: red;"></span>
 			  	</td>
 			  </tr>
-			  <tr align="left" height="40"> 
+			  <tr align="left" height="70"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">룸 이름</td>
 			      <td style="padding-left:10px;"> 
 			       <input type="text" name="roomName" class="boxTF" style="width: 30%;" value="${dto.roomName}" placeholder="룸 이름">
 			      </td>
 			  </tr>
-			  <tr align="left" height="40"> 
+			  <tr align="left" height="70"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 설명</td>
 			      <td style="padding-left:10px;">
 			        <input type="text" name="rcontent" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.rcontent}" placeholder="룸 설명">
 			      </td>
 			  </tr>
-			  <tr align="left" height="40"> 
+			  <tr align="left" height="70"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center; padding-top:5px;">룸 가격</td>
 			      <td style="padding-left:10px;">
 			        <input type="text" name="price" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.price}"  placeholder="룸 가격">
 			      </td>
 			  </tr>
-			   <tr align="left" height="40">
+			   <tr align="left" height="70">
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 			      <td style="padding-left:10px;"> 
 			          <input type="file" name="upload" class="boxTF" size="53" style="height: 25px;">
 			       </td>
 			  </tr>
-			  <tr align="left" height="40"> 
+			  <tr align="left" height="70"> 
 			      <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>
 			      <td style="padding-left:10px;"> 
 			          ${sessionScope.user.userName}
 			      </td>
 			  </tr>
 			 
-			  </table>
+			  </table> 
 			
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 

@@ -403,7 +403,7 @@ $(function() {
 		if(cmd=="join-list") {
 			var memberList=data.memberList;
 			for(var i in memberList){
-				memberCard(i);
+				memberCard(memberList[i]);
 			}
 		} else if(cmd=="join-add") {
 			memberCard(data);
@@ -495,7 +495,7 @@ function writeToScreen(data) {
 
 function memberCard(data) {
 	var memberId=data.memberId;
-	var memberName=data.memberName;
+	var memberName=data.name;
 	var memberNum=data.memberNum;
 	var profile=data.profile;
 	if($("#MCList li[data-memberNum="+memberNum+"]").length) return;

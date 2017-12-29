@@ -276,20 +276,21 @@ public class MySocketHandler extends TextWebSocketHandler {
 				dto.setProfile(memberMap.get(m).getProfile());
 				list.add(dto);
 			}
-			job=new JSONObject();
-			job.put("type", "mtalk");
-			job.put("cmd", "join-list");
-			JSONArray jarr=new JSONArray();
-			jarr.addAll(list);
-			job.put("memberList", jarr);
-			
-			sendOneMessage(job.toString(), session);
-			
+			if(list.size()>0) {
+				job=new JSONObject();
+				job.put("type", "mtalk");
+				job.put("cmd", "join-list");
+				JSONArray jarr=new JSONArray();
+				jarr.addAll(list);
+				job.put("memberList", jarr);
+				
+				sendOneMessage(job.toString(), session);
+			}
 			job=new JSONObject();
 			job.put("type", "mtalk");
 			job.put("cmd", "join-add");
 			job.put("memberId", memberId);
-			job.put("memberName", memberName);
+			job.put("name", memberName);
 			job.put("memberNum", memberNum);
 			job.put("profile", profile);
 			
@@ -401,6 +402,7 @@ public class MySocketHandler extends TextWebSocketHandler {
 				//mcs.updateReadDate(map);
 				dto.setUnReadCnt(mcs.fMURtDCnt(map));
 				
+				dto=mcs.readFMess(map);
 				job=new JSONObject();
 				job.put("type", "mtalk");
 				job.put("cmd", "chatMsg");

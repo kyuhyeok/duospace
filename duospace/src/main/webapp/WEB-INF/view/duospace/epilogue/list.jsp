@@ -94,10 +94,9 @@
 }
 .review p{
     display: -webkit-box;
-    max-width: 400px;
-    height: 73.5px;
+    max-width: 200px;
     font-size: 14px;
-    line-height: 1.75;
+    line-height: 1.1;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -159,8 +158,18 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 profile">
 								<div class="img-wrapper">
+								<c:if test="${dto.reservNum==79}">
 									<img src="<%=cp%>/resource/images/duospace/review/profile.jpg"
 										class="img-cover">
+								</c:if>
+								<c:if test="${dto.reservNum==72}">
+									<img src="<%=cp%>/resource/images/duogram/5/5p.jpg"
+										class="img-cover">
+								</c:if>
+								<c:if test="${dto.reservNum==34}">
+									<img src="<%=cp%>/resource/images/duogram/4/4p.jpg"
+										class="img-cover">
+								</c:if>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-9 info">
@@ -202,23 +211,25 @@
 							</div>
 							<div class="col-xs-12 col-sm-9 info">
 								<div class="row">
-									<h4 class="shopname">-지점명</h4>
+									<h4 class="shopname">-당산지점</h4>
 								</div>
 								<div class="review-info">
-									<h3>-이름</h3>
-									<ul class="star-rate">
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-									</ul>
+									<h3>-남정아</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
 									<span class="review-count">00개 리뷰</span>
 								</div>
 							</div>
 							<div class="col-xs-12 review">
-								<p>이곳은 내용들 입니다!!! 내용이 많아지면 어떻게 되는지 시험도 해보고 더보기도
-								나와야 합니다!!!!!!!!!!!!!과연 나올 것인가?!!! 기대가 되네요 후훗</p>
+								<p>이용 후기 등록 내용입니다..!!!
+								도봉지점 너무 마음에 드네요!!
+								도봉룸 이용하였는데 마음에 들어서
+								다음에 또 와야겠어요</p>
 								<div class="btn-wrapper">
 								<div class="view-btn">
 									<button type="button" class="btn">더보기</button>
@@ -233,29 +244,31 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 profile">
 								<div class="img-wrapper">
-									<img src="<%=cp%>/resource/images/duospace/review/profile.jpg"
+									<img src="<%=cp%>/resource/images/duogram/5/5p.jpg"
 										class="img-cover">
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-9 info">
 								<div class="row">
-									<h4 class="shopname">-지점명</h4>
+									<h4 class="shopname">-도봉지점</h4>
 								</div>
 								<div class="review-info">
-									<h3>-이름</h3>
-									<ul class="star-rate">
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-									</ul>
+									<h3>-김종기</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
 									<span class="review-count">00개 리뷰</span>
 								</div>
 							</div>
 							<div class="col-xs-12 review">
-								<p>이곳은 내용들 입니다!!! 내용이 많아지면 어떻게 되는지 시험도 해보고 더보기도
-								나와야 합니다!!!!!!!!!!!!!과연 나올 것인가?!!! 기대가 되네요 후훗</p>
+								<p>이용 후기 등록 내용입니다..!!!
+								도봉지점 너무 마음에 드네요!!
+								도봉룸 이용하였는데 마음에 들어서
+								다음에 또 와야겠어요 </p>
 								<div class="btn-wrapper">
 								<div class="view-btn">
 									<button type="button" class="btn">더보기</button>
@@ -270,29 +283,150 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 profile">
 								<div class="img-wrapper">
-									<img src="<%=cp%>/resource/images/duospace/review/profile.jpg"
+									<img src="<%=cp%>/resource/images/duogram/4/4p.jpg"
 										class="img-cover">
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-9 info">
 								<div class="row">
-									<h4 class="shopname">-지점명</h4>
+									<h4 class="shopname">-강남지점</h4>
 								</div>
 								<div class="review-info">
-									<h3>-이름</h3>
-									<ul class="star-rate">
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-										<li class="fi1"></li>
-									</ul>
+									<h3>-박가람</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
 									<span class="review-count">00개 리뷰</span>
 								</div>
 							</div>
 							<div class="col-xs-12 review">
-								<p>이곳은 내용들 입니다!!! 내용이 많아지면 어떻게 되는지 시험도 해보고 더보기도
-								나와야 합니다!!!!!!!!!!!!!과연 나올 것인가?!!! 기대가 되네요 후훗</p>
+								<p>강남지점 너무 좋았고 다음에 또 들르고 싶어요! 
+점장님도 친절하시고
+매니저님도 잘 챙겨주셨습니다.
+다음에 또 가고 싶은 매장이에요!!
+다른 분들에게 추천 드리고 싶습니다.
+가격도 적당하고, IT모임 장소가 마땅히 없었는데
+듀오 스페이스 너무 좋고 짱짱입니다!!
+더보기
+</p>
+								<div class="btn-wrapper">
+								<div class="view-btn">
+									<button type="button" class="btn">더보기</button>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="col-xs-12 col-sm-6 col-lg-4 list">
+					<div class="s-card">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3 profile">
+								<div class="img-wrapper">
+									<img src="<%=cp%>/resource/images/duogram/11/11p.jpg"
+										class="img-cover">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-9 info">
+								<div class="row">
+									<h4 class="shopname">-당산지점</h4> 
+								</div>
+								<div class="review-info">
+									<h3>-곽규혁</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
+									<span class="review-count">00개 리뷰</span>
+								</div>
+							</div>
+							<div class="col-xs-12 review">
+								<p>당산지점 후기 입니다.
+								점장님이 너무 잘해 주셨고 스타트 기업, 프리랜서들에게
+								꼭 필요한 홈페이지 같습니다. 이렇게 후기까지 남길 수 있어 행복합니다.</p>
+								<div class="btn-wrapper">
+								<div class="view-btn">
+									<button type="button" class="btn">더보기</button>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="col-xs-12 col-sm-6 col-lg-4 list">
+					<div class="s-card">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3 profile">
+								<div class="img-wrapper">
+									<img src="<%=cp%>/resource/images/duogram/7/7p.jpg"
+										class="img-cover">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-9 info">
+								<div class="row">
+									<h4 class="shopname">-당산지점</h4> 
+								</div>
+								<div class="review-info">
+									<h3>-윤숭열</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
+									<span class="review-count">00개 리뷰</span>
+								</div>
+							</div>
+							<div class="col-xs-12 review">
+								<p>당산지점 후기 입니다.
+								점장님이 너무 잘해 주셨고 스타트 기업, 프리랜서들에게
+								꼭 필요한 홈페이지 같습니다. 이렇게 후기까지 남길 수 있어 행복합니다.</p>
+								<div class="btn-wrapper">
+								<div class="view-btn">
+									<button type="button" class="btn">더보기</button>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="col-xs-12 col-sm-6 col-lg-4 list">
+					<div class="s-card">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3 profile">
+								<div class="img-wrapper">
+									<img src="<%=cp%>/resource/images/duogram/8/8p.jpg"
+										class="img-cover"> 
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-9 info">
+								<div class="row">
+									<h4 class="shopname">-당산지점</h4> 
+								</div>
+								<div class="review-info">
+									<h3>-김재원</h3>
+									<p class="star_rating">
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+										<a class="fi1">★</a>
+									</p>
+									<span class="review-count">00개 리뷰</span>
+								</div>
+							</div>
+							<div class="col-xs-12 review">
+								<p>당산지점 후기 입니다.
+								점장님이 너무 잘해 주셨고 스타트 기업, 프리랜서들에게
+								꼭 필요한 홈페이지 같습니다. 이렇게 후기까지 남길 수 있어 행복합니다.</p>
 								<div class="btn-wrapper">
 								<div class="view-btn">
 									<button type="button" class="btn">더보기</button>

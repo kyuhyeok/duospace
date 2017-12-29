@@ -57,10 +57,10 @@
 <![CDATA[
 			WHERE 
 			roomCode=#{roomCode}
-			AND
-			(startDate>=#{startDate} AND startDate<=#{endDate})
-			OR 
-			(endDate>=#{startDate} AND endDate<=#{endDate})
+			AND ((startdate BETWEEN #{startDate} 
+								   AND  #{endDate})  
+		        	OR  (enddate  BETWEEN #{startDate} 
+		        					AND  #{endDate}))
 ]]>			
 	</select>
 	

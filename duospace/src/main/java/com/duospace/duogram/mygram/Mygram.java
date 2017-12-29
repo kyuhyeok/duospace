@@ -1,19 +1,10 @@
 package com.duospace.duogram.mygram;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class Mygram {
-	private MultipartFile upload;
 	private int memberNum;
 	private String intro, coversavefilename, profilesavefilename, company, school;
 	private String home, created;
 	
-	public MultipartFile getUpload() {
-		return upload;
-	}
-	public void setUpload(MultipartFile upload) {
-		this.upload = upload;
-	}
 	public int getMemberNum() {
 		return memberNum;
 	}

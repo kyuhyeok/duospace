@@ -27,7 +27,7 @@
 			 #{price}, #{rcontent}, #{saveFileName, jdbcType=VARCHAR})
 	</insert>
 	<select id="readroom" parameterType="map" resultType="com.duospace.admin.room.Room">
-		SELECT r.roomCode, r.roomName, r.floorNum, price, r.content, saveFileName, f.floorName, f.spotCode, s.spotName, s.region,s.spotaddrnum, s.spotaddr1, s.manager, s.tel
+		SELECT r.roomCode, r.roomName, r.floorNum, price, rcontent, saveFileName, f.floorName, f.spotCode, s.spotName, s.region,s.spotaddrnum, s.spotaddr1, s.manager, s.tel
 		FROM ROOM r
         JOIN floor f ON r.floorNum = f.floorNum
         JOIN spot s ON f.spotCode=s.spotCode

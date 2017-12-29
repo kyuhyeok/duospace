@@ -80,9 +80,16 @@
 				WHERE rank=1
 			</when>
 			<otherwise>
-				SELECT mchatNum, memberNum, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate
-				FROM moimchat
-				WHERE mchatNum=#{mchatNum}
+				SELECT m.mchatNum, m.memberNum, name, profile, cmoimCode, content, TO_CHAR(sendDate,'yyyy-MM-dd HH24"시"mi"분"') sendDate, unReadCnt
+				FROM moimchat m
+				JOIN (
+					SELECT mchatNum, NVL(COUNT(*),0) unReadCnt
+					FROM mchatread
+					WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
+					GROUP BY mchatNum
+				) r ON m.mchatnum=r.mchatnum
+				JOIN member2 m2 ON m.memberNum=m2.memberNum
+				WHERE m.mchatNum=#{mchatNum}
 			</otherwise>
 		</choose>
 	</select>
@@ -107,7 +114,7 @@
 			WHERE readDate IS NULL AND cmoimCode=#{cmoimCode}
 			GROUP BY mchatNum
 		) c ON m.mchatNum=c.mchatNum
-		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum} AND r.readDate IS NULL
+		WHERE m.cmoimCode=#{cmoimCode} AND r.memberNum=#{memberNum}
 	</select>
 	
 	<select id="listFMessContent" resultType="com.duospace.community.moimchat.MoimChat" parameterType="map">
@@ -129,7 +136,7 @@
 							mchatNum >= (
 							]]>
 								SELECT mchatNum FROM(
-								    SELECT ROW_NUMBER() OVER (ORDER BY sendDate ASC) rank, mchatnum FROM mchatread
+								    SELECT ROW_NUMBER() OVER (ORDER BY readDate ASC) rank, mchatnum FROM mchatread
 								    WHERE readDate IS NULL AND memberNum=#{memberNum} AND cmoimCode=#{cmoimCode}
 								) WHERE rank=1
 							)
@@ -151,14 +158,15 @@
 			WHERE cmoimCode=#{cmoimCode} AND readDate IS NULL 
 			GROUP BY mchatnum
 		) r ON m.mchatNum=r.mchatNum
-		ORDER BY mchatNum ASC
+		ORDER BY mchatNum DESC
 	</select>
 	
 	<select id="fMListDataCount" resultType="Integer" parameterType="map">
 		SELECT NVL(COUNT(*),0) FROM (
-			SELECT mchatNum
-			FROM moimchat
-			WHERE cmoimCode=#{cmoimCode}
+			SELECT m.mchatNum
+			FROM moimchat m
+			JOIN mchatread r ON m.mchatnum=r.mchatnum
+			WHERE m.cmoimCode=#{cmoimCode} AND READdate is NULL AND r.membernum=#{memberNum}
 		)
 	</select>
 	
