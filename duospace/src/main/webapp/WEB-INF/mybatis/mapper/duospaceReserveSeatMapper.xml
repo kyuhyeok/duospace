@@ -88,6 +88,21 @@
 		WHERE passCode=#{passCode}
 	</select>
 	
+	
+	<select id="paySeq" resultType="Integer">
+		SELECT seq_payment.NEXTVAL FROM DUAL
+	</select>
+	
+	<insert id="insertPayment" parameterType="map">
+		INSERT INTO payment(paycode,status,pay) values (#{paycode},1,#{price})
+	</insert>
+	<insert id="insertReservPay" parameterType="map">
+		INSERT INTO reservPay (paycode, reservnum) values (#{paycode},#{reservNum})
+	</insert>
+	<select id="tPrice" resultType="Integer" parameterType="map">
+		SELECT price FROM pass WHERE passcode=#{passCode}
+	</select>
+	
 </mapper>
 
 

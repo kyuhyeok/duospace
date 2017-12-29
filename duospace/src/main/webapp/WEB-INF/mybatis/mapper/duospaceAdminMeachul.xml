@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.meachul">
+	
+	<sql id="where-list">
+		
+	</sql>
+	
+	<select id="list" parameterType="map" resultType="com.duospace.admin.meachul.Meachul">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT p.paycode, TO_CHAR(paydate,'YYYY.MM.DD') paydate, pay, r.reservnum, m.membernum, name, email
+				FROM payment p
+				JOIN reservpay rp on p.paycode=rp.paycode
+				JOIN reserv r on rp.reservnum=r.reservnum
+				join member2 m on m.membernum=r.membernum
+				
+				<where>
+					<if test="searchValue !=null and searchValue !=''">
+						<include refid="where-list"/>
+					</if>
+				</where>
+				
+				ORDER BY p.paycode desc
+			)tb
+			WHERE 	ROWNUM  &lt;= #{end}
+		)WHERE rnum &gt;= #{start}
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM payment p
+		 <where>
+					<if test="searchValue !=null and searchValue !=''">
+						<include refid="where-list"/>
+					</if>
+		 </where>
+	</select>
+
+</mapper>

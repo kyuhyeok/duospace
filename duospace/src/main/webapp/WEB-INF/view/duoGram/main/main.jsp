@@ -69,7 +69,7 @@ function sendBoard() {
 			$("#content").val("");
 			
 			// 글쓰기 후 새로고침
-			$("#listDuogramBody").empty();
+			$("#listDuogramBodyA").empty();
 			pageNo=1;
 			listPage(1);
 		}
@@ -131,15 +131,14 @@ function sendReply(num) {
 		return;
 	}
 
-	var content=$.trim($("#replyContent").val());
+	var content=$.trim($("#replyContent"+num).val());
 	if(! content){
-		$("#replyContent").focus();
+		$("#replyContent"+num).focus();
 		return;
 	}
 	
-	var q="content="+encodeURIComponent(content);
-	q+="&num="+num;
-	q+="&answer=0";
+	var q="content="+encodeURIComponent(content)+"&num="+num;
+	
 	var url="<%=cp%>/duogram/insertReply";
 	
 	$.ajax({
@@ -150,13 +149,14 @@ function sendReply(num) {
 		,success:function(data) {
 			var s=data.state;
 
-			$("#replyContent").val("");
+			replyCount=$("#replyco"+num).html();
+			replyCount=Number(replyCount)+1;
+			$("#replyco"+num).html(replyCount);
+			
+			$("#replyContent"+num).val("");
+			
 			$("#listReplyLayout"+num).show();
 			listReplyMethod(num);
-			
-			$("#listDuogramBody").empty();
-			pageNo=1;
-			listPage(1);
 		}
 		,error:function(e){
 			console.log(e.responseText);
@@ -170,7 +170,7 @@ function countLikeBoard(num) {
 	$.post(url, {num:num}, function(data){
 		var count=data.countLikeBoard;
 		
-		$("#countLikeBoard").html(count);
+		$("#countLikeBoard"+num).html(count);
 	}, "json");
 }
 
@@ -289,22 +289,22 @@ function printDuogram(data) {
 			
 			out+="<div style='width: 614px; height: 20px; margin-bottom: 20px;'>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 15px;'>";
-			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard'>"+countLikeBoard+"개 "+"</span></button>";
+			out+="<button type='button' onclick='sendLikeBoard("+num+")' style='text-decoration:none; color: rgb(51, 122, 183);font-weight: bold; font-family: '나눔고딕';'>"+"좋아요 "+"<span id='countLikeBoard"+num+"'>"+countLikeBoard+"개 "+"</span></button>";
 			
 			out+="</div>";
 			out+="<div style='float: left; height: 23px; font-size: 14px; padding-top: 7px; padding-left: 5px;'>";
-			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 "+replyCount+"개"+"</button>";
+			out+="<button class='button btnReplyLayout' type='button' style='border:none; font-weight: blod; font-family: '나눔고딕';' data-num='"+num+"'>"+"댓글 <span id='replyco"+num+"'>"+replyCount+"</span>개"+"</button>";
 			out+="</div>";
 			out+="</div>";
 			
 			out+="<div style='margin-bottom: 20px; margin-left: 15px; margin-right: 15px; border-top: 1px solid #dddfe2;'>";
-			out+="<textarea id='replyContent' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
+			out+="<textarea id='replyContent"+num+"' class='boxTA' type='text' style='border: 1px solid #ccc; margin-top: 17px; width: 490px; height: 50px; font-family: '나눔고딕';' placeholder='　댓글 달기'></textarea>";
 			out+="<button type='button' class='btn btn-primary btn-sm bbtn' onclick='sendReply("+num+");' style='float: right; margin-top: 17px; color: white; width: 80px; height: 28px;'>댓글 달기";
 			out+="</div>";
 			out+="<div id='listReplyLayout"+num+"' style='display: none; margin-bottom: 15px;'></div>"
 			out+="</div>";
 		}
-		$("#listDuogramBody").append(out);
+		$("#listDuogramBodyA").append(out);
 	}
 }
 
@@ -351,6 +351,33 @@ function listReplyMethod(num){
 			}
 		});
 	}
+function deleteReply(replyNum, page) {
+	if(! confirm("답글을 삭제하시겠습니까?"))
+		return;
+	var url="<%=cp%>/duogram/deleteReply";
+	// AJAX:JSON
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:{replyNum:replyNum}
+		,dataType:"json"
+		,success:function(data) {
+			var s=data.state;
+			if(s=="loginFail") {
+				location.href="<%=cp%>/member/login";
+				return;
+			}
+			
+			/*여기에 뭘넣어야하나*/
+			
+		}
+		,error:function(e){
+			console.log(e.responseText);
+		}
+	});
+}
+
+	
 </script>
 
 </head>
@@ -393,7 +420,7 @@ function listReplyMethod(num){
 			</div>
 
 					<!-- 왼쪽 게시글들 -->
-					<div id="listDuogramBody"></div>
+					<div id="listDuogramBodyA"></div>
 				</div>
 			</div>
 			<!-- /왼쪽 게시글들 -->

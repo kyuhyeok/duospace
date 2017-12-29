@@ -177,7 +177,7 @@ public class MypageController {
 		
 		Mypage dto = service.readBoard(num);
 		if(dto==null) {
-			return "redirect:/duogram/mypage/"+blogNum;
+			return "redirect:/duogram/"+blogNum;
 		}
 			
 		if(info.getMemberNum()!=dto.getMemberNum()) {

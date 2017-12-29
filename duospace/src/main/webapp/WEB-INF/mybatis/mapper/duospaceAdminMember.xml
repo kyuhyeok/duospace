@@ -47,5 +47,9 @@
 		)WHERE rnum &gt;= #{start}
 		
 	</select>
+	
+	<update id="deleteMember" parameterType="Integer">
+		UPDATE member1 SET isUsed=0 where memberNum=#{memberNum}
+	</update>
 
 </mapper>

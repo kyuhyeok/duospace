@@ -39,7 +39,7 @@ public class NoticeController {
 	@RequestMapping(value="/duospace/notice/list")
 	public String list(
 			@RequestParam(value="page", defaultValue="1") int current_page
-			,@RequestParam(value="rows", defaultValue="10") int rows
+			,@RequestParam(value="rows", defaultValue="15") int rows
 			,@RequestParam(value="searchKey", defaultValue="subject") String searchKey
 			,@RequestParam(value="searchValue", defaultValue="") String searchValue
 			,HttpServletRequest req

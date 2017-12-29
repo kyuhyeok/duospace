@@ -188,8 +188,23 @@ function changeEnd(){
 		$(".resultTb>div").next().next().next().children().eq(1).text(date2);
 		$("input[name=startDate]").val(date1);
 }
+function today(){
+	   
+    var date = new Date();
 
-function check() {
+    var year  = date.getFullYear();
+    var month = date.getMonth() + 1; // 0부터 시작하므로 1더함 더함
+    var day   = date.getDate();
+
+    if (("" + month).length == 1) { month = "0" + month; }
+    if (("" + day).length   == 1) { day   = "0" + day;   }
+   var re=year+"."+month+"."+day;
+	return re;
+}
+
+
+
+function checkOk(tt) {
 	
 
 	var f=document.reserve_seat_form;
@@ -230,6 +245,83 @@ function check() {
 		return;
 	}
 	
+	
+	var url="<%=cp%>/seat/updateForm?price="+price;
+	var price=$(":input:radio[name=passCode]:checked").attr("data-tprice");
+	var seatName=$(".resultTb>div>div:eq(3)>input").val();
+	var d = today();
+	
+	$('#myModal .modal-body').load(url, function() {
+	    $('#myModal .modal-title').html('예약 결제');
+		
+		$("#modalForm input[name=price]").val(price);
+		$("#modalForm input[name=seatName]").val(seatName);
+		$("#modalForm input[name=paydate]").val(d);
+		
+		$('#myModal').modal('show');
+
+		
+	});
+}
+
+
+function updateCancel() {
+	$('#myModal').modal('hide');
+}
+
+function updateOk() {
+	alert("ok");
+}
+
+
+
+function check() {
+	
+	var f=document.reserve_seat_form;
+	
+	if(! $("#modalForm input[name=cardNum]").val()){
+		alert("카드번호를 입력하세요");
+		return;
+	}
+		
+/*
+	var str=f.endTime;
+	if(! str){
+		alert("시간을 선택해주세요");
+		return;
+	}
+	
+	 str = f.passCode;
+	
+	var ch=false;
+	for(var i=0; i<str.length;i++){
+		if(str[i].checked==true)
+			ch=true;
+	}
+	if(ch==false){
+		alert("이용권을 선택해주세요");
+		return;
+	}
+	
+	str=f.reserve_floor;
+	ch=false;
+	for(var i=0;i<str.length;i++){
+		if(str[i].checked==true)
+			ch=true;
+	}
+	if(ch==false){
+		alert("층을 선택해주세요");
+		return;
+	}
+	
+	
+	str=$(".resultTb>div>div:eq(3)>input").val();
+	if(! str){
+		alert("자리를 선택해주세요");
+		return;
+	}
+*/
+
 	f.action="<%=cp%>/duospace/reserve_com";
 	f.submit();
 	
@@ -457,7 +549,7 @@ input[type='text']{
 							</div>
 							
 							<div style="text-align: right; margin: 20px 30px 30px 0px; height: 60px;">
-								<button type="button" class="btns" onclick="check();" style="width: 50px; height: 60px;">결제<br>하기</button>
+								<button type="button" class="btns" onclick="checkOk(1000);" style="width: 60px; height: 60px;font-weight: bold;">결제<br>하기</button>
 							</div>
 							
 							
@@ -521,11 +613,27 @@ input[type='text']{
 		<div style="margin-bottom: 200px;"></div>
 			
 			
+		
+			
+			
+			
 
 		
 		</form>
 
 	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel" style="font-family: 나눔고딕, 맑은 고딕, sans-serif; font-weight: bold;">수정</h4>
+				      </div>
+				      <div class="modal-body"></div>
+				    </div>
+				  </div>
+			</div>
+
 
 	<!-- timepicker -->
 	<script

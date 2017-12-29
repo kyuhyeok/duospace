@@ -98,10 +98,16 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public void insertReserve(Map<String, Object> map) throws Exception{
 		try {
+			int paySeq=dao.selectOne("duospace.reserveSeat.paySeq"); 
+			int price = dao.selectOne("duospace.reserveSeat.tPrice",map);
 			int seq=dao.selectOne("duospace.reserveSeat.seq");
 			map.put("reservNum", seq);
+			map.put("price", price);
+			map.put("paycode", paySeq);
 			dao.insertData("duospace.reserveSeat.insert1", map);
 			dao.insertData("duospace.reserveSeat.insert2", map);
+			dao.insertData("duospace.reserveSeat.insertPayment", map);
+			dao.insertData("duospace.reserveSeat.insertReservPay", map);
 		} catch (Exception e) {
 			throw e;
 		}

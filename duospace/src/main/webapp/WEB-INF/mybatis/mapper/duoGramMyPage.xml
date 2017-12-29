@@ -95,9 +95,6 @@
 	
 	<delete id="deleteReply" parameterType="map">
 		DELETE FROM gramReply WHERE replyNum=#{replyNum}
-		<if test="memberNum != '1'">
-			AND writer = #{writer}
-		</if>
 	</delete>
 	
 	<!-- 회원정보가져오기 -->
