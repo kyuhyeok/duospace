@@ -379,9 +379,6 @@ function deleteFreeboard(boardNum){
 	<!-- 채팅DIV -->
 <div id="moimchatdiv" style="width: 240px;height:auto;float: left;margin-left: 20px;margin-bottom: 12px;"></div>
 	<!-- /채팅DIV -->
-<div style="float: left;margin-left: 20px;">
-	일정
-</div>
 
 
 <!-- 자유게시판 글쓰기 모달 -->
