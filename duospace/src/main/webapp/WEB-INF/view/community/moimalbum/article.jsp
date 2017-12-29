@@ -150,15 +150,15 @@ function updateMoimalbum(){
                 <tfoot>
                 	<tr>
                 		<td>
-<c:if test="${sessionScope.user.memberNum==dto.memberNum}">
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="updateMoimalbum();">수정</button>
-</c:if>
-<c:if test="${sessionScope.user.memberNum==dto.memberNum || sessionScope.user.userId=='admin'}">	                		    
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="deleteMoimalbum();">삭제</button>
-</c:if>                		    
+							<c:if test="${sessionScope.user.memberNum==dto.memberNum}">
+                		    	<button type="button" class="btn btn-default btn-sm wbtn" onclick="updateMoimalbum();">수정</button>
+							</c:if>
+							<c:if test="${sessionScope.user.memberNum==dto.memberNum || sessionScope.user.userId=='admin'}">	                		    
+                		    	<button type="button" class="btn btn-default btn-sm wbtn" onclick="deleteMoimalbum();">삭제</button>
+							</c:if>                		    
                 		</td>
                 		<td align="right">
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/list';"> 목록으로 </button>
+                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/moimalbum/list${cmoimCode}';"> 목록으로 </button>
                 		</td>
                 	</tr>
                 </tfoot>

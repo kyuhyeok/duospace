@@ -1,6 +1,7 @@
 package com.duospace.community.commoim;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,15 @@ public class CommoimController {
 	
 	
 	@RequestMapping(value="/community/commoim",method=RequestMethod.GET)
-	public String commoimForm(Model model) {
+	public String commoimForm(
+			Model model
+			) {
+		
+		List<Commoim> comregionlist = service.comregionlist();
+		List<Commoim> comcategorylist = service.comcategorylist();
+		
+		model.addAttribute("comregionlist",comregionlist);
+		model.addAttribute("comcategorylist",comcategorylist);
 		
 		return ".community.commoim.commoim";
 	}
@@ -40,13 +49,11 @@ public class CommoimController {
 		}else {
 			//글을 쓴 사람(로그인한 아이디)
 			dto.setMemberNum(info.getMemberNum());
-			System.out.println(dto.getMoimimg()+"11");
 			
 			int cmoimCode = service.cmoimSeq();
 			dto.setCmoimCode(cmoimCode);
 			service.insertCommoim(dto);
 			
-			System.out.println(dto.getMoimimg()+"22");
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("memberNum", info.getMemberNum());//방생성후 가입하기.

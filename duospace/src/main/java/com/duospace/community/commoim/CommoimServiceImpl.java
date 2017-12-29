@@ -115,6 +115,28 @@ public class CommoimServiceImpl implements CommoimService{
 		return result;
 	}
 
+	@Override
+	public List<Commoim> comregionlist() {
+		List<Commoim> comregionlist= null;
+		try {			
+			comregionlist = dao.selectList("commoim.comregionlist");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return comregionlist;
+	}
+
+	@Override
+	public List<Commoim> comcategorylist() {
+		List<Commoim> comcategorylist= null;
+		try {			
+			comcategorylist = dao.selectList("commoim.comcategorylist");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return comcategorylist;
+	}
+
 	
 
 }
