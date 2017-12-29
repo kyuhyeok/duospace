@@ -307,7 +307,7 @@ var lastData=0;
 var mpage=1;
 var mtotalpage=1;
 $(function() {
-	listmoimchat(1);
+	listmoimchat(0);
 	first=0;
 	var socket=null;
 	var host="<%=wsURL%>";
@@ -420,7 +420,7 @@ $(function() {
     $('#scrollmess').scroll(function() {
 	    if ($('#scrollmess').scrollTop()<=50) {
 	    	if(lastData>0) {
-	    		listmoimchat(page);
+	    		listmoimchat(mcNum);
 	    	}else if(lastData==0){
 	    		$('#dgchatcontent').prepend("<time><span>더 이상 메시지가 없습니다.</span></time>");
 	    		lastData--;
@@ -536,6 +536,7 @@ function listmoimchat(num){
 		,data:q
 		,dataType:"json"
 		,success:function(data){
+			alert("출력인가!");
 			var list=data.list;
 			console.log(list);
 			mcNum=$('#dgchatcontent').find("div:first").attr("data-mchatNum");

@@ -132,6 +132,11 @@ public class MoimChatController {
 					}else {
 						end=list.size();
 					}
+				}else {
+					end=10;
+					map.put("first", 0);
+					map.put("end", end);
+					list=service.listFMessContent(map);
 				}
 			}else {
 				end=10;
